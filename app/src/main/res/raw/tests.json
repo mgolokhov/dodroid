@@ -1,0 +1,60 @@
+[
+  {
+    "question": "Android user interfaces can be",
+    "right": [
+      "defined as layout resources in XML",
+      "created programmatically"
+    ],
+    "wrong": []
+  },
+  {
+    "question": "XML layout resources can be stored in ____ directory(ies)",
+    "right": [
+      "res/layout",
+      "/res/layout/subfolder",
+      "res/layout-large"
+    ],
+    "wrong": [
+      "res/values",
+      "res/views"
+    ]
+  },
+  {
+    "question": "If the layout resource was stored in the /res/layout/main.xml file. Within the Activity to load and display a layout resource on the screen you should call",
+    "right": [
+      "setContentView(R.layout.main)"
+    ],
+    "wrong": [
+      "setView(R.layout.main)",
+      "setContentView(R.main)",
+      "setLayoutView(R.layout.main)",
+      "setLayout(R.main)"
+    ]
+  },
+  {
+    "question": "A view object may have a unique ID assigned to it which will identify the View uniquely within the tree. The syntax for an ID",
+    "right": [
+      "android:id=\"@+id/my_view\""
+    ],
+    "wrong": [
+      "android:id=\"my_view\"",
+      "android:id=\"id/my_view\"",
+      "android:id=\"@+my_view\""
+    ]
+  },
+  {
+    "question": "The default linear orientation is",
+    "right": ["horizontal"],
+    "wrong": ["vertical"]
+  },
+  {
+    "question": "Flat layout hierarchy improves performance",
+    "right": ["yep"],
+    "wrong": ["nonsense!"]
+  },
+  {
+    "question": "By default, all child views of RelativeLayout are drawn",
+    "right": ["top-left"],
+    "wrong": ["top-right", "bottom-left", "bottom-right"]
+  }
+]
