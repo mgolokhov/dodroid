@@ -1,5 +1,4 @@
 [
-  // TODO: layout glitch for answers, it should be scrollable
   {
     "question": "To declare that your app needs a permission (e.g. your app needs to send SMS messages)",
     "right": ["put a <uses-permission> element in your app manifest, as a child of the top-level <manifest> element"],
@@ -9,6 +8,31 @@
       "put a <permission> element in your app manifest, as a child of the top-level <activity> element"
     ]
   },
+
+  {
+    "question": "Witch method is responsible for returning the view hierarchy represented by the fragment",
+    "right": ["onCreateView"],
+    "wrong": ["onCreate", "onAttach", "onActivityCreated"]
+  },
+
+  {
+    "question": "Fragments replace activities",
+    "right": ["rather supplement them"],
+    "wrong": ["yes"]
+  },
+
+  {
+    "question": "Android namespace prefix declaration is mandatory for the root node of the layout resource",
+    "right": ["yes"],
+    "wrong": ["no"]
+  },
+
+  {
+    "question": "Check required attribute for any view",
+    "right": ["android:layout_height", "android:layout_width"],
+    "wrong": ["android:id"]
+  },
+
   {
     "question": "To develop Android app you can use",
     "right": [

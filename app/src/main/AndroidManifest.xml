@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--Fix orientation, so I dont care about reconfiguration for now-->
         <activity
             android:name=".QuestionActivity"
             android:screenOrientation="portrait" />
