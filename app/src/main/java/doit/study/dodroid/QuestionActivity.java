@@ -16,6 +16,7 @@ import java.util.Collections;
 public class QuestionActivity extends Activity {
     private final String LOG_TAG = "NSA " + getClass().getName();
     private ArrayList<Question> mQuestions;
+    // index for current question
     private Integer mIndex = 0;
     private ArrayList<CheckBox> mCheckBoxes;
 
@@ -23,10 +24,12 @@ public class QuestionActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_activity);
+        // Mmm, I got a parcel, unpack it...
         mQuestions = getIntent().getParcelableArrayListExtra("questions");
         populate();
     }
 
+    // Map data from the current Question to the View elements
     public void populate(){
         Question currentQuestion = mQuestions.get(mIndex);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.navigation);
@@ -44,6 +47,7 @@ public class QuestionActivity extends Activity {
         Collections.shuffle(allAnswers);
 
         mCheckBoxes = new ArrayList<>();
+        // create checkboxes dynamically
         for(int i=0;i<allAnswers.size(); i++) {
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText(allAnswers.get(i));
@@ -74,18 +78,20 @@ public class QuestionActivity extends Activity {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.navigation);
 
         if (goodJob)
-            linearLayout.setBackgroundColor(0xFF00FF00);
+            linearLayout.setBackgroundColor(0xFF00FF00); // => green color
         else
             linearLayout.setBackgroundColor(Color.RED);
 
         return goodJob;
     }
 
+    // callback registered in layout.xml
     public void nextQuestion(View v){
         mIndex = ++mIndex % mQuestions.size();
         populate();
     }
 
+    // callback registered in layout.xml
     public void prevQuestion(View v){
         if (mIndex == 0)
             mIndex = mQuestions.size()-1;
