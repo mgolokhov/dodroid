@@ -1,28 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/wellcome"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hero"
-    >
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical" >
+    tools:context="doit.study.dodroid.QuestionsFragment"/>
 
-        <Button
-            android:id="@+id/need_motivation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Need some motivation"/>
 
-        <Button
-            android:id="@+id/doit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Do it!"
-            android:onClick="doitButtonHandler"
-            />
-    </LinearLayout>
-</RelativeLayout>
