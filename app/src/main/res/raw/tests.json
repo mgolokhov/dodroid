@@ -123,7 +123,7 @@
     "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?",
     "right": ["View.post()", "runOnUiThread()"],
     "wrong": ["executeMainThread()", "postMainThread()"],
-    "course#": 2
+    "tags": ["course2", "week1", "threading"]
   },
 
   {
