@@ -111,5 +111,36 @@
     "question": "By default, all child views of RelativeLayout are drawn",
     "right": ["top-left"],
     "wrong": ["top-right", "bottom-left", "bottom-right"]
+  },
+
+  {
+    "question": "In which callback method should you save data before the current Activity loses focus?",
+    "right": ["onPause()"],
+    "wrong": ["onResume()", "onStop()", "onDestroy()"]
+  },
+
+  {
+    "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?",
+    "right": ["View.post()", "runOnUiThread()"],
+    "wrong": ["executeMainThread()", "postMainThread()"],
+    "tags": ["course2", "week1", "threading"]
+  },
+
+  {
+    "question": "Android applications are made up of ___.",
+    "right": ["Components"],
+    "wrong": ["Activities", "Tasks", "Services", "IBinders"]
+  },
+
+  {
+    "question" : "A Service ___.",
+    "right": ["runs in the background", "is used for long running operations", "supports interaction with remote processes"],
+    "wrong": ["is used to start new Activities"]
+  },
+
+  {
+    "question": "A BroadcastReceiver ___.",
+    "right": ["listens for and responds to events", "is a subscriber in the publish/subscribe pattern"],
+    "wrong": ["can be used to download data from the internet", "starts doing work in a background thread"]
   }
 ]
