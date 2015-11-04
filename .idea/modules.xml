@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DoDroid.iml" filepath="$PROJECT_DIR$/DoDroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dodroid.iml" filepath="$PROJECT_DIR$/dodroid.iml" />
     </modules>
   </component>
 </project>
