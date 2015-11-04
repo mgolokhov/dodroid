@@ -1,12 +1,16 @@
 package doit.study.dodroid;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+
+import java.util.ArrayList;
 
 // Entry point for the app.
 // Because we set in manifest action=MAIN category=LAUNCHER
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements MainFragment.OnFragmentInteractionListener{
 
 
     @Override
@@ -28,12 +32,45 @@ public class MainActivity extends Activity {
 
             // insert the MainFragment into the Activity as the start of the application
             MainFragment mainFrag = new MainFragment();
-            FragmentManager fm = getFragmentManager();
-            fm.beginTransaction()
+            getFragmentManager()
+                .beginTransaction()
                     .add(R.id.fragment_container, mainFrag)
                     .commit();
+
+        }
+    }
+
+    /*
+     * Fragments are never suppose to directly communicate/interact with each other, so wanted functionality between fragments
+     * should be implemented through an interface in the hosting Activity. So replaceFragment() is currently used to pass the questions list
+     * from MainFragment to QuestionsFragment
+     */
+
+    /*
+     * This  method would need to be moved out of MainFragment class and into a separate interface if this was to be used for more fragments added to the application later
+     */
+    @Override
+    public void replaceFragment(Class frag, Bundle args){
+
+        Fragment newFrag = null;
+
+        try{
+            newFrag = (Fragment)frag.newInstance();
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
+        // Pass on the List argument to the questions fragment
+        Bundle questionList = new Bundle();
+        questionList.putParcelableArrayList("questions", args.getParcelableArrayList("questions"));
+        newFrag.setArguments(questionList);
+
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, newFrag)
+                .addToBackStack(null)
+                .commit();
 
     }
 

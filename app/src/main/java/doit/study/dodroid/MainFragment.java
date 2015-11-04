@@ -1,6 +1,7 @@
 package doit.study.dodroid;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -40,6 +42,11 @@ public class MainFragment extends Fragment {
     // Actually our quiz is a list of questions
     private ArrayList<Question> mQuestions = new ArrayList<>();
 
+    private Button doitButton;
+    Button needMotivationButton;
+
+    private OnFragmentInteractionListener mCallback;
+
 
 
     public MainFragment() {
@@ -56,41 +63,68 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        /* You can not use the findViewById method the way you can in an Activity in a Fragment
+         * So we get a reference to the view/layout_file that we used for this Fragment
+         * That allows use to then reference the views by id in that file
+         */
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        doitButton = (Button) view.findViewById(R.id.doit);
+        doitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doitButtonHandler();
+            }
+        });
+
+        needMotivationButton = (Button) view.findViewById(R.id.need_motivation);
+        needMotivationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Create implicit intent
+                Intent motivationIntent = new Intent(Intent.ACTION_VIEW);
+                // Parser defines type of data
+                motivationIntent.setData(Uri.parse(URL));
+                // Action type + data type (extracted by uri parser)
+                // should start youtube app or browser app
+                startActivity(motivationIntent);
+            }
+        });
+
+        return view;
     }
 
 
-
+    // Will need to update this method to the non-deprecated version of this that now takes a Context argument
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Activity context) {
+        super.onAttach(context);
 
+        // try to setup the connection with the hosting Activity so that callback methods can be used for cross fragment communication
+        try{
+            mCallback = (OnFragmentInteractionListener) context;
+        }catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
+        mCallback = null; // clean up reference
     }
 
 
-    // Also is a callback, but registered in the layout.xml
-    public void doitButtonHandler(View v){
+    public void doitButtonHandler(){
         Log.i(LOG_TAG, "doit clicked");
         String s = readFile();
         parseTests(s);
-//        // Create explicit Intent
-//        Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
-//        // Here is some fun
-//        // It was easy to send simple data Integers, Strings...
-//        // How about complex objects? ... serialization vs parcelable, check Question.java
-//        // So send big parcel to the activity QuestionActivity
-//        intent.putParcelableArrayListExtra("questions", mQuestions);
-//        startActivity(intent);
 
-
-        // Todo: Implement the above functionality but wired up for fragments now
-
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("questions", mQuestions);
+        mCallback.replaceFragment(QuestionsFragment.class, args);
 
     }
 
@@ -146,6 +180,7 @@ public class MainFragment extends Fragment {
         Log.i(LOG_TAG, mQuestions.toString());
     }
 
+    // Android studio generated stub interface here. Added new replaceFragment method
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -158,7 +193,8 @@ public class MainFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+//        public void onFragmentInteraction(Uri uri);
+        public void replaceFragment(Class fragment, Bundle args);
     }
 
 }
