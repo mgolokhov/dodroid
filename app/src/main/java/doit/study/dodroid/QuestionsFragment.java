@@ -126,11 +126,11 @@ public class QuestionsFragment extends Fragment implements View.OnClickListener 
         Log.i(LOG_TAG, "Good job: " + goodJob);
         Toast toast;
         if (goodJob) {
-            toast = Toast.makeText(getActivity(), "Right", Toast.LENGTH_LONG);
+            toast = Toast.makeText(getActivity(), "Right", Toast.LENGTH_SHORT);
             mNavigationLayout.setBackgroundColor(0xFF00FF00); // => green color
         }
         else {
-            toast = Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_LONG);
+            toast = Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT);
             mNavigationLayout.setBackgroundColor(Color.RED);
         }
         toast.setGravity(Gravity.CENTER, 0, 0);

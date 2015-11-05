@@ -19,23 +19,12 @@ import java.util.ArrayList;
  * to handle interaction events.
  */
 public class MainFragment extends Fragment {
-
-
+    
     // Shia LaBeouf - Just Do it! (Auto-tuned)
     private final String URL = "http://www.youtube.com/watch?v=gJscrxxl_Bg";
     // Define logging tag so it easier to filter messages
     private final String LOG_TAG = "NSA " + getClass().getName();
-    // Link to the resource file, in our case it's a json file
-    // I think we can say it some kind of descriptor, so it's an integer
-    private final Integer mTestFile = R.raw.tests;
-    // Actually our quiz is a list of questions
-    private ArrayList<Question> mQuestions = new ArrayList<>();
-
-    private Button doitButton;
-    Button needMotivationButton;
-
     private OnFragmentInteractionListener mCallback;
-
 
 
     public MainFragment() {
@@ -59,7 +48,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         // You can not add onclick listener to a button in a fragment's xml
-        needMotivationButton = (Button) view.findViewById(R.id.need_motivation);
+        Button needMotivationButton = (Button) view.findViewById(R.id.need_motivation);
         needMotivationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +61,7 @@ public class MainFragment extends Fragment {
                 startActivity(motivationIntent);
             }
         });
-        doitButton = (Button) view.findViewById(R.id.doit);
+        Button doitButton = (Button) view.findViewById(R.id.doit);
         doitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
