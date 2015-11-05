@@ -7,17 +7,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <ScrollView
             android:id="@+id/question_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:scrollbars="vertical"
-            android:fadeScrollbars="false"
             android:fillViewport="true">
             <TextView
                 android:id="@+id/question"
@@ -28,14 +27,13 @@
                 android:text="question?" />
         </ScrollView>
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:fadeScrollbars="false"
             android:layout_weight="1">
             <LinearLayout
                 android:id="@+id/answers"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

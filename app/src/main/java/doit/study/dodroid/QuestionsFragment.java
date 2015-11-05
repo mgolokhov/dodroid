@@ -4,12 +4,14 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,9 +79,9 @@ public class QuestionsFragment extends Fragment implements View.OnClickListener 
             // In a fragment this needs to be called here instead of onCreate() to avoid null reference exceptions
             populate();
         }
+
         return mView;
     }
-
 
     // Map data from the current Question to the View elements
     public void populate() {
@@ -122,11 +124,17 @@ public class QuestionsFragment extends Fragment implements View.OnClickListener 
             }
         }
         Log.i(LOG_TAG, "Good job: " + goodJob);
-
-        if (goodJob)
+        Toast toast;
+        if (goodJob) {
+            toast = Toast.makeText(getActivity(), "Right", Toast.LENGTH_LONG);
             mNavigationLayout.setBackgroundColor(0xFF00FF00); // => green color
-        else
+        }
+        else {
+            toast = Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_LONG);
             mNavigationLayout.setBackgroundColor(Color.RED);
+        }
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
 
         return goodJob;
     }
@@ -138,6 +146,7 @@ public class QuestionsFragment extends Fragment implements View.OnClickListener 
     }
 
     public void prevQuestion() {
+        Log.i(LOG_TAG, "prevQuestion");
         if (mIndex == 0)
             mIndex = mQuestions.size() - 1;
         else
