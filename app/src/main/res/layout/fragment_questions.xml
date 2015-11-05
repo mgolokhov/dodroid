@@ -49,20 +49,20 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id="@+id/prev_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="prevQuestion"
-            android:text="Prev"/>
+            android:text="@string/prev_button"/>
         <Button
+            android:id="@+id/commit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="checkAnswers"
-            android:text="Commit"/>
+            android:text="@string/commit_button"/>
         <Button
+            android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="nextQuestion"
-            android:text="Next"/>
+            android:text="@string/next_button"/>
 
     </LinearLayout>
 
