@@ -1,7 +1,6 @@
 package doit.study.dodroid;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,15 @@ public class MainFragment extends Fragment {
     private OnFragmentInteractionListener mCallback;
 
 
+    // Provided stub factory method
+    public static MainFragment newInstance() {
+
+        MainFragment fragment = new MainFragment();
+
+        // add Bundle args if needed here before returning new instance of this class
+
+        return fragment;
+    }
 
     public MainFragment() {
         // Required empty public constructor
@@ -72,13 +82,13 @@ public class MainFragment extends Fragment {
                 startActivity(motivationIntent);
             }
         });
-        doitButton = (Button) view.findViewById(R.id.doit);
-        doitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallback.replaceFragment(QuestionsFragment.class, null);
-            }
-        });
+//        doitButton = (Button) view.findViewById(R.id.doit);
+//        doitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mCallback.replaceFragment(QuestionsFragment.class, null);
+//            }
+//        });
 
         return view;
     }
@@ -89,13 +99,13 @@ public class MainFragment extends Fragment {
     public void onAttach(Activity context) {
         super.onAttach(context);
 
-        // try to setup the connection with the hosting Activity so that callback methods can be used for cross fragment communication
-        try{
-            mCallback = (OnFragmentInteractionListener) context;
-        }catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
+//        // try to setup the connection with the hosting Activity so that callback methods can be used for cross fragment communication
+//        try{
+//            mCallback = (OnFragmentInteractionListener) context;
+//        }catch (ClassCastException e) {
+//            throw new ClassCastException(getActivity().toString()
+//                    + " must implement OnHeadlineSelectedListener");
+//        }
     }
 
     @Override
@@ -116,6 +126,8 @@ public class MainFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
+    // This is not needed for the replacing fragments ability if we are using viewpager, can still implement fucntions for data passing between fragments though
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
 //        public void onFragmentInteraction(Uri uri);

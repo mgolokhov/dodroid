@@ -1,6 +1,5 @@
 package doit.study.dodroid;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +11,13 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class QuestionsFragment extends Fragment implements View.OnClickListener {
+public class QuestionsFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private final String LOG_TAG = "NSA " + getClass().getName();
     // index for current question
     private Integer mIndex = 0;

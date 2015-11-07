@@ -18,12 +18,12 @@
             android:text="@string/need_motivation_button"
             />
 
-        <Button
-            android:id="@+id/doit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/doit_button"
-            android:onClick="doitButtonHandler"
-            />
+        <!--<Button-->
+            <!--android:id="@+id/doit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/doit_button"-->
+            <!--android:onClick="doitButtonHandler"-->
+            <!--/>-->
     </LinearLayout>
 </RelativeLayout>
