@@ -1,5 +1,11 @@
 [
   {
+    "question": "Fragments have the ability to exist and be associated with an activity in the absence of the fragment's view hierarchy",
+    "right": ["True"],
+    "wrong": ["False"],
+    "tags": ["fragment"]
+  },
+  {
     "question": "To create Toast without custom layout, you can call",
     "right": [
       "makeText (Context, CharSequence, int)",

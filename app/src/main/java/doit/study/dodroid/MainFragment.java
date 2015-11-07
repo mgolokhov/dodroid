@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * to handle interaction events.
  */
 public class MainFragment extends Fragment {
-    
+
     // Shia LaBeouf - Just Do it! (Auto-tuned)
     private final String URL = "http://www.youtube.com/watch?v=gJscrxxl_Bg";
     // Define logging tag so it easier to filter messages
