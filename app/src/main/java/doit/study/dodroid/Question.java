@@ -10,6 +10,7 @@ public class Question implements Parcelable{
     public String question;
     public ArrayList<String> wrong = new ArrayList<>();
     public ArrayList<String> right = new ArrayList<>();
+    public ArrayList<String> tags = new ArrayList<>();
 
     public Question(){}
 
@@ -23,6 +24,7 @@ public class Question implements Parcelable{
         out.writeString(question);
         out.writeStringList(wrong);
         out.writeStringList(right);
+        out.writeStringList(tags);
     }
 
     public static final Creator<Question> CREATOR
@@ -40,6 +42,7 @@ public class Question implements Parcelable{
         question = in.readString();
         in.readStringList(wrong);
         in.readStringList(right);
+        in.readStringList(tags);
     }
 
     @Override

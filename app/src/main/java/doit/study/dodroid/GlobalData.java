@@ -75,7 +75,14 @@ public class GlobalData extends Application {
                 for(int j=0; j<rightAnswers.length(); j++){
                     aQuestion.right.add(rightAnswers.get(j).toString());
                 }
+                JSONArray tags = currentQuestion.optJSONArray("tags");
+                if (tags != null)
+                    for(int j=0; j<tags.length(); j++)
+                        aQuestion.tags.add(tags.get(j).toString());
+                else
+                    aQuestion.tags.add("Other");
                 mQuestions.add(aQuestion);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();

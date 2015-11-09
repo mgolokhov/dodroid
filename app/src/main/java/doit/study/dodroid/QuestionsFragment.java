@@ -17,12 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class QuestionsFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class QuestionsFragment extends Fragment implements View.OnClickListener {
     private final String LOG_TAG = "NSA " + getClass().getName();
-    // index for current question
-    private Integer mIndex = 0;
     private Question mCurrentQuestion;
-    private ArrayList<Question> mQuestions;
     private ArrayList<CheckBox> mCheckBoxes;
     private View mView;
 
@@ -33,26 +30,27 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
 
 
     // Provided stub factory method
-    public static QuestionsFragment newInstance() {
+    public static QuestionsFragment newInstance(Question question) {
 
         QuestionsFragment fragment = new QuestionsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("QUESTION_KEY", question);
+        fragment.setArguments(bundle);
 
         // add Bundle args if needed here before returning new instance of this class
 
         return fragment;
     }
 
-    public QuestionsFragment() {
-        // Required empty public constructor
-    }
+//    public QuestionsFragment() {
+//        // Required empty public constructor
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        GlobalData gd = (GlobalData) getActivity().getApplication();
-        mQuestions = gd.getQuestions();
-        mCurrentQuestion = mQuestions.get(mIndex);
+        mCurrentQuestion = getArguments().getParcelable("QUESTION_KEY");
     }
 
 
@@ -73,8 +71,6 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
             // You can not add onclick listener to a button in a fragment's xml
             // So we implement OnClickListener interface, check onClick() method
             mView.findViewById(R.id.commit_button).setOnClickListener(this);
-            mView.findViewById(R.id.next_button).setOnClickListener(this);
-            mView.findViewById(R.id.prev_button).setOnClickListener(this);
 
             // In a fragment this needs to be called here instead of onCreate() to avoid null reference exceptions
             populate();
@@ -126,11 +122,11 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         Log.i(LOG_TAG, "Good job: " + goodJob);
         Toast toast;
         if (goodJob) {
-            toast = Toast.makeText(getActivity(), "Right", Toast.LENGTH_LONG);
+            toast = Toast.makeText(getActivity(), "Right", Toast.LENGTH_SHORT);
             mNavigationLayout.setBackgroundColor(0xFF00FF00); // => green color
         }
         else {
-            toast = Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_LONG);
+            toast = Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT);
             mNavigationLayout.setBackgroundColor(Color.RED);
         }
         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -139,33 +135,12 @@ public class QuestionsFragment extends android.support.v4.app.Fragment implement
         return goodJob;
     }
 
-    public void nextQuestion() {
-        mIndex = ++mIndex % mQuestions.size();
-        mCurrentQuestion = mQuestions.get(mIndex);
-        populate();
-    }
-
-    public void prevQuestion() {
-        Log.i(LOG_TAG, "prevQuestion");
-        if (mIndex == 0)
-            mIndex = mQuestions.size() - 1;
-        else
-            --mIndex;
-        mCurrentQuestion = mQuestions.get(mIndex);
-        populate();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.commit_button):
                 checkAnswers();
-                break;
-            case (R.id.prev_button):
-                prevQuestion();
-                break;
-            case (R.id.next_button):
-                nextQuestion();
                 break;
         }
     }
