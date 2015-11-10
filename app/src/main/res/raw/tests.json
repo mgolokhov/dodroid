@@ -16,7 +16,7 @@
       "makeText(CharSequence)",
       "Toast (CharSequence)"
     ],
-    "tags": ["Toast", "UI Classes"]
+    "tags": ["Toast", "UI"]
   },
   {
     "question": "To create a linear layout in which each child uses the same amount of space on the screen, set the",
@@ -57,7 +57,8 @@
       "put a <permission> element in your app manifest, as a child of the top-level <manifest> element",
       "put a <uses-permission> element in your app manifest, as a child of the top-level <application> element",
       "put a <permission> element in your app manifest, as a child of the top-level <activity> element"
-    ]
+    ],
+    "tags":["permissions"]
   },
   {
     "question": "Witch method is responsible for returning the view hierarchy represented by the fragment",
@@ -68,7 +69,8 @@
       "onCreate",
       "onAttach",
       "onActivityCreated"
-    ]
+    ],
+    "tags": ["fragment"]
   },
   {
     "question": "Fragments replace activities",
@@ -77,7 +79,8 @@
     ],
     "wrong": [
       "yes"
-    ]
+    ],
+    "tags": ["fragment"]
   },
   {
     "question": "Android namespace prefix declaration is mandatory for the root node of the layout resource",
@@ -86,7 +89,8 @@
     ],
     "wrong": [
       "no"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "Check required attribute for any view",
@@ -96,7 +100,8 @@
     ],
     "wrong": [
       "android:id"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "To develop Android app you can use",
@@ -105,7 +110,8 @@
       "C/++",
       "Go language"
     ],
-    "wrong": []
+    "wrong": [],
+    "tags": ["general"]
   },
   {
     "question": "All Java features (libraries, language-syntax) are available by default in Android",
@@ -114,7 +120,8 @@
     ],
     "wrong": [
       "Yes"
-    ]
+    ],
+    "tags": ["general"]
   },
   {
     "question": "Android operating system is based on",
@@ -124,7 +131,8 @@
     "wrong": [
       "Windows",
       "Symbian"
-    ]
+    ],
+    "tags": ["general"]
   },
   {
     "question": "Android user interfaces can be",
@@ -132,7 +140,8 @@
       "defined as layout resources in XML",
       "created programmatically"
     ],
-    "wrong": []
+    "wrong": [],
+    "tags": ["UI"]
   },
   {
     "question": "XML layout resources can be stored in ____ directory(ies)",
@@ -144,7 +153,8 @@
     "wrong": [
       "res/values",
       "res/views"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "If the layout resource was stored in the /res/layout/main.xml file. Within the Activity to load and display a layout resource on the screen you should call",
@@ -156,7 +166,8 @@
       "setContentView(R.main)",
       "setLayoutView(R.layout.main)",
       "setLayout(R.main)"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "A view object may have a unique ID assigned to it which will identify the View uniquely within the tree. The syntax for an ID",
@@ -167,7 +178,8 @@
       "android:id=\"my_view\"",
       "android:id=\"id/my_view\"",
       "android:id=\"@+my_view\""
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "The default linear orientation is",
@@ -176,7 +188,8 @@
     ],
     "wrong": [
       "vertical"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "Flat layout hierarchy improves performance",
@@ -185,7 +198,8 @@
     ],
     "wrong": [
       "nonsense!"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "By default, all child views of RelativeLayout are drawn",
@@ -196,7 +210,8 @@
       "top-right",
       "bottom-left",
       "bottom-right"
-    ]
+    ],
+    "tags": ["layout"]
   },
   {
     "question": "In which callback method should you save data before the current Activity loses focus?",
@@ -207,7 +222,8 @@
       "onResume()",
       "onStop()",
       "onDestroy()"
-    ]
+    ],
+    "tags": ["Activity"]
   },
   {
     "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?",
@@ -235,7 +251,8 @@
       "Tasks",
       "Services",
       "IBinders"
-    ]
+    ],
+    "tags": ["general"]
   },
   {
     "question": "A Service ___.",
@@ -246,7 +263,8 @@
     ],
     "wrong": [
       "is used to start new Activities"
-    ]
+    ],
+    "tags": ["Service"]
   },
   {
     "question": "A BroadcastReceiver ___.",
@@ -257,6 +275,7 @@
     "wrong": [
       "can be used to download data from the internet",
       "starts doing work in a background thread"
-    ]
+    ],
+    "tags":["BroadcastReceiver"]
   }
 ]
