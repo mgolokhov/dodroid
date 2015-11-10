@@ -22,7 +22,7 @@ public class MainActivity extends FragmentActivity  {
     }
 
     public void doitButton(View v){
-        Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+        Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
         startActivity(intent);
     }
 

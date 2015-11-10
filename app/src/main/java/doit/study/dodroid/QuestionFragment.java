@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class QuestionsFragment extends Fragment implements View.OnClickListener {
+public class QuestionFragment extends Fragment implements View.OnClickListener {
     private final String LOG_TAG = "NSA " + getClass().getName();
+    private static final String QUESTION_KEY = "doit.study.dodroid.question_kye";
     private Question mCurrentQuestion;
     private ArrayList<CheckBox> mCheckBoxes;
     private View mView;
@@ -30,27 +31,22 @@ public class QuestionsFragment extends Fragment implements View.OnClickListener 
 
 
     // Provided stub factory method
-    public static QuestionsFragment newInstance(Question question) {
-
-        QuestionsFragment fragment = new QuestionsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("QUESTION_KEY", question);
-        fragment.setArguments(bundle);
-
+    public static QuestionFragment newInstance(Question question) {
         // add Bundle args if needed here before returning new instance of this class
+        QuestionFragment fragment = new QuestionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(QUESTION_KEY, question);
+        fragment.setArguments(bundle);
 
         return fragment;
     }
 
-//    public QuestionsFragment() {
-//        // Required empty public constructor
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mCurrentQuestion = getArguments().getParcelable("QUESTION_KEY");
+        mCurrentQuestion = getArguments().getParcelable(QUESTION_KEY);
     }
 
 
