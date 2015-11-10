@@ -30,7 +30,11 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mQuestions.get(position).tags.toString();
+        String title = "";
+        for (String tag: mQuestions.get(position).tags)
+            title += tag+":";
+        title += (position+1) + "/" + getCount();
+        return title;
     }
 
 }

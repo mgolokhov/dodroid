@@ -30,7 +30,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private LinearLayout mAnswersLayout;
 
 
-    // Provided stub factory method
+    // Factory method
     public static QuestionFragment newInstance(Question question) {
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
