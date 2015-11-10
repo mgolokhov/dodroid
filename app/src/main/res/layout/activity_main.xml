@@ -1,5 +1,3 @@
-<!-- MainActivity is the container for fragments-->
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +5,25 @@
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hero"
     android:orientation="vertical"
-    tools:context="doit.study.dodroid.QuestionsFragment"/>
+    android:gravity="center"
+    tools:context="doit.study.dodroid.MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="motivationButton"
+        android:text="@string/need_motivation_button"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="doitButton"
+        android:text="@string/doit_button"
+        />
+
+    </LinearLayout>
 
 
