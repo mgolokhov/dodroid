@@ -18,7 +18,7 @@ public class GlobalData extends Application {
     private final String LOG_TAG = "NSA " + getClass().getName();
     // Link to the resource file, in our case it's a json file
     // I think we can say it some kind of descriptor, so it's an integer
-    private final Integer mTestFile = R.raw.tests;
+    private final Integer mTestFile = R.raw.quiz;
     // Actually our quiz is a list of questions
     private ArrayList<Question> mQuestions = new ArrayList<>();
 

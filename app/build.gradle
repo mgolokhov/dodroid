@@ -8,8 +8,8 @@ android {
         applicationId "doit.study.dodroid"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.2"
+        versionCode 4
+        versionName "1.3"
     }
     buildTypes {
         release {
@@ -24,3 +24,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
 }
+
+
+
+task exportQuestions(type:Exec, description: 'Run the pre-build python script') {
+    workingDir 'src/main/res/raw/'
+    commandLine 'python', 'export_quiz_to_json.py'
+}
+
+// This ensures my script will be called before building
+preBuild.dependsOn exportQuestions

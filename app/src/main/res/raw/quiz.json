@@ -1,0 +1,716 @@
+[
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A stopped fragment is not visible.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "If your App needs access to use a protected feature, which tag must you put in the AndroidManifest.xml file? ", 
+        "right": [
+            "<uses-permission>"
+        ], 
+        "tags": [
+            "Permissions"
+        ], 
+        "wrong": [
+            "<permission>", 
+            "<uses-feature>", 
+            "<grant-uri-permission>", 
+            "<service>"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "We can force the FragmentTransaction instance's work to be executed immediately by calling the FragmentManager class ______ method.", 
+        "right": [
+            "executePendingTransactions"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "executePendingFragments", 
+            "executePendingTransactions", 
+            "executeTransactions", 
+            "executeFragments"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "The call to the FragmentTransaction.commit() method does apply the changes immediately", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Which layout does not arrange its children in any particular manner", 
+        "right": [
+            "FrameLayout"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "LinearLayout", 
+            "RelativeLayout", 
+            "GridLayout"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A Bundle is a structure that maps string keys to values of any type", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "android:layout_width and android:layout_height can be set to", 
+        "right": [
+            "match_parent", 
+            "fill_parent", 
+            "wrap_content"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "match_content", 
+            "wrap_parent"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To use string resources you should meet requirements: ", 
+        "right": [
+            "have a file that located in res/values/", 
+            "file has a resources root element", 
+            "file contains child string elements"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "file is named as strings.xml"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "What events trigger device configuration change", 
+        "right": [
+            "screen orientation", 
+            "keyboard availability", 
+            "language change"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "incoming call"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Witch attribute sets the gravity of the content of the View its used on?", 
+        "right": [
+            "android:gravity"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "android:layout_gravity"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Witch attribute sets the gravity of the View or Layout in its parent?", 
+        "right": [
+            "android:layout_gravity"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "android:gravity"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Activity or Fragment becomes visible after call", 
+        "right": [
+            "onStart"
+        ], 
+        "tags": [
+            "Activity Class, Fragments"
+        ], 
+        "wrong": [
+            "onAttach", 
+            "onCreate", 
+            "onCreateView", 
+            "onResume", 
+            "onActivityCreated"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "_____ is the space inside the border, between the border and the actual view's content.", 
+        "right": [
+            "Padding"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Margin"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "The space outside the border, between the border and the other elements next to this view are defined by", 
+        "right": [
+            "Margin"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Padding"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "All Java SE classes are available to Android programs", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "All widgets extend View class", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "All widgets containers (layouts) extend ", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "What kind of approach towards allocating space is used by LinearLayout container with attribute android:layout_width=\"match_parent\"", 
+        "right": [
+            "first child View gets all available space"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "last child View gets all available space", 
+            "all childs get equal space"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "ArrayAdapter can handle data based on", 
+        "right": [
+            "Array", 
+            "List"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Map"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A ViewGroup is a visible interface which contains other views", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Which of the following are subclasses of the ViewGroup?", 
+        "right": [
+            "LinearLayout", 
+            "DatePicker", 
+            "Spinner"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "SurfaceView", 
+            "ImageView"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Which class is responsible for providing views to an AdapterView?", 
+        "right": [
+            "Adapter"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "AdapterView", 
+            "ViewHolder", 
+            "FragmentManager"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "AdapterView extends", 
+        "right": [
+            "ViewGroup"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "View", 
+            "Adapter"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "When the finish() method is called on an activity, what is the next callback method called by Android?", 
+        "right": [
+            "onDestroy()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onPause()", 
+            "onStop()", 
+            "onDetach()"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "You have an Activity and you want to place some UI in it.\nWhat method you will call?", 
+        "right": [
+            "setContentView()", 
+            ""
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "setView()", 
+            "setContent()", 
+            "inflate()"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Things that involve context are", 
+        "right": [
+            "Loading a resource", 
+            "Launching a new activity", 
+            "Creating views", 
+            "Obtaining system service"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            ""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "You may use a fragment without its own UI", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To create Toast without custom layout, you can call", 
+        "right": [
+            "makeText (Context, CharSequence, int)", 
+            "makeText (Context, int, int)"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Toast (Context)", 
+            "makeText(CharSequence)", 
+            "Toast (CharSequence)"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To create a linear layout in which each child uses the same amount of space on the screen you have to set ", 
+        "right": [
+            "android:layout_height=\"0dp\" and android:layout_weight=\"1\""
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "android:layout_height=\"0dp\" and android:layout_weight=\"1\"", 
+            "android:layout_height=\"1\" and android:layout_weight=\"0dp\"", 
+            "android:layout_height=\"wrap_content\" and android:layout_weight=\"1\"", 
+            "android:layout_height=\"match_parent\" and android:layout_weight=\"1\"", 
+            "android:layout_height=\"0dp\" and android:layout_weight=\"match_parent\""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Witch layouts support assigning a weight to individual children with the android:layout_weight", 
+        "right": [
+            "LinearLayout"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "RelativeLayout", 
+            "GridLayout", 
+            "FrameLayout"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To declare that your app needs a permission (e.g. your app needs to send SMS messages)", 
+        "right": [
+            "put a <uses-permission> element in your app manifest, as a child of the top-level <manifest> element"
+        ], 
+        "tags": [
+            "Permissions"
+        ], 
+        "wrong": [
+            "put a <permission> element in your app manifest, as a child of the top-level <manifest> element", 
+            "put a <uses-permission> element in your app manifest, as a child of the top-level <application> element", 
+            "put a <permission> element in your app manifest, as a child of the top-level <activity> element"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Which method is responsible for returning the view hierarchy represented by the fragment", 
+        "right": [
+            "onCreateView"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onCreate", 
+            "onAttach", 
+            "onActivityCreated"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Fragments can be used without activities", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Android namespace prefix declaration is mandatory for the root node of the layout resource", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To develop Android app you can use", 
+        "right": [
+            "Java", 
+            "C/++", 
+            "Go language"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            ""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "All Java features (libraries, language-syntax) are available by default in Android SDK", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Android operating system is based on", 
+        "right": [
+            "Linux"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Windows", 
+            "Symbian", 
+            ""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Android user interface can be", 
+        "right": [
+            "defined as layout resources in XML", 
+            "created programmatically"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            ""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "XML layout resources can be stored in ____ directory(ies)", 
+        "right": [
+            "res/layout", 
+            "res/layout/subfolder", 
+            "res/layout-large"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "res/values", 
+            "res/views", 
+            "res/ui"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "If the layout resource was stored in the /res/layout/main.xml file. Within the Activity to load and display a layout resource on the screen you should call", 
+        "right": [
+            "setContentView(R.layout.main)"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "setView(R.layout.main)", 
+            "setContentView(R.main)", 
+            "setLayoutView(R.layout.main)", 
+            "setLayout(R.main)"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A view object may have a unique ID assigned to it which will identify the View uniquely within the tree. The syntax for an ID is", 
+        "right": [
+            "android:id=\"@+id/my_view\""
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "android:id=\"my_view\"", 
+            "android:id=\"id/my_view\"", 
+            "android:id=\"@+my_view\""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "The default linear orientation is", 
+        "right": [
+            "horizontal"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "vertical", 
+            "undefined, this is a required attribute and you should specify it"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Flat layout hierarchy improves performance", 
+        "right": [
+            "yep"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "nonsense!"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "By default, all child views of RelativeLayout are drawn at the", 
+        "right": [
+            "top-left"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "top-right", 
+            "bottom-left", 
+            "bottom-right", 
+            "center"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "In which callback method should you save data before the current Activity loses focus?", 
+        "right": [
+            "onPause"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onResume", 
+            "onStop", 
+            "onDestroy"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?", 
+        "right": [
+            "View.post()", 
+            "runOnUiThread()"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "executeMainThread()", 
+            "postMainThread()"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Android applications are made up of ___.", 
+        "right": [
+            "Components"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Activities", 
+            "Tasks", 
+            "Services", 
+            "IBinders"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A Service ___.", 
+        "right": [
+            "runs in the background", 
+            "is used for long running operations", 
+            "supports interaction with remote processes"
+        ], 
+        "tags": [
+            "Service"
+        ], 
+        "wrong": [
+            "is used to start new Activities"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A BroadcastReceiver ___.", 
+        "right": [
+            "listens for and responds to events", 
+            "is a subscriber in the publish/subscribe pattern"
+        ], 
+        "tags": [
+            "BroadcastReceiver"
+        ], 
+        "wrong": [
+            "can be used to download data from the internet", 
+            "starts doing work in a background thread"
+        ]
+    }
+]

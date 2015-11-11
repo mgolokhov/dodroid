@@ -61,7 +61,7 @@
     "tags":["permissions"]
   },
   {
-    "question": "Witch method is responsible for returning the view hierarchy represented by the fragment",
+    "question": "Which method is responsible for returning the view hierarchy represented by the fragment",
     "right": [
       "onCreateView"
     ],
@@ -73,7 +73,7 @@
     "tags": ["fragment"]
   },
   {
-    "question": "Fragments replace activities",
+    "question": "Fragments can be used without activities",
     "right": [
       "rather supplement them"
     ],
@@ -202,7 +202,7 @@
     "tags": ["layout"]
   },
   {
-    "question": "By default, all child views of RelativeLayout are drawn",
+    "question": "By default, all child views of RelativeLayout are drawn at the",
     "right": [
       "top-left"
     ],
