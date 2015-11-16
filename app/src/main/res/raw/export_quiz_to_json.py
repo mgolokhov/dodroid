@@ -16,9 +16,9 @@ res = []
 for question in csv.DictReader(StringIO(data)):
 	res.append({
 		"question": question['Android Test Question'],
-		"right": question['Right Answer(s)'].split("\n"),
-		"wrong": question['Wrong Answer(s)'].split("\n"),
-		"tags": question['Question Tag'].split("\n"),
+		"right": [i for i in question['Right Answer(s)'].split("\n") if i],
+		"wrong": [i for i in question['Wrong Answer(s)'].split("\n") if i],
+		"tags": [i for i in question['Question Tag'].split("\n") if i],
 		"Coursera Class": question['Coursera Class']
 	})
 
