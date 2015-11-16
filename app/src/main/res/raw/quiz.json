@@ -298,7 +298,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "question": "Which class is responsible for providing views to an AdapterView?", 
+        "question": "If you include an AdapterView (ListView, GridView, etc.) in an Activity, you create an object responsible for providing the AdapterView with individual item views.  Which interface must this object implement?", 
         "right": [
             "Adapter"
         ], 
@@ -344,8 +344,7 @@
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
         "question": "You have an Activity and you want to place some UI in it.\nWhat method you will call?", 
         "right": [
-            "setContentView()", 
-            ""
+            "setContentView()"
         ], 
         "tags": [
             "Activity Class"
@@ -368,9 +367,7 @@
         "tags": [
             "General"
         ], 
-        "wrong": [
-            ""
-        ]
+        "wrong": []
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
@@ -420,7 +417,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "question": "Witch layouts support assigning a weight to individual children with the android:layout_weight", 
+        "question": "Which layouts support assigning a weight to individual children with the android:layout_weight", 
         "right": [
             "LinearLayout"
         ], 
@@ -500,9 +497,7 @@
         "tags": [
             "General"
         ], 
-        "wrong": [
-            ""
-        ]
+        "wrong": []
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
@@ -528,8 +523,7 @@
         ], 
         "wrong": [
             "Windows", 
-            "Symbian", 
-            ""
+            "Symbian"
         ]
     }, 
     {
@@ -542,9 +536,7 @@
         "tags": [
             "User Interfaces"
         ], 
-        "wrong": [
-            ""
-        ]
+        "wrong": []
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
@@ -596,7 +588,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "question": "The default linear orientation is", 
+        "question": "The default <LinearLayout> orientation is", 
         "right": [
             "horizontal"
         ], 
@@ -711,6 +703,306 @@
         "wrong": [
             "can be used to download data from the internet", 
             "starts doing work in a background thread"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "How you can identify a fragment?", 
+        "right": [
+            "supply the android:id attribute with a unique ID", 
+            "supply the android:tag attribute with a unique string", 
+            "you can use the ID of the container view in which fragment resides"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "supply the android:key attribute with a unique ID"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "You have two activities:  activity1 and activity2.  If activity1 starts activity2 with the startActivityWithResult() method, what must activity2 do in order to return both a result and data to activity1?", 
+        "right": [
+            "Create return intent using newIntent() ", 
+            "Add data to intent using putExtra() ", 
+            "Add result code using setResult()", 
+            "Call the finish() method"
+        ], 
+        "tags": [
+            "Activity Class, Intents"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "The default <RelativeLayout> orientation is", 
+        "right": [
+            "it doesn't have orientation attribute"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "horizontal", 
+            "vertical"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "You want to add a footer to your ListView by calling method addFooterView(). Check true statements for API 17", 
+        "right": [
+            "it depends on API version"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "this method could be called after setAdapter()", 
+            "this method could only be called before setting the adapter"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To extend BaseAdapter you have to implement these methods", 
+        "right": [
+            "getView()", 
+            "getItem()", 
+            "getItemId()", 
+            "getCount()"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "getInflater()", 
+            "getData()"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Check true statements about ListActivity", 
+        "right": [
+            "it hosts ListView"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "you cannot customize the screen layout by setting your own view layout"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Which of the following are true statements about\nLayoutInfalater.inflate(int resource, ViewGroup root, boolean attachToRoot)", 
+        "right": [
+            "root is optional view", 
+            "root is an object that provides a set of LayoutParams values for root of the returned hierarchy", 
+            "it returns View"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "it returns ViewGroup"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Check true statements about RadioGroup", 
+        "right": [
+            "checking one radio button that belongs to a radio group unchecks any previously checked radio button within the same group", 
+            "intially, all of the radio buttons are unchecked", 
+            "the radio group can be cleared to remove the checked state"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "it is possible to uncheck a particular radio button"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "You can define the position with android:layout_below=\"@+id/myTextView\" and THEN define the element itself with android:id=\"@id/myTextView\"", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "A checkbox is a specific type of ___ button.", 
+        "right": [
+            "two-states"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "three-states"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "To define the click event handler in layout xml, add the android:onClick attribute. The method you declare in the android:onClick must", 
+        "right": [
+            "be public", 
+            "return void", 
+            "define a View as its only parameter", 
+            "be hosted in the Activity"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "be hosted in the Activity or the Fragment", 
+            "return View", 
+            "be defined without any parameter"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Check true statements (if any) about Fragment", 
+        "right": [
+            "it can not be used apart from Activity"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "Fragment derives from Context", 
+            "Android system handles back-stack of Fragment in the same manner as for Activity"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "SeekBar is an extension of", 
+        "right": [
+            "ProgressBar"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "ActionBar", 
+            "NotificationBar", 
+            "NavigationBar"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Entries (actions) in the toolbar can be created via", 
+        "right": [
+            "code", 
+            "XML resource file"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "What conditions should be fulfilled to define the menu via xml file?", 
+        "right": [
+            "xml file resides in res/menu", 
+            "xml file contains <menu> element as the root node", 
+            "xml file contains <item> element"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "xml file resides in res/layout", 
+            "xml file contains <options> element"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Check true statements", 
+        "right": [
+            "you can declare items for the options menu from a Fragment subclass", 
+            "you can declare items for the options menu from your Activity subclass"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "The activity's options menu items appear first, followed by those of each fragment in the order in which each fragment is added to the activity", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "You can have multiple Activities in the foreground", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Your application uses options menu. Method onCreateOptionsMenu() will be called after", 
+        "right": [
+            "onResume"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "onStart", 
+            "onCreate"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "If you need to indicate progress, you can use", 
+        "right": [
+            "ProgressBar", 
+            "ProgressDialog"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "ProgressView"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Which of the following are true statements about AlertDialog. Dialog can show", 
+        "right": [
+            "a title", 
+            "up to three buttons", 
+            "a list of selectable items", 
+            "a custom layout"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "no more than two buttons"
         ]
     }
 ]

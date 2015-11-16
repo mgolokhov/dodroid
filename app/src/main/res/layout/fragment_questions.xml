@@ -1,64 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+
+    <Button
+        android:id="@+id/commit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:text="@string/commit_button" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ScrollView
-            android:id="@+id/question_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:scrollbars="vertical"
-            android:fadeScrollbars="false"
-            android:fillViewport="true">
-            <TextView
-                android:id="@+id/question"
-                android:gravity="center"
-                android:textSize="17sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="question?" />
-        </ScrollView>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            android:fadeScrollbars="false"
-            android:layout_weight="1">
-            <LinearLayout
-                android:id="@+id/answers"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-        </ScrollView>
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/question_scroll"
+        android:layout_toLeftOf="@id/commit_button"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/right_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/wrong_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text=" 13" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/commit_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/question_scroll"
+        android:layout_toRightOf="@id/commit_button"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/current_question_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
-            android:text="@string/commit_button"/>
+            android:textSize="20sp"
+            tools:text="18" />
 
-
+        <TextView
+            android:id="@+id/total_question_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="/99" />
     </LinearLayout>
 
-</LinearLayout>
+
+
+
+    <ScrollView
+        android:id="@+id/question_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/commit_button"
+        android:layout_centerInParent="true"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                tools:text="@string/test"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/answers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="one one one" />
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="two two two" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

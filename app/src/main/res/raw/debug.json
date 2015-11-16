@@ -26,5 +26,50 @@
     "right": [
       "just one2"
     ]
+  },
+  {
+    "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems",
+    "question": "A stopped fragment is not visible.",
+    "right": [
+      "TRUE"
+    ],
+    "tags": [
+      "Fragments"
+    ],
+    "wrong": [
+      "FALSE"
+    ]
+  },
+  {
+    "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems",
+    "question": "If your App needs access to use a protected feature, which tag must you put in the AndroidManifest.xml file? ",
+    "right": [
+      "<uses-permission>"
+    ],
+    "tags": [
+      "Permissions"
+    ],
+    "wrong": [
+      "<permission>",
+      "<uses-feature>",
+      "<grant-uri-permission>",
+      "<service>"
+    ]
+  },
+  {
+    "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems",
+    "question": "We can force the FragmentTransaction instance's work to be executed immediately by calling the FragmentManager class ______ method.",
+    "right": [
+      "executePendingTransactions"
+    ],
+    "tags": [
+      "Fragments"
+    ],
+    "wrong": [
+      "executePendingFragments",
+      "executePendingTransactions",
+      "executeTransactions",
+      "executeFragments"
+    ]
   }
 ]

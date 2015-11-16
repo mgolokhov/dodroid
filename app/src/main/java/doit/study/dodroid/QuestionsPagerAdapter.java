@@ -18,7 +18,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return QuestionFragment.newInstance(mQuestions.get(position));
+        return QuestionFragment.newInstance(mQuestions.get(position), getCount(), position+1);
     }
 
 
