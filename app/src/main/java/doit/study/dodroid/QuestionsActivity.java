@@ -4,11 +4,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
-public class QuestionsActivity extends FragmentActivity{
+import java.util.ArrayList;
 
+public class QuestionsActivity extends FragmentActivity implements QuestionFragment.OnStatisticChangeListener{
+    private final String LOG_TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private ArrayList<Question> mQuestions;
+    private UserStatistic mStatistic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,9 +22,15 @@ public class QuestionsActivity extends FragmentActivity{
 
         mPager = (ViewPager)findViewById(R.id.view_pager);
         GlobalData gd = (GlobalData) getApplication();
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), gd.getQuestions());
+        mQuestions = gd.getQuestions();
+        mStatistic = new UserStatistic();
+        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), mQuestions, mStatistic);
         mPager.setAdapter(mPagerAdapter);
         }
 
-
+    @Override
+    public void onStatisticChanged(){
+        Log.i(LOG_TAG, "onStatisticChanged");
+        mPagerAdapter.notifyDataSetChanged();
+    }
 }

@@ -54,7 +54,6 @@ public class GlobalData extends Application {
         } catch (IOException e) {
             Log.i(LOG_TAG, "IOException");
         }
-        Log.i(LOG_TAG, buffer.toString());
         return buffer.toString();
     }
 
@@ -87,6 +86,5 @@ public class GlobalData extends Application {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i(LOG_TAG, mQuestions.toString());
     }
 }

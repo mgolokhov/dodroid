@@ -11,6 +11,9 @@ public class Question implements Parcelable{
     public ArrayList<String> wrong = new ArrayList<>();
     public ArrayList<String> right = new ArrayList<>();
     public ArrayList<String> tags = new ArrayList<>();
+    public int rightCounter;
+    public int wrongCounter;
+
 
     public Question(){}
 
@@ -20,11 +23,14 @@ public class Question implements Parcelable{
     }
 
     @Override
+    // pay close attention to the order
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(question);
         out.writeStringList(wrong);
         out.writeStringList(right);
         out.writeStringList(tags);
+        out.writeInt(rightCounter);
+        out.writeInt(wrongCounter);
     }
 
     public static final Creator<Question> CREATOR
@@ -38,11 +44,14 @@ public class Question implements Parcelable{
         }
     };
 
+    // pay close attention to the order
     public Question(Parcel in) {
         question = in.readString();
         in.readStringList(wrong);
         in.readStringList(right);
         in.readStringList(tags);
+        rightCounter = in.readInt();
+        wrongCounter = in.readInt();
     }
 
     @Override

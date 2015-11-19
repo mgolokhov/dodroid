@@ -1,5 +1,6 @@
 package doit.study.dodroid;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,111 +21,134 @@ import java.util.Collections;
 
 public class QuestionFragment extends Fragment implements View.OnClickListener {
     private final String LOG_TAG = "NSA " + getClass().getName();
+    private OnStatisticChangeListener mCallback;
+    // keys for bundle, to save state
     private static final String QUESTION_KEY = "doit.study.dodroid.question_kye";
-    private static final String TOTAL_NUM_KEY = "doit.study.dodroid.total_num_key";
-    private static final String CUR_NUM_KEY = "doit.study.dodroid.cur_num_key";
+    private static final String USER_STATISTIC_KEY = "doit.study.dodroid.user_statistic_key";
+    // model stuff
     private Question mCurrentQuestion;
-    private ArrayList<CheckBox> mCheckBoxes;
+    private UserStatistic mStatistic;
+    // view stuff
     private View mView;
-    private Integer right_answer_counter = 0;
-    private Integer wrong_answer_counter = 0;
-    private Integer total_question_num = 0;
-    private Integer current_question_num = 0;
-
-
-    private Button mCommitButton;
-    private TextView mQuestionText;
-    private LinearLayout mAnswersLayout;
+    private ArrayList<CheckBox> mvCheckBoxes;
+    private Button mvCommitButton;
+    private TextView mvQuestionText;
+    private LinearLayout mvAnswersLayout;
+    private TextView mvCurrentQuestionNum;
+    private TextView mvTotalQuestionNum;
+    private TextView mvRight;
+    private TextView mvWrong;
 
 
     // Factory method
-    public static QuestionFragment newInstance(Question question, int total_num, int cur_num) {
+    public static QuestionFragment newInstance(Question question, UserStatistic statistic) {
+        Log.i("NSA", "newInstance "+statistic);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(QUESTION_KEY, question);
-        bundle.putInt(TOTAL_NUM_KEY, total_num);
-        bundle.putInt(CUR_NUM_KEY, cur_num);
+        bundle.putParcelable(USER_STATISTIC_KEY, statistic);
         fragment.setArguments(bundle);
-
         return fragment;
     }
 
+    // Container Activity must implement this interface
+    public interface OnStatisticChangeListener {
+        void onStatisticChanged();
+    }
+
+    @Override
+    public void onAttach(Context activity){
+        Log.i(LOG_TAG, "onAttach "+mStatistic);
+        super.onAttach(activity);
+        try {
+            mCallback = (OnStatisticChangeListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnStatisticChangeListener");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        //setRetainInstance(true);
         mCurrentQuestion = getArguments().getParcelable(QUESTION_KEY);
-        total_question_num = getArguments().getInt(TOTAL_NUM_KEY);
-        current_question_num = getArguments().getInt(CUR_NUM_KEY);
+        mStatistic = getArguments().getParcelable(USER_STATISTIC_KEY);
+        Log.i(LOG_TAG, "onCreate " + mStatistic);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        /* You can not use the findViewById method the way you can in an Activity in a Fragment
-         * So we get a reference to the view/layout_file that we used for this Fragment
-         * That allows use to then reference the views by id in that file
-         */
-        if (mView == null) {
-            mView = inflater.inflate(R.layout.fragment_questions, container, false);
-
-            mCommitButton = (Button) mView.findViewById(R.id.commit_button);
-            mQuestionText = (TextView) mView.findViewById(R.id.question);
-            mAnswersLayout = (LinearLayout) mView.findViewById(R.id.answers);
-            // You can not add onclick listener to a button in a fragment's xml
-            // So we implement OnClickListener interface, check onClick() method
-            mView.findViewById(R.id.commit_button).setOnClickListener(this);
-
-            // In a fragment this needs to be called here instead of onCreate() to avoid null reference exceptions
-            populate();
-        }
-
+        Log.i(LOG_TAG, "onCreateView "+mStatistic);
+        mkViewsLinks(inflater, container);
+        updateModel();
+        updateView();
+        populate();
         return mView;
+    }
+
+    private void mkViewsLinks(LayoutInflater inflater, ViewGroup container){
+        Log.i(LOG_TAG, "mkViewsLinks "+mStatistic);
+        // You can not use the findViewById method the way you can in an Activity in a Fragment
+        // So we get a reference to the view/layout_file that we used for this Fragment
+        // That allows use to then reference the views by id in that file
+        mView = inflater.inflate(R.layout.fragment_questions, container, false);
+        mvQuestionText = (TextView) mView.findViewById(R.id.question);
+        mvAnswersLayout = (LinearLayout) mView.findViewById(R.id.answers);
+        mvCommitButton = (Button) mView.findViewById(R.id.commit_button);
+        // You can not add onclick listener to a button in a fragment's xml
+        // So we implement OnClickListener interface, check onClick() method
+        mvCommitButton.setOnClickListener(this);
+        mvRight = (TextView) mView.findViewById(R.id.right_counter);
+        mvWrong = (TextView) mView.findViewById(R.id.wrong_counter);
+        mvCurrentQuestionNum = (TextView) mView.findViewById(R.id.current_question_num);
+        mvTotalQuestionNum = (TextView) mView.findViewById(R.id.total_question_num);
+    }
+
+    private void updateView(){
+
+    }
+
+    private void updateModel(){
+
     }
 
     // Map data from the current Question to the View elements
     public void populate() {
-        mCommitButton.setBackgroundResource(android.R.drawable.btn_default);
-        mQuestionText.setText(mCurrentQuestion.question);
-        TextView mCurrentQuestionNum = (TextView) mView.findViewById(R.id.current_question_num);
-        mCurrentQuestionNum.setText(current_question_num.toString());
-        TextView mTotalQuestionNum = (TextView) mView.findViewById(R.id.total_question_num);
-        mTotalQuestionNum.setText("/"+total_question_num);
-        TextView mRight = (TextView) mView.findViewById(R.id.right_counter);
-        mRight.setText(right_answer_counter.toString());
-        mRight.setTextColor(Color.GREEN);
-        TextView mWrong = (TextView) mView.findViewById(R.id.wrong_counter);
-        mWrong.setText(" "+wrong_answer_counter.toString());
-        mWrong.setTextColor(Color.RED);
+        Log.i(LOG_TAG, "populate "+mStatistic);
+        mvQuestionText.setText(mCurrentQuestion.question);
+        mvCurrentQuestionNum.setText(mStatistic.mCurrentPosition.toString());
+        mvTotalQuestionNum.setText("/" + mStatistic.mTotalQuestions);
+        mvRight.setText(mStatistic.mTotalRight.toString());
+        mvRight.setTextColor(Color.GREEN);
+        mvWrong.setText(" " + mStatistic.mTotalWrong);
+        mvWrong.setTextColor(Color.RED);
 
-        mAnswersLayout.removeAllViewsInLayout();
-
+        mvAnswersLayout.removeAllViewsInLayout();
         ArrayList<String> allAnswers = new ArrayList<>();
         allAnswers.addAll(mCurrentQuestion.wrong);
         allAnswers.addAll(mCurrentQuestion.right);
         Collections.shuffle(allAnswers);
 
-        mCheckBoxes = new ArrayList<>();
+        mvCheckBoxes = new ArrayList<>();
         // create checkboxes dynamically
         for (int i = 0; i < allAnswers.size(); i++) {
-
             // Can not use "this" keyword for constructor here. Requires a Context and Fragment class does not inherit from Context
-            // getContext() method works but requires API level 23 so currently using getActivity() and it worked fine
-            CheckBox checkBox = new CheckBox(getActivity());
+            CheckBox checkBox = new CheckBox(getContext());
             checkBox.setText(allAnswers.get(i));
-            mAnswersLayout.addView(checkBox);
-            mCheckBoxes.add(checkBox);
+            mvAnswersLayout.addView(checkBox);
+            mvCheckBoxes.add(checkBox);
         }
     }
 
 
     public Boolean checkAnswers() {
+        Log.i(LOG_TAG, "checkAnswers "+mStatistic);
         Boolean goodJob = true;
-        for (CheckBox cb : mCheckBoxes) {
+        for (CheckBox cb : mvCheckBoxes) {
             // you can have multiple right answers
             if (cb.isChecked()) {
                 if (!mCurrentQuestion.right.contains(cb.getText().toString())) {
@@ -136,26 +160,27 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 break;
             }
         }
-        Log.i(LOG_TAG, "Good job: " + goodJob);
-        Toast toast;
+        Toast toast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         if (goodJob) {
-            toast = Toast.makeText(getActivity(), "Right", Toast.LENGTH_SHORT);
-            mCommitButton.setBackgroundColor(0xFF00FF00); // => green color
-            right_answer_counter++;
-            TextView mRight = (TextView) mView.findViewById(R.id.right_counter);
-            mRight.setText(right_answer_counter.toString());
+            toast.setText("Right");
+            v.setTextColor(Color.GREEN);
+            mvCommitButton.setBackgroundColor(0xFF00FF00); // => green color
+            mvRight.setText((++mStatistic.mTotalRight).toString());
+            // FIXME: doesn't work with POSITION_NONE
+            mvCommitButton.setEnabled(false);
         }
         else {
-            toast = Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT);
-            mCommitButton.setBackgroundColor(Color.RED);
-            wrong_answer_counter++;
-            TextView mWrong = (TextView) mView.findViewById(R.id.wrong_counter);
-            mWrong.setText("/"+wrong_answer_counter.toString());
+            toast.setText("Wrong");
+            mvCommitButton.setBackgroundColor(Color.RED);
+            v.setTextColor(Color.RED);
+            mvWrong.setText("/"+(++mStatistic.mTotalWrong).toString());
 
         }
-        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
+        mCallback.onStatisticChanged();
         return goodJob;
     }
 
@@ -167,5 +192,20 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 checkAnswers();
                 break;
         }
+    }
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        Log.i(LOG_TAG, "onDetach"+mCurrentQuestion);
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.i(LOG_TAG, "onStop"+mCurrentQuestion);
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.i(LOG_TAG, "onDestroy"+mCurrentQuestion);
     }
 }

@@ -1004,5 +1004,45 @@
         "wrong": [
             "no more than two buttons"
         ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "The AlertDialog should always have a title", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Choose the recommended (best practice) for the ListView attributes", 
+        "right": [
+            "android:layout_height=\"0dp\" and android:layout_weight=\"1\"", 
+            "android:layout_height=\"match_parent\""
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "android:layout_height=\"wrap_content\""
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "question": "Each Activity (that supports fragments) has its own FragmentManager to manage the Fragments within it.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
     }
 ]

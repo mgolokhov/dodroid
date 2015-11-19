@@ -7,7 +7,6 @@
     android:padding="10dp">
 
 
-
     <Button
         android:id="@+id/commit_button"
         android:layout_width="wrap_content"
@@ -31,14 +30,14 @@
             android:id="@+id/right_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="35sp"
             tools:text="5" />
 
         <TextView
             android:id="@+id/wrong_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="35sp"
             tools:text=" 13" />
     </LinearLayout>
 
@@ -55,14 +54,14 @@
             android:id="@+id/current_question_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="30sp"
             tools:text="18" />
 
         <TextView
             android:id="@+id/total_question_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="30sp"
             tools:text="/99" />
     </LinearLayout>
 
