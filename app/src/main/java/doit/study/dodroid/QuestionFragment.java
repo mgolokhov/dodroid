@@ -19,15 +19,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class QuestionFragment extends Fragment implements View.OnClickListener {
+public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener {
     private final String LOG_TAG = "NSA " + getClass().getName();
+    private static final boolean DEBUG = true;
     private OnStatisticChangeListener mCallback;
     // keys for bundle, to save state
-    private static final String QUESTION_KEY = "doit.study.dodroid.question_kye";
-    private static final String USER_STATISTIC_KEY = "doit.study.dodroid.user_statistic_key";
+    private static final String ID_KEY = "doit.study.dodroid.id_kye";
     // model stuff
     private Question mCurrentQuestion;
-    private UserStatistic mStatistic;
+    private QuizData mQuizData;
+    private int mPosition;
     // view stuff
     private View mView;
     private ArrayList<CheckBox> mvCheckBoxes;
@@ -41,13 +42,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
 
     // Factory method
-    public static QuestionFragment newInstance(Question question, UserStatistic statistic) {
-        Log.i("NSA", "newInstance "+statistic);
+    public static QuestionFragment newInstance(int position) {
+        if (DEBUG) Log.i("NSA", "newInstance "+position);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(QUESTION_KEY, question);
-        bundle.putParcelable(USER_STATISTIC_KEY, statistic);
+        bundle.putInt(ID_KEY, position);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -59,7 +59,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onAttach(Context activity){
-        Log.i(LOG_TAG, "onAttach "+mStatistic);
+        // for logging purpose
+        ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
         super.onAttach(activity);
         try {
             mCallback = (OnStatisticChangeListener) activity;
@@ -73,25 +74,26 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
-        mCurrentQuestion = getArguments().getParcelable(QUESTION_KEY);
-        mStatistic = getArguments().getParcelable(USER_STATISTIC_KEY);
-        Log.i(LOG_TAG, "onCreate " + mStatistic);
+        mPosition = getArguments().getInt(ID_KEY);
+        mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
+        mCurrentQuestion = mQuizData.getById(mPosition);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(LOG_TAG, "onCreateView "+mStatistic);
         mkViewsLinks(inflater, container);
         updateModel();
         updateView();
         populate();
+        if (savedInstanceState != null)
+            mvCommitButton.setEnabled((savedInstanceState.getInt("COMMIT_BUTTON_ENABLED") != -1));
         return mView;
     }
 
     private void mkViewsLinks(LayoutInflater inflater, ViewGroup container){
-        Log.i(LOG_TAG, "mkViewsLinks "+mStatistic);
+        if (DEBUG) Log.i(LOG_TAG, "mkViewsLinks "+ID);
         // You can not use the findViewById method the way you can in an Activity in a Fragment
         // So we get a reference to the view/layout_file that we used for this Fragment
         // That allows use to then reference the views by id in that file
@@ -118,19 +120,19 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     // Map data from the current Question to the View elements
     public void populate() {
-        Log.i(LOG_TAG, "populate "+mStatistic);
-        mvQuestionText.setText(mCurrentQuestion.question);
-        mvCurrentQuestionNum.setText(mStatistic.mCurrentPosition.toString());
-        mvTotalQuestionNum.setText("/" + mStatistic.mTotalQuestions);
-        mvRight.setText(mStatistic.mTotalRight.toString());
+        if (DEBUG) Log.i(LOG_TAG, "populate "+ID);
+        mvQuestionText.setText(mCurrentQuestion.getText());
+        mvCurrentQuestionNum.setText("" + (mPosition+1));
+        mvTotalQuestionNum.setText("/" + (mQuizData.size()-1));
+        mvRight.setText("" + mQuizData.getTotalRightCounter());
         mvRight.setTextColor(Color.GREEN);
-        mvWrong.setText(" " + mStatistic.mTotalWrong);
+        mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
         mvWrong.setTextColor(Color.RED);
 
         mvAnswersLayout.removeAllViewsInLayout();
         ArrayList<String> allAnswers = new ArrayList<>();
-        allAnswers.addAll(mCurrentQuestion.wrong);
-        allAnswers.addAll(mCurrentQuestion.right);
+        allAnswers.addAll(mCurrentQuestion.getRightItems());
+        allAnswers.addAll(mCurrentQuestion.getWrongItems());
         Collections.shuffle(allAnswers);
 
         mvCheckBoxes = new ArrayList<>();
@@ -146,16 +148,17 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
 
     public Boolean checkAnswers() {
-        Log.i(LOG_TAG, "checkAnswers "+mStatistic);
+        if (DEBUG) Log.i(LOG_TAG, "checkAnswers "+ID);
         Boolean goodJob = true;
         for (CheckBox cb : mvCheckBoxes) {
             // you can have multiple right answers
+            String cbText = cb.getText().toString();
             if (cb.isChecked()) {
-                if (!mCurrentQuestion.right.contains(cb.getText().toString())) {
+                if (!mCurrentQuestion.getRightItems().contains(cbText)) {
                     goodJob = false;
                     break;
                 }
-            } else if (mCurrentQuestion.right.contains(cb.getText().toString())) {
+            } else if (mCurrentQuestion.getRightItems().contains(cbText)) {
                 goodJob = false;
                 break;
             }
@@ -167,15 +170,18 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             toast.setText("Right");
             v.setTextColor(Color.GREEN);
             mvCommitButton.setBackgroundColor(0xFF00FF00); // => green color
-            mvRight.setText((++mStatistic.mTotalRight).toString());
+            mQuizData.incrementRightCounter(mPosition);
+            mvRight.setText("" + mQuizData.getTotalRightCounter());
             // FIXME: doesn't work with POSITION_NONE
             mvCommitButton.setEnabled(false);
+            getArguments().putInt("COMMIT_BUTTON_ENABLED", -1);
         }
         else {
             toast.setText("Wrong");
             mvCommitButton.setBackgroundColor(Color.RED);
             v.setTextColor(Color.RED);
-            mvWrong.setText("/"+(++mStatistic.mTotalWrong).toString());
+            mQuizData.incrementWrongCounter(mPosition);
+            mvWrong.setText("/"+mQuizData.getTotalWrongCounter());
 
         }
         toast.show();
@@ -192,20 +198,5 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 checkAnswers();
                 break;
         }
-    }
-    @Override
-    public void onDetach(){
-        super.onDetach();
-        Log.i(LOG_TAG, "onDetach"+mCurrentQuestion);
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        Log.i(LOG_TAG, "onStop"+mCurrentQuestion);
-    }
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        Log.i(LOG_TAG, "onDestroy"+mCurrentQuestion);
     }
 }

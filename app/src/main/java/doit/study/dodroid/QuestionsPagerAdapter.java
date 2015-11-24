@@ -11,22 +11,19 @@ import java.util.ArrayList;
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String LOG_TAG = "NSA " + getClass().getName();
-    private ArrayList<Question> mQuestions;
-    private UserStatistic mUserStatistic;
+    private QuizData mQuizData;
 
-    public QuestionsPagerAdapter(FragmentManager fm, ArrayList<Question> questions, UserStatistic us) {
+
+    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData) {
         super(fm);
-        this.mQuestions = questions;
-        this.mUserStatistic = us;
+        this.mQuizData = quizData;
     }
 
 
     @Override
     public Fragment getItem(int position) {
         Log.i(LOG_TAG, "getItem, pos=" + position);
-        mUserStatistic.mTotalQuestions = getCount();
-        mUserStatistic.mCurrentPosition = position;
-        return QuestionFragment.newInstance(mQuestions.get(position), mUserStatistic);
+        return QuestionFragment.newInstance(position);
     }
 
     @Override
@@ -37,14 +34,14 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mQuestions.size();
+        return mQuizData.size();
     }
 
 
     @Override
     public CharSequence getPageTitle(int position) {
         String title = "";
-        for (String tag: mQuestions.get(position).tags)
+        for (String tag: mQuizData.getById(position).getTags())
             title += tag+" ";
         return title;
     }

@@ -12,8 +12,7 @@ public class QuestionsActivity extends FragmentActivity implements QuestionFragm
     private final String LOG_TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-    private ArrayList<Question> mQuestions;
-    private UserStatistic mStatistic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +21,7 @@ public class QuestionsActivity extends FragmentActivity implements QuestionFragm
 
         mPager = (ViewPager)findViewById(R.id.view_pager);
         GlobalData gd = (GlobalData) getApplication();
-        mQuestions = gd.getQuestions();
-        mStatistic = new UserStatistic();
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), mQuestions, mStatistic);
+        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), gd.getQuizData());
         mPager.setAdapter(mPagerAdapter);
         }
 

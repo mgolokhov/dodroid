@@ -13,14 +13,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-
+/**
+ * Use application singleton
+*/
 public class GlobalData extends Application {
     private final String LOG_TAG = "NSA " + getClass().getName();
     // Link to the resource file, in our case it's a json file
     // I think we can say it some kind of descriptor, so it's an integer
     private final Integer mTestFile = R.raw.quiz;
-    // Actually our quiz is a list of questions
-    private ArrayList<Question> mQuestions = new ArrayList<>();
+    private QuizData mQuizData = new QuizData();
 
     @Override
     public void onCreate() {
@@ -28,11 +29,8 @@ public class GlobalData extends Application {
         parseTests(readFile());
     }
 
-    public Question getQuestion(Integer index){
-        return mQuestions.get(index);
-    }
-    public ArrayList<Question> getQuestions(){
-        return mQuestions;
+    public QuizData getQuizData(){
+        return mQuizData;
     }
 
     // Read raw data from resource file
@@ -63,24 +61,28 @@ public class GlobalData extends Application {
         try {
             JSONArray questions = new JSONArray(data);
             for(int i=0; i < questions.length(); i++) {
-                Question aQuestion = new Question();
                 JSONObject currentQuestion = questions.getJSONObject(i);
-                aQuestion.question = currentQuestion.getString("question");
+                int id = Integer.parseInt(currentQuestion.getString("ID"));
+                String questionText= currentQuestion.getString("question");
                 JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
+                ArrayList<String> wrongItems = new ArrayList<>();
                 for(int j=0; j<wrongAnswers.length(); j++){
-                    aQuestion.wrong.add(wrongAnswers.get(j).toString());
+                    wrongItems.add(wrongAnswers.get(j).toString());
                 }
                 JSONArray rightAnswers = currentQuestion.getJSONArray("right");
+                ArrayList<String> rightItems = new ArrayList<>();
                 for(int j=0; j<rightAnswers.length(); j++){
-                    aQuestion.right.add(rightAnswers.get(j).toString());
+                    rightItems.add(rightAnswers.get(j).toString());
                 }
                 JSONArray tags = currentQuestion.optJSONArray("tags");
+                ArrayList<String> questionTags = new ArrayList<>();
                 if (tags != null)
                     for(int j=0; j<tags.length(); j++)
-                        aQuestion.tags.add(tags.get(j).toString());
+                        questionTags.add(tags.get(j).toString());
                 else
-                    aQuestion.tags.add("Other");
-                mQuestions.add(aQuestion);
+                    questionTags.add("Other");
+                Question q = new Question(id, questionText, wrongItems, rightItems , questionTags);
+                mQuizData.addQuestion(q);
 
             }
         } catch (JSONException e) {

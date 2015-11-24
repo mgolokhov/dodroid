@@ -1,6 +1,7 @@
 [
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "0", 
         "question": "A stopped fragment is not visible.", 
         "right": [
             "TRUE"
@@ -14,6 +15,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "1", 
         "question": "If your App needs access to use a protected feature, which tag must you put in the AndroidManifest.xml file? ", 
         "right": [
             "<uses-permission>"
@@ -30,6 +32,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "2", 
         "question": "We can force the FragmentTransaction instance's work to be executed immediately by calling the FragmentManager class ______ method.", 
         "right": [
             "executePendingTransactions"
@@ -39,13 +42,13 @@
         ], 
         "wrong": [
             "executePendingFragments", 
-            "executePendingTransactions", 
             "executeTransactions", 
             "executeFragments"
         ]
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "3", 
         "question": "The call to the FragmentTransaction.commit() method does apply the changes immediately", 
         "right": [
             "FALSE"
@@ -59,6 +62,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "4", 
         "question": "Which layout does not arrange its children in any particular manner", 
         "right": [
             "FrameLayout"
@@ -74,6 +78,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "5", 
         "question": "A Bundle is a structure that maps string keys to values of any type", 
         "right": [
             "FALSE"
@@ -87,6 +92,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "6", 
         "question": "android:layout_width and android:layout_height can be set to", 
         "right": [
             "match_parent", 
@@ -103,6 +109,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "7", 
         "question": "To use string resources you should meet requirements: ", 
         "right": [
             "have a file that located in res/values/", 
@@ -118,6 +125,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "8", 
         "question": "What events trigger device configuration change", 
         "right": [
             "screen orientation", 
@@ -133,7 +141,8 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "question": "Witch attribute sets the gravity of the content of the View its used on?", 
+        "ID": "9", 
+        "question": "Which attribute sets the gravity of the content of the View its used on?", 
         "right": [
             "android:gravity"
         ], 
@@ -146,7 +155,8 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "question": "Witch attribute sets the gravity of the View or Layout in its parent?", 
+        "ID": "10", 
+        "question": "Which attribute sets the gravity of the View or Layout in its parent?", 
         "right": [
             "android:layout_gravity"
         ], 
@@ -159,6 +169,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "11", 
         "question": "Activity or Fragment becomes visible after call", 
         "right": [
             "onStart"
@@ -176,6 +187,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "12", 
         "question": "_____ is the space inside the border, between the border and the actual view's content.", 
         "right": [
             "Padding"
@@ -189,6 +201,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "13", 
         "question": "The space outside the border, between the border and the other elements next to this view are defined by", 
         "right": [
             "Margin"
@@ -202,6 +215,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "14", 
         "question": "All Java SE classes are available to Android programs", 
         "right": [
             "FALSE"
@@ -215,6 +229,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "15", 
         "question": "All widgets extend View class", 
         "right": [
             "TRUE"
@@ -228,6 +243,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "16", 
         "question": "All widgets containers (layouts) extend ", 
         "right": [
             "TRUE"
@@ -241,6 +257,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "17", 
         "question": "What kind of approach towards allocating space is used by LinearLayout container with attribute android:layout_width=\"match_parent\"", 
         "right": [
             "first child View gets all available space"
@@ -255,6 +272,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "18", 
         "question": "ArrayAdapter can handle data based on", 
         "right": [
             "Array", 
@@ -269,6 +287,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "19", 
         "question": "A ViewGroup is a visible interface which contains other views", 
         "right": [
             "FALSE"
@@ -282,6 +301,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "20", 
         "question": "Which of the following are subclasses of the ViewGroup?", 
         "right": [
             "LinearLayout", 
@@ -298,6 +318,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "21", 
         "question": "If you include an AdapterView (ListView, GridView, etc.) in an Activity, you create an object responsible for providing the AdapterView with individual item views.  Which interface must this object implement?", 
         "right": [
             "Adapter"
@@ -313,6 +334,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "22", 
         "question": "AdapterView extends", 
         "right": [
             "ViewGroup"
@@ -327,6 +349,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "23", 
         "question": "When the finish() method is called on an activity, what is the next callback method called by Android?", 
         "right": [
             "onDestroy()"
@@ -342,6 +365,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "24", 
         "question": "You have an Activity and you want to place some UI in it.\nWhat method you will call?", 
         "right": [
             "setContentView()"
@@ -357,6 +381,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "25", 
         "question": "Things that involve context are", 
         "right": [
             "Loading a resource", 
@@ -371,6 +396,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "26", 
         "question": "You may use a fragment without its own UI", 
         "right": [
             "TRUE"
@@ -384,6 +410,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "27", 
         "question": "To create Toast without custom layout, you can call", 
         "right": [
             "makeText (Context, CharSequence, int)", 
@@ -400,6 +427,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "28", 
         "question": "To create a linear layout in which each child uses the same amount of space on the screen you have to set ", 
         "right": [
             "android:layout_height=\"0dp\" and android:layout_weight=\"1\""
@@ -417,6 +445,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "29", 
         "question": "Which layouts support assigning a weight to individual children with the android:layout_weight", 
         "right": [
             "LinearLayout"
@@ -432,6 +461,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "30", 
         "question": "To declare that your app needs a permission (e.g. your app needs to send SMS messages)", 
         "right": [
             "put a <uses-permission> element in your app manifest, as a child of the top-level <manifest> element"
@@ -447,6 +477,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "31", 
         "question": "Which method is responsible for returning the view hierarchy represented by the fragment", 
         "right": [
             "onCreateView"
@@ -462,6 +493,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "32", 
         "question": "Fragments can be used without activities", 
         "right": [
             "FALSE"
@@ -475,6 +507,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "33", 
         "question": "Android namespace prefix declaration is mandatory for the root node of the layout resource", 
         "right": [
             "TRUE"
@@ -488,6 +521,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "34", 
         "question": "To develop Android app you can use", 
         "right": [
             "Java", 
@@ -501,6 +535,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "35", 
         "question": "All Java features (libraries, language-syntax) are available by default in Android SDK", 
         "right": [
             "FALSE"
@@ -514,6 +549,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "36", 
         "question": "Android operating system is based on", 
         "right": [
             "Linux"
@@ -528,6 +564,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "37", 
         "question": "Android user interface can be", 
         "right": [
             "defined as layout resources in XML", 
@@ -540,6 +577,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "38", 
         "question": "XML layout resources can be stored in ____ directory(ies)", 
         "right": [
             "res/layout", 
@@ -557,6 +595,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "39", 
         "question": "If the layout resource was stored in the /res/layout/main.xml file. Within the Activity to load and display a layout resource on the screen you should call", 
         "right": [
             "setContentView(R.layout.main)"
@@ -573,6 +612,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "40", 
         "question": "A view object may have a unique ID assigned to it which will identify the View uniquely within the tree. The syntax for an ID is", 
         "right": [
             "android:id=\"@+id/my_view\""
@@ -588,6 +628,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "41", 
         "question": "The default <LinearLayout> orientation is", 
         "right": [
             "horizontal"
@@ -602,6 +643,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "42", 
         "question": "Flat layout hierarchy improves performance", 
         "right": [
             "yep"
@@ -615,6 +657,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "43", 
         "question": "By default, all child views of RelativeLayout are drawn at the", 
         "right": [
             "top-left"
@@ -631,6 +674,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "44", 
         "question": "In which callback method should you save data before the current Activity loses focus?", 
         "right": [
             "onPause"
@@ -646,6 +690,7 @@
     }, 
     {
         "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "45", 
         "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?", 
         "right": [
             "View.post()", 
@@ -661,6 +706,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "46", 
         "question": "Android applications are made up of ___.", 
         "right": [
             "Components"
@@ -677,6 +723,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "47", 
         "question": "A Service ___.", 
         "right": [
             "runs in the background", 
@@ -692,6 +739,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "48", 
         "question": "A BroadcastReceiver ___.", 
         "right": [
             "listens for and responds to events", 
@@ -707,6 +755,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "49", 
         "question": "How you can identify a fragment?", 
         "right": [
             "supply the android:id attribute with a unique ID", 
@@ -722,6 +771,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "50", 
         "question": "You have two activities:  activity1 and activity2.  If activity1 starts activity2 with the startActivityWithResult() method, what must activity2 do in order to return both a result and data to activity1?", 
         "right": [
             "Create return intent using newIntent() ", 
@@ -736,6 +786,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "51", 
         "question": "The default <RelativeLayout> orientation is", 
         "right": [
             "it doesn't have orientation attribute"
@@ -750,6 +801,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "52", 
         "question": "You want to add a footer to your ListView by calling method addFooterView(). Check true statements for API 17", 
         "right": [
             "it depends on API version"
@@ -764,6 +816,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "53", 
         "question": "To extend BaseAdapter you have to implement these methods", 
         "right": [
             "getView()", 
@@ -781,6 +834,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "54", 
         "question": "Check true statements about ListActivity", 
         "right": [
             "it hosts ListView"
@@ -794,6 +848,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "55", 
         "question": "Which of the following are true statements about\nLayoutInfalater.inflate(int resource, ViewGroup root, boolean attachToRoot)", 
         "right": [
             "root is optional view", 
@@ -809,6 +864,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "56", 
         "question": "Check true statements about RadioGroup", 
         "right": [
             "checking one radio button that belongs to a radio group unchecks any previously checked radio button within the same group", 
@@ -824,6 +880,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "57", 
         "question": "You can define the position with android:layout_below=\"@+id/myTextView\" and THEN define the element itself with android:id=\"@id/myTextView\"", 
         "right": [
             "TRUE"
@@ -837,6 +894,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "58", 
         "question": "A checkbox is a specific type of ___ button.", 
         "right": [
             "two-states"
@@ -850,6 +908,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "59", 
         "question": "To define the click event handler in layout xml, add the android:onClick attribute. The method you declare in the android:onClick must", 
         "right": [
             "be public", 
@@ -868,6 +927,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "60", 
         "question": "Check true statements (if any) about Fragment", 
         "right": [
             "it can not be used apart from Activity"
@@ -882,6 +942,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "61", 
         "question": "SeekBar is an extension of", 
         "right": [
             "ProgressBar"
@@ -897,6 +958,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "62", 
         "question": "Entries (actions) in the toolbar can be created via", 
         "right": [
             "code", 
@@ -909,6 +971,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "63", 
         "question": "What conditions should be fulfilled to define the menu via xml file?", 
         "right": [
             "xml file resides in res/menu", 
@@ -925,6 +988,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "64", 
         "question": "Check true statements", 
         "right": [
             "you can declare items for the options menu from a Fragment subclass", 
@@ -937,6 +1001,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "65", 
         "question": "The activity's options menu items appear first, followed by those of each fragment in the order in which each fragment is added to the activity", 
         "right": [
             "TRUE"
@@ -950,6 +1015,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "66", 
         "question": "You can have multiple Activities in the foreground", 
         "right": [
             "FALSE"
@@ -963,6 +1029,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "67", 
         "question": "Your application uses options menu. Method onCreateOptionsMenu() will be called after", 
         "right": [
             "onResume"
@@ -977,6 +1044,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "68", 
         "question": "If you need to indicate progress, you can use", 
         "right": [
             "ProgressBar", 
@@ -991,6 +1059,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "69", 
         "question": "Which of the following are true statements about AlertDialog. Dialog can show", 
         "right": [
             "a title", 
@@ -1007,6 +1076,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "70", 
         "question": "The AlertDialog should always have a title", 
         "right": [
             "FALSE"
@@ -1020,6 +1090,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "71", 
         "question": "Choose the recommended (best practice) for the ListView attributes", 
         "right": [
             "android:layout_height=\"0dp\" and android:layout_weight=\"1\"", 
@@ -1034,6 +1105,7 @@
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "72", 
         "question": "Each Activity (that supports fragments) has its own FragmentManager to manage the Fragments within it.", 
         "right": [
             "TRUE"
@@ -1043,6 +1115,288 @@
         ], 
         "wrong": [
             "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "73", 
+        "question": "A fragment is capable of getting a view on screen itself", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "74", 
+        "question": "Fragments were introduced in ", 
+        "right": [
+            "API 11"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "API 4", 
+            "API 8", 
+            "API 16"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "75", 
+        "question": "The support library includes a complete implementation of fragments that work all the way back to", 
+        "right": [
+            "API 4"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "API 8", 
+            "API 11", 
+            "API 16"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "76", 
+        "question": "Fragment lifecycle methods are called by", 
+        "right": [
+            "the hosting activity"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "the Android OS"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "77", 
+        "question": "The FragmentManager handles", 
+        "right": [
+            "a list of fragments", 
+            "back stack of fragment transactions"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "78", 
+        "question": "Only FrameLayout can be a placeholder container for your fragment", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "", 
+        "ID": "79", 
+        "question": "Which dimension unit is recommend when specifying font sizes", 
+        "right": [
+            "sp"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "dp", 
+            "dip", 
+            "px", 
+            "pt"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "80", 
+        "question": "Which dimension units are recommend when specifying margins and padding", 
+        "right": [
+            "dp", 
+            "dip"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "px", 
+            "pt", 
+            "sp"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "81", 
+        "question": "findViewById(int) is", 
+        "right": [
+            "expensive operation"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "lightweight and fast operation"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "82", 
+        "question": "What is the recommended relationship between the hosted Activity and the Fragment?", 
+        "right": [
+            "the Fragment is independent and the Activity knows specifics of their Fragment"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "both know plenty about each other", 
+            "the Activity is independent and the Fragment knows specifics of their host", 
+            "both are independent"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "83", 
+        "question": "Inflation (LayoutInflater.inflate) is", 
+        "right": [
+            "expensive operation"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "lightweight and fast operation"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "84", 
+        "question": "____ is best when navigating between sibling screens representing a fixed, small number of pages.", 
+        "right": [
+            "FragmentPagerAdapter"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FragmentStatePagerAdapter"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "85", 
+        "question": "____ is best for paging across a collection of objects for which the number of pages is undetermined. It destroys fragments as the user navigates to other pages, minimizing memory usage.", 
+        "right": [
+            "FragmentStatePagerAdapter"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FragmentPagerAdapter"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "86", 
+        "question": "Fragments inside the host Activity can be started even if the Activity is stopped ", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "87", 
+        "question": "When the host Activity is destroyed, all Fragments will be destroyed.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "88", 
+        "question": "When the method Fragment.onCreate(Bundle) is called the host Activity's content view hierarchy is initialized at this point.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "89", 
+        "question": "Fragment.onCreateView() can return", 
+        "right": [
+            "View", 
+            "null"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "void"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "90", 
+        "question": "This callback tells the Fragment when it is fully associated with the host Activity", 
+        "right": [
+            "onActivityCreated"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onAttach", 
+            "onCreate", 
+            "onCreateView", 
+            "onResume"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "91", 
+        "question": "You can set a Fragment tag by", 
+        "right": [
+            "android:tag", 
+            "at transaction time, using add/replace"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "setTag(String tagName)"
         ]
     }
 ]
