@@ -33,4 +33,4 @@ task exportQuestions(type:Exec, description: 'Run the pre-build python script') 
 }
 
 // This ensures my script will be called before building
-preBuild.dependsOn exportQuestions
+// preBuild.dependsOn exportQuestions
