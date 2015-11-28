@@ -14,14 +14,15 @@ data = resp.read()
 
 res = []
 for question in csv.DictReader(StringIO(data)):
-	res.append({
-		"ID": question['ID'],
-		"question": question['Android Test Question'],
-		"right": [i for i in question['Right Answer(s)'].split("\n") if i],
-		"wrong": [i for i in question['Wrong Answer(s)'].split("\n") if i],
-		"tags": [i for i in question['Question Tag'].split("\n") if i],
-		"Coursera Class": question['Coursera Class']
-	})
+	if question['ID']:
+		res.append({
+			"ID": question['ID'],
+			"question": question['Android Test Question'],
+			"right": [i for i in question['Right Answer(s)'].split("\n") if i],
+			"wrong": [i for i in question['Wrong Answer(s)'].split("\n") if i],
+			"tags": [i for i in question['Question Tag'].split("\n") if i],
+			"Coursera Class": question['Coursera Class']
+		})
 
 with open(local_json_file, 'w') as jsonfile:
 	json.dump(res, jsonfile, indent=4, sort_keys=True)

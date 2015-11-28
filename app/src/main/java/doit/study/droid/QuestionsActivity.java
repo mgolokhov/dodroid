@@ -1,12 +1,10 @@
-package doit.study.dodroid;
+package doit.study.droid;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-
-import java.util.ArrayList;
 
 public class QuestionsActivity extends FragmentActivity implements QuestionFragment.OnStatisticChangeListener{
     private final String LOG_TAG = "NSA " + getClass().getName();

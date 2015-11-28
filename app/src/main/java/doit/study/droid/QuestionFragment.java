@@ -1,4 +1,4 @@
-package doit.study.dodroid;
+package doit.study.droid;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Collections;

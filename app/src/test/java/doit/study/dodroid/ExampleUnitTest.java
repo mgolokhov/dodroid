@@ -1,4 +1,4 @@
-package doit.study.dodroid;
+package doit.study.droid;
 
 import org.junit.Test;
 
