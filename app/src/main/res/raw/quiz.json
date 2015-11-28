@@ -694,20 +694,20 @@
         "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?", 
         "right": [
             "View.post()", 
-            "runOnUiThread()"
+            "Activity.runOnUiThread()"
         ], 
         "tags": [
             "Threads"
         ], 
         "wrong": [
-            "executeMainThread()", 
-            "postMainThread()"
+            "Activity.executeMainThread()", 
+            "View.postMainThread()"
         ]
     }, 
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
         "ID": "46", 
-        "question": "Android applications are made up of ___.", 
+        "question": "Choose one answer. Android applications are made up of ___.", 
         "right": [
             "Components"
         ], 
@@ -722,7 +722,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
         "ID": "47", 
         "question": "A Service ___.", 
         "right": [
@@ -738,7 +738,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
         "ID": "48", 
         "question": "A BroadcastReceiver ___.", 
         "right": [
@@ -1327,7 +1327,7 @@
     {
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
         "ID": "87", 
-        "question": "When the host Activity is destroyed, all Fragments will be destroyed.", 
+        "question": "When the Activity is destroyed, all hosted Fragments will be destroyed.", 
         "right": [
             "TRUE"
         ], 
@@ -1397,6 +1397,209 @@
         ], 
         "wrong": [
             "setTag(String tagName)"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "92", 
+        "question": "Java Threads running in the same Process share", 
+        "right": [
+            "heap", 
+            "static memory"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "program counter", 
+            "stack"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "Android UI toolkit is thread-safe", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "Application components in the same process use the same UI thread", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "The View hierarchy can be updated from a background Thread", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "true", 
+            "true, as long as it acquires a lock on the root View of its View hierarchy"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "If an application component starts and there already exists a process for that application (because another component from the application exists), then the component is started within a new process", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "Components of different applications run in the same process", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "Android app can run multiple processes in the foreground", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "Your app is using AsyncTask, which methods are invoked on the UI thread?", 
+        "right": [
+            "onPreExecute()", 
+            "onPostExecute()", 
+            "onProgressUpdate()"
+        ], 
+        "tags": [
+            "AsyncTasks, Threads"
+        ], 
+        "wrong": [
+            "publishProgress()", 
+            "doInBackground()", 
+            "execute()"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "(True or False) You implemented AsyncTask to perform background operations. The task can be executed multiple times.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "AsyncTasks, Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "(True or False) Starting with API 11 (Android 3.0) AsyncTasks can operate in parallel.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "AsyncTasks, Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "(True or False) AsyncTask can be cancelled.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "AsyncTasks, Threads"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "(True or False) If you don't care about responsiveness and have a long running process (network access) you can run your code in UI thread.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "Services by default run in", 
+        "right": [
+            "the UI thread"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "the background thread"
+        ]
+    }, 
+    {
+        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
+        "ID": "", 
+        "question": "A handler can be associated with a multiple threads", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
         ]
     }
 ]
