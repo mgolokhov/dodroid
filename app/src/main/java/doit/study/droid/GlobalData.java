@@ -81,7 +81,8 @@ public class GlobalData extends Application {
                         questionTags.add(tags.get(j).toString());
                 else
                     questionTags.add("Other");
-                Question q = new Question(id, questionText, wrongItems, rightItems , questionTags);
+                String docRef = currentQuestion.getString("docRef");
+                Question q = new Question(id, questionText, wrongItems, rightItems , questionTags, docRef);
                 mQuizData.addQuestion(q);
 
             }

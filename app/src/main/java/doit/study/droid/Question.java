@@ -9,18 +9,26 @@ public class Question{
     private ArrayList<String> mWrongItems = new ArrayList<>();
     private ArrayList<String> mRightItems = new ArrayList<>();
     private ArrayList<String> mTags = new ArrayList<>();
+    private String mDocRef;
     private int mRightCounter = 0;
     private int mWrongCounter = 0;
 
     public Question(int id, String text,
                     ArrayList<String> wrongItems,
                     ArrayList<String> rightItems,
-                    ArrayList<String> tags){
+                    ArrayList<String> tags,
+                    String docRef
+                    ){
         mId = id;
         mText = text;
         mWrongItems = wrongItems;
         mRightItems = rightItems;
         mTags = tags;
+        mDocRef = docRef;
+    }
+
+    public String getDocRef () {
+        return mDocRef;
     }
 
     public int getId() {

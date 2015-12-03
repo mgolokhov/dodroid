@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 
 // Entry point for the app.
 // Because we set in manifest action=MAIN category=LAUNCHER
-public class MainActivity extends FragmentActivity  {
+public class MainActivity extends AppCompatActivity {
     // Shia LaBeouf - Just Do it! (Auto-tuned)
     private final String URL = "http://www.youtube.com/watch?v=gJscrxxl_Bg";
     private final String LOG_TAG = "NSA " + getClass().getName();

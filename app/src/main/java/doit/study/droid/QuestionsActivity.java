@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-public class QuestionsActivity extends FragmentActivity implements QuestionFragment.OnStatisticChangeListener{
+public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnStatisticChangeListener{
     private final String LOG_TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;

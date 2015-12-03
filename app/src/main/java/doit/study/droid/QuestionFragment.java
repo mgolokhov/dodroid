@@ -1,11 +1,16 @@
 package doit.study.droid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -57,6 +62,30 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
+        super.onCreateOptionsMenu(menu, menuInflater);
+        menuInflater.inflate(R.menu.fragment_question, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch(menuItem.getItemId()){
+            case(R.id.doc_reference):{
+                if (mCurrentQuestion.getDocRef().isEmpty())
+                    Toast.makeText(getActivity(), "Not yet", Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(mCurrentQuestion.getDocRef()));
+                    startActivity(intent);
+                }
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
+    @Override
     public void onAttach(Context activity){
         // for logging purpose
         ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
@@ -76,6 +105,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mPosition = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
         mCurrentQuestion = mQuizData.getById(mPosition);
+        setHasOptionsMenu(true);
     }
 
 

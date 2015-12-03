@@ -21,7 +21,8 @@ for question in csv.DictReader(StringIO(data)):
 			"right": [i for i in question['Right Answer(s)'].split("\n") if i],
 			"wrong": [i for i in question['Wrong Answer(s)'].split("\n") if i],
 			"tags": [i for i in question['Question Tag'].split("\n") if i],
-			"Coursera Class": question['Coursera Class']
+			"Coursera Class": question['Coursera Class'],
+			"docRef" : question["Reference Link"],
 		})
 
 with open(local_json_file, 'w') as jsonfile:
