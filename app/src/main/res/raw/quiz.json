@@ -261,7 +261,7 @@
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
         "ID": "16", 
         "docRef": "http://developer.android.com/reference/android/view/ViewGroup.html", 
-        "question": "All widgets containers (layouts) extend ", 
+        "question": "All widgets containers (layouts) extend ViewGroup", 
         "right": [
             "TRUE"
         ], 
@@ -905,7 +905,7 @@
         "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
         "ID": "55", 
         "docRef": "http://developer.android.com/reference/android/view/LayoutInflater.html#inflate(int, android.view.ViewGroup, boolean)", 
-        "question": "Which of the following are true statements about\nLayoutInfalater.inflate(int resource, ViewGroup root, boolean attachToRoot)", 
+        "question": "Which of the following are true statements about LayoutInfalater.inflate()", 
         "right": [
             "root is optional view", 
             "root is an object that provides a set of LayoutParams values for root of the returned hierarchy", 
