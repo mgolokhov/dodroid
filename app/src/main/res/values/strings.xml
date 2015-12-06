@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">DoDroid</string>
-    <string name="prev_button">Prev</string>
-    <string name="next_button">Next</string>
     <string name="commit_button">Commit</string>
-    <string name="doit_button">Do it!</string>
-    <string name="need_motivation_button">Need some motivation</string>
+    <string name="doit_button">doIt!</string>
+    <string name="need_motivation_button">getMotivation</string>
 
     <string name="test">question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question ?</string>
     <string name="motto">a journey of a thousand miles begins with a single step</string>
+    <string name="set_topic_button">setTopic</string>
 </resources>
