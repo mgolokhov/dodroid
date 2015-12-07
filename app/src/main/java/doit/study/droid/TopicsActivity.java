@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class TopicsActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
-    private final String LOG_TAG = "NSA " + getClass().getName();
+    private final String TAG = "NSA " + getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

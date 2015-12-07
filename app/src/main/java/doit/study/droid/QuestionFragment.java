@@ -24,7 +24,6 @@ import java.util.Collections;
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener {
-    private final String LOG_TAG = "NSA " + getClass().getName();
     private static final boolean DEBUG = true;
     private OnStatisticChangeListener mCallback;
     // keys for bundle, to save state
@@ -122,7 +121,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void mkViewsLinks(LayoutInflater inflater, ViewGroup container){
-        if (DEBUG) Log.i(LOG_TAG, "mkViewsLinks "+ID);
+        if (DEBUG) Log.i(TAG, "mkViewsLinks "+ID);
         // You can not use the findViewById method the way you can in an Activity in a Fragment
         // So we get a reference to the view/layout_file that we used for this Fragment
         // That allows use to then reference the views by id in that file
@@ -149,7 +148,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     // Map data from the current Question to the View elements
     public void populate() {
-        if (DEBUG) Log.i(LOG_TAG, "populate "+ID);
+        if (DEBUG) Log.i(TAG, "populate "+ID);
         mvQuestionText.setText(mCurrentQuestion.getText());
         mvCurrentQuestionNum.setText("" + (mPosition+1));
         mvTotalQuestionNum.setText("/" + (mQuizData.size()-1));
@@ -177,7 +176,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     public Boolean checkAnswers() {
-        if (DEBUG) Log.i(LOG_TAG, "checkAnswers "+ID);
+        if (DEBUG) Log.i(TAG, "checkAnswers "+ID);
         Boolean goodJob = true;
         for (CheckBox cb : mvCheckBoxes) {
             // you can have multiple right answers

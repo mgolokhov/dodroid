@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Use application singleton
 */
 public class GlobalData extends Application {
-    private final String LOG_TAG = "NSA " + getClass().getName();
+    private final String TAG = "NSA " + getClass().getName();
     // Link to the resource file, in our case it's a json file
     // I think we can say it some kind of descriptor, so it's an integer
     private final Integer mTestFile = R.raw.quiz;
@@ -50,7 +50,7 @@ public class GlobalData extends Application {
             }
 
         } catch (IOException e) {
-            Log.i(LOG_TAG, "IOException");
+            Log.i(TAG, "IOException");
         }
         return buffer.toString();
     }

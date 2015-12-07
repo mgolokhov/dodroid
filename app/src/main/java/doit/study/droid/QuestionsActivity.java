@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnStatisticChangeListener{
-    private final String LOG_TAG = "NSA " + getClass().getName();
+    private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
@@ -25,7 +25,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
 
     @Override
     public void onStatisticChanged(){
-        Log.i(LOG_TAG, "onStatisticChanged");
+        Log.i(TAG, "onStatisticChanged");
         mPagerAdapter.notifyDataSetChanged();
     }
 }

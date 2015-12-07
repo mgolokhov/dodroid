@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
-    private final String LOG_TAG = "NSA " + getClass().getName();
+    private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
 
 
@@ -20,13 +20,13 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.i(LOG_TAG, "getItem, pos=" + position);
+        Log.i(TAG, "getItem, pos=" + position);
         return QuestionFragment.newInstance(position);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position){
-        Log.i(LOG_TAG, "instantiateItem, pos="+position);
+        Log.i(TAG, "instantiateItem, pos="+position);
         return super.instantiateItem(container, position);
     }
 

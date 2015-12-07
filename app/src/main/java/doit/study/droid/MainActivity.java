@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     // Shia LaBeouf - Just Do it! (Auto-tuned)
     private final String URL = "http://www.youtube.com/watch?v=gJscrxxl_Bg";
     @SuppressWarnings("unused")
-    private final String LOG_TAG = "NSA " + getClass().getName();
+    private final String TAG = "NSA " + getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
