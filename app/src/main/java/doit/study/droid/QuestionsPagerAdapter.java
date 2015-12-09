@@ -67,6 +67,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         String title = "";
         for (String tag: mQuizData.getById(position).getTags())
             title += tag+" ";
+        title += String.format("\t%d/%d", position+1, getCount());
         return title;
     }
 

@@ -42,8 +42,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private Button mvCommitButton;
     private TextView mvQuestionText;
     private LinearLayout mvAnswersLayout;
-    private TextView mvCurrentQuestionNum;
-    private TextView mvTotalQuestionNum;
     private TextView mvRight;
     private TextView mvWrong;
 
@@ -147,8 +145,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mvCommitButton.setOnClickListener(this);
         mvRight = (TextView) mView.findViewById(R.id.right_counter);
         mvWrong = (TextView) mView.findViewById(R.id.wrong_counter);
-        mvCurrentQuestionNum = (TextView) mView.findViewById(R.id.current_question_num);
-        mvTotalQuestionNum = (TextView) mView.findViewById(R.id.total_question_num);
     }
 
     private void updateView(){
@@ -163,8 +159,8 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void populate() {
         if (DEBUG) Log.i(TAG, "populate "+ID);
         mvQuestionText.setText(mCurrentQuestion.getText());
-        mvCurrentQuestionNum.setText("" + (mPosition+1));
-        mvTotalQuestionNum.setText("/" + (mQuizData.size()-1));
+        //mvCurrentQuestionNum.setText("" + (mPosition+1));
+        //mvTotalQuestionNum.setText("/" + (mQuizData.size()-1));
         mvRight.setText("" + mQuizData.getTotalRightCounter());
         mvRight.setTextColor(Color.GREEN);
         mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
