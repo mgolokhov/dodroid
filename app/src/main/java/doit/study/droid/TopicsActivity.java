@@ -2,8 +2,10 @@ package doit.study.droid;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public class TopicsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         GlobalData gd = (GlobalData) getApplication();
         rv.setAdapter(new TopicAdapter(gd.getQuizData()));
     }

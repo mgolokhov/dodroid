@@ -21,17 +21,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener {
+public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
-    private OnStatisticChangeListener mCallback;
+    private OnFragmentChangeListener mCallback;
     // keys for bundle, to save state
-    private static final String ID_KEY = "doit.study.dodroid.id_kye";
+    private static final String ID_KEY = "doit.study.dodroid.id_key";
+    private static final String COMMIT_BUTTON_STATE_KEY = "doit.study.dodroid.commit_button_state_key";
     // model stuff
     private Question mCurrentQuestion;
     private QuizData mQuizData;
     private int mPosition;
+    private int isEnabledCommitButton = 1;
     // view stuff
     private View mView;
     private ArrayList<CheckBox> mvCheckBoxes;
@@ -56,8 +60,14 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     // Container Activity must implement this interface
-    public interface OnStatisticChangeListener {
-        void onStatisticChanged();
+    public interface OnFragmentChangeListener {
+        void updateFragments();
+        void swipeNext();
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        populate();
     }
 
     @Override
@@ -90,17 +100,17 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
         super.onAttach(activity);
         try {
-            mCallback = (OnStatisticChangeListener) activity;
+            mCallback = (OnFragmentChangeListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnStatisticChangeListener");
+                    + " must implement OnFragmentChangeListener");
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setRetainInstance(true);
+        setRetainInstance(true);
         mPosition = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
         mCurrentQuestion = mQuizData.getById(mPosition);
@@ -115,8 +125,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         updateModel();
         updateView();
         populate();
-        if (savedInstanceState != null)
-            mvCommitButton.setEnabled((savedInstanceState.getInt("COMMIT_BUTTON_ENABLED") != -1));
+        if (savedInstanceState != null) {
+            Log.i(TAG, "isEnabledCommitButton " + savedInstanceState.getInt("COMMIT_BUTTON_ENABLED"));
+            isEnabledCommitButton = savedInstanceState.getInt(COMMIT_BUTTON_STATE_KEY);
+            mvCommitButton.setEnabled(isEnabledCommitButton == 1);
+        }
         return mView;
     }
 
@@ -197,27 +210,32 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         if (goodJob) {
             toast.setText("Right");
             v.setTextColor(Color.GREEN);
-            mvCommitButton.setBackgroundColor(0xFF00FF00); // => green color
+            //mvCommitButton.setBackgroundColor(0xFF00FF00); // => green color
             mQuizData.incrementRightCounter(mPosition);
             mvRight.setText("" + mQuizData.getTotalRightCounter());
-            // FIXME: doesn't work with POSITION_NONE
             mvCommitButton.setEnabled(false);
-            getArguments().putInt("COMMIT_BUTTON_ENABLED", -1);
+            isEnabledCommitButton = 0;
         }
         else {
             toast.setText("Wrong");
-            mvCommitButton.setBackgroundColor(Color.RED);
+            //mvCommitButton.setBackgroundColor(Color.RED);
             v.setTextColor(Color.RED);
             mQuizData.incrementWrongCounter(mPosition);
-            mvWrong.setText("/"+mQuizData.getTotalWrongCounter());
+            mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
 
         }
+        if (goodJob)
+            mCallback.swipeNext();
+        mCallback.updateFragments();
         toast.show();
-
-        mCallback.onStatisticChanged();
         return goodJob;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(COMMIT_BUTTON_STATE_KEY, isEnabledCommitButton);
+    }
 
     @Override
     public void onClick(View v) {
