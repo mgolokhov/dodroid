@@ -111,7 +111,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setRetainInstance(true);
         mPosition = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(mPosition);
+        mCurrentQuestion = mQuizData.getById(mQuizData.idAtPosition(mPosition));
         setHasOptionsMenu(true);
     }
 

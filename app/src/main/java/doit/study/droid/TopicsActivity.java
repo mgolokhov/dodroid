@@ -59,7 +59,7 @@ public class TopicsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            holder.topic.setText(mQuizData.getById(position).getText());
+            holder.topic.setText(mQuizData.getById(mQuizData.idAtPosition(position)).getText());
         }
     }
 
