@@ -32,6 +32,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private static final String ID_KEY = "doit.study.dodroid.id_key";
     private static final String COMMIT_BUTTON_STATE_KEY = "doit.study.dodroid.commit_button_state_key";
     // model stuff
+    private int questionId;
     private Question mCurrentQuestion;
     private QuizData mQuizData;
     private int mPosition;
@@ -47,13 +48,14 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     // Factory method
-    public static QuestionFragment newInstance(int position) {
+    public static QuestionFragment newInstance(int position, int questionId) {
         if (DEBUG) Log.i("NSA", "newInstance "+position);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ID_KEY, position);
         fragment.setArguments(bundle);
+        fragment.questionId = questionId;
         return fragment;
     }
 
@@ -111,7 +113,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setRetainInstance(true);
         mPosition = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(mPosition);
+        mCurrentQuestion = mQuizData.getById(questionId);
         setHasOptionsMenu(true);
     }
 

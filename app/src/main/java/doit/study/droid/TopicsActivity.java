@@ -14,6 +14,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 
@@ -40,15 +42,17 @@ public class TopicsActivity extends AppCompatActivity {
 
         public static class TopicViewHolder extends RecyclerView.ViewHolder{
             TextView topic;
+            CheckBox checkbox;
             public TopicViewHolder(View itemView) {
                 super(itemView);
                 topic = (TextView)itemView.findViewById(R.id.topic_name);
+                checkbox = (CheckBox) itemView.findViewById(R.id.checkbox_tag);
             }
         }
 
         @Override
         public int getItemCount() {
-            return mQuizData.size();
+            return mQuizData.tagsCount();
         }
 
         @Override
@@ -59,7 +63,19 @@ public class TopicsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            holder.topic.setText(mQuizData.getById(position).getText());
+            final int tagId = mQuizData.tagIdAtPosition(position);
+            holder.topic.setText(mQuizData.getTagById(tagId).getName());
+            holder.checkbox.setChecked(mQuizData.isSelectedTagId(tagId));
+            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        mQuizData.addSelectedTag(tagId);
+                    } else {
+                        mQuizData.removeSelectedTag(tagId);
+                    }
+                }
+            });
         }
     }
 
