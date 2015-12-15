@@ -21,12 +21,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import doit.study.droid.Question;
 import doit.study.droid.R;
+import doit.study.droid.Tag;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Logcat tag
@@ -202,19 +204,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return questionInfos;
     }
 
-    public int countQuestions() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String countQuery = "SELECT COUNT(*) FROM " + TABLE_QUESTION;
-        Cursor c = db.rawQuery(countQuery, null);
-        c.moveToFirst();
-        return c.getInt(0);
-    }
-
-    public List<Integer> getQuestionIds() {
+    public ArrayList<Integer> getQuestionIds() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " + KEY_ID + " FROM " + TABLE_QUESTION;
         Cursor c = db.rawQuery(query, null);
-        List<Integer> result = new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
         if (c.moveToFirst()) {
             do {
                 result.add(c.getInt(0));
@@ -269,6 +263,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         Question q = new Question(qid, text, wrongItems, rightItems, tags, docRef);
         return q;
+    }
+
+    public Tag getTagById(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query(TABLE_TAG, new String[]{KEY_TAG_NAME}, KEY_ID + "=" + id, null, null, null, null);
+        if (!c.moveToFirst()) return null;
+        String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+        return new Tag(id, name);
+    }
+
+    public ArrayList<Integer> getTagIds() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + KEY_ID + " FROM " + TABLE_TAG;
+        Cursor c = db.rawQuery(query, null);
+        ArrayList<Integer> result = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                result.add(c.getInt(0));
+            } while (c.moveToNext());
+        }
+        return result;
+    }
+
+    public ArrayList<Integer> getQuestionIdsByTags(ArrayList<Integer> selectedTagIds) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        StringBuilder sb = new StringBuilder();
+        Iterator<Integer> tagIdsIt = selectedTagIds.iterator();
+        while (tagIdsIt.hasNext()) {
+            int tagId = tagIdsIt.next();
+            sb.append(tagId);
+            if (tagIdsIt.hasNext()) sb.append(",");
+        }
+        String tagIdsCommaSeparated = sb.toString();
+        String query = "SELECT " + KEY_QUESTION_ID + " FROM " + TABLE_QUESTION_TAG + " WHERE " + KEY_TAG_ID + " IN (" + tagIdsCommaSeparated + ")";
+        Cursor c = db.rawQuery(query, null);
+        ArrayList<Integer> result = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                result.add(c.getInt(0));
+            } while (c.moveToNext());
+        }
+        return result;
     }
 
     private static class QuestionInfo {

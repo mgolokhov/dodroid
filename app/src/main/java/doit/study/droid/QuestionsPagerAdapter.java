@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,6 +14,7 @@ import java.util.Observer;
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
+    private final ArrayList<Integer> questionIds;
     private FragmentObserver mFragmentObserver = new FragmentObserver();
 
     private static class FragmentObserver extends Observable {
@@ -24,9 +26,10 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData) {
+    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData, ArrayList<Integer> questionIds) {
         super(fm);
         this.mQuizData = quizData;
+        this.questionIds = questionIds;
     }
 
     public void updateFragments(ViewGroup container, int posInFocus){
@@ -39,7 +42,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem, pos=" + position);
-        Fragment fragment = QuestionFragment.newInstance(position);
+        Fragment fragment = QuestionFragment.newInstance(position, questionIds.get(position));
         mFragmentObserver.addObserver((Observer) fragment);
         return fragment;
     }
@@ -58,14 +61,14 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mQuizData.size();
+        return questionIds.size();
     }
 
 
     @Override
     public CharSequence getPageTitle(int position) {
         String title = "";
-        for (String tag: mQuizData.getById(mQuizData.idAtPosition(position)).getTags())
+        for (String tag: mQuizData.getById(questionIds.get(position)).getTags())
             title += tag+" ";
         title += String.format("\t%d/%d", position+1, getCount());
         return title;

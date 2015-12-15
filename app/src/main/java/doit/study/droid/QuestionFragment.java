@@ -27,6 +27,7 @@ import java.util.Observer;
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
+    private int questionId;
     private OnFragmentChangeListener mCallback;
     // keys for bundle, to save state
     private static final String ID_KEY = "doit.study.dodroid.id_key";
@@ -47,13 +48,14 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     // Factory method
-    public static QuestionFragment newInstance(int position) {
+    public static QuestionFragment newInstance(int position, int questionId) {
         if (DEBUG) Log.i("NSA", "newInstance "+position);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ID_KEY, position);
         fragment.setArguments(bundle);
+        fragment.questionId = questionId;
         return fragment;
     }
 
@@ -111,7 +113,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setRetainInstance(true);
         mPosition = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(mQuizData.idAtPosition(mPosition));
+        mCurrentQuestion = mQuizData.getById(questionId);
         setHasOptionsMenu(true);
     }
 

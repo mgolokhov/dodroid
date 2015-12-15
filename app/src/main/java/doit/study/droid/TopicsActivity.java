@@ -1,6 +1,7 @@
 package doit.study.droid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -14,41 +15,94 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
-public class TopicsActivity extends AppCompatActivity {
+import doit.study.droid.sqlite.helper.DatabaseHelper;
+
+
+public class TopicsActivity extends AppCompatActivity implements TagSelectionEventListener {
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
+
+    private ArrayList<Integer> tagIdsToAdd = new ArrayList<>();
+    private ArrayList<Integer> tagIdsToDelete = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
+        ArrayList<Integer> tagIds = getIntent().getIntegerArrayListExtra("tagIds");
+        ArrayList<Integer> selectedTagIds = getIntent().getIntegerArrayListExtra("selectedTagIds");
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-        GlobalData gd = (GlobalData) getApplication();
-        rv.setAdapter(new TopicAdapter(gd.getQuizData()));
+        rv.setAdapter(new TopicAdapter(getApplicationContext(), this, tagIds, selectedTagIds));
+    }
+
+    @Override
+    public void onTagSelected(int tagId) {
+        int index = tagIdsToDelete.indexOf(tagId);
+        if (index != -1) {
+            tagIdsToDelete.remove(index);
+            return;
+        }
+        tagIdsToAdd.add(tagId);
+    }
+
+    @Override
+    public void onTagUnselected(int tagId) {
+        int index = tagIdsToAdd.indexOf(tagId);
+        if (index != -1) {
+            tagIdsToAdd.remove(index);
+            return;
+        }
+        tagIdsToDelete.add(tagId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        if (!tagIdsToAdd.isEmpty()) {
+            resultIntent.putIntegerArrayListExtra("toadd", tagIdsToAdd);
+        }
+        if (!tagIdsToDelete.isEmpty()) {
+            resultIntent.putIntegerArrayListExtra("todelete", tagIdsToDelete);
+        }
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 
     private static class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
-        QuizData mQuizData;
-        public TopicAdapter(QuizData quizData){
-            mQuizData = quizData;
+
+        DatabaseHelper mDBHelper;
+        ArrayList<Integer> mTagIds;
+        ArrayList<Integer> mInitialSelectedTagIds;
+        TagSelectionEventListener mTagListener;
+
+        public TopicAdapter(Context context, TagSelectionEventListener listener, ArrayList<Integer> tagIds, ArrayList<Integer> selectedTagIds){
+            mDBHelper = new DatabaseHelper(context);
+            mTagIds = tagIds;
+            mInitialSelectedTagIds = selectedTagIds;
+            mTagListener = listener;
         }
 
         public static class TopicViewHolder extends RecyclerView.ViewHolder{
             TextView topic;
+            CheckBox checkbox;
             public TopicViewHolder(View itemView) {
                 super(itemView);
                 topic = (TextView)itemView.findViewById(R.id.topic_name);
+                checkbox = (CheckBox) itemView.findViewById(R.id.checkbox_tag);
             }
         }
 
         @Override
         public int getItemCount() {
-            return mQuizData.size();
+            return mTagIds.size();
         }
 
         @Override
@@ -59,7 +113,19 @@ public class TopicsActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            holder.topic.setText(mQuizData.getById(mQuizData.idAtPosition(position)).getText());
+            final int tagId = mTagIds.get(position);
+            holder.topic.setText(mDBHelper.getTagById(tagId).getName());
+            holder.checkbox.setChecked(mInitialSelectedTagIds.contains(tagId));
+            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        mTagListener.onTagSelected(tagId);
+                    } else {
+                        mTagListener.onTagUnselected(tagId);
+                    }
+                }
+            });
         }
     }
 

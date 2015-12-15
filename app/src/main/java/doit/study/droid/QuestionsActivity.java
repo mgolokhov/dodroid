@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
@@ -23,8 +25,9 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
         pagerTabStrip.setNonPrimaryAlpha(0);
         pagerTabStrip.setTabIndicatorColor(0x000000);
+        ArrayList<Integer> questionIds = getIntent().getIntegerArrayListExtra("questionIds");
         GlobalData gd = (GlobalData) getApplication();
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), gd.getQuizData());
+        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), gd.getQuizData(), questionIds);
         mPager.setAdapter(mPagerAdapter);
         }
 
