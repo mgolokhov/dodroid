@@ -286,7 +286,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<Integer> getQuestionIdsByTags(ArrayList<Integer> selectedTagIds) {
+    public ArrayList<Integer> getQuestionIdsByTags(List<Integer> selectedTagIds) {
         SQLiteDatabase db = this.getReadableDatabase();
         StringBuilder sb = new StringBuilder();
         Iterator<Integer> tagIdsIt = selectedTagIds.iterator();

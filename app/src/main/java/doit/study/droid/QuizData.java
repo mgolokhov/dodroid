@@ -13,8 +13,8 @@ public class QuizData {
     private int mSize;
     private ArrayList<Integer> mIds;
     private int mTagsCount;
-    private ArrayList<Integer> mTagIds;
-    private ArrayList<Integer> mSelectedTagIds = new ArrayList<>();
+    private List<Integer> mTagIds;
+    private List<Integer> mSelectedTagIds = new ArrayList<>();
 
     public QuizData(DatabaseHelper dbHelper) {
         this.mDBHelper = dbHelper;
@@ -44,7 +44,7 @@ public class QuizData {
         return this.mSize;
     }
 
-    public ArrayList<Integer> getTagIds() {
+    public List<Integer> getTagIds() {
         return mTagIds;
     }
 
@@ -60,11 +60,11 @@ public class QuizData {
         return this.mTagsCount;
     }
 
-    public void setSelectedTagIds(ArrayList<Integer> selectedTagIds) {
+    public void setSelectedTagIds(List<Integer> selectedTagIds) {
         this.mSelectedTagIds = selectedTagIds;
     }
 
-    public ArrayList<Integer> getSelectedTagIds() {
+    public List<Integer> getSelectedTagIds() {
         return this.mSelectedTagIds;
     }
 //    public void addQuestion(Question q){

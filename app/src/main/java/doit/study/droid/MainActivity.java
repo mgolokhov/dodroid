@@ -30,35 +30,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(motivIntent);
     }
 
-    private static final int REQUEST_CODE_TAG_IDS = 1;
-
     public void setTopicButton(View v){
         Intent intent = new Intent(MainActivity.this, TopicsActivity.class);
         GlobalData globalData = (GlobalData) getApplication();
         QuizData quizData = globalData.getQuizData();
         globalData.save("selectedTagIds", quizData.getSelectedTagIds());
         globalData.save("tagIds", quizData.getTagIds());
-        startActivityForResult(intent, REQUEST_CODE_TAG_IDS);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_TAG_IDS) {
-            GlobalData globalData = (GlobalData) getApplication();
-            QuizData quizData = globalData.getQuizData();
-            ArrayList<Integer> toadd = (ArrayList<Integer>) globalData.retrieve("toadd");
-            ArrayList<Integer> todelete = (ArrayList<Integer>) globalData.retrieve("todelete");
-            if (toadd != null || todelete != null) {
-                ArrayList<Integer> selectedIds = quizData.getSelectedTagIds();
-                if (todelete != null)
-                    selectedIds.removeAll(todelete);
-                if (toadd != null)
-                    selectedIds.addAll(toadd);
-                quizData.setSelectedTagIds(selectedIds);
-            }
-            return;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+        startActivity(intent);
     }
 
     public void doitButton(View v){

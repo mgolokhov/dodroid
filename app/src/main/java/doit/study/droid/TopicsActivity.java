@@ -29,8 +29,7 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
 
-    private ArrayList<Integer> tagIdsToAdd = new ArrayList<>();
-    private ArrayList<Integer> tagIdsToDelete = new ArrayList<>();
+    private List<Integer> mSelectedTagIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,45 +37,29 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
         setContentView(R.layout.topics_layout);
         GlobalData gd = (GlobalData) getApplication();
         List<Integer> tagIds = (List<Integer>) gd.retrieve("tagIds");
-        List<Integer> selectedTagIds = (List<Integer>) gd.retrieve("selectedTagIds");
+        mSelectedTagIds = (List<Integer>) gd.retrieve("selectedTagIds");
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-        rv.setAdapter(new TopicAdapter(getApplicationContext(), this, tagIds, selectedTagIds));
+        rv.setAdapter(new TopicAdapter(getApplicationContext(), this, tagIds, mSelectedTagIds));
     }
 
     @Override
     public void onTagSelected(int tagId) {
-        int index = tagIdsToDelete.indexOf(tagId);
-        if (index != -1) {
-            tagIdsToDelete.remove(index);
-            return;
-        }
-        tagIdsToAdd.add(tagId);
+        mSelectedTagIds.add(tagId);
     }
 
     @Override
     public void onTagUnselected(int tagId) {
-        int index = tagIdsToAdd.indexOf(tagId);
-        if (index != -1) {
-            tagIdsToAdd.remove(index);
-            return;
-        }
-        tagIdsToDelete.add(tagId);
+        int index = mSelectedTagIds.indexOf(tagId);
+        mSelectedTagIds.remove(index);
     }
 
     @Override
     public void onBackPressed() {
         GlobalData gd = (GlobalData) getApplication();
-        Intent resultIntent = new Intent();
-        if (!tagIdsToAdd.isEmpty()) {
-            gd.save("toadd", tagIdsToAdd);
-        }
-        if (!tagIdsToDelete.isEmpty()) {
-            gd.save("todelete", tagIdsToDelete);
-        }
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        gd.getQuizData().setSelectedTagIds(mSelectedTagIds);
+        super.onBackPressed();
     }
 
     private static class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
