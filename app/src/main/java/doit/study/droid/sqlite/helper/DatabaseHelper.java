@@ -3,6 +3,7 @@ package doit.study.droid.sqlite.helper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -207,11 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int countQuestions() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String countQuery = "SELECT COUNT(*) FROM " + TABLE_QUESTION;
-        Cursor c = db.rawQuery(countQuery, null);
-        c.moveToFirst();
-        return c.getInt(0);
+        return (int)DatabaseUtils.queryNumEntries(getReadableDatabase(), TABLE_QUESTION);
     }
 
     public List<Integer> getQuestionIds() {
