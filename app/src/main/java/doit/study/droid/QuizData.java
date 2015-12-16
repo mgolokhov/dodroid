@@ -2,6 +2,7 @@ package doit.study.droid;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
@@ -110,5 +111,13 @@ public class QuizData {
 
     private ArrayList<Integer> getQuestionIdsByTags() {
         return mDBHelper.getQuestionIdsByTags(mSelectedTagIds);
+    }
+
+    public List<Tag> getTags() {
+        return mDBHelper.getTags();
+    }
+
+    public Map<Integer, Tag.Stats> getTagStats() {
+        return mDBHelper.getTagStats();
     }
 }

@@ -75,6 +75,15 @@
             android:text="@string/commit_button"
             />
 
+        <Button
+            android:id="@+id/next_button"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/next_button"
+            />
+
         <TextView
             android:id="@+id/wrong_counter"
             android:layout_width="wrap_content"

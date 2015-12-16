@@ -42,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table Names
     private static final String TABLE_QUESTION = "questions";
+    private static final String TABLE_STATS = "stats";
     private static final String TABLE_ANSWER = "answers";
     private static final String TABLE_TAG = "tags";
     private static final String TABLE_QUESTION_TAG = "questions_tags";
@@ -56,6 +57,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_IS_BINARY = "is_binary";
     private static final String KEY_ANSWER_IS_TRUE = "is_binary_true";
 
+    // STATS Table - column names
+    private static final String KEY_STATS_RIGHT = "right_count";
+
     // ANSWER Table - column names
     private static final String KEY_ANSWER = "answer";
     private static final String KEY_IS_RIGHT = "is_right";
@@ -68,7 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TAG_ID = "tag_id";
 
     // Table Create Statements
-    // Todo table create statement
     private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "
             + TABLE_QUESTION + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
@@ -76,6 +79,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_DOC_REF + " TEXT,"
             + KEY_IS_BINARY + " INTEGER DEFAULT 0,"
             + KEY_ANSWER_IS_TRUE + " INTEGER DEFAULT 0,"
+            + KEY_CREATED_AT
+            + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
+
+    private static final String CREATE_TABLE_STATS = "CREATE TABLE "
+            + TABLE_STATS + "("
+            + KEY_QUESTION_ID + " INTEGER PRIMARY KEY,"
+            + KEY_STATS_RIGHT + " INTEGER DEFAULT 0,"
             + KEY_CREATED_AT
             + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
@@ -112,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // creating required tables
         db.execSQL(CREATE_TABLE_QUESTION);
+        db.execSQL(CREATE_TABLE_STATS);
         db.execSQL(CREATE_TABLE_ANSWER);
         db.execSQL(CREATE_TABLE_TAG);
         db.execSQL(CREATE_TABLE_QUESTION_TAG);
@@ -121,6 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANSWER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TAG);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION_TAG);
@@ -265,6 +277,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return q;
     }
 
+    public List<Tag> getTags() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query(TABLE_TAG, new String[]{KEY_ID, KEY_TAG_NAME}, null, null, null, null, null);
+        if (!c.moveToFirst()) return null;
+        ArrayList<Tag> result = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+                int id = c.getInt(c.getColumnIndex(KEY_ID));
+                result.add(new Tag(id, name));
+            } while (c.moveToNext());
+        }
+        return result;
+    }
+
+    public Map<Integer, Tag.Stats> getTagStats() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + KEY_TAG_ID + ", COUNT(*) as count, SUM(score) as learned" +
+                " FROM " + TABLE_QUESTION_TAG + " qt" +
+                " JOIN (" +
+                    "SELECT " + KEY_QUESTION_ID + "," +
+                        "CASE WHEN "+KEY_STATS_RIGHT+" < 3 THEN 0 ELSE 1 END score " +
+                    "FROM " + TABLE_STATS +
+                ") s ON qt." + KEY_QUESTION_ID + "=s." + KEY_QUESTION_ID +
+                " GROUP BY qt." + KEY_TAG_ID;
+        Cursor c = db.rawQuery(query, null);
+        Map<Integer, Tag.Stats> result = new HashMap<>();
+        if (c.moveToFirst()) {
+            do {
+                int tagId = c.getInt(c.getColumnIndex(KEY_TAG_ID));
+                int count = c.getInt(c.getColumnIndex("count"));
+                int learned = c.getInt(c.getColumnIndex("learned"));
+                result.put(tagId, new Tag.Stats(count, learned));
+            } while (c.moveToNext());
+        }
+        return result;
+    }
+
     public Tag getTagById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.query(TABLE_TAG, new String[]{KEY_TAG_NAME}, KEY_ID + "=" + id, null, null, null, null);
@@ -305,6 +355,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         return result;
+    }
+
+    public void addStats(int questionId, boolean isRight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql;
+        if (isRight) {
+            sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = " + KEY_STATS_RIGHT + " + 1 WHERE " +
+                    KEY_QUESTION_ID + " = " + questionId + " AND " + KEY_STATS_RIGHT + " < 3";
+        } else {
+            sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = 0 WHERE " +
+                    KEY_QUESTION_ID + " = " + questionId;
+        }
+        db.execSQL(sql);
     }
 
     private static class QuestionInfo {
@@ -356,6 +419,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             KEY_DOC_REF + ", " +
                             KEY_IS_BINARY + ", " +
                             KEY_ANSWER_IS_TRUE + ") VALUES (?, ?, ?, ?)");
+            SQLiteStatement insertStats = db.compileStatement(
+                    "INSERT OR REPLACE INTO " + TABLE_STATS + " (" +
+                            KEY_QUESTION_ID + ") VALUES (?)");
             SQLiteStatement insertAnswer = db.compileStatement(
                     "INSERT OR REPLACE INTO " + TABLE_ANSWER + " (" +
                             KEY_ANSWER + ", " +
@@ -374,6 +440,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     insertQuestion.bindLong(4, q.answerIsTrue ? 1 : 0);
                 }
                 long questionId = insertQuestion.executeInsert();
+                insertStats.bindLong(1, questionId);
+                insertStats.executeInsert();
 
                 if (!q.isBinary) {
                     for (String right: q.mRightItems) {

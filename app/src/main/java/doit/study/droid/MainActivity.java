@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         GlobalData globalData = (GlobalData) getApplication();
         QuizData quizData = globalData.getQuizData();
         globalData.save("selectedTagIds", quizData.getSelectedTagIds());
-        globalData.save("tagIds", quizData.getTagIds());
+        globalData.save("tags", quizData.getTags());
+        globalData.save("tagStats", quizData.getTagStats());
         startActivity(intent);
     }
 

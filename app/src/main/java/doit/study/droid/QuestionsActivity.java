@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener {
     private final String TAG = "NSA " + getClass().getName();
@@ -28,7 +31,22 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         pagerTabStrip.setTabIndicatorColor(0x000000);
         GlobalData gd = (GlobalData) getApplication();
         List<Integer> questionIds = (List<Integer>) gd.retrieve("questionIds");
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), gd.getQuizData(), questionIds);
+        Collections.shuffle(questionIds);
+        if (questionIds.size() > 10) {
+            questionIds = questionIds.subList(0, 10);
+        }
+        AnswerCheckListener answerCheckListener = new AnswerCheckListener() {
+            DatabaseHelper mDBHelper = new DatabaseHelper(QuestionsActivity.this.getApplicationContext());
+            @Override
+            public void onAnswer(int questionId, boolean isRight) {
+                mDBHelper.addStats(questionId, isRight);
+            }
+        };
+        mPagerAdapter = new QuestionsPagerAdapter(
+                getSupportFragmentManager(),
+                answerCheckListener,
+                gd.getQuizData(),
+                questionIds);
         mPager.setAdapter(mPagerAdapter);
         }
 

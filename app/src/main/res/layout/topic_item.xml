@@ -19,7 +19,7 @@
         android:id="@+id/topic_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/checkbox"
+        android:layout_toLeftOf="@id/checkbox_tag"
         android:gravity="center_vertical"
         android:padding="4dp"
         />

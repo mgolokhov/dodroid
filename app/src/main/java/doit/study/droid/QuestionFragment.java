@@ -27,7 +27,8 @@ import java.util.Observer;
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
-    private int questionId;
+    private int mQuestionId;
+    private AnswerCheckListener mAnswerCheckListener;
     private OnFragmentChangeListener mCallback;
     // keys for bundle, to save state
     private static final String ID_KEY = "doit.study.dodroid.id_key";
@@ -45,17 +46,19 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private LinearLayout mvAnswersLayout;
     private TextView mvRight;
     private TextView mvWrong;
+    private Button mvNextButton;
 
 
     // Factory method
-    public static QuestionFragment newInstance(int position, int questionId) {
+    public static QuestionFragment newInstance(int position, int questionId, AnswerCheckListener listener) {
         if (DEBUG) Log.i("NSA", "newInstance "+position);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ID_KEY, position);
         fragment.setArguments(bundle);
-        fragment.questionId = questionId;
+        fragment.mQuestionId = questionId;
+        fragment.mAnswerCheckListener = listener;
         return fragment;
     }
 
@@ -113,7 +116,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setRetainInstance(true);
         mPosition = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(questionId);
+        mCurrentQuestion = mQuizData.getById(mQuestionId);
         setHasOptionsMenu(true);
     }
 
@@ -142,9 +145,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (LinearLayout) mView.findViewById(R.id.answers);
         mvCommitButton = (Button) mView.findViewById(R.id.commit_button);
+        mvNextButton = (Button) mView.findViewById(R.id.next_button);
         // You can not add onclick listener to a button in a fragment's xml
         // So we implement OnClickListener interface, check onClick() method
         mvCommitButton.setOnClickListener(this);
+        mvNextButton.setOnClickListener(this);
         mvRight = (TextView) mView.findViewById(R.id.right_counter);
         mvWrong = (TextView) mView.findViewById(R.id.wrong_counter);
     }
@@ -222,8 +227,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
 
         }
-        if (goodJob)
-            mCallback.swipeNext();
         mCallback.updateFragments();
         toast.show();
         return goodJob;
@@ -239,7 +242,17 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.commit_button):
-                checkAnswers();
+                boolean isRight = checkAnswers();
+                mAnswerCheckListener.onAnswer(mQuestionId, isRight);
+                if (!isRight) {
+                    v.setVisibility(View.GONE);
+                    mvNextButton.setVisibility(View.VISIBLE);
+                } else {
+                    mCallback.swipeNext();
+                }
+                break;
+            case (R.id.next_button):
+                mCallback.swipeNext();
                 break;
         }
     }

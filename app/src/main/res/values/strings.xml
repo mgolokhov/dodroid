@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DoDroid</string>
     <string name="commit_button">Commit</string>
+    <string name="next_button">Next</string>
     <string name="doit_button">doIt!</string>
     <string name="need_motivation_button">getMotivation</string>
 

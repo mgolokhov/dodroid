@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
@@ -36,12 +37,13 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
         GlobalData gd = (GlobalData) getApplication();
-        List<Integer> tagIds = (List<Integer>) gd.retrieve("tagIds");
+        List<Tag> tags = (List<Tag>) gd.retrieve("tags");
+        Map<Integer, Tag.Stats> tagStats = (Map<Integer, Tag.Stats>) gd.retrieve("tagStats");
         mSelectedTagIds = (List<Integer>) gd.retrieve("selectedTagIds");
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-        rv.setAdapter(new TopicAdapter(getApplicationContext(), this, tagIds, mSelectedTagIds));
+        rv.setAdapter(new TopicAdapter(getApplicationContext(), this, tags, tagStats, mSelectedTagIds));
     }
 
     @Override
@@ -65,13 +67,15 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
     private static class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
 
         DatabaseHelper mDBHelper;
-        List<Integer> mTagIds;
+        List<Tag> mTags;
         List<Integer> mInitialSelectedTagIds;
         TagSelectionEventListener mTagListener;
+        Map<Integer, Tag.Stats> mTagStats;
 
-        public TopicAdapter(Context context, TagSelectionEventListener listener, List<Integer> tagIds, List<Integer> selectedTagIds){
+        public TopicAdapter(Context context, TagSelectionEventListener listener, List<Tag> tags, Map<Integer, Tag.Stats> tagStats, List<Integer> selectedTagIds){
+            mTagStats = tagStats;
             mDBHelper = new DatabaseHelper(context);
-            mTagIds = tagIds;
+            mTags = tags;
             mInitialSelectedTagIds = selectedTagIds;
             mTagListener = listener;
         }
@@ -88,7 +92,7 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
 
         @Override
         public int getItemCount() {
-            return mTagIds.size();
+            return mTags.size();
         }
 
         @Override
@@ -99,16 +103,17 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            final int tagId = mTagIds.get(position);
-            holder.topic.setText(mDBHelper.getTagById(tagId).getName());
-            holder.checkbox.setChecked(mInitialSelectedTagIds.contains(tagId));
+            final Tag tag = mTags.get(position);
+            Tag.Stats stats = mTagStats.get(tag.getId());
+            holder.topic.setText(tag.getName() + "(" + stats.getLearned() + "/" + stats.getQuestionsCount() + ")");
+            holder.checkbox.setChecked(mInitialSelectedTagIds.contains(tag.getId()));
             holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        mTagListener.onTagSelected(tagId);
+                        mTagListener.onTagSelected(tag.getId());
                     } else {
-                        mTagListener.onTagUnselected(tagId);
+                        mTagListener.onTagUnselected(tag.getId());
                     }
                 }
             });
