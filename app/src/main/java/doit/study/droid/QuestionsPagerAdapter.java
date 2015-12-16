@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,7 +15,7 @@ import java.util.Observer;
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
-    private final ArrayList<Integer> questionIds;
+    private final List<Integer> questionIds;
     private FragmentObserver mFragmentObserver = new FragmentObserver();
 
     private static class FragmentObserver extends Observable {
@@ -26,7 +27,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData, ArrayList<Integer> questionIds) {
+    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData, List<Integer> questionIds) {
         super(fm);
         this.mQuizData = quizData;
         this.questionIds = questionIds;

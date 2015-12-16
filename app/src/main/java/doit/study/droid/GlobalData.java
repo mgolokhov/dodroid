@@ -13,6 +13,7 @@ public class GlobalData extends Application {
     // I think we can say it some kind of descriptor, so it's an integer
     private final Integer mTestFile = R.raw.quiz;
     private QuizData mQuizData;
+    private InterActivityDataHolder mDataHolder = new InterActivityDataHolder();
 
     @Override
     public void onCreate() {
@@ -27,4 +28,11 @@ public class GlobalData extends Application {
         return mQuizData;
     }
 
+    public void save(String key, Object obj) {
+        mDataHolder.save(key, obj);
+    }
+
+    public Object retrieve(String key) {
+        return mDataHolder.retrieve(key);
+    }
 }

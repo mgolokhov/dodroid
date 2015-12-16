@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
@@ -35,8 +36,9 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
-        ArrayList<Integer> tagIds = getIntent().getIntegerArrayListExtra("tagIds");
-        ArrayList<Integer> selectedTagIds = getIntent().getIntegerArrayListExtra("selectedTagIds");
+        GlobalData gd = (GlobalData) getApplication();
+        List<Integer> tagIds = (List<Integer>) gd.retrieve("tagIds");
+        List<Integer> selectedTagIds = (List<Integer>) gd.retrieve("selectedTagIds");
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
@@ -65,12 +67,13 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
 
     @Override
     public void onBackPressed() {
+        GlobalData gd = (GlobalData) getApplication();
         Intent resultIntent = new Intent();
         if (!tagIdsToAdd.isEmpty()) {
-            resultIntent.putIntegerArrayListExtra("toadd", tagIdsToAdd);
+            gd.save("toadd", tagIdsToAdd);
         }
         if (!tagIdsToDelete.isEmpty()) {
-            resultIntent.putIntegerArrayListExtra("todelete", tagIdsToDelete);
+            gd.save("todelete", tagIdsToDelete);
         }
         setResult(RESULT_OK, resultIntent);
         finish();
@@ -79,11 +82,11 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
     private static class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
 
         DatabaseHelper mDBHelper;
-        ArrayList<Integer> mTagIds;
-        ArrayList<Integer> mInitialSelectedTagIds;
+        List<Integer> mTagIds;
+        List<Integer> mInitialSelectedTagIds;
         TagSelectionEventListener mTagListener;
 
-        public TopicAdapter(Context context, TagSelectionEventListener listener, ArrayList<Integer> tagIds, ArrayList<Integer> selectedTagIds){
+        public TopicAdapter(Context context, TagSelectionEventListener listener, List<Integer> tagIds, List<Integer> selectedTagIds){
             mDBHelper = new DatabaseHelper(context);
             mTagIds = tagIds;
             mInitialSelectedTagIds = selectedTagIds;
@@ -170,4 +173,9 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
             }
         }
     }
+}
+
+interface TagSelectionEventListener {
+    void onTagSelected(int tagId);
+    void onTagUnselected(int tagId);
 }

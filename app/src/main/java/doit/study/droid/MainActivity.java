@@ -34,19 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void setTopicButton(View v){
         Intent intent = new Intent(MainActivity.this, TopicsActivity.class);
-        intent.putIntegerArrayListExtra("selectedTagIds",
-                ((GlobalData)getApplication()).getQuizData().getSelectedTagIds() );
-        intent.putIntegerArrayListExtra("tagIds",
-                ((GlobalData)getApplication()).getQuizData().getTagIds() );
+        GlobalData globalData = (GlobalData) getApplication();
+        QuizData quizData = globalData.getQuizData();
+        globalData.save("selectedTagIds", quizData.getSelectedTagIds());
+        globalData.save("tagIds", quizData.getTagIds());
         startActivityForResult(intent, REQUEST_CODE_TAG_IDS);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_TAG_IDS) {
-            ArrayList<Integer> toadd = data.getIntegerArrayListExtra("toadd");
-            ArrayList<Integer> todelete = data.getIntegerArrayListExtra("todelete");
-            QuizData quizData = ((GlobalData) getApplication()).getQuizData();
+            GlobalData globalData = (GlobalData) getApplication();
+            QuizData quizData = globalData.getQuizData();
+            ArrayList<Integer> toadd = (ArrayList<Integer>) globalData.retrieve("toadd");
+            ArrayList<Integer> todelete = (ArrayList<Integer>) globalData.retrieve("todelete");
             if (toadd != null || todelete != null) {
                 ArrayList<Integer> selectedIds = quizData.getSelectedTagIds();
                 if (todelete != null)
@@ -62,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void doitButton(View v){
         Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
-        QuizData quizData = ((GlobalData) getApplication()).getQuizData();
-        intent.putIntegerArrayListExtra("questionIds", quizData.getQuestionIdsToWorkWith() );
+        GlobalData globalData = (GlobalData) getApplication();
+        QuizData quizData = globalData.getQuizData();
+        globalData.save("questionIds", quizData.getQuestionIdsToWorkWith());
         startActivity(intent);
     }
 }
