@@ -78,14 +78,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     // Tag table create statement
-    private static final String CREATE_TABLE_TAG = "CREATE TABLE " + TABLE_TAG
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TAG_NAME + " TEXT,"
+    private static final String CREATE_TABLE_TAG = "CREATE TABLE "
+            + TABLE_TAG + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TAG_NAME + " TEXT,"
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     // todo_tag table create statement
     private static final String CREATE_TABLE_QUESTION_TAG = "CREATE TABLE "
-            + TABLE_QUESTION_TAG + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_QUESTION_ID + " INTEGER," + KEY_TAG_ID + " INTEGER,"
+            + TABLE_QUESTION_TAG + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_QUESTION_ID + " INTEGER,"
+            + KEY_TAG_ID + " INTEGER,"
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     private static final String CREATE_TABLE_ANSWER = "CREATE TABLE "
