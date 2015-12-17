@@ -7,7 +7,6 @@ import java.util.Map;
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 public class QuizData {
-    //private HashMap<Integer, Question> mQuestions = new HashMap<>();
     private int mTotalWrongCounter;
     private int mTotalRightCounter;
     private DatabaseHelper mDBHelper;
@@ -68,21 +67,12 @@ public class QuizData {
     public List<Integer> getSelectedTagIds() {
         return this.mSelectedTagIds;
     }
-//    public void addQuestion(Question q){
-//        mQuestions.put(q.getId(), q);
-//    }
-//
-//    public void addAllQuestions(HashMap<Integer, Question> questions){
-//        mQuestions = questions;
-//    }
 
     public void incrementWrongCounter(int id){
-//        mQuestions.get(id).incrementWrongCounter();
         mTotalWrongCounter++;
     }
 
     public void incrementRightCounter(int id){
-//        mQuestions.get(id).incrementRightCounter();
         mTotalRightCounter++;
     }
 

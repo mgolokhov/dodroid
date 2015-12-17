@@ -166,8 +166,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void populate() {
         if (DEBUG) Log.i(TAG, "populate "+ID);
         mvQuestionText.setText(mCurrentQuestion.getText());
-        //mvCurrentQuestionNum.setText("" + (mPosition+1));
-        //mvTotalQuestionNum.setText("/" + (mQuizData.size()-1));
         mvRight.setText("" + mQuizData.getTotalRightCounter());
         mvRight.setTextColor(Color.GREEN);
         mvWrong.setText(" " + mQuizData.getTotalWrongCounter());

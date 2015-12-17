@@ -1,12 +1,12 @@
 package doit.study.droid.sqlite.helper;
 
-import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.os.Environment;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -14,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,12 +30,16 @@ import doit.study.droid.R;
 import doit.study.droid.Tag;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
     // Logcat tag
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+
+    private static final int DATABASE_VERSION = 6;
+    private static final int DB_CONTENT_VERSION = 3;
+    private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     // Database Name
     private static final String DATABASE_NAME = "dodroid";
@@ -91,14 +94,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     // Tag table create statement
-    private static final String CREATE_TABLE_TAG = "CREATE TABLE " + TABLE_TAG
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TAG_NAME + " TEXT,"
+    private static final String CREATE_TABLE_TAG = "CREATE TABLE "
+            + TABLE_TAG + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_TAG_NAME + " TEXT,"
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     // todo_tag table create statement
     private static final String CREATE_TABLE_QUESTION_TAG = "CREATE TABLE "
-            + TABLE_QUESTION_TAG + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_QUESTION_ID + " INTEGER," + KEY_TAG_ID + " INTEGER,"
+            + TABLE_QUESTION_TAG + "("
+            + KEY_ID + " INTEGER PRIMARY KEY,"
+            + KEY_QUESTION_ID + " INTEGER,"
+            + KEY_TAG_ID + " INTEGER,"
             + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     private static final String CREATE_TABLE_ANSWER = "CREATE TABLE "
@@ -110,7 +117,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_CREATED_AT
             + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
-    private final Integer mTestFile = R.raw.quiz;
     private Context mContext;
 
     public DatabaseHelper(Context context) {
@@ -127,6 +133,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ANSWER);
         db.execSQL(CREATE_TABLE_TAG);
         db.execSQL(CREATE_TABLE_QUESTION_TAG);
+        // In our case schema and initial db content are tied
+        insertFromFile(readFile(), db);
     }
 
     @Override
@@ -143,17 +151,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void importFromFile() {
 
-        File flagFile = new File(mContext.getFilesDir(), "imported");
-        if (flagFile.exists()) return;
-
-        insertFromFile(readFile());
-
-        try {
-            flagFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+    // Leave for the future use
+    @SuppressWarnings("unused")
+    public void importFromFile(SQLiteDatabase db) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SQLITE_SHAREDPREF, Context.MODE_PRIVATE);
+        int version = sharedPreferences.getInt(DB_CONTENT_VERSION_KEY, 0);
+        if (version < DB_CONTENT_VERSION) {
+            Log.i(TAG, "populate db from file");
+            insertFromFile(readFile(), db);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(DB_CONTENT_VERSION_KEY, DB_CONTENT_VERSION);
+            editor.commit();
         }
 
     }
@@ -162,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Yeah, just read file, return contents
     private String readFile(){
         InputStream inputStream = mContext.getResources().openRawResource(
-                mTestFile);
+                R.raw.quiz);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 inputStream));
 
@@ -216,6 +225,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return questionInfos;
+    }
+
+    public int countQuestions() {
+        return (int)DatabaseUtils.queryNumEntries(getReadableDatabase(), TABLE_QUESTION);
     }
 
     public ArrayList<Integer> getQuestionIds() {
@@ -406,9 +419,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    private void insertFromFile(String fileContents) {
+    private void insertFromFile(String fileContents, SQLiteDatabase db) {
         List<QuestionInfo> parsedQuestions = parseTests(fileContents);
-        SQLiteDatabase db = this.getWritableDatabase();
         Map<String, Long> tag2id = insertTags(db, parsedQuestions);
         insertQuestions(db, parsedQuestions, tag2id);
     }
