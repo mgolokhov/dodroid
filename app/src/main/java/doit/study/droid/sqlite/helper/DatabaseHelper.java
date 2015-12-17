@@ -1,13 +1,12 @@
 package doit.study.droid.sqlite.helper;
 
-import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.os.Environment;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -15,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,11 +28,15 @@ import doit.study.droid.Question;
 import doit.study.droid.R;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
     // Logcat tag
-    private static final String LOG = "DatabaseHelper";
+    @SuppressWarnings("unused")
+    private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
+    private static final int DB_CONTENT_VERSION = 3;
+    private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     // Database Name
     private static final String DATABASE_NAME = "dodroid";
@@ -133,16 +135,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void importFromFile() {
-
-        File flagFile = new File(mContext.getFilesDir(), "imported");
-        if (flagFile.exists()) return;
-
-        insertFromFile(readFile());
-
-        try {
-            flagFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SQLITE_SHAREDPREF, Context.MODE_PRIVATE);
+        int version = sharedPreferences.getInt(DB_CONTENT_VERSION_KEY, 0);
+        if (version < DB_CONTENT_VERSION) {
+            Log.i(TAG, "populate db from file");
+            insertFromFile(readFile());
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(DB_CONTENT_VERSION_KEY, DB_CONTENT_VERSION);
+            editor.commit();
         }
 
     }
@@ -164,7 +164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
         } catch (IOException e) {
-            Log.i(LOG, "IOException");
+            Log.i(TAG, "IOException");
         }
         return buffer.toString();
     }
