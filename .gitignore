@@ -6,6 +6,9 @@
 /build
 /captures
 
+#git config file
+.gitconfig
+
 #built application files
 *.apk
 *.ap_
