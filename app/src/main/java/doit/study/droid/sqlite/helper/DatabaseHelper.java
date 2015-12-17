@@ -32,10 +32,11 @@ import doit.study.droid.Tag;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Logcat tag
-    private static final String LOG = "DatabaseHelper";
+    @SuppressWarnings("unused")
+    private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "dodroid";
@@ -119,7 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.i(TAG, "create db");
         // creating required tables
         db.execSQL(CREATE_TABLE_QUESTION);
         db.execSQL(CREATE_TABLE_STATS);
@@ -130,6 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i(TAG, "update db");
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATS);
@@ -173,7 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
         } catch (IOException e) {
-            Log.i(LOG, "IOException");
+            Log.i(TAG, "IOException");
         }
         return buffer.toString();
     }
