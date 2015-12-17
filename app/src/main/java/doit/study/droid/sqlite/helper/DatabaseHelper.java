@@ -158,7 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Read raw data from resource file
     // Yeah, just read file, return contents
-    private String readFile(){
+    private String readFile() {
         InputStream inputStream = mContext.getResources().openRawResource(
                 mTestFile);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -180,33 +180,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Parse and map json data to the Question object
     // Many questions => List of questions
-    private List<QuestionInfo> parseTests(String data){
+    private List<QuestionInfo> parseTests(String data) {
         List<QuestionInfo> questionInfos = new ArrayList<>();
         try {
             JSONArray questions = new JSONArray(data);
-            for(int i=0; i < questions.length(); i++) {
+            for (int i = 0; i < questions.length(); i++) {
                 JSONObject currentQuestion = questions.getJSONObject(i);
                 int id = Integer.parseInt(currentQuestion.getString("ID"));
-                String questionText= currentQuestion.getString("question");
+                String questionText = currentQuestion.getString("question");
                 JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
                 ArrayList<String> wrongItems = new ArrayList<>();
-                for(int j=0; j<wrongAnswers.length(); j++){
+                for (int j = 0; j < wrongAnswers.length(); j++) {
                     wrongItems.add(wrongAnswers.get(j).toString());
                 }
                 JSONArray rightAnswers = currentQuestion.getJSONArray("right");
                 ArrayList<String> rightItems = new ArrayList<>();
-                for(int j=0; j<rightAnswers.length(); j++){
+                for (int j = 0; j < rightAnswers.length(); j++) {
                     rightItems.add(rightAnswers.get(j).toString());
                 }
                 JSONArray tags = currentQuestion.optJSONArray("tags");
                 ArrayList<String> questionTags = new ArrayList<>();
                 if (tags != null)
-                    for(int j=0; j<tags.length(); j++)
+                    for (int j = 0; j < tags.length(); j++)
                         questionTags.add(tags.get(j).toString());
                 else
                     questionTags.add("Other");
                 String docRef = currentQuestion.getString("docRef");
-                QuestionInfo q = new QuestionInfo(id, questionText, wrongItems, rightItems , questionTags, docRef);
+                QuestionInfo q = new QuestionInfo(id, questionText, wrongItems, rightItems, questionTags, docRef);
                 questionInfos.add(q);
 
             }
@@ -217,157 +217,229 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Integer> getQuestionIds() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + KEY_ID + " FROM " + TABLE_QUESTION;
-        Cursor c = db.rawQuery(query, null);
         ArrayList<Integer> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getInt(0));
-            } while (c.moveToNext());
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = this.getReadableDatabase();
+            String query = "SELECT " + KEY_ID + " FROM " + TABLE_QUESTION;
+            c = db.rawQuery(query, null);
+            if (c.moveToFirst()) {
+                do {
+                    result.add(c.getInt(0));
+                } while (c.moveToNext());
+            }
+        } finally {
+            if (db != null) db.close();
+            if (c != null) c.close();
         }
         return result;
     }
 
     public Question getQuestionById(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String queryQuestion = "SELECT * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = " + id;
-        Cursor c = db.rawQuery(queryQuestion, null);
-        if (!c.moveToFirst()) throw new RuntimeException("no movetofirst!!");
-        int qid = c.getInt(c.getColumnIndex(KEY_ID));
-        String text = c.getString(c.getColumnIndex(KEY_QUESTION));
-        String docRef = c.getString(c.getColumnIndex(KEY_DOC_REF));
+        SQLiteDatabase db = null;
+        Cursor c = null;
 
-        boolean isBinary = c.getInt(c.getColumnIndex(KEY_IS_BINARY)) == 1;
-
-        String queryTag = "SELECT * FROM " + TABLE_QUESTION_TAG + " qt " +
-                " JOIN " + TABLE_TAG + " t on qt." + KEY_TAG_ID + " = t." + KEY_ID +
-                " WHERE qt." + KEY_QUESTION_ID + " = " + id;
-
-        c = db.rawQuery(queryTag, null);
+        int qid;
+        String text;
+        String docRef;
+        boolean isBinary;
         ArrayList<String> tags = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                String tag = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-                tags.add(tag);
-            } while (c.moveToNext());
-        }
-
         ArrayList<String> wrongItems = new ArrayList<>();
         ArrayList<String> rightItems = new ArrayList<>();
-        if (isBinary) {
-            boolean isTrue = c.getInt(c.getColumnIndex(KEY_ANSWER_IS_TRUE)) == 1;
-            rightItems.add(isTrue?"true":"false");
-            wrongItems.add(isTrue?"false":"true");
-        } else {
-            String queryAnswer = "SELECT * FROM " + TABLE_ANSWER +
-                    " WHERE " + KEY_QUESTION_ID + " = " + id;
-            c = db.rawQuery(queryAnswer, null);
-            if (c.moveToFirst()) {
-                do {
-                    String answer = c.getString(c.getColumnIndex(KEY_ANSWER));
-                    boolean isRight = c.getInt(c.getColumnIndex(KEY_IS_RIGHT)) == 1;
 
-                    if (isRight) rightItems.add(answer);
-                    else wrongItems.add(answer);
-                } while (c.moveToNext());
+        try {
+
+            try {
+                db = this.getReadableDatabase();
+                String queryQuestion = "SELECT * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = " + id;
+                c = db.rawQuery(queryQuestion, null);
+                if (!c.moveToFirst()) throw new RuntimeException("no movetofirst!!");
+                qid = c.getInt(c.getColumnIndex(KEY_ID));
+                text = c.getString(c.getColumnIndex(KEY_QUESTION));
+                docRef = c.getString(c.getColumnIndex(KEY_DOC_REF));
+                isBinary = c.getInt(c.getColumnIndex(KEY_IS_BINARY)) == 1;
+            } finally {
+                if (c != null) c.close();
             }
+
+            try {
+                String queryTag = "SELECT * FROM " + TABLE_QUESTION_TAG + " qt " +
+                        " JOIN " + TABLE_TAG + " t on qt." + KEY_TAG_ID + " = t." + KEY_ID +
+                        " WHERE qt." + KEY_QUESTION_ID + " = " + id;
+
+                c = db.rawQuery(queryTag, null);
+                if (c.moveToFirst()) {
+                    do {
+                        String tag = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+                        tags.add(tag);
+                    } while (c.moveToNext());
+                }
+                if (isBinary) {
+                    boolean isTrue = c.getInt(c.getColumnIndex(KEY_ANSWER_IS_TRUE)) == 1;
+                    rightItems.add(isTrue ? "true" : "false");
+                    wrongItems.add(isTrue ? "false" : "true");
+                }
+            } finally {
+                if (c != null) c.close();
+            }
+
+            if (!isBinary) {
+                try {
+                    String queryAnswer = "SELECT * FROM " + TABLE_ANSWER +
+                            " WHERE " + KEY_QUESTION_ID + " = " + id;
+                    c = db.rawQuery(queryAnswer, null);
+                    if (c.moveToFirst()) {
+                        do {
+                            String answer = c.getString(c.getColumnIndex(KEY_ANSWER));
+                            boolean isRight = c.getInt(c.getColumnIndex(KEY_IS_RIGHT)) == 1;
+
+                            if (isRight) rightItems.add(answer);
+                            else wrongItems.add(answer);
+                        } while (c.moveToNext());
+                    }
+                } finally {
+                    if (c != null) c.close();
+                }
+            }
+        } finally {
+            if (db != null) db.close();
         }
         Question q = new Question(qid, text, wrongItems, rightItems, tags, docRef);
         return q;
     }
 
     public List<Tag> getTags() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.query(TABLE_TAG, new String[]{KEY_ID, KEY_TAG_NAME}, null, null, null, null, null);
-        if (!c.moveToFirst()) return null;
         ArrayList<Tag> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-                int id = c.getInt(c.getColumnIndex(KEY_ID));
-                result.add(new Tag(id, name));
-            } while (c.moveToNext());
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = this.getReadableDatabase();
+            c = db.query(TABLE_TAG, new String[]{KEY_ID, KEY_TAG_NAME}, null, null, null, null, null);
+            if (!c.moveToFirst()) return null;
+            if (c.moveToFirst()) {
+                do {
+                    String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+                    int id = c.getInt(c.getColumnIndex(KEY_ID));
+                    result.add(new Tag(id, name));
+                } while (c.moveToNext());
+            }
+        } finally {
+            if (db != null) db.close();
+            if (c != null) c.close();
         }
         return result;
     }
 
     public Map<Integer, Tag.Stats> getTagStats() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + KEY_TAG_ID + ", COUNT(*) as count, SUM(score) as learned" +
-                " FROM " + TABLE_QUESTION_TAG + " qt" +
-                " JOIN (" +
-                    "SELECT " + KEY_QUESTION_ID + "," +
-                        "CASE WHEN "+KEY_STATS_RIGHT+" < 3 THEN 0 ELSE 1 END score " +
-                    "FROM " + TABLE_STATS +
-                ") s ON qt." + KEY_QUESTION_ID + "=s." + KEY_QUESTION_ID +
-                " GROUP BY qt." + KEY_TAG_ID;
-        Cursor c = db.rawQuery(query, null);
         Map<Integer, Tag.Stats> result = new HashMap<>();
-        if (c.moveToFirst()) {
-            do {
-                int tagId = c.getInt(c.getColumnIndex(KEY_TAG_ID));
-                int count = c.getInt(c.getColumnIndex("count"));
-                int learned = c.getInt(c.getColumnIndex("learned"));
-                result.put(tagId, new Tag.Stats(count, learned));
-            } while (c.moveToNext());
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = this.getReadableDatabase();
+            String query = "SELECT " + KEY_TAG_ID + ", COUNT(*) as count, SUM(score) as learned" +
+                    " FROM " + TABLE_QUESTION_TAG + " qt" +
+                    " JOIN (" +
+                    "SELECT " + KEY_QUESTION_ID + "," +
+                    "CASE WHEN " + KEY_STATS_RIGHT + " < 3 THEN 0 ELSE 1 END score " +
+                    "FROM " + TABLE_STATS +
+                    ") s ON qt." + KEY_QUESTION_ID + "=s." + KEY_QUESTION_ID +
+                    " GROUP BY qt." + KEY_TAG_ID;
+            c = db.rawQuery(query, null);
+            if (c.moveToFirst()) {
+                do {
+                    int tagId = c.getInt(c.getColumnIndex(KEY_TAG_ID));
+                    int count = c.getInt(c.getColumnIndex("count"));
+                    int learned = c.getInt(c.getColumnIndex("learned"));
+                    result.put(tagId, new Tag.Stats(count, learned));
+                } while (c.moveToNext());
+            }
+        } finally {
+            if (db != null) db.close();
+            if (c != null) c.close();
         }
         return result;
     }
 
     public Tag getTagById(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.query(TABLE_TAG, new String[]{KEY_TAG_NAME}, KEY_ID + "=" + id, null, null, null, null);
-        if (!c.moveToFirst()) return null;
-        String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-        return new Tag(id, name);
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = this.getReadableDatabase();
+            c = db.query(TABLE_TAG, new String[]{KEY_TAG_NAME}, KEY_ID + "=" + id, null, null, null, null);
+            if (!c.moveToFirst()) return null;
+            String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+            return new Tag(id, name);
+        } finally {
+            if (db != null) db.close();
+            if (c != null) c.close();
+        }
     }
 
     public ArrayList<Integer> getTagIds() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + KEY_ID + " FROM " + TABLE_TAG;
-        Cursor c = db.rawQuery(query, null);
         ArrayList<Integer> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getInt(0));
-            } while (c.moveToNext());
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = this.getReadableDatabase();
+            String query = "SELECT " + KEY_ID + " FROM " + TABLE_TAG;
+            c = db.rawQuery(query, null);
+            if (c.moveToFirst()) {
+                do {
+                    result.add(c.getInt(0));
+                } while (c.moveToNext());
+            }
+        } finally {
+            if (db != null) db.close();
+            if (c != null) c.close();
         }
         return result;
     }
 
     public ArrayList<Integer> getQuestionIdsByTags(List<Integer> selectedTagIds) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        StringBuilder sb = new StringBuilder();
-        Iterator<Integer> tagIdsIt = selectedTagIds.iterator();
-        while (tagIdsIt.hasNext()) {
-            int tagId = tagIdsIt.next();
-            sb.append(tagId);
-            if (tagIdsIt.hasNext()) sb.append(",");
-        }
-        String tagIdsCommaSeparated = sb.toString();
-        String query = "SELECT " + KEY_QUESTION_ID + " FROM " + TABLE_QUESTION_TAG + " WHERE " + KEY_TAG_ID + " IN (" + tagIdsCommaSeparated + ")";
-        Cursor c = db.rawQuery(query, null);
         ArrayList<Integer> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getInt(0));
-            } while (c.moveToNext());
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = this.getReadableDatabase();
+            StringBuilder sb = new StringBuilder();
+            Iterator<Integer> tagIdsIt = selectedTagIds.iterator();
+            while (tagIdsIt.hasNext()) {
+                int tagId = tagIdsIt.next();
+                sb.append(tagId);
+                if (tagIdsIt.hasNext()) sb.append(",");
+            }
+            String tagIdsCommaSeparated = sb.toString();
+            String query = "SELECT " + KEY_QUESTION_ID + " FROM " + TABLE_QUESTION_TAG + " WHERE " + KEY_TAG_ID + " IN (" + tagIdsCommaSeparated + ")";
+            c = db.rawQuery(query, null);
+            if (c.moveToFirst()) {
+                do {
+                    result.add(c.getInt(0));
+                } while (c.moveToNext());
+            }
+        } finally {
+            if (db != null) db.close();
+            if (c != null) c.close();
         }
         return result;
     }
 
     public void addStats(int questionId, boolean isRight) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String sql;
-        if (isRight) {
-            sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = " + KEY_STATS_RIGHT + " + 1 WHERE " +
-                    KEY_QUESTION_ID + " = " + questionId + " AND " + KEY_STATS_RIGHT + " < 3";
-        } else {
-            sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = 0 WHERE " +
-                    KEY_QUESTION_ID + " = " + questionId;
+        SQLiteDatabase db = null;
+        try {
+            db = this.getWritableDatabase();
+            String sql;
+            if (isRight) {
+                sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = " + KEY_STATS_RIGHT + " + 1 WHERE " +
+                        KEY_QUESTION_ID + " = " + questionId + " AND " + KEY_STATS_RIGHT + " < 3";
+            } else {
+                sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = 0 WHERE " +
+                        KEY_QUESTION_ID + " = " + questionId;
+            }
+            db.execSQL(sql);
+        } finally {
+            if (db != null) db.close();
         }
-        db.execSQL(sql);
     }
 
     private static class QuestionInfo {
@@ -406,9 +478,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void insertFromFile(String fileContents) {
         List<QuestionInfo> parsedQuestions = parseTests(fileContents);
-        SQLiteDatabase db = this.getWritableDatabase();
-        Map<String, Long> tag2id = insertTags(db, parsedQuestions);
-        insertQuestions(db, parsedQuestions, tag2id);
+        SQLiteDatabase db = null;
+        try {
+            db = this.getWritableDatabase();
+            Map<String, Long> tag2id = insertTags(db, parsedQuestions);
+            insertQuestions(db, parsedQuestions, tag2id);
+        } finally {
+            if (db != null) db.close();
+        }
     }
 
     private void insertQuestions(SQLiteDatabase db, List<QuestionInfo> parsedQuestions, Map<String, Long> tag2id) {
@@ -444,13 +521,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 insertStats.executeInsert();
 
                 if (!q.isBinary) {
-                    for (String right: q.mRightItems) {
+                    for (String right : q.mRightItems) {
                         insertAnswer.bindString(1, right);
                         insertAnswer.bindLong(2, questionId);
                         insertAnswer.bindLong(3, 1);
                         insertAnswer.executeInsert();
                     }
-                    for (String wrong: q.mWrongItems) {
+                    for (String wrong : q.mWrongItems) {
                         insertAnswer.bindString(1, wrong);
                         insertAnswer.bindLong(2, questionId);
                         insertAnswer.bindLong(3, 0);
