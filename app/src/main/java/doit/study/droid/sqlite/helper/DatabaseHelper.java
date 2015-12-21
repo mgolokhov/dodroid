@@ -37,8 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
 
-    private static final int DATABASE_VERSION = 6;
-    private static final int DB_CONTENT_VERSION = 3;
+    private static final int DATABASE_VERSION = 7;
+    private static final int DB_CONTENT_VERSION = 4;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     // Database Name
