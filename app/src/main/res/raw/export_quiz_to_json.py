@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # cannot import local modules like
 # from checked_questions import reviewed
 # cached pyc files brake gradle =(
@@ -51,36 +52,85 @@ from difflib import SequenceMatcher
 
 
 spreadsheet_url = 'https://docs.google.com/spreadsheet/ccc?key=13bmt8pwh4x4GFTnoctxkxjKjsxDtYwwXbGS6ZEB-ik8&output=csv'
-local_json_file = 'quiz.json'
+local_quiz_db = '../../assets/databases/quiz.db'
 
 opener = build_opener(HTTPCookieProcessor(CookieJar()))
 resp = opener.open(spreadsheet_url)
 data = resp.read()
 
+import sqlite3
+import os
+
+if os.path.exists(local_quiz_db):
+	os.remove(local_quiz_db)
+
+if not os.path.exists(os.path.dirname(local_quiz_db)):
+	os.makedirs(os.path.dirname(local_quiz_db))
+
+conn = sqlite3.connect(local_quiz_db)
+c = conn.cursor()
+c.execute('''CREATE TABLE questions ( \
+			 topic_num_id INTEGER NOT NULL,\
+             test_num_id INTEGER NOT NULL,\
+             question_num_id INTEGER NOT NULL,\
+             question_text TEXT,\
+             right_items TEXT, \
+             wrong_items TEXT, \
+             tags TEXT, \
+             doc_reference TEXT, \
+             PRIMARY KEY (topic_num_id, test_num_id, question_num_id))''')
+c.execute('''CREATE TABLE statistics (\
+			 topic_num_id INTEGER NOT NULL,\
+             test_num_id INTEGER NOT NULL,\
+             question_num_id INTEGER NOT NULL,\
+             on_learning INTEGER, \
+             wrong_counter INTEGER, \
+             right_counter INTEGER, \
+             studied INTEGER, \
+             ignore INTEGER, \
+             PRIMARY KEY (topic_num_id, test_num_id, question_num_id))''')
+
 res = []
 for question in csv.DictReader(StringIO(data)):
-	if question['ID']:
-		res.append({
-			"ID": question['ID'],
-			"question": question['Android Test Question'],
-			"right": [i for i in question['Right Answer(s)'].split("\n") if i],
-			"wrong": [i for i in question['Wrong Answer(s)'].split("\n") if i],
-			"tags": [i for i in question['Question Tag'].split("\n") if i],
-			"Coursera Class": question['Coursera Class'],
-			"docRef" : question["Reference Link"],
-		})
+	question_id = question['ID']
+	if question_id:
+		topic_num, test_num, question_num = question_id.split("_")
+		res.append({'question':question['Android Test Question']})
+		question_item = (
+			topic_num,
+			test_num,
+			question_num,
+			question['Android Test Question'].decode('utf-8'),
+			question['Right Answer(s)'].decode('utf-8').strip('\n'),
+			question['Wrong Answer(s)'].decode('utf-8').strip('\n'),
+			question['Question Tag'].decode('utf-8'),
+			question["Reference Link"].decode('utf-8'),
+		)
+		c.execute('INSERT INTO questions VALUES (?,?,?,?,?,?,?,?)', question_item)
+		statistics_item = (
+			topic_num,
+			test_num,
+			question_num,
+			1,
+			0,
+			0,
+			0,
+			0,
+			)
+		c.execute('INSERT INTO statistics VALUES (?,?,?,?,?,?,?,?)', statistics_item)
+conn.commit()
+conn.close()
 
-for index, i in enumerate(res):
-	for j in res[index+1:]:
-		q1 = i['question']
-		q2 = j['question']
-		ratio = SequenceMatcher(None, q1, q2).ratio()
-		maybe = (ratio, q1, q2)
-		if ratio > .5 and maybe not in reviewed:
-		 	print repr(maybe) + ","
-		 	sys.exit("\nFound possible duplicates, exit...")
+# for index, i in enumerate(res):
+# 	for j in res[index+1:]:
+# 		q1 = i['question']
+# 		q2 = j['question']
+# 		ratio = SequenceMatcher(None, q1, q2).ratio()
+# 		maybe = (ratio, q1, q2)
+# 		if ratio > .5 and maybe not in reviewed:
+# 		 	print repr(maybe) + ","
+# 		 	sys.exit("\nFound possible duplicates, exit...")
 
-with open(local_json_file, 'w') as jsonfile:
-	json.dump(res, jsonfile, indent=4, sort_keys=True)
+
 
 print "Export DONE"

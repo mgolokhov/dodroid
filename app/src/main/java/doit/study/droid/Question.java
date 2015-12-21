@@ -1,22 +1,34 @@
 package doit.study.droid;
 
+
 import java.util.ArrayList;
 
-
 public class Question{
-    private int mId;
-    private String mText;
-    private ArrayList<String> mWrongItems = new ArrayList<>();
-    private ArrayList<String> mRightItems = new ArrayList<>();
-    private ArrayList<String> mTags = new ArrayList<>();
-    private String mDocRef;
-    private int mRightCounter = 0;
-    private int mWrongCounter = 0;
+    // Database constants
+    public static class Table {
+        /** for primary key check
+         *  @see doit.study.droid.QuizData.Table
+         */
+        public static final String NAME = "questions";
+        public static final String QUESTION_TEXT = "question_text";
+        public static final String WRONG_ITEMS = "wrong_items";
+        public static final String RIGHT_ITEMS = "right_items";
+        public static final String TAGS = "tags";
+        public static final String DOC_REFERENCE = "doc_reference";
+    }
 
-    public Question(int id, String text,
+    // Compound key, ready for serialization, check below
+    private QuizData.Id mId;
+    private String mText;
+    private ArrayList<String> mWrongItems;
+    private ArrayList<String> mRightItems;
+    private String mTags;
+    private String mDocRef;
+
+    public Question(QuizData.Id id, String text,
                     ArrayList<String> wrongItems,
                     ArrayList<String> rightItems,
-                    ArrayList<String> tags,
+                    String tags,
                     String docRef
                     ){
         mId = id;
@@ -31,7 +43,7 @@ public class Question{
         return mDocRef;
     }
 
-    public int getId() {
+    public QuizData.Id getId() {
         return mId;
     }
 
@@ -47,23 +59,8 @@ public class Question{
         return mRightItems;
     }
 
-    public ArrayList<String> getTags() {
+    public String getTags() {
         return mTags;
     }
 
-    public int getRightCounter() {
-        return mRightCounter;
-    }
-
-    public int incrementRightCounter(){
-        return ++mRightCounter;
-    }
-
-    public int getWrongCounter() {
-        return mWrongCounter;
-    }
-
-    public int incrementWrongCounter(){
-        return ++mWrongCounter;
-    }
 }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,8 +34,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private static final String COMMIT_BUTTON_STATE_KEY = "doit.study.dodroid.commit_button_state_key";
     // model stuff
     private Question mCurrentQuestion;
+    private Statistics mCurrentStatistic;
     private QuizData mQuizData;
-    private int mPosition;
+    private QuizData.Id mId;
     private int isEnabledCommitButton = 1;
     // view stuff
     private View mView;
@@ -47,12 +49,12 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     // Factory method
-    public static QuestionFragment newInstance(int position) {
-        if (DEBUG) Log.i("NSA", "newInstance "+position);
+    public static QuestionFragment newInstance(QuizData.Id id) {
+        if (DEBUG) Log.i("NSA", "newInstance " + id);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ID_KEY, position);
+        bundle.putParcelable(ID_KEY, id);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -95,7 +97,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     @Override
     public void onAttach(Context activity){
         // for logging purpose
-        ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
+        ID = ((QuizData.Id) getArguments().getParcelable(ID_KEY)).toString();
         super.onAttach(activity);
         try {
             mCallback = (OnFragmentChangeListener) activity;
@@ -109,9 +111,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mPosition = getArguments().getInt(ID_KEY);
-        mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(mQuizData.idAtPosition(mPosition));
+        mId = getArguments().getParcelable(ID_KEY);
+        mQuizData = ((QuizData)getActivity().getApplication());
+        mCurrentQuestion = mQuizData.getQuestionById(mId);
+        mCurrentStatistic = mQuizData.getStatById(mId);
+
         setHasOptionsMenu(true);
     }
 
@@ -159,9 +163,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void populate() {
         if (DEBUG) Log.i(TAG, "populate "+ID);
         mvQuestionText.setText(mCurrentQuestion.getText());
-        mvRight.setText("" + mQuizData.getTotalRightCounter());
+        mvRight.setText("" + Statistics.getTotalRightCnt());
         mvRight.setTextColor(Color.GREEN);
-        mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
+        mvWrong.setText(" " + Statistics.getTotalWrongCnt());
         mvWrong.setTextColor(Color.RED);
 
         mvAnswersLayout.removeAllViewsInLayout();
@@ -205,8 +209,8 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             toast.setText("Right");
             v.setTextColor(Color.GREEN);
             //mvCommitButton.setBackgroundColor(0xFF00FF00); // => green color
-            mQuizData.incrementRightCounter(mPosition);
-            mvRight.setText("" + mQuizData.getTotalRightCounter());
+            mCurrentStatistic.incRightCnt();
+            mvRight.setText("" + Statistics.getTotalRightCnt());
             mvCommitButton.setEnabled(false);
             isEnabledCommitButton = 0;
         }
@@ -214,8 +218,8 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             toast.setText("Wrong");
             //mvCommitButton.setBackgroundColor(Color.RED);
             v.setTextColor(Color.RED);
-            mQuizData.incrementWrongCounter(mPosition);
-            mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
+            mCurrentStatistic.incWrongCnt();
+            mvWrong.setText("" + Statistics.getTotalWrongCnt());
 
         }
         if (goodJob)

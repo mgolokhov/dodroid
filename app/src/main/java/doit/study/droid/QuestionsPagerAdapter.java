@@ -12,7 +12,7 @@ import java.util.Observer;
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
-    private QuizData mQuizData;
+    private Question[] mQuestions;
     private FragmentObserver mFragmentObserver = new FragmentObserver();
 
     private static class FragmentObserver extends Observable {
@@ -24,9 +24,9 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData) {
+    public QuestionsPagerAdapter(FragmentManager fm, Question[] quizData) {
         super(fm);
-        this.mQuizData = quizData;
+        mQuestions = quizData;
     }
 
     public void updateFragments(ViewGroup container, int posInFocus){
@@ -39,7 +39,8 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem, pos=" + position);
-        Fragment fragment = QuestionFragment.newInstance(position);
+        QuizData.Id id = mQuestions[position].getId();
+        Fragment fragment = QuestionFragment.newInstance(id);
         mFragmentObserver.addObserver((Observer) fragment);
         return fragment;
     }
@@ -58,16 +59,14 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mQuizData.size();
+        return mQuestions.length;
     }
 
 
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = "";
-        for (String tag: mQuizData.getById(mQuizData.idAtPosition(position)).getTags())
-            title += tag+" ";
-        title += String.format("\t%d/%d", position+1, getCount());
+        String tags = mQuestions[position].getTags();
+        String title = String.format("%s\t%d/%d", tags, position+1, getCount());
         return title;
     }
 

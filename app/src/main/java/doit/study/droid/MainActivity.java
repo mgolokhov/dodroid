@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setTopicButton(View v){
-        Intent intent = new Intent(MainActivity.this, TopicsActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(MainActivity.this, TopicsActivity.class);
+        //startActivity(intent);
     }
 
     public void doitButton(View v){

@@ -9,6 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.Collection;
+import java.util.List;
+
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
@@ -20,13 +23,27 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager_layout);
         mPager = (ViewPager)findViewById(R.id.view_pager);
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
-        pagerTabStrip.setNonPrimaryAlpha(0);
-        pagerTabStrip.setTabIndicatorColor(0x000000);
-        GlobalData gd = (GlobalData) getApplication();
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), gd.getQuizData());
+        configPagerTabStrip();
+        QuizData quizData = (QuizData) getApplication();
+        Collection<Question> q = quizData.getQuestionsByLearningStatus(true).values();
+        Question[] questions = q.toArray(new Question[1]);
+        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager(), questions);
         mPager.setAdapter(mPagerAdapter);
         }
+
+    @Override
+    protected void onPause() {
+        //TODO: dump statistics
+        super.onPause();
+    }
+
+    private void configPagerTabStrip(){
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
+        // show one title
+        pagerTabStrip.setNonPrimaryAlpha(0);
+        // set the black underlining
+        pagerTabStrip.setTabIndicatorColor(0x000000);
+    }
 
     @Override
     public void updateFragments() {
