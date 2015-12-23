@@ -28,8 +28,8 @@ import java.util.Observer;
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
     private int mQuestionId;
-    private AnswerCheckListener mAnswerCheckListener;
-    private OnFragmentChangeListener mCallback;
+    private OnAnswerCheckListener mOnAnswerCheckListener;
+    private OnFragmentChangeListener mOnFragmentChangeListener;
     // keys for bundle, to save state
     private static final String ID_KEY = "doit.study.dodroid.id_key";
     private static final String COMMIT_BUTTON_STATE_KEY = "doit.study.dodroid.commit_button_state_key";
@@ -47,10 +47,20 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private TextView mvRight;
     private TextView mvWrong;
     private Button mvNextButton;
+    ////////////////////////////////////////////////
+    // Host Activity must implement these interfaces
+    ////////////////////////////////////////////////
+    public interface OnFragmentChangeListener {
+        void updateFragments();
+        void swipeNext();
+    }
 
+    public interface OnAnswerCheckListener {
+        void onAnswer(int questionId, boolean isRight);
+    }
+    //////////////////////////////////////////////////
 
-    // Factory method
-    public static QuestionFragment newInstance(int position, int questionId, AnswerCheckListener listener) {
+    public static QuestionFragment newInstance(int position, int questionId) {
         if (DEBUG) Log.i("NSA", "newInstance "+position);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
@@ -58,14 +68,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         bundle.putInt(ID_KEY, position);
         fragment.setArguments(bundle);
         fragment.mQuestionId = questionId;
-        fragment.mAnswerCheckListener = listener;
         return fragment;
-    }
-
-    // Container Activity must implement this interface
-    public interface OnFragmentChangeListener {
-        void updateFragments();
-        void swipeNext();
     }
 
     @Override
@@ -103,10 +106,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
         super.onAttach(activity);
         try {
-            mCallback = (OnFragmentChangeListener) activity;
+            mOnFragmentChangeListener = (OnFragmentChangeListener) activity;
+            mOnAnswerCheckListener = (OnAnswerCheckListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentChangeListener");
+                    + " must implement OnFragmentChangeListener and OnAnswerCheckListener");
         }
     }
 
@@ -225,7 +229,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
 
         }
-        mCallback.updateFragments();
+        mOnFragmentChangeListener.updateFragments();
         toast.show();
         return goodJob;
     }
@@ -241,16 +245,16 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         switch (v.getId()) {
             case (R.id.commit_button):
                 boolean isRight = checkAnswers();
-                mAnswerCheckListener.onAnswer(mQuestionId, isRight);
+                mOnAnswerCheckListener.onAnswer(mQuestionId, isRight);
                 if (!isRight) {
                     v.setVisibility(View.GONE);
                     mvNextButton.setVisibility(View.VISIBLE);
                 } else {
-                    mCallback.swipeNext();
+                    mOnFragmentChangeListener.swipeNext();
                 }
                 break;
             case (R.id.next_button):
-                mCallback.swipeNext();
+                mOnFragmentChangeListener.swipeNext();
                 break;
         }
     }

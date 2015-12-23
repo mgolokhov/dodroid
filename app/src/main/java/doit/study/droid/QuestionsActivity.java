@@ -15,7 +15,8 @@ import java.util.List;
 
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
-public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener {
+public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener,
+        QuestionFragment.OnAnswerCheckListener {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -35,20 +36,18 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         if (questionIds.size() > 10) {
             questionIds = questionIds.subList(0, 10);
         }
-        AnswerCheckListener answerCheckListener = new AnswerCheckListener() {
-            DatabaseHelper mDBHelper = new DatabaseHelper(QuestionsActivity.this.getApplicationContext());
-            @Override
-            public void onAnswer(int questionId, boolean isRight) {
-                mDBHelper.addStats(questionId, isRight);
-            }
-        };
         mPagerAdapter = new QuestionsPagerAdapter(
                 getSupportFragmentManager(),
-                answerCheckListener,
                 gd.getQuizData(),
                 questionIds);
         mPager.setAdapter(mPagerAdapter);
         }
+
+    @Override
+    public void onAnswer(int questionId, boolean isRight) {
+        DatabaseHelper mDBHelper = new DatabaseHelper(this);
+        mDBHelper.addStats(questionId, isRight);
+    }
 
     @Override
     public void updateFragments() {

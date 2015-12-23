@@ -14,7 +14,6 @@ import java.util.Observer;
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
-    private final AnswerCheckListener mAnswerCheckListener;
     private QuizData mQuizData;
     private final List<Integer> questionIds;
     private FragmentObserver mFragmentObserver = new FragmentObserver();
@@ -28,11 +27,10 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public QuestionsPagerAdapter(FragmentManager fm, AnswerCheckListener listener, QuizData quizData, List<Integer> questionIds) {
+    public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData, List<Integer> questionIds) {
         super(fm);
         this.mQuizData = quizData;
         this.questionIds = questionIds;
-        this.mAnswerCheckListener = listener;
     }
 
     public void updateFragments(ViewGroup container, int posInFocus){
@@ -45,7 +43,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem, pos=" + position);
-        Fragment fragment = QuestionFragment.newInstance(position, questionIds.get(position), mAnswerCheckListener);
+        Fragment fragment = QuestionFragment.newInstance(position, questionIds.get(position));
         mFragmentObserver.addObserver((Observer) fragment);
         return fragment;
     }
