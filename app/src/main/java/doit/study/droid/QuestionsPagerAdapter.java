@@ -43,7 +43,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem, pos=" + position);
-        Fragment fragment = QuestionFragment.newInstance(position, questionIds.get(position));
+        Fragment fragment = QuestionFragment.newInstance(questionIds.get(position));
         mFragmentObserver.addObserver((Observer) fragment);
         return fragment;
     }
@@ -68,10 +68,10 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = "";
+        StringBuffer title = new StringBuffer();
         for (String tag: mQuizData.getById(questionIds.get(position)).getTags())
-            title += tag+" ";
-        title += String.format("\t%d/%d", position+1, getCount());
+            title.append(tag+" ");
+        title.append(String.format("\t%d/%d", position+1, getCount()));
         return title;
     }
 

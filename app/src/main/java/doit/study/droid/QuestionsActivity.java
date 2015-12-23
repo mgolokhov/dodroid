@@ -27,9 +27,8 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager_layout);
         mPager = (ViewPager)findViewById(R.id.view_pager);
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
-        pagerTabStrip.setNonPrimaryAlpha(0);
-        pagerTabStrip.setTabIndicatorColor(0x000000);
+        configPagerTabStrip();
+
         GlobalData gd = (GlobalData) getApplication();
         List<Integer> questionIds = (List<Integer>) gd.retrieve("questionIds");
         Collections.shuffle(questionIds);
@@ -42,6 +41,14 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
                 questionIds);
         mPager.setAdapter(mPagerAdapter);
         }
+
+    private void configPagerTabStrip(){
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
+        // show one title
+        pagerTabStrip.setNonPrimaryAlpha(0);
+        // set the black underlining
+        pagerTabStrip.setTabIndicatorColor(0x000000);
+    }
 
     @Override
     public void onAnswer(int questionId, boolean isRight) {

@@ -36,7 +36,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     // model stuff
     private Question mCurrentQuestion;
     private QuizData mQuizData;
-    private int mPosition;
     private int isEnabledCommitButton = 1;
     // view stuff
     private View mView;
@@ -60,14 +59,13 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
     //////////////////////////////////////////////////
 
-    public static QuestionFragment newInstance(int position, int questionId) {
-        if (DEBUG) Log.i("NSA", "newInstance "+position);
+    public static QuestionFragment newInstance(int questionId) {
+        if (DEBUG) Log.i("NSA", "newInstance "+questionId);
         // add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ID_KEY, position);
+        bundle.putInt(ID_KEY, questionId);
         fragment.setArguments(bundle);
-        fragment.mQuestionId = questionId;
         return fragment;
     }
 
@@ -102,7 +100,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     @Override
     public void onAttach(Context activity){
-        // for logging purpose
+        // for a logging purpose
         ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
         super.onAttach(activity);
         try {
@@ -118,7 +116,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mPosition = getArguments().getInt(ID_KEY);
+        mQuestionId = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
         mCurrentQuestion = mQuizData.getById(mQuestionId);
         setHasOptionsMenu(true);
@@ -215,17 +213,15 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         if (goodJob) {
             toast.setText("Right");
             v.setTextColor(Color.GREEN);
-            //mvCommitButton.setBackgroundColor(0xFF00FF00); // => green color
-            mQuizData.incrementRightCounter(mPosition);
+            mQuizData.incrementRightCounter(mQuestionId);
             mvRight.setText("" + mQuizData.getTotalRightCounter());
             mvCommitButton.setEnabled(false);
             isEnabledCommitButton = 0;
         }
         else {
             toast.setText("Wrong");
-            //mvCommitButton.setBackgroundColor(Color.RED);
             v.setTextColor(Color.RED);
-            mQuizData.incrementWrongCounter(mPosition);
+            mQuizData.incrementWrongCounter(mQuestionId);
             mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
 
         }
