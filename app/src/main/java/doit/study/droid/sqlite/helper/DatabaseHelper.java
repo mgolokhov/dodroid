@@ -312,9 +312,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT " + KEY_TAG_ID + ", COUNT(*) as count, SUM(score) as learned" +
                 " FROM " + TABLE_QUESTION_TAG + " qt" +
                 " JOIN (" +
-                    "SELECT " + KEY_QUESTION_ID + "," +
-                        "CASE WHEN "+KEY_STATS_RIGHT+" < 3 THEN 0 ELSE 1 END score " +
-                    "FROM " + TABLE_STATS +
+                "SELECT " + KEY_QUESTION_ID + "," +
+                "CASE WHEN "+KEY_STATS_RIGHT+" < 3 THEN 0 ELSE 1 END score " +
+                "FROM " + TABLE_STATS +
                 ") s ON qt." + KEY_QUESTION_ID + "=s." + KEY_QUESTION_ID +
                 " GROUP BY qt." + KEY_TAG_ID;
         Cursor c = db.rawQuery(query, null);
