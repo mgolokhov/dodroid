@@ -1,22 +1,449 @@
 [
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "0", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "A stopped fragment is not visible.", 
+        "ID": 0, 
+        "docRef": "https://en.wikipedia.org/wiki/Android_software_development", 
+        "question": "The official IDE for Android", 
+        "right": [
+            "Android Studio"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Eclipse", 
+            "NetBeans"
+        ]
+    }, 
+    {
+        "ID": 1, 
+        "docRef": "http://developer.android.com/tools/sdk/ndk/index.html", 
+        "question": "In which of the following programming languages are Android's Native libraries typically written?", 
+        "right": [
+            "C/C++"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Python", 
+            "Scala", 
+            "Java"
+        ]
+    }, 
+    {
+        "ID": 2, 
+        "docRef": "", 
+        "question": "To develop Android app you can use", 
+        "right": [
+            "Java", 
+            "C/++", 
+            "Go language"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 3, 
+        "docRef": "https://en.wikipedia.org/wiki/Comparison_of_Java_and_Android_API", 
+        "question": "All Java features (libraries, language-syntax) are available by default in Android SDK", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 4, 
+        "docRef": "https://en.wikipedia.org/wiki/Android_(operating_system)", 
+        "question": "Android operating system is based on", 
+        "right": [
+            "Linux"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Windows", 
+            "Symbian"
+        ]
+    }, 
+    {
+        "ID": 5, 
+        "docRef": "http://developer.android.com/guide/components/fundamentals.html#Components", 
+        "question": "Choose the single best answer. Android applications are made up of ___.", 
+        "right": [
+            "Components"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Activities", 
+            "Tasks", 
+            "Services", 
+            "IBinders"
+        ]
+    }, 
+    {
+        "ID": 6, 
+        "docRef": "https://en.wikipedia.org/wiki/Android_Runtime", 
+        "question": "(True or False) Android OS uses standard (Oracle) java virtual machine. ", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 7, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html", 
+        "question": "You have an Activity and you want to place some UI in it.\nWhat method you will call?", 
+        "right": [
+            "setContentView()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "setView()", 
+            "setContent()", 
+            "inflate()"
+        ]
+    }, 
+    {
+        "ID": 8, 
+        "docRef": "", 
+        "question": "You can have multiple Activities in the foreground", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 9, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle", 
+        "question": "In which callback method should you save data before the current Activity loses focus?", 
+        "right": [
+            "onPause"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onResume", 
+            "onStop", 
+            "onDestroy"
+        ]
+    }, 
+    {
+        "ID": 10, 
+        "docRef": "http://developer.android.com/reference/android/os/Bundle.html", 
+        "question": "A Bundle is a structure that maps string keys to values of any type", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 11, 
+        "docRef": "http://developer.android.com/guide/topics/resources/runtime-changes.html", 
+        "question": "What events trigger device configuration change", 
+        "right": [
+            "screen orientation", 
+            "keyboard availability", 
+            "language change"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "incoming call"
+        ]
+    }, 
+    {
+        "ID": 12, 
+        "docRef": "http://stackoverflow.com/questions/10847526/what-exactly-activity-finish-method-is-doing", 
+        "question": "When the finish() method is called on an activity, what is the next callback method called by Android?", 
+        "right": [
+            "onDestroy()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onPause()", 
+            "onStop()", 
+            "onDetach()"
+        ]
+    }, 
+    {
+        "ID": 13, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState(android.os.Bundle)", 
+        "question": "(True or False) Activity.onSaveInstanceState() won't be called if the user moves back in the history stack.", 
         "right": [
             "TRUE"
         ], 
         "tags": [
-            "Fragments"
+            "Activity Class"
         ], 
         "wrong": [
             "FALSE"
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "1", 
+        "ID": 14, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState(android.os.Bundle)", 
+        "question": "Check true statements about Activity.onRestoreInstanceState(Bundle)", 
+        "right": [
+            "this method will occur before onStop()", 
+            "there are no guarantees about whether it will occur before or after onPause()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "this method will occur after onStop()", 
+            "this method will occur after onPause()", 
+            "this method will occur before onPause()"
+        ]
+    }, 
+    {
+        "ID": 15, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle", 
+        "question": "Activity becomes visible after call", 
+        "right": [
+            "onStart"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onAttach", 
+            "onCreate", 
+            "onCreateView", 
+            "onResume", 
+            "onActivityCreated"
+        ]
+    }, 
+    {
+        "ID": 16, 
+        "docRef": "http://developer.android.com/reference/android/content/Context.html", 
+        "question": "Things that involve context are", 
+        "right": [
+            "Loading a resource", 
+            "Launching a new activity", 
+            "Creating views", 
+            "Obtaining system service"
+        ], 
+        "tags": [
+            "Activity, Context"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 17, 
+        "docRef": "http://developer.android.com/guide/components/tasks-and-back-stack.html", 
+        "question": "Which actions will remove current Activity from the back stack?", 
+        "right": [
+            "calling finish()", 
+            "pressing the back button"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "start a new foreground Activity"
+        ]
+    }, 
+    {
+        "ID": 18, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#startActivityForResult(android.content.Intent, int, android.os.Bundle)", 
+        "question": "To launch an activity for which you would like a result when it finished, you call startActivityForResult() and have to send a requestCode. Check possible values for requestCode.", 
+        "right": [
+            "positive", 
+            "zero"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "negative"
+        ]
+    }, 
+    {
+        "ID": 19, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#setResult(int, android.content.Intent)", 
+        "question": "When your sub-Activity (launched by startActivityForResult()) is ready to return, call setResult() before finish() to return a result to the calling Activity. The setResult() method takes the result code which can be", 
+        "right": [
+            "Activity. RESULT_OK", 
+            "Activity.RESULT_CANCELED", 
+            "any custom values starting at Activity.RESULT_FIRST_USER"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "any integer value"
+        ]
+    }, 
+    {
+        "ID": 20, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#onActivityResult(int, int, android.content.Intent)", 
+        "question": "If the sub-Activity closes abnormally or doesn\u2019t specify a result code before it closes, the result code is ", 
+        "right": [
+            "Activity.RESULT_CANCELED", 
+            "0"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "-1", 
+            "Activity.RESULT_UNDEFINED", 
+            "null"
+        ]
+    }, 
+    {
+        "ID": 21, 
+        "docRef": "http://developer.android.com/guide/components/tasks-and-back-stack.html", 
+        "question": "Activities in the back stack can be", 
+        "right": [
+            "pushed", 
+            "popped"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "rearranged"
+        ]
+    }, 
+    {
+        "ID": 22, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#Security", 
+        "question": "(True or False) The Intent namespace is global (may inadvertently conflict with other applications).", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 23, 
+        "docRef": "http://developer.android.com/guide/components/intents-filters.html", 
+        "question": "(True or False) Android will take the Intent you supply to startActivity() and find the activities that might support it abd intent might resolve to several activities.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 24, 
+        "docRef": "http://developer.android.com/guide/components/intents-filters.html", 
+        "question": "(True or False) In order to start an activity it has to be registered and needs <intent-filter> in AndroidManifest", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 25, 
+        "docRef": "http://developer.android.com/guide/components/intents-filters.html", 
+        "question": "(True or False) If an Activity want to respond to an implicit Intent it will need an <intent-filter>.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 26, 
+        "docRef": "http://developer.android.com/reference/android/content/Intent.html#filterEquals(android.content.Intent)", 
+        "question": "To determine if two intents are the same for the purposes of intent resolution (filtering) Android system compares their", 
+        "right": [
+            "action", 
+            "data", 
+            "type", 
+            "class", 
+            "categories"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "extra data"
+        ]
+    }, 
+    {
+        "ID": 27, 
+        "docRef": "http://developer.android.com/reference/android/content/Intent.html", 
+        "question": "(True or False) startActivityForResult() can be used with implicit Intents", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 28, 
+        "docRef": "http://developer.android.com/guide/topics/security/permissions.html#permissions", 
+        "question": "To declare that your app needs a permission (e.g. your app needs to send SMS messages)", 
+        "right": [
+            "put a <uses-permission> element in your app manifest, as a child of the top-level <manifest> element"
+        ], 
+        "tags": [
+            "Permissions"
+        ], 
+        "wrong": [
+            "put a <permission> element in your app manifest, as a child of the top-level <manifest> element", 
+            "put a <uses-permission> element in your app manifest, as a child of the top-level <application> element", 
+            "put a <permission> element in your app manifest, as a child of the top-level <activity> element"
+        ]
+    }, 
+    {
+        "ID": 29, 
         "docRef": "http://developer.android.com/guide/topics/security/permissions.html", 
         "question": "If your App needs access to use a protected feature, which tag must you put in the AndroidManifest.xml file? ", 
         "right": [
@@ -33,8 +460,39 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "2", 
+        "ID": 30, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onStart()", 
+        "question": "Fragment becomes visible after call", 
+        "right": [
+            "onStart"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onAttach", 
+            "onCreate", 
+            "onCreateView", 
+            "onResume", 
+            "onActivityCreated"
+        ]
+    }, 
+    {
+        "ID": 31, 
+        "docRef": "http://developer.android.com/guide/components/fragments.html#Transactions", 
+        "question": "The call to the FragmentTransaction.commit() method does apply the changes immediately", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 32, 
         "docRef": "http://developer.android.com/guide/components/fragments.html#Transactions", 
         "question": "We can force the FragmentTransaction instance's work to be executed immediately by calling the FragmentManager class ______ method.", 
         "right": [
@@ -50,10 +508,53 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "3", 
-        "docRef": "http://developer.android.com/guide/components/fragments.html#Transactions", 
-        "question": "The call to the FragmentTransaction.commit() method does apply the changes immediately", 
+        "ID": 33, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "A stopped fragment is not visible.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 34, 
+        "docRef": "http://developer.android.com/guide/components/fragments.html", 
+        "question": "You may use a fragment without its own UI", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 35, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#Lifecycle", 
+        "question": "Which method is responsible for returning the view hierarchy represented by the fragment", 
+        "right": [
+            "onCreateView"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onCreate", 
+            "onAttach", 
+            "onActivityCreated"
+        ]
+    }, 
+    {
+        "ID": 36, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "Fragments can be used without activities", 
         "right": [
             "FALSE"
         ], 
@@ -65,8 +566,276 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "4", 
+        "ID": 37, 
+        "docRef": "http://developer.android.com/guide/components/fragments.html", 
+        "question": "How you can identify a fragment?", 
+        "right": [
+            "supply the android:id attribute with a unique ID", 
+            "supply the android:tag attribute with a unique string", 
+            "you can use the ID of the container view in which fragment resides"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "supply the android:key attribute with a unique ID"
+        ]
+    }, 
+    {
+        "ID": 38, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "Check true statements (if any) about Fragment", 
+        "right": [
+            "it can not be used apart from Activity"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "Fragment derives from Context", 
+            "Android system handles back-stack of Fragment in the same manner as for Activity"
+        ]
+    }, 
+    {
+        "ID": 39, 
+        "docRef": "", 
+        "question": "Each Activity (that supports fragments) has its own FragmentManager to manage the Fragments within it.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 40, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "A fragment is capable of getting a view on screen itself", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 41, 
+        "docRef": "http://developer.android.com/guide/components/fragments.html#Design", 
+        "question": "Fragments were introduced in ", 
+        "right": [
+            "API 11"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "API 4", 
+            "API 8", 
+            "API 16"
+        ]
+    }, 
+    {
+        "ID": 42, 
+        "docRef": "http://developer.android.com/training/basics/fragments/creating.html", 
+        "question": "The support library includes a complete implementation of fragments that work all the way back to", 
+        "right": [
+            "API 4"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "API 8", 
+            "API 11", 
+            "API 16"
+        ]
+    }, 
+    {
+        "ID": 43, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#Lifecycle", 
+        "question": "Fragment lifecycle methods are called by", 
+        "right": [
+            "the hosting activity"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "the Android OS"
+        ]
+    }, 
+    {
+        "ID": 44, 
+        "docRef": "http://developer.android.com/reference/android/app/FragmentManager.html", 
+        "question": "The FragmentManager handles", 
+        "right": [
+            "a list of fragments", 
+            "back stack of fragment transactions"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 45, 
+        "docRef": "", 
+        "question": "Only FrameLayout can be a placeholder container for your fragment", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 46, 
+        "docRef": "", 
+        "question": "What is the recommended relationship between the hosted Activity and the Fragment?", 
+        "right": [
+            "the Fragment is independent and the Activity knows specifics of their Fragment"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "both know plenty about each other", 
+            "the Activity is independent and the Fragment knows specifics of their host", 
+            "both are independent"
+        ]
+    }, 
+    {
+        "ID": 47, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "Fragments inside the host Activity can be started even if the Activity is stopped ", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 48, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "When the Activity is destroyed, all hosted Fragments will be destroyed.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 49, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onCreate(android.os.Bundle)", 
+        "question": "When the method Fragment.onCreate(Bundle) is called the host Activity's content view hierarchy is initialized at this point.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 50, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)", 
+        "question": "Fragment.onCreateView() can return", 
+        "right": [
+            "View", 
+            "null"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "void"
+        ]
+    }, 
+    {
+        "ID": 51, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onActivityCreated(android.os.Bundle)", 
+        "question": "This callback tells the Fragment when it is fully associated with the host Activity", 
+        "right": [
+            "onActivityCreated"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onAttach", 
+            "onCreate", 
+            "onCreateView", 
+            "onResume"
+        ]
+    }, 
+    {
+        "ID": 52, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "You can set a Fragment tag by", 
+        "right": [
+            "android:tag", 
+            "at transaction time, using add/replace"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "setTag(String tagName)"
+        ]
+    }, 
+    {
+        "ID": 53, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#setRetainInstance(boolean)", 
+        "question": "Choose true statements about method Fragment.setRetainInstance()", 
+        "right": [
+            "can only be used with fragments not in the back stack", 
+            "onDestroy() will not be called", 
+            "onActivityCreated(Bundle) will be called"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onDetach() will not be called", 
+            "onCreate(Bundle) will be called ", 
+            "onAttach(Activity) will not be called"
+        ]
+    }, 
+    {
+        "ID": 54, 
+        "docRef": "", 
+        "question": "Android namespace prefix declaration is mandatory for the root node of the layout resource", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 55, 
         "docRef": "http://developer.android.com/reference/android/widget/FrameLayout.html", 
         "question": "Which layout does not arrange its children in any particular manner", 
         "right": [
@@ -82,23 +851,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "5", 
-        "docRef": "http://developer.android.com/reference/android/os/Bundle.html", 
-        "question": "A Bundle is a structure that maps string keys to values of any type", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "6", 
+        "ID": 56, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html#attributes", 
         "question": "android:layout_width and android:layout_height can be set to", 
         "right": [
@@ -115,8 +868,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "7", 
+        "ID": 57, 
         "docRef": "http://developer.android.com/guide/topics/resources/string-resource.html#String", 
         "question": "To use string resources you should meet requirements: ", 
         "right": [
@@ -132,25 +884,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "8", 
-        "docRef": "http://developer.android.com/guide/topics/resources/runtime-changes.html", 
-        "question": "What events trigger device configuration change", 
-        "right": [
-            "screen orientation", 
-            "keyboard availability", 
-            "language change"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "incoming call"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "9", 
+        "ID": 58, 
         "docRef": "", 
         "question": "Which attribute sets the gravity of the content of the View its used on?", 
         "right": [
@@ -164,8 +898,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "10", 
+        "ID": 59, 
         "docRef": "", 
         "question": "Which attribute sets the gravity of the View or Layout in its parent?", 
         "right": [
@@ -179,27 +912,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "11", 
-        "docRef": "http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle", 
-        "question": "Activity or Fragment becomes visible after call", 
-        "right": [
-            "onStart"
-        ], 
-        "tags": [
-            "Activity Class, Fragments"
-        ], 
-        "wrong": [
-            "onAttach", 
-            "onCreate", 
-            "onCreateView", 
-            "onResume", 
-            "onActivityCreated"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "12", 
+        "ID": 60, 
         "docRef": "http://stackoverflow.com/questions/4619899/difference-between-a-views-padding-and-margin", 
         "question": "_____ is the space inside the border, between the border and the actual view's content.", 
         "right": [
@@ -213,8 +926,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "13", 
+        "ID": 61, 
         "docRef": "http://stackoverflow.com/questions/4619899/difference-between-a-views-padding-and-margin", 
         "question": "The space outside the border, between the border and the other elements next to this view are defined by", 
         "right": [
@@ -228,23 +940,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "14", 
-        "docRef": "http://developer.android.com/reference/packages.html", 
-        "question": "All Java SE classes are available to Android programs", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "15", 
+        "ID": 62, 
         "docRef": "http://developer.android.com/reference/android/view/View.html", 
         "question": "All widgets extend View class", 
         "right": [
@@ -258,8 +954,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "16", 
+        "ID": 63, 
         "docRef": "http://developer.android.com/reference/android/view/ViewGroup.html", 
         "question": "All widgets containers (layouts) extend ViewGroup", 
         "right": [
@@ -273,8 +968,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "17", 
+        "ID": 64, 
         "docRef": "", 
         "question": "What kind of approach towards allocating space is used by LinearLayout container with attribute android:layout_width=\"match_parent\"", 
         "right": [
@@ -289,8 +983,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "18", 
+        "ID": 65, 
         "docRef": "http://developer.android.com/reference/android/widget/ArrayAdapter.html", 
         "question": "ArrayAdapter can handle data based on", 
         "right": [
@@ -305,8 +998,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "19", 
+        "ID": 66, 
         "docRef": "http://marcoscarvalho.com/tag/viewgroup/", 
         "question": "A ViewGroup is a visible interface which contains other views", 
         "right": [
@@ -320,8 +1012,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "20", 
+        "ID": 67, 
         "docRef": "http://developer.android.com/reference/android/view/ViewGroup.html", 
         "question": "Which of the following are subclasses of the ViewGroup?", 
         "right": [
@@ -338,8 +1029,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "21", 
+        "ID": 68, 
         "docRef": "http://developer.android.com/reference/android/widget/Adapter.html", 
         "question": "If you include an AdapterView (ListView, GridView, etc.) in an Activity, you create an object responsible for providing the AdapterView with individual item views.  Which interface must this object implement?", 
         "right": [
@@ -355,8 +1045,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "22", 
+        "ID": 69, 
         "docRef": "http://developer.android.com/reference/android/widget/AdapterView.html", 
         "question": "AdapterView extends", 
         "right": [
@@ -371,73 +1060,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "23", 
-        "docRef": "http://stackoverflow.com/questions/10847526/what-exactly-activity-finish-method-is-doing", 
-        "question": "When the finish() method is called on an activity, what is the next callback method called by Android?", 
-        "right": [
-            "onDestroy()"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "onPause()", 
-            "onStop()", 
-            "onDetach()"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "24", 
-        "docRef": "http://developer.android.com/reference/android/app/Activity.html", 
-        "question": "You have an Activity and you want to place some UI in it.\nWhat method you will call?", 
-        "right": [
-            "setContentView()"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "setView()", 
-            "setContent()", 
-            "inflate()"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "25", 
-        "docRef": "http://developer.android.com/reference/android/content/Context.html", 
-        "question": "Things that involve context are", 
-        "right": [
-            "Loading a resource", 
-            "Launching a new activity", 
-            "Creating views", 
-            "Obtaining system service"
-        ], 
-        "tags": [
-            "General"
-        ], 
-        "wrong": []
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "26", 
-        "docRef": "http://developer.android.com/guide/components/fragments.html", 
-        "question": "You may use a fragment without its own UI", 
-        "right": [
-            "TRUE"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "FALSE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "27", 
+        "ID": 70, 
         "docRef": "http://developer.android.com/reference/android/widget/Toast.html", 
         "question": "To create Toast without custom layout, you can call", 
         "right": [
@@ -454,8 +1077,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "28", 
+        "ID": 71, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
         "question": "To create a linear layout in which each child uses the same amount of space on the screen you have to set ", 
         "right": [
@@ -473,8 +1095,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "29", 
+        "ID": 72, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
         "question": "Which layouts support assigning a weight to individual children with the android:layout_weight", 
         "right": [
@@ -490,118 +1111,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "30", 
-        "docRef": "http://developer.android.com/guide/topics/security/permissions.html#permissions", 
-        "question": "To declare that your app needs a permission (e.g. your app needs to send SMS messages)", 
-        "right": [
-            "put a <uses-permission> element in your app manifest, as a child of the top-level <manifest> element"
-        ], 
-        "tags": [
-            "Permissions"
-        ], 
-        "wrong": [
-            "put a <permission> element in your app manifest, as a child of the top-level <manifest> element", 
-            "put a <uses-permission> element in your app manifest, as a child of the top-level <application> element", 
-            "put a <permission> element in your app manifest, as a child of the top-level <activity> element"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "31", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#Lifecycle", 
-        "question": "Which method is responsible for returning the view hierarchy represented by the fragment", 
-        "right": [
-            "onCreateView"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "onCreate", 
-            "onAttach", 
-            "onActivityCreated"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "32", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "Fragments can be used without activities", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "33", 
-        "docRef": "", 
-        "question": "Android namespace prefix declaration is mandatory for the root node of the layout resource", 
-        "right": [
-            "TRUE"
-        ], 
-        "tags": [
-            "General"
-        ], 
-        "wrong": [
-            "FALSE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "34", 
-        "docRef": "", 
-        "question": "To develop Android app you can use", 
-        "right": [
-            "Java", 
-            "C/++", 
-            "Go language"
-        ], 
-        "tags": [
-            "General"
-        ], 
-        "wrong": []
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "35", 
-        "docRef": "https://en.wikipedia.org/wiki/Comparison_of_Java_and_Android_API", 
-        "question": "All Java features (libraries, language-syntax) are available by default in Android SDK", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "General"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "36", 
-        "docRef": "", 
-        "question": "Android operating system is based on", 
-        "right": [
-            "Linux"
-        ], 
-        "tags": [
-            "General"
-        ], 
-        "wrong": [
-            "Windows", 
-            "Symbian"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "37", 
+        "ID": 73, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html", 
         "question": "Android user interface can be", 
         "right": [
@@ -614,8 +1124,7 @@
         "wrong": []
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "38", 
+        "ID": 74, 
         "docRef": "", 
         "question": "XML layout resources can be stored in ____ directory(ies)", 
         "right": [
@@ -633,8 +1142,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "39", 
+        "ID": 75, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html#load", 
         "question": "If the layout resource was stored in the /res/layout/main.xml file. Within the Activity to load and display a layout resource on the screen you should call", 
         "right": [
@@ -651,8 +1159,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "40", 
+        "ID": 76, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html#attributes", 
         "question": "A view object may have a unique ID assigned to it which will identify the View uniquely within the tree. The syntax for an ID is", 
         "right": [
@@ -668,8 +1175,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "41", 
+        "ID": 77, 
         "docRef": "", 
         "question": "The default <LinearLayout> orientation is", 
         "right": [
@@ -684,8 +1190,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "42", 
+        "ID": 78, 
         "docRef": "http://developer.android.com/training/improving-layouts/optimizing-layout.html", 
         "question": "Flat layout hierarchy improves performance", 
         "right": [
@@ -699,8 +1204,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "43", 
+        "ID": 79, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/relative.html#Position", 
         "question": "By default, all child views of RelativeLayout are drawn at the", 
         "right": [
@@ -717,127 +1221,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "44", 
-        "docRef": "http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle", 
-        "question": "In which callback method should you save data before the current Activity loses focus?", 
-        "right": [
-            "onPause"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "onResume", 
-            "onStop", 
-            "onDestroy"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "45", 
-        "docRef": "", 
-        "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?", 
-        "right": [
-            "View.post()", 
-            "Activity.runOnUiThread()"
-        ], 
-        "tags": [
-            "Threads"
-        ], 
-        "wrong": [
-            "Activity.executeMainThread()", 
-            "View.postMainThread()"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "46", 
-        "docRef": "http://developer.android.com/guide/components/fundamentals.html#Components", 
-        "question": "Choose the single best answer. Android applications are made up of ___.", 
-        "right": [
-            "Components"
-        ], 
-        "tags": [
-            "General"
-        ], 
-        "wrong": [
-            "Activities", 
-            "Tasks", 
-            "Services", 
-            "IBinders"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "47", 
-        "docRef": "", 
-        "question": "A Service ___.", 
-        "right": [
-            "runs in the background", 
-            "is used for long running operations", 
-            "supports interaction with remote processes"
-        ], 
-        "tags": [
-            "Service"
-        ], 
-        "wrong": [
-            "is used to start new Activities"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "48", 
-        "docRef": "", 
-        "question": "A BroadcastReceiver ___.", 
-        "right": [
-            "listens for and responds to events", 
-            "is a subscriber in the publish/subscribe pattern"
-        ], 
-        "tags": [
-            "BroadcastReceiver"
-        ], 
-        "wrong": [
-            "can be used to download data from the internet", 
-            "starts doing work in a background thread"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "49", 
-        "docRef": "http://developer.android.com/guide/components/fragments.html", 
-        "question": "How you can identify a fragment?", 
-        "right": [
-            "supply the android:id attribute with a unique ID", 
-            "supply the android:tag attribute with a unique string", 
-            "you can use the ID of the container view in which fragment resides"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "supply the android:key attribute with a unique ID"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "50", 
-        "docRef": "", 
-        "question": "You have two activities:  activity1 and activity2.  If activity1 starts activity2 with the startActivityWithResult() method, what must activity2 do in order to return both a result and data to activity1?", 
-        "right": [
-            "Create return intent using newIntent() ", 
-            "Add data to intent using putExtra() ", 
-            "Add result code using setResult()", 
-            "Call the finish() method"
-        ], 
-        "tags": [
-            "Activity Class, Intents"
-        ], 
-        "wrong": []
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "51", 
+        "ID": 80, 
         "docRef": "http://developer.android.com/reference/android/widget/RelativeLayout.html", 
         "question": "The default <RelativeLayout> orientation is", 
         "right": [
@@ -852,8 +1236,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "52", 
+        "ID": 81, 
         "docRef": "http://developer.android.com/reference/android/widget/ListView.html", 
         "question": "You want to add a footer to your ListView by calling method addFooterView(). Check true statements for API 17", 
         "right": [
@@ -868,8 +1251,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "53", 
+        "ID": 82, 
         "docRef": "http://developer.android.com/reference/android/widget/BaseAdapter.html", 
         "question": "To extend BaseAdapter you have to implement these methods", 
         "right": [
@@ -887,8 +1269,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "54", 
+        "ID": 83, 
         "docRef": "http://developer.android.com/reference/android/app/ListActivity.html", 
         "question": "Check true statements about ListActivity", 
         "right": [
@@ -902,8 +1283,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "55", 
+        "ID": 84, 
         "docRef": "http://developer.android.com/reference/android/view/LayoutInflater.html#inflate(int, android.view.ViewGroup, boolean)", 
         "question": "Which of the following are true statements about LayoutInfalater.inflate()", 
         "right": [
@@ -919,8 +1299,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "56", 
+        "ID": 85, 
         "docRef": "http://developer.android.com/reference/android/widget/RadioGroup.html", 
         "question": "Check true statements about RadioGroup", 
         "right": [
@@ -936,8 +1315,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "57", 
+        "ID": 86, 
         "docRef": "http://developer.android.com/guide/topics/resources/accessing-resources.html", 
         "question": "You can define the position with android:layout_below=\"@+id/myTextView\" and THEN define the element itself with android:id=\"@id/myTextView\"", 
         "right": [
@@ -951,8 +1329,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "58", 
+        "ID": 87, 
         "docRef": "http://developer.android.com/reference/android/widget/CheckBox.html", 
         "question": "A checkbox is a specific type of ___ button.", 
         "right": [
@@ -966,8 +1343,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "59", 
+        "ID": 88, 
         "docRef": "http://developer.android.com/guide/topics/ui/controls/checkbox.html#HandlingEvents", 
         "question": "To define the click event handler in layout xml, add the android:onClick attribute. The method you declare in the android:onClick must", 
         "right": [
@@ -986,24 +1362,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "60", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "Check true statements (if any) about Fragment", 
-        "right": [
-            "it can not be used apart from Activity"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "Fragment derives from Context", 
-            "Android system handles back-stack of Fragment in the same manner as for Activity"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "61", 
+        "ID": 89, 
         "docRef": "http://developer.android.com/reference/android/widget/SeekBar.html", 
         "question": "SeekBar is an extension of", 
         "right": [
@@ -1019,8 +1378,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "62", 
+        "ID": 90, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html", 
         "question": "Entries (actions) in the toolbar can be created via", 
         "right": [
@@ -1033,8 +1391,7 @@
         "wrong": []
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "63", 
+        "ID": 91, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html#xml", 
         "question": "What conditions should be fulfilled to define the menu via xml file?", 
         "right": [
@@ -1051,8 +1408,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "64", 
+        "ID": 92, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html#options-menu", 
         "question": "Check true statements", 
         "right": [
@@ -1065,8 +1421,7 @@
         "wrong": []
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "65", 
+        "ID": 93, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html#options-menu", 
         "question": "The activity's options menu items appear first, followed by those of each fragment in the order in which each fragment is added to the activity", 
         "right": [
@@ -1080,23 +1435,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "66", 
-        "docRef": "", 
-        "question": "You can have multiple Activities in the foreground", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Activity Class"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "67", 
+        "ID": 94, 
         "docRef": "", 
         "question": "Your application uses options menu. Method onCreateOptionsMenu() will be called after", 
         "right": [
@@ -1111,8 +1450,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "68", 
+        "ID": 95, 
         "docRef": "http://developer.android.com/guide/topics/ui/dialogs.html", 
         "question": "If you need to indicate progress, you can use", 
         "right": [
@@ -1127,8 +1465,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "69", 
+        "ID": 96, 
         "docRef": "http://developer.android.com/guide/topics/ui/dialogs.html", 
         "question": "Which of the following are true statements about AlertDialog. Dialog can show", 
         "right": [
@@ -1145,8 +1482,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "70", 
+        "ID": 97, 
         "docRef": "http://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog", 
         "question": "The AlertDialog should always have a title", 
         "right": [
@@ -1160,8 +1496,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "71", 
+        "ID": 98, 
         "docRef": "", 
         "question": "Choose the recommended (best practice) for the ListView attributes", 
         "right": [
@@ -1176,116 +1511,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "72", 
-        "docRef": "", 
-        "question": "Each Activity (that supports fragments) has its own FragmentManager to manage the Fragments within it.", 
-        "right": [
-            "TRUE"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "FALSE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "73", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "A fragment is capable of getting a view on screen itself", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "74", 
-        "docRef": "http://developer.android.com/guide/components/fragments.html#Design", 
-        "question": "Fragments were introduced in ", 
-        "right": [
-            "API 11"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "API 4", 
-            "API 8", 
-            "API 16"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "75", 
-        "docRef": "http://developer.android.com/training/basics/fragments/creating.html", 
-        "question": "The support library includes a complete implementation of fragments that work all the way back to", 
-        "right": [
-            "API 4"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "API 8", 
-            "API 11", 
-            "API 16"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "76", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#Lifecycle", 
-        "question": "Fragment lifecycle methods are called by", 
-        "right": [
-            "the hosting activity"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "the Android OS"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "77", 
-        "docRef": "http://developer.android.com/reference/android/app/FragmentManager.html", 
-        "question": "The FragmentManager handles", 
-        "right": [
-            "a list of fragments", 
-            "back stack of fragment transactions"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": []
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "78", 
-        "docRef": "", 
-        "question": "Only FrameLayout can be a placeholder container for your fragment", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "", 
-        "ID": "79", 
+        "ID": 99, 
         "docRef": "http://developer.android.com/guide/topics/resources/more-resources.html#Dimension", 
         "question": "Which dimension unit is recommend when specifying font sizes", 
         "right": [
@@ -1302,8 +1528,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "80", 
+        "ID": 100, 
         "docRef": "http://developer.android.com/guide/topics/resources/more-resources.html#Dimension", 
         "question": "Which dimension units are recommend when specifying margins and padding", 
         "right": [
@@ -1320,8 +1545,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "81", 
+        "ID": 101, 
         "docRef": "http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder", 
         "question": "findViewById(int) is", 
         "right": [
@@ -1335,25 +1559,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "82", 
-        "docRef": "", 
-        "question": "What is the recommended relationship between the hosted Activity and the Fragment?", 
-        "right": [
-            "the Fragment is independent and the Activity knows specifics of their Fragment"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "both know plenty about each other", 
-            "the Activity is independent and the Fragment knows specifics of their host", 
-            "both are independent"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "83", 
+        "ID": 102, 
         "docRef": "", 
         "question": "Inflation (LayoutInflater.inflate) is", 
         "right": [
@@ -1367,8 +1573,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "84", 
+        "ID": 103, 
         "docRef": "http://developer.android.com/training/implementing-navigation/lateral.html#horizontal-paging", 
         "question": "____ is best when navigating between sibling screens representing a fixed, small number of pages.", 
         "right": [
@@ -1382,8 +1587,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "85", 
+        "ID": 104, 
         "docRef": "http://developer.android.com/training/implementing-navigation/lateral.html#horizontal-paging", 
         "question": "____ is best for paging across a collection of objects for which the number of pages is undetermined. It destroys fragments as the user navigates to other pages, minimizing memory usage.", 
         "right": [
@@ -1397,103 +1601,139 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "86", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "Fragments inside the host Activity can be started even if the Activity is stopped ", 
+        "ID": 105, 
+        "docRef": "http://developer.android.com/reference/android/widget/ScrollView.html", 
+        "question": "ScrollView supports", 
+        "right": [
+            "vertical scrolling"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "horizontal scrolling"
+        ]
+    }, 
+    {
+        "ID": 106, 
+        "docRef": "http://developer.android.com/reference/android/widget/ScrollView.html", 
+        "question": "(True or False) ScrollView can host multiple direct children.", 
         "right": [
             "FALSE"
         ], 
         "tags": [
-            "Fragments"
+            "User Interfaces"
         ], 
         "wrong": [
             "TRUE"
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "87", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "When the Activity is destroyed, all hosted Fragments will be destroyed.", 
-        "right": [
-            "TRUE"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "FALSE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "88", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onCreate(android.os.Bundle)", 
-        "question": "When the method Fragment.onCreate(Bundle) is called the host Activity's content view hierarchy is initialized at this point.", 
+        "ID": 107, 
+        "docRef": "http://developer.android.com/reference/android/widget/Toast.html#setDuration(int)", 
+        "question": "(True or False) When using setDuration for a Toast is it possible to set any custom length.", 
         "right": [
             "FALSE"
         ], 
         "tags": [
-            "Fragments"
+            "User Notifications"
         ], 
         "wrong": [
             "TRUE"
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "89", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)", 
-        "question": "Fragment.onCreateView() can return", 
+        "ID": 108, 
+        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html#CreateNotification", 
+        "question": "A Notification object must contain the following:", 
         "right": [
-            "View", 
-            "null"
+            "a small icon", 
+            "a title", 
+            "detail text"
         ], 
         "tags": [
-            "Fragments"
+            "User Notifications"
         ], 
         "wrong": [
-            "void"
+            "priority", 
+            "ticker"
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "90", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onActivityCreated(android.os.Bundle)", 
-        "question": "This callback tells the Fragment when it is fully associated with the host Activity", 
+        "ID": 109, 
+        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
+        "question": "Your application can use Notifications to alert users of events that may require their attention without one of its Activity\u2019s being visible.", 
         "right": [
-            "onActivityCreated"
+            "TRUE"
         ], 
         "tags": [
-            "Fragments"
+            "User Notifications"
         ], 
         "wrong": [
-            "onAttach", 
-            "onCreate", 
-            "onCreateView", 
-            "onResume"
+            "FALSE"
         ]
     }, 
     {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "91", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
-        "question": "You can set a Fragment tag by", 
+        "ID": 110, 
+        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
+        "question": "Using the Notification Manager, you can", 
         "right": [
-            "android:tag", 
-            "at transaction time, using add/replace"
+            "trigger new Notifications", 
+            "modify existing Notifications", 
+            "cancel Notifications that are no longer required"
         ], 
         "tags": [
-            "Fragments"
+            "User Notifications"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 111, 
+        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
+        "question": "Both the notification area and the notification drawer are ___-controlled areas that the user can view at any time.", 
+        "right": [
+            "system"
+        ], 
+        "tags": [
+            "User Notifications"
         ], 
         "wrong": [
-            "setTag(String tagName)"
+            "Activity", 
+            "Fragment"
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "92", 
+        "ID": 112, 
+        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
+        "question": "Which of the following are examples of User Notification?", 
+        "right": [
+            "Toast Messages", 
+            "Notification Area Notifications"
+        ], 
+        "tags": [
+            "User Notifications"
+        ], 
+        "wrong": [
+            "Context Menus", 
+            "Action Bar Actions"
+        ]
+    }, 
+    {
+        "ID": 113, 
+        "docRef": "http://developer.android.com/reference/android/widget/Toast.html", 
+        "question": "(True or False) Toast messages are temporary messages that pop up on the display.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Notifications"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 114, 
         "docRef": "https://en.wikipedia.org/wiki/Thread_(computing)", 
         "question": "Java Threads running in the same Process share", 
         "right": [
@@ -1509,8 +1749,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "93", 
+        "ID": 115, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Android UI toolkit is thread-safe", 
         "right": [
@@ -1524,8 +1763,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "94", 
+        "ID": 116, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Application components in the same process use the same UI thread", 
         "right": [
@@ -1539,8 +1777,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "95", 
+        "ID": 117, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "The View hierarchy can be updated from a background Thread", 
         "right": [
@@ -1555,8 +1792,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "96", 
+        "ID": 118, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "If an application component starts and there already exists a process for that application (because another component from the application exists), then the component is started within a new process", 
         "right": [
@@ -1570,8 +1806,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "97", 
+        "ID": 119, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Components of different applications run in the same process", 
         "right": [
@@ -1585,8 +1820,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "98", 
+        "ID": 120, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Android app can run multiple processes in the foreground", 
         "right": [
@@ -1600,8 +1834,21 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "99", 
+        "ID": 121, 
+        "docRef": "http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)", 
+        "question": "(True or False) Method boolean View.post(Runnable) returns true if the Runnable was successfully executed", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 122, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html#Threads", 
         "question": "Your app is using AsyncTask, which methods are invoked on the UI thread?", 
         "right": [
@@ -1619,8 +1866,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "100", 
+        "ID": 123, 
         "docRef": "http://developer.android.com/reference/android/os/AsyncTask.html", 
         "question": "(True or False) You implemented AsyncTask to perform background operations. The task can be executed multiple times.", 
         "right": [
@@ -1634,8 +1880,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "101", 
+        "ID": 124, 
         "docRef": "http://developer.android.com/reference/android/os/AsyncTask.html", 
         "question": "(True or False) Starting with API 11 (Android 3.0) AsyncTasks can operate in parallel.", 
         "right": [
@@ -1649,8 +1894,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "102", 
+        "ID": 125, 
         "docRef": "http://developer.android.com/reference/android/os/AsyncTask.html", 
         "question": "(True or False) AsyncTask can be cancelled.", 
         "right": [
@@ -1664,8 +1908,23 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "103", 
+        "ID": 126, 
+        "docRef": "", 
+        "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?", 
+        "right": [
+            "View.post()", 
+            "Activity.runOnUiThread()"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "Activity.executeMainThread()", 
+            "View.postMainThread()"
+        ]
+    }, 
+    {
+        "ID": 127, 
         "docRef": "http://developer.android.com/training/articles/perf-anr.html", 
         "question": "(True or False) If you don't care about responsiveness and have a long running process (network access) you can run your code in UI thread.", 
         "right": [
@@ -1679,8 +1938,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "104", 
+        "ID": 128, 
         "docRef": "http://developer.android.com/guide/components/services.html", 
         "question": "Services by default run in", 
         "right": [
@@ -1694,8 +1952,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "105", 
+        "ID": 129, 
         "docRef": "http://developer.android.com/reference/android/os/Handler.html", 
         "question": "A handler can be associated with a multiple threads", 
         "right": [
@@ -1709,42 +1966,7 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "106", 
-        "docRef": "http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)", 
-        "question": "(True or False) Method boolean View.post(Runnable) returns true if the Runnable was successfully executed", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "Threads"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 1: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "107", 
-        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#setRetainInstance(boolean)", 
-        "question": "Choose true statements for method Fragment.setRetainInstance()", 
-        "right": [
-            "can only be used with fragments not in the back stack", 
-            "onDestroy() will not be called", 
-            "onActivityCreated(Bundle) will be called"
-        ], 
-        "tags": [
-            "Fragments"
-        ], 
-        "wrong": [
-            "onDetach() will not be called", 
-            "onCreate(Bundle) will be called ", 
-            "onAttach(Activity) will not be called"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "108", 
+        "ID": 130, 
         "docRef": "http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-apache-http-client", 
         "question": "Which one of the following HTTP clients is Android's preferred HTTP client?", 
         "right": [
@@ -1760,68 +1982,283 @@
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "109", 
-        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
-        "question": "Which of the following are examples of User Notification?", 
-        "right": [
-            "Toast Messages", 
-            "Notification Area Notifications"
-        ], 
-        "tags": [
-            "User Notifications, coursera (c)"
-        ], 
-        "wrong": [
-            "Context Menus", 
-            "Action Bar Actions"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "110", 
-        "docRef": "http://developer.android.com/reference/android/widget/Toast.html#setDuration(int)", 
-        "question": "(True or False) When using setDuration for a Toast is it possible to set any custom length.", 
-        "right": [
-            "FALSE"
-        ], 
-        "tags": [
-            "User Notifications"
-        ], 
-        "wrong": [
-            "TRUE"
-        ]
-    }, 
-    {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "111", 
-        "docRef": "http://developer.android.com/reference/android/widget/Toast.html", 
-        "question": "(True or False) Toast messages are temporary messages that pop up on the display.", 
+        "ID": 131, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#onReceive(android.content.Context, android.content.Intent)", 
+        "question": "By default, any time spent in BroadcastReceiver.onReceive() will freeze your UI", 
         "right": [
             "TRUE"
         ], 
         "tags": [
-            "User Notifications, coursera (c)"
+            "Broadcast Receivers"
         ], 
         "wrong": [
             "FALSE"
         ]
     }, 
     {
-        "Coursera Class": "Part 2: \u00a0Programming Mobile Applications for Handheld Systems", 
-        "ID": "112", 
-        "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html#CreateNotification", 
-        "question": "A Notification object must contain the following:", 
+        "ID": 132, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "By default, if you broadcast an Intent, and there are many registered BroadcastReceivers that match that Intent, all of them will receive the broadcast, in indeterminate order", 
         "right": [
-            "a small icon", 
-            "a title", 
-            "detail text"
+            "TRUE"
         ], 
         "tags": [
-            "User Notifications"
+            "Broadcast Receivers"
         ], 
         "wrong": [
-            "priority", 
-            "ticker"
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 133, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "(True or False) The priority is a positive integer, with lower numbers indicating higher priority.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 134, 
+        "docRef": "http://developer.android.com/guide/topics/manifest/intent-filter-element.html", 
+        "question": "Check true statements about a broadcast receiver priority.", 
+        "right": [
+            "the value must be an integer", 
+            "higher numbers have a higher priority", 
+            "the default value 0", 
+            "the value must be greater than -1000 and less than 1000"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "the value can be float", 
+            "lower numbers have a higher priority", 
+            "the value must be greater than 0 and less than 100"
+        ]
+    }, 
+    {
+        "ID": 135, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "How can you register BroadcastReceiver?", 
+        "right": [
+            "dynamically by code", 
+            "statically through the <receiver> tag in your AndroidManifest.xml."
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 136, 
+        "docRef": "http://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html", 
+        "question": "(True or False) You can broadcast within an app.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 137, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "Check true statements about normal broadcasts (sent with Context.sendBroadcast)", 
+        "right": [
+            "all receivers of the broadcast are run in an undefined order"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "receivers can use the result", 
+            "receivers can use abort APIs "
+        ]
+    }, 
+    {
+        "ID": 138, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "Check true statements about ordered broadcasts (sent with Context.sendOrderedBroadcast) ", 
+        "right": [
+            "broadcasts are delivered to one receiver at a time", 
+            "receivers can use the result", 
+            "receivers can use abort APIs"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "receivers with the same priority will be run in parallel"
+        ]
+    }, 
+    {
+        "ID": 139, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "(True or False) When you use registerReceiver(BroadcastReceiver, IntentFilter), you can control who can send broadcasts to it through permissions", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 140, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "(True or False) Application with broadcast receivers can respond to broadcast events even after app has been closed or killed.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 141, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "(True or False) A Receiver registered programmatically will respond to Broadcast Intents even when the application component it is registered within is not running.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 142, 
+        "docRef": "http://developer.android.com/reference/android/content/Context.html#sendOrderedBroadcast(android.content.Intent, java.lang.String, android.content.BroadcastReceiver, android.os.Handler, int, java.lang.String, android.os.Bundle)", 
+        "question": "Which methods allows you to receive data back from the broadcast?", 
+        "right": [
+            "sendOrderedBroadcast()", 
+            "sendStickyOrderedBroadcast()"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "sendBroadcast()", 
+            "sendBroadcastAsUser()", 
+            "sendStickyBroadcast()"
+        ]
+    }, 
+    {
+        "ID": 143, 
+        "docRef": "http://developer.android.com/reference/android/content/Context.html#sendStickyOrderedBroadcast(android.content.Intent, android.content.BroadcastReceiver, android.os.Handler, int, java.lang.String, android.os.Bundle)", 
+        "question": "(True or False) Sticky broadcasts provide no security (anyone can access them), no protection (anyone can modify them).", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 144, 
+        "docRef": "http://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html", 
+        "question": "(True or False) Using the Local Broadcast Manager is more efficient than sending a global broadcast.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 145, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "(True or False) The Intent message bus uses different channels (completely separate) to start activity and send broadcast", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 146, 
+        "docRef": "http://developer.android.com/guide/components/intents-filters.html", 
+        "question": "(True or False) You should set an Intent filter for every indirectly targeted broadcast receiver.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 147, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
+        "question": "Broadcast access permissions can be enforced by", 
+        "right": [
+            "sender", 
+            "receiver"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 148, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#ReceiverLifecycle", 
+        "question": "Which operations are forbidden in BroadcastReceiver.onReceive()?", 
+        "right": [
+            "show a dialog", 
+            "bind to a service", 
+            "do long-running operations", 
+            "do asynchronous operations"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "do short synchronous operations"
+        ]
+    }, 
+    {
+        "ID": 149, 
+        "docRef": "", 
+        "question": "A BroadcastReceiver ___.", 
+        "right": [
+            "listens for and responds to events", 
+            "is a subscriber in the publish/subscribe pattern"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "can be used to download data from the internet", 
+            "starts doing work in a background thread"
         ]
     }
 ]

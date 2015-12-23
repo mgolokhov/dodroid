@@ -30,7 +30,7 @@ dependencies {
 
 task exportQuestions(type:Exec, description: 'Run the pre-build python script') {
     workingDir 'src/main/res/raw/'
-    commandLine 'python', 'export_quiz_to_json.py'
+    commandLine 'python', 'import_quiz_to_json.py'
 }
 
 // This ensures my script will be called before building
