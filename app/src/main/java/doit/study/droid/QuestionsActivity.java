@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
     }
 
     @Override
-    public void swipeNext() {
+    public void swipeToNext(int delay) {
         final int posInFocus = mPager.getCurrentItem();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -74,7 +72,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
                     mPager.setCurrentItem(posInFocus + 1);
                 }
             }
-        }, 2000);
+        }, delay);
     }
 }
 

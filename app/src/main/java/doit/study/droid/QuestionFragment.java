@@ -51,7 +51,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     ////////////////////////////////////////////////
     public interface OnFragmentChangeListener {
         void updateFragments();
-        void swipeNext();
+        void swipeToNext(int delay);
     }
 
     public interface OnAnswerCheckListener {
@@ -246,11 +246,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                     v.setVisibility(View.GONE);
                     mvNextButton.setVisibility(View.VISIBLE);
                 } else {
-                    mOnFragmentChangeListener.swipeNext();
+                    mOnFragmentChangeListener.swipeToNext(2000);
                 }
                 break;
             case (R.id.next_button):
-                mOnFragmentChangeListener.swipeNext();
+                mOnFragmentChangeListener.swipeToNext(0);
                 break;
         }
     }
