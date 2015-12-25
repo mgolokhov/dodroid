@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private TextView mvRight;
     private TextView mvWrong;
     private Button mvNextButton;
+    private Toast toast;
     ////////////////////////////////////////////////
     // Host Activity must implement these interfaces
     ////////////////////////////////////////////////
@@ -207,7 +209,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 break;
             }
         }
-        Toast toast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
+        toast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         if (goodJob) {
@@ -238,6 +240,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     @Override
     public void onClick(View v) {
+        int delay = 2000;
         switch (v.getId()) {
             case (R.id.commit_button):
                 boolean isRight = checkAnswers();
@@ -246,12 +249,20 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                     v.setVisibility(View.GONE);
                     mvNextButton.setVisibility(View.VISIBLE);
                 } else {
-                    mOnFragmentChangeListener.swipeToNext(2000);
+                    mOnFragmentChangeListener.swipeToNext(delay);
                 }
                 break;
             case (R.id.next_button):
-                mOnFragmentChangeListener.swipeToNext(0);
+                delay = 0;
+                mOnFragmentChangeListener.swipeToNext(delay);
                 break;
         }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, delay);
     }
 }
