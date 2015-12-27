@@ -37,8 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
 
-    private static final int DATABASE_VERSION = 8;
-    private static final int DB_CONTENT_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
+    private static final int DB_CONTENT_VERSION = 9;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     // Database Name
@@ -127,6 +127,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG, "create db");
+        // Enable foreign key constraints
+        db.execSQL("PRAGMA foreign_keys=ON;");
         // creating required tables
         db.execSQL(CREATE_TABLE_QUESTION);
         db.execSQL(CREATE_TABLE_STATS);
@@ -142,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "update db");
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
+        //FIXME: all stats will be lost
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANSWER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TAG);
@@ -232,15 +235,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Integer> getQuestionIds() {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT " + KEY_ID + " FROM " + TABLE_QUESTION;
         Cursor c = db.rawQuery(query, null);
         ArrayList<Integer> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getInt(0));
-            } while (c.moveToNext());
-        }
+        while (c.moveToNext())
+           result.add(c.getInt(0));
         return result;
     }
 
@@ -248,7 +248,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String queryQuestion = "SELECT * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = " + id;
         Cursor c = db.rawQuery(queryQuestion, null);
-        if (!c.moveToFirst()) throw new RuntimeException("no movetofirst!!");
+        if (!c.moveToFirst())
+            throw new RuntimeException("Table is empty");
         int qid = c.getInt(c.getColumnIndex(KEY_ID));
         String text = c.getString(c.getColumnIndex(KEY_QUESTION));
         String docRef = c.getString(c.getColumnIndex(KEY_DOC_REF));
@@ -261,11 +262,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         c = db.rawQuery(queryTag, null);
         ArrayList<String> tags = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                String tag = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-                tags.add(tag);
-            } while (c.moveToNext());
+        while(c.moveToNext()) {
+            String tag = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+            tags.add(tag);
         }
 
         ArrayList<String> wrongItems = new ArrayList<>();
@@ -278,14 +277,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String queryAnswer = "SELECT * FROM " + TABLE_ANSWER +
                     " WHERE " + KEY_QUESTION_ID + " = " + id;
             c = db.rawQuery(queryAnswer, null);
-            if (c.moveToFirst()) {
-                do {
-                    String answer = c.getString(c.getColumnIndex(KEY_ANSWER));
-                    boolean isRight = c.getInt(c.getColumnIndex(KEY_IS_RIGHT)) == 1;
+            while(c.moveToNext()) {
+                String answer = c.getString(c.getColumnIndex(KEY_ANSWER));
+                boolean isRight = c.getInt(c.getColumnIndex(KEY_IS_RIGHT)) == 1;
 
-                    if (isRight) rightItems.add(answer);
-                    else wrongItems.add(answer);
-                } while (c.moveToNext());
+                if (isRight) rightItems.add(answer);
+                else wrongItems.add(answer);
             }
         }
         Question q = new Question(qid, text, wrongItems, rightItems, tags, docRef);
@@ -295,14 +292,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Tag> getTags() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.query(TABLE_TAG, new String[]{KEY_ID, KEY_TAG_NAME}, null, null, null, null, null);
-        if (!c.moveToFirst()) return null;
+        if (!c.moveToFirst())
+            return null;
         ArrayList<Tag> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-                int id = c.getInt(c.getColumnIndex(KEY_ID));
-                result.add(new Tag(id, name));
-            } while (c.moveToNext());
+        while (c.moveToNext()) {
+            String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
+            int id = c.getInt(c.getColumnIndex(KEY_ID));
+            result.add(new Tag(id, name));
         }
         return result;
     }
@@ -333,7 +329,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Tag getTagById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.query(TABLE_TAG, new String[]{KEY_TAG_NAME}, KEY_ID + "=" + id, null, null, null, null);
-        if (!c.moveToFirst()) return null;
+        if (!c.moveToFirst())
+            return null;
         String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
         return new Tag(id, name);
     }
@@ -343,11 +340,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT " + KEY_ID + " FROM " + TABLE_TAG;
         Cursor c = db.rawQuery(query, null);
         ArrayList<Integer> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getInt(0));
-            } while (c.moveToNext());
-        }
+        while (c.moveToNext())
+            result.add(c.getInt(0));
         return result;
     }
 
@@ -364,11 +358,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT " + KEY_QUESTION_ID + " FROM " + TABLE_QUESTION_TAG + " WHERE " + KEY_TAG_ID + " IN (" + tagIdsCommaSeparated + ")";
         Cursor c = db.rawQuery(query, null);
         ArrayList<Integer> result = new ArrayList<>();
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getInt(0));
-            } while (c.moveToNext());
-        }
+        while (c.moveToNext())
+            result.add(c.getInt(0));
         return result;
     }
 
@@ -410,12 +401,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         private static Boolean binaryAnswer(ArrayList<String> wrongItems, ArrayList<String> rightItems) {
-            if (wrongItems.size() != 1 || rightItems.size() != 1) return null;
-            String right = rightItems.get(0);
-            String wrong = wrongItems.get(0);
-            if ("true".equals(right) && "false".equals(wrong)) return true;
-            if ("false".equals(right) && "true".equals(wrong)) return false;
-            return null;
+            Boolean answerIsTrue = null;
+            if (wrongItems.size() == 1 && rightItems.size() == 1) {
+                String right = rightItems.get(0);
+                String wrong = wrongItems.get(0);
+                if ("true".equals(right) && "false".equals(wrong))
+                    answerIsTrue = true;
+                if ("false".equals(right) && "true".equals(wrong))
+                    answerIsTrue = false;
+            }
+            return answerIsTrue;
         }
     }
 

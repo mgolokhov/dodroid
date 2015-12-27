@@ -37,6 +37,7 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
         GlobalData gd = (GlobalData) getApplication();
+        setTitle("Total questions: " + gd.getQuizData().getQuestionIds().size());
         List<Tag> tags = (List<Tag>) gd.retrieve("tags");
         Map<Integer, Tag.Stats> tagStats = (Map<Integer, Tag.Stats>) gd.retrieve("tagStats");
         mSelectedTagIds = (List<Integer>) gd.retrieve("selectedTagIds");
