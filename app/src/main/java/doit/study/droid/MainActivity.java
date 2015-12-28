@@ -32,19 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setTopicButton(View v){
         Intent intent = new Intent(MainActivity.this, TopicsActivity.class);
-        GlobalData globalData = (GlobalData) getApplication();
-        QuizData quizData = globalData.getQuizData();
-        globalData.save("selectedTagIds", quizData.getSelectedTagIds());
-        globalData.save("tags", quizData.getTags());
-        globalData.save("tagStats", quizData.getTagStats());
         startActivity(intent);
     }
 
     public void doitButton(View v){
         Intent intent = new Intent(MainActivity.this, QuestionsActivity.class);
-        GlobalData globalData = (GlobalData) getApplication();
-        QuizData quizData = globalData.getQuizData();
-        globalData.save("questionIds", quizData.getQuestionIdsToWorkWith());
         startActivity(intent);
     }
 }

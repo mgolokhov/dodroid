@@ -38,9 +38,10 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
         setContentView(R.layout.topics_layout);
         GlobalData gd = (GlobalData) getApplication();
         setTitle("Total questions: " + gd.getQuizData().getQuestionIds().size());
-        List<Tag> tags = (List<Tag>) gd.retrieve("tags");
-        Map<Integer, Tag.Stats> tagStats = (Map<Integer, Tag.Stats>) gd.retrieve("tagStats");
-        mSelectedTagIds = (List<Integer>) gd.retrieve("selectedTagIds");
+        List<Tag> tags = gd.getQuizData().getTags();
+        Map<Integer, Tag.Stats> tagStats = gd.getQuizData().getTagStats();
+        mSelectedTagIds = gd.getQuizData().getSelectedTagIds();
+
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));

@@ -28,7 +28,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         configPagerTabStrip();
 
         GlobalData gd = (GlobalData) getApplication();
-        List<Integer> questionIds = (List<Integer>) gd.retrieve("questionIds");
+        List<Integer> questionIds = gd.getQuizData().getQuestionIdsToWorkWith();
         Collections.shuffle(questionIds);
         if (questionIds.size() > 10) {
             questionIds = questionIds.subList(0, 10);

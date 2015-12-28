@@ -11,7 +11,6 @@ public class GlobalData extends Application {
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
-    private InterActivityDataHolder mDataHolder = new InterActivityDataHolder();
 
     @Override
     public void onCreate() {
@@ -20,15 +19,7 @@ public class GlobalData extends Application {
         mQuizData = new QuizData(helper);
     }
 
-    public QuizData getQuizData(){
+    public QuizData getQuizData() {
         return mQuizData;
-    }
-
-    public void save(String key, Object obj) {
-        mDataHolder.save(key, obj);
-    }
-
-    public Object retrieve(String key) {
-        return mDataHolder.retrieve(key);
     }
 }
