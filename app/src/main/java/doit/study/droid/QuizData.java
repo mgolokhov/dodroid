@@ -1,113 +1,73 @@
 package doit.study.droid;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import doit.study.droid.model.Question;
+import doit.study.droid.model.Statistics;
+import doit.study.droid.model.Tag;
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 public class QuizData {
-    private int mTotalWrongCounter;
-    private int mTotalRightCounter;
     private DatabaseHelper mDBHelper;
-    private int mSize;
-    private ArrayList<Integer> mIds;
-    private int mTagsCount;
-    private List<Integer> mTagIds;
-    private List<Integer> mSelectedTagIds = new ArrayList<>();
+    private Map<Integer, Question> mQuestions;
+    private Map<Integer, Tag> mTags;
+    private Map<Integer, Statistics.UserStatistics> mStats;
 
     public QuizData(DatabaseHelper dbHelper) {
-        this.mDBHelper = dbHelper;
-        init();
-    }
-
-    private void init() {
-        this.mIds = this.mDBHelper.getQuestionIds();
-        this.mSize = this.mIds.size();
-        this.mTagIds = this.mDBHelper.getTagIds();
-        this.mTagsCount = this.mTagIds.size();
-    }
-
-    public ArrayList<Integer> getQuestionIds() {
-        return mIds;
-    }
-
-    public int idAtPosition(int pos) {
-        return mIds.get(pos);
-    }
-
-    public Question getById(int id){
-        return this.mDBHelper.getQuestionById(id);
-    }
-
-    public int size(){
-        return this.mSize;
-    }
-
-    public List<Integer> getTagIds() {
-        return mTagIds;
-    }
-
-    public int tagIdAtPosition(int pos) {
-        return mTagIds.get(pos);
-    }
-
-    public Tag getTagById(int id){
-        return this.mDBHelper.getTagById(id);
-    }
-
-    public int tagsCount(){
-        return this.mTagsCount;
-    }
-
-    public void setSelectedTagIds(List<Integer> selectedTagIds) {
-        this.mSelectedTagIds = selectedTagIds;
-    }
-
-    public List<Integer> getSelectedTagIds() {
-        return this.mSelectedTagIds;
-    }
-
-    public void incrementWrongCounter(int id){
-        mTotalWrongCounter++;
-    }
-
-    public void incrementRightCounter(int id){
-        mTotalRightCounter++;
+        mDBHelper = dbHelper;
     }
 
     public int getTotalWrongCounter(){
-        return mTotalWrongCounter;
+        return Statistics.getTotalWrongCounter();
     }
 
     public int getTotalRightCounter(){
-        return mTotalRightCounter;
+        return Statistics.getTotalRightCounter();
     }
 
-    public void addSelectedTag(int tagId) {
-        mSelectedTagIds.add(tagId);
+    public Statistics.UserStatistics getStatByQuestionId(int questionId){
+        return null;
     }
 
-    public void removeSelectedTag(int tagId) {
-        int index = mSelectedTagIds.indexOf(tagId);
-        if (index == -1) return;
-        mSelectedTagIds.remove(index);
+    public List<Statistics.UserStatistics> getStatByQuestionIds(int [] questionIds){
+        return null;
     }
 
-    public ArrayList<Integer> getQuestionIdsToWorkWith() {
-        if (mSelectedTagIds.isEmpty()) return getQuestionIds();
-        return getQuestionIdsByTags();
+
+    public List<Integer> getQuestionIds() {
+        return mDBHelper.getQuestionIds();
     }
 
-    private ArrayList<Integer> getQuestionIdsByTags() {
-        return mDBHelper.getQuestionIdsByTags(mSelectedTagIds);
+    public List<Integer> getTagIds() {
+        return mDBHelper.getTagIds();
     }
 
-    public List<Tag> getTags() {
-        return mDBHelper.getTags();
+    public Question getQuestionById(int questionId) {
+        return null;
     }
 
-    public Map<Integer, Tag.Stats> getTagStats() {
-        return mDBHelper.getTagStats();
+    public Tag getTagById(int tagId){
+        return mDBHelper.getTagById(tagId);
+    }
+
+    public List<Tag> getTagByIds(List<Integer> tagIds){
+        return mDBHelper.getTagByIds(tagIds);
+    }
+
+    public List<Question> getQuestionsByIds(List<Integer> questionIds){
+        return null;
+    }
+
+    public List<Question> getQuestionsByTagIds(List<Integer> tagIds){
+        return null;
+    }
+
+    public List<Question> getSelectedTags(){
+        return null;
+    }
+
+    public void setSelectedTags(List<Integer> tagIds){
+
     }
 }

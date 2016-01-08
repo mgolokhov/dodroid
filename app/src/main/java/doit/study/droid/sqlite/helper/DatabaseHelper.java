@@ -3,125 +3,43 @@ package doit.study.droid.sqlite.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.text.TextUtils;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import doit.study.droid.Question;
 import doit.study.droid.R;
-import doit.study.droid.Tag;
+import doit.study.droid.model.Question;
+import doit.study.droid.model.Statistics;
+import doit.study.droid.model.TableRelationships;
+import doit.study.droid.model.Tag;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
     // Logcat tag
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-
-    private static final int DATABASE_VERSION = 9;
-    private static final int DB_CONTENT_VERSION = 9;
+    private static final int DATABASE_VERSION = 18;
+    private static final int DB_CONTENT_VERSION = 17;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
+
+    public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
 
     // Database Name
     private static final String DATABASE_NAME = "dodroid";
-
-    // Table Names
-    private static final String TABLE_QUESTION = "questions";
-    private static final String TABLE_STATS = "stats";
-    private static final String TABLE_ANSWER = "answers";
-    private static final String TABLE_TAG = "tags";
-    private static final String TABLE_QUESTION_TAG = "questions_tags";
-
-    // Common column names
-    private static final String KEY_ID = "id";
-    private static final String KEY_CREATED_AT = "created_at";
-
-    // QUESTION Table - column names
-    private static final String KEY_QUESTION = "question";
-    private static final String KEY_DOC_REF = "doc_ref";
-    private static final String KEY_IS_BINARY = "is_binary";
-    private static final String KEY_ANSWER_IS_TRUE = "is_binary_true";
-
-    // STATS Table - column names
-    private static final String KEY_STATS_RIGHT = "right_count";
-
-    // ANSWER Table - column names
-    private static final String KEY_ANSWER = "answer";
-    private static final String KEY_IS_RIGHT = "is_right";
-
-    // TAGS Table - column names
-    private static final String KEY_TAG_NAME = "tag_name";
-
-    // QUESTION_TAG Table - column names
-    private static final String KEY_QUESTION_ID = "question_id";
-    private static final String KEY_TAG_ID = "tag_id";
-
-    // Table Create Statements
-    private static final String CREATE_TABLE_QUESTION = "CREATE TABLE "
-            + TABLE_QUESTION + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_QUESTION + " TEXT,"
-            + KEY_DOC_REF + " TEXT,"
-            + KEY_IS_BINARY + " INTEGER DEFAULT 0,"
-            + KEY_ANSWER_IS_TRUE + " INTEGER DEFAULT 0,"
-            + KEY_CREATED_AT
-            + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
-
-    private static final String CREATE_TABLE_STATS = "CREATE TABLE "
-            + TABLE_STATS + "("
-            + KEY_QUESTION_ID + " INTEGER PRIMARY KEY,"
-            + KEY_STATS_RIGHT + " INTEGER DEFAULT 0,"
-            + KEY_CREATED_AT
-            + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
-
-    // Tag table create statement
-    private static final String CREATE_TABLE_TAG = "CREATE TABLE "
-            + TABLE_TAG + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_TAG_NAME + " TEXT,"
-            + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
-
-    // todo_tag table create statement
-    private static final String CREATE_TABLE_QUESTION_TAG = "CREATE TABLE "
-            + TABLE_QUESTION_TAG + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_QUESTION_ID + " INTEGER,"
-            + KEY_TAG_ID + " INTEGER,"
-            + KEY_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
-
-    private static final String CREATE_TABLE_ANSWER = "CREATE TABLE "
-            + TABLE_ANSWER + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_ANSWER + " TEXT,"
-            + KEY_IS_RIGHT + " INTEGER DEFAULT 0,"
-            + KEY_QUESTION_ID + " INTEGER,"
-            + KEY_CREATED_AT
-            + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
     private Context mContext;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.mContext = context;
+        mContext = context;
     }
 
     @Override
@@ -129,26 +47,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "create db");
         // Enable foreign key constraints
         db.execSQL("PRAGMA foreign_keys=ON;");
-        // creating required tables
+
+        String CREATE_TABLE_QUESTION = "CREATE TABLE "
+                + Question.Table.NAME + "("
+                + Question.Table.TEXT + " TEXT,"
+                + Question.Table.TRUE_OR_FALSE + " INTEGER,"
+                + Question.Table.RIGHT_ANSWERS + " TEXT,"
+                + Question.Table.WRONG_ANSWERS + " TEXT,"
+                + Question.Table.DOC_LINK + " TEXT,"
+                + Statistics.Table.RIGHT_ANS_CNT + " INTEGER DEFAULT 0,"
+                + Statistics.Table.WRONG_ANS_CNT + " INTEGER DEFAULT 0,"
+                + Statistics.Table.STATUS + " INTEGER DEFAULT 0,"
+                + Statistics.Table.LAST_VIEWED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                + Statistics.Table.STUDIED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
+
+        String CREATE_TABLE_TAG = "CREATE TABLE "
+                + Tag.Table.NAME + "("
+                + Tag.Table.TEXT + " TEXT,"
+                + Tag.Table.SELECTED + " INTEGER DEFAULT 1)";
+
+        String CREATE_TABLE_RELATION_QUESTION_TAG = "CREATE TABLE "
+                + TableRelationships.QuestionTag.NAME + "("
+                + TableRelationships.QUESTION_ID + " INTEGER,"
+                + TableRelationships.QuestionTag.TAG_ID + " INTEGER)";
+
         db.execSQL(CREATE_TABLE_QUESTION);
-        db.execSQL(CREATE_TABLE_STATS);
-        db.execSQL(CREATE_TABLE_ANSWER);
         db.execSQL(CREATE_TABLE_TAG);
-        db.execSQL(CREATE_TABLE_QUESTION_TAG);
-        // In our case schema and initial db content are tied
-        insertFromFile(readFile(), db);
+        db.execSQL(CREATE_TABLE_RELATION_QUESTION_TAG);
+
+        insertFromFile(JsonParser.getQuestions(mContext.getResources().openRawResource(R.raw.quiz)), db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.i(TAG, "update db");
-        // on upgrade drop older tables
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
+        // Drop all tables
+        String dropIfExists = "DROP TABLE IF EXISTS ";
+        db.execSQL(dropIfExists + Question.Table.NAME);
+        db.execSQL(dropIfExists + Tag.Table.NAME);
         //FIXME: all stats will be lost
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANSWER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TAG);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION_TAG);
+        db.execSQL(dropIfExists + TableRelationships.QuestionTag.NAME);
 
         // create new tables
         onCreate(db);
@@ -157,12 +95,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Leave for the future use
     @SuppressWarnings("unused")
-    public void importFromFile(SQLiteDatabase db) {
+    private void createFromFile(SQLiteDatabase db) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SQLITE_SHAREDPREF, Context.MODE_PRIVATE);
         int version = sharedPreferences.getInt(DB_CONTENT_VERSION_KEY, 0);
         if (version < DB_CONTENT_VERSION) {
             Log.i(TAG, "populate db from file");
-            insertFromFile(readFile(), db);
+            insertFromFile(JsonParser.getQuestions(mContext.getResources().openRawResource(R.raw.quiz)), db);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt(DB_CONTENT_VERSION_KEY, DB_CONTENT_VERSION);
             editor.commit();
@@ -170,334 +108,111 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    // Read raw data from resource file
-    // Yeah, just read file, return contents
-    private String readFile(){
-        InputStream inputStream = mContext.getResources().openRawResource(
-                R.raw.quiz);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                inputStream));
+    private void insertFromFile(List<ParsedQuestion> parsedQuestions, SQLiteDatabase db) {
+        // TODO: do we need replace?
+        SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
+                        + Question.Table.NAME + "("
+                        + TextUtils.join(", ", new String[]{
+                        Question.Table.TEXT,
+                        Question.Table.DOC_LINK,
+                        Question.Table.RIGHT_ANSWERS,
+                        Question.Table.WRONG_ANSWERS,
+                        Question.Table.TRUE_OR_FALSE})
+                        + ") VALUES (?, ?, ?, ?, ?)"
+        );
 
-        StringBuffer buffer = new StringBuffer("");
+        SQLiteStatement insertTag = db.compileStatement("INSERT OR REPLACE INTO "
+                        + Tag.Table.NAME + "("
+                        + Tag.Table.TEXT + ") VALUES (?)"
+        );
+
+        SQLiteStatement insertRelationQuestionTag = db.compileStatement("INSERT OR REPLACE INTO "
+                        + TableRelationships.QuestionTag.NAME + "("
+                        + TableRelationships.QUESTION_ID + ", "
+                        + TableRelationships.QuestionTag.TAG_ID + ") VALUES (?, ?)"
+        );
+
         try {
-            String line;
-            while ((line = reader.readLine()) != null) {
+            Log.i(TAG, "wanna to insert data");
+            db.beginTransaction();
+            Map<String, Long> tags = new HashMap<>();
+            for (ParsedQuestion q : parsedQuestions) {
+                insertQuestion.bindAllArgsAsStrings(new String[]{
+                        q.mText,
+                        q.mDocRef,
+                        TextUtils.join("\n", q.mRightItems),
+                        TextUtils.join("\n", q.mWrongItems),
+                        String.valueOf(q.mTrueOrFalse ? 1 : 0)
+                });
+                long qid = insertQuestion.executeInsert();
 
-                buffer.append(line);
-            }
-
-        } catch (IOException e) {
-            Log.i(TAG, "IOException");
-        }
-        return buffer.toString();
-    }
-
-    // Parse and map json data to the Question object
-    // Many questions => List of questions
-    private List<QuestionInfo> parseTests(String data){
-        List<QuestionInfo> questionInfos = new ArrayList<>();
-        try {
-            JSONArray questions = new JSONArray(data);
-            for(int i=0; i < questions.length(); i++) {
-                JSONObject currentQuestion = questions.getJSONObject(i);
-                int id = Integer.parseInt(currentQuestion.getString("ID"));
-                String questionText= currentQuestion.getString("question");
-                JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
-                ArrayList<String> wrongItems = new ArrayList<>();
-                for(int j=0; j<wrongAnswers.length(); j++){
-                    wrongItems.add(wrongAnswers.get(j).toString());
+                for (String t : q.mTags) {
+                    if (tags.containsKey(t))
+                        insertRelationQuestionTag.bindLong(2, tags.get(t));
+                    else {
+                        insertTag.bindString(1, t);
+                        long tid = insertTag.executeInsert();
+                        tags.put(t, tid);
+                        insertRelationQuestionTag.bindLong(2, tid);
+                    }
+                    insertRelationQuestionTag.bindLong(1, qid);
+                    insertRelationQuestionTag.executeInsert();
                 }
-                JSONArray rightAnswers = currentQuestion.getJSONArray("right");
-                ArrayList<String> rightItems = new ArrayList<>();
-                for(int j=0; j<rightAnswers.length(); j++){
-                    rightItems.add(rightAnswers.get(j).toString());
-                }
-                JSONArray tags = currentQuestion.optJSONArray("tags");
-                ArrayList<String> questionTags = new ArrayList<>();
-                if (tags != null)
-                    for(int j=0; j<tags.length(); j++)
-                        questionTags.add(tags.get(j).toString());
-                else
-                    questionTags.add("Other");
-                String docRef = currentQuestion.getString("docRef");
-                QuestionInfo q = new QuestionInfo(id, questionText, wrongItems, rightItems , questionTags, docRef);
-                questionInfos.add(q);
 
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            db.setTransactionSuccessful();
+            Log.i(TAG, "data is inserted");
+        } finally {
+            db.endTransaction();
         }
-        return questionInfos;
     }
 
-    public int countQuestions() {
-        return (int)DatabaseUtils.queryNumEntries(getReadableDatabase(), TABLE_QUESTION);
+    public List<Integer> getQuestionIds() {
+        return getIds(Question.Table.NAME);
     }
 
-    public ArrayList<Integer> getQuestionIds() {
+    public List<Integer> getTagIds() {
+        return getIds(Tag.Table.NAME);
+    }
+
+    private List<Integer> getIds(String tableName) {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT " + KEY_ID + " FROM " + TABLE_QUESTION;
-        Cursor c = db.rawQuery(query, null);
-        ArrayList<Integer> result = new ArrayList<>();
-        while (c.moveToNext())
-           result.add(c.getInt(0));
-        return result;
-    }
-
-    public Question getQuestionById(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String queryQuestion = "SELECT * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = " + id;
-        Cursor c = db.rawQuery(queryQuestion, null);
-        if (!c.moveToFirst())
-            throw new RuntimeException("Table is empty");
-        int qid = c.getInt(c.getColumnIndex(KEY_ID));
-        String text = c.getString(c.getColumnIndex(KEY_QUESTION));
-        String docRef = c.getString(c.getColumnIndex(KEY_DOC_REF));
-
-        boolean isBinary = c.getInt(c.getColumnIndex(KEY_IS_BINARY)) == 1;
-
-        String queryTag = "SELECT * FROM " + TABLE_QUESTION_TAG + " qt " +
-                " JOIN " + TABLE_TAG + " t on qt." + KEY_TAG_ID + " = t." + KEY_ID +
-                " WHERE qt." + KEY_QUESTION_ID + " = " + id;
-
-        c = db.rawQuery(queryTag, null);
-        ArrayList<String> tags = new ArrayList<>();
-        while(c.moveToNext()) {
-            String tag = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-            tags.add(tag);
-        }
-
-        ArrayList<String> wrongItems = new ArrayList<>();
-        ArrayList<String> rightItems = new ArrayList<>();
-        if (isBinary) {
-            boolean isTrue = c.getInt(c.getColumnIndex(KEY_ANSWER_IS_TRUE)) == 1;
-            rightItems.add(isTrue?"true":"false");
-            wrongItems.add(isTrue?"false":"true");
-        } else {
-            String queryAnswer = "SELECT * FROM " + TABLE_ANSWER +
-                    " WHERE " + KEY_QUESTION_ID + " = " + id;
-            c = db.rawQuery(queryAnswer, null);
-            while(c.moveToNext()) {
-                String answer = c.getString(c.getColumnIndex(KEY_ANSWER));
-                boolean isRight = c.getInt(c.getColumnIndex(KEY_IS_RIGHT)) == 1;
-
-                if (isRight) rightItems.add(answer);
-                else wrongItems.add(answer);
-            }
-        }
-        Question q = new Question(qid, text, wrongItems, rightItems, tags, docRef);
-        return q;
-    }
-
-    public List<Tag> getTags() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.query(TABLE_TAG, new String[]{KEY_ID, KEY_TAG_NAME}, null, null, null, null, null);
-        if (!c.moveToFirst())
-            return null;
-        ArrayList<Tag> result = new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT ROWID as _id FROM " + tableName, null);
         while (c.moveToNext()) {
-            String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-            int id = c.getInt(c.getColumnIndex(KEY_ID));
-            result.add(new Tag(id, name));
+            Long id = c.getLong(c.getColumnIndex("_id"));
+            ids.add(Integer.valueOf(id.intValue()));
         }
-        return result;
+        return ids;
     }
 
-    public Map<Integer, Tag.Stats> getTagStats() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + KEY_TAG_ID + ", COUNT(*) as count, SUM(score) as learned" +
-                " FROM " + TABLE_QUESTION_TAG + " qt" +
-                " JOIN (" +
-                "SELECT " + KEY_QUESTION_ID + "," +
-                "CASE WHEN "+KEY_STATS_RIGHT+" < 3 THEN 0 ELSE 1 END score " +
-                "FROM " + TABLE_STATS +
-                ") s ON qt." + KEY_QUESTION_ID + "=s." + KEY_QUESTION_ID +
-                " GROUP BY qt." + KEY_TAG_ID;
-        Cursor c = db.rawQuery(query, null);
-        Map<Integer, Tag.Stats> result = new HashMap<>();
-        if (c.moveToFirst()) {
-            do {
-                int tagId = c.getInt(c.getColumnIndex(KEY_TAG_ID));
-                int count = c.getInt(c.getColumnIndex("count"));
-                int learned = c.getInt(c.getColumnIndex("learned"));
-                result.put(tagId, new Tag.Stats(count, learned));
-            } while (c.moveToNext());
-        }
-        return result;
-    }
-
-    public Tag getTagById(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.query(TABLE_TAG, new String[]{KEY_TAG_NAME}, KEY_ID + "=" + id, null, null, null, null);
-        if (!c.moveToFirst())
-            return null;
-        String name = c.getString(c.getColumnIndex(KEY_TAG_NAME));
-        return new Tag(id, name);
-    }
-
-    public ArrayList<Integer> getTagIds() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + KEY_ID + " FROM " + TABLE_TAG;
-        Cursor c = db.rawQuery(query, null);
-        ArrayList<Integer> result = new ArrayList<>();
-        while (c.moveToNext())
-            result.add(c.getInt(0));
-        return result;
-    }
-
-    public ArrayList<Integer> getQuestionIdsByTags(List<Integer> selectedTagIds) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        StringBuilder sb = new StringBuilder();
-        Iterator<Integer> tagIdsIt = selectedTagIds.iterator();
-        while (tagIdsIt.hasNext()) {
-            int tagId = tagIdsIt.next();
-            sb.append(tagId);
-            if (tagIdsIt.hasNext()) sb.append(",");
-        }
-        String tagIdsCommaSeparated = sb.toString();
-        String query = "SELECT " + KEY_QUESTION_ID + " FROM " + TABLE_QUESTION_TAG + " WHERE " + KEY_TAG_ID + " IN (" + tagIdsCommaSeparated + ")";
-        Cursor c = db.rawQuery(query, null);
-        ArrayList<Integer> result = new ArrayList<>();
-        while (c.moveToNext())
-            result.add(c.getInt(0));
-        return result;
-    }
-
-    public void addStats(int questionId, boolean isRight) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String sql;
-        if (isRight) {
-            sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = " + KEY_STATS_RIGHT + " + 1 WHERE " +
-                    KEY_QUESTION_ID + " = " + questionId + " AND " + KEY_STATS_RIGHT + " < 3";
-        } else {
-            sql = "UPDATE " + TABLE_STATS + " SET " + KEY_STATS_RIGHT + " = 0 WHERE " +
-                    KEY_QUESTION_ID + " = " + questionId;
-        }
-        db.execSQL(sql);
-    }
-
-    private static class QuestionInfo {
-        private int mId;
-        private String mText;
-        private ArrayList<String> mWrongItems = new ArrayList<>();
-        private ArrayList<String> mRightItems = new ArrayList<>();
-        private ArrayList<String> mTags = new ArrayList<>();
-        private String mDocRef;
-        private boolean isBinary;
-        private boolean answerIsTrue;
-
-        public QuestionInfo(int mId, String mText, ArrayList<String> mWrongItems, ArrayList<String> mRightItems, ArrayList<String> mTags, String mDocRef) {
-            this.mId = mId;
-            this.mText = mText;
-            this.mWrongItems = mWrongItems;
-            this.mRightItems = mRightItems;
-            this.mTags = mTags;
-            this.mDocRef = mDocRef;
-            Boolean binaryAnswer = binaryAnswer(mWrongItems, mRightItems);
-            if (binaryAnswer != null) {
-                this.isBinary = true;
-                this.answerIsTrue = binaryAnswer;
+    public List<Tag> getTagByIds(List<Integer> tagIds) {
+        List<Tag> tags = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT ROWID, * FROM " + Tag.Table.NAME + " WHERE ROWID = ";
+        for (Integer t : tagIds) {
+            Cursor c = db.rawQuery(query + t, null);
+            while (c.moveToNext()) {
+                tags.add(mkTag(c));
             }
+            c.close();
         }
-
-        private static Boolean binaryAnswer(ArrayList<String> wrongItems, ArrayList<String> rightItems) {
-            Boolean answerIsTrue = null;
-            if (wrongItems.size() == 1 && rightItems.size() == 1) {
-                String right = rightItems.get(0);
-                String wrong = wrongItems.get(0);
-                if ("true".equals(right) && "false".equals(wrong))
-                    answerIsTrue = true;
-                if ("false".equals(right) && "true".equals(wrong))
-                    answerIsTrue = false;
-            }
-            return answerIsTrue;
-        }
+        return tags;
     }
 
-    private void insertFromFile(String fileContents, SQLiteDatabase db) {
-        List<QuestionInfo> parsedQuestions = parseTests(fileContents);
-        Map<String, Long> tag2id = insertTags(db, parsedQuestions);
-        insertQuestions(db, parsedQuestions, tag2id);
+    public Tag getTagById(Integer tagId) {
+        Tag tag = null;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT ROWID as _id, * FROM " + Tag.Table.NAME + " WHERE ROWID = " + tagId, null);
+        if (c.moveToNext())
+            tag = mkTag(c);
+        c.close();
+        return tag;
     }
 
-    private void insertQuestions(SQLiteDatabase db, List<QuestionInfo> parsedQuestions, Map<String, Long> tag2id) {
-        try {
-            SQLiteStatement insertQuestion = db.compileStatement(
-                    "INSERT OR REPLACE INTO " + TABLE_QUESTION + " (" +
-                            KEY_QUESTION + ", " +
-                            KEY_DOC_REF + ", " +
-                            KEY_IS_BINARY + ", " +
-                            KEY_ANSWER_IS_TRUE + ") VALUES (?, ?, ?, ?)");
-            SQLiteStatement insertStats = db.compileStatement(
-                    "INSERT OR REPLACE INTO " + TABLE_STATS + " (" +
-                            KEY_QUESTION_ID + ") VALUES (?)");
-            SQLiteStatement insertAnswer = db.compileStatement(
-                    "INSERT OR REPLACE INTO " + TABLE_ANSWER + " (" +
-                            KEY_ANSWER + ", " +
-                            KEY_QUESTION_ID + ", " +
-                            KEY_IS_RIGHT + ") VALUES (?, ?, ?)");
-            SQLiteStatement insertQuestionTag = db.compileStatement(
-                    "INSERT OR REPLACE INTO " + TABLE_QUESTION_TAG + " (" +
-                            KEY_QUESTION_ID + ", " +
-                            KEY_TAG_ID + ") VALUES (?, ?)");
-            db.beginTransaction();
-            for (QuestionInfo q : parsedQuestions) {
-                insertQuestion.bindString(1, q.mText);
-                insertQuestion.bindString(2, q.mDocRef);
-                if (q.isBinary) {
-                    insertQuestion.bindLong(3, 1);
-                    insertQuestion.bindLong(4, q.answerIsTrue ? 1 : 0);
-                }
-                long questionId = insertQuestion.executeInsert();
-                insertStats.bindLong(1, questionId);
-                insertStats.executeInsert();
-
-                if (!q.isBinary) {
-                    for (String right: q.mRightItems) {
-                        insertAnswer.bindString(1, right);
-                        insertAnswer.bindLong(2, questionId);
-                        insertAnswer.bindLong(3, 1);
-                        insertAnswer.executeInsert();
-                    }
-                    for (String wrong: q.mWrongItems) {
-                        insertAnswer.bindString(1, wrong);
-                        insertAnswer.bindLong(2, questionId);
-                        insertAnswer.bindLong(3, 0);
-                        insertAnswer.executeInsert();
-                    }
-                }
-
-                for (String tag : q.mTags) {
-                    insertQuestionTag.bindLong(1, questionId);
-                    long tagId = tag2id.get(tag);
-                    insertQuestionTag.bindLong(2, tagId);
-                    insertQuestionTag.executeInsert();
-                }
-            }
-            db.setTransactionSuccessful();
-        } finally {
-            db.endTransaction();
-        }
-    }
-
-    private Map<String, Long> insertTags(SQLiteDatabase db, List<QuestionInfo> parsedQuestions) {
-        Set<String> tags = new HashSet<>();
-        for (QuestionInfo q : parsedQuestions) {
-            tags.addAll(q.mTags);
-        }
-        Map<String, Long> tag2id = new HashMap<>();
-        try {
-            SQLiteStatement insert = db.compileStatement("INSERT OR REPLACE INTO " + TABLE_TAG + " (" + KEY_TAG_NAME + ") VALUES (?)");
-            db.beginTransaction();
-            for (String tag : tags) {
-                insert.bindString(1, tag);
-                long id = insert.executeInsert();
-                tag2id.put(tag, id);
-            }
-            db.setTransactionSuccessful();
-        } finally {
-            db.endTransaction();
-        }
-        return tag2id;
+    private Tag mkTag(Cursor c) {
+        return new Tag(c.getInt(c.getColumnIndex("_id")),
+                c.getString(c.getColumnIndex(Tag.Table.TEXT)),
+                c.getInt(c.getColumnIndex(Tag.Table.SELECTED)) == 1);
     }
 }

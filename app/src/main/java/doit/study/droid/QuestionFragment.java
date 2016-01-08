@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
+import doit.study.droid.model.Question;
+
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
@@ -120,7 +122,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setRetainInstance(true);
         mQuestionId = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(mQuestionId);
+        //mCurrentQuestion = mQuizData.getById(mQuestionId);
         setHasOptionsMenu(true);
     }
 
@@ -215,7 +217,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         if (goodJob) {
             toast.setText("Right");
             v.setTextColor(Color.GREEN);
-            mQuizData.incrementRightCounter(mQuestionId);
+            //mQuizData.incrementRightCounter(mQuestionId);
             mvRight.setText("" + mQuizData.getTotalRightCounter());
             mvCommitButton.setEnabled(false);
             isEnabledCommitButton = 0;
@@ -223,7 +225,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         else {
             toast.setText("Wrong");
             v.setTextColor(Color.RED);
-            mQuizData.incrementWrongCounter(mQuestionId);
+            //mQuizData.incrementWrongCounter(mQuestionId);
             mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
 
         }

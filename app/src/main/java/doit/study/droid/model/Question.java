@@ -1,17 +1,25 @@
-package doit.study.droid;
+package doit.study.droid.model;
 
 import java.util.ArrayList;
 
 
 public class Question{
+
+    public static final class Table {
+        public static final String NAME ="questions";
+        public static final String TEXT = "text";
+        public static final String WRONG_ANSWERS = "wrong_answers";
+        public static final String RIGHT_ANSWERS = "right_answers";
+        public static final String TRUE_OR_FALSE = "true_or_false";
+        public static final String DOC_LINK = "doc_link";
+    }
+
     private int mId;
     private String mText;
-    private ArrayList<String> mWrongItems = new ArrayList<>();
-    private ArrayList<String> mRightItems = new ArrayList<>();
-    private ArrayList<String> mTags = new ArrayList<>();
+    private ArrayList<String> mWrongItems;
+    private ArrayList<String> mRightItems;
+    private ArrayList<String> mTags;
     private String mDocRef;
-    private int mRightCounter = 0;
-    private int mWrongCounter = 0;
 
     public Question(int id, String text,
                     ArrayList<String> wrongItems,
@@ -51,19 +59,4 @@ public class Question{
         return mTags;
     }
 
-    public int getRightCounter() {
-        return mRightCounter;
-    }
-
-    public int incrementRightCounter(){
-        return ++mRightCounter;
-    }
-
-    public int getWrongCounter() {
-        return mWrongCounter;
-    }
-
-    public int incrementWrongCounter(){
-        return ++mWrongCounter;
-    }
 }

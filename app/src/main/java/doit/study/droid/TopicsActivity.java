@@ -1,15 +1,12 @@
 package doit.study.droid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -18,83 +15,63 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import doit.study.droid.sqlite.helper.DatabaseHelper;
+import doit.study.droid.model.Tag;
 
 
-public class TopicsActivity extends AppCompatActivity implements TagSelectionEventListener {
+public class TopicsActivity extends AppCompatActivity{
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
-
-    private List<Integer> mSelectedTagIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
         GlobalData gd = (GlobalData) getApplication();
-        setTitle("Total questions: " + gd.getQuizData().getQuestionIds().size());
-        List<Tag> tags = gd.getQuizData().getTags();
-        Map<Integer, Tag.Stats> tagStats = gd.getQuizData().getTagStats();
-        mSelectedTagIds = gd.getQuizData().getSelectedTagIds();
+        QuizData quizData = gd.getQuizData();
+        setTitle("Total questions: " + quizData.getQuestionIds().size());
+        List<Integer> tagIds = gd.getQuizData().getTagIds();
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-        rv.setAdapter(new TopicAdapter(getApplicationContext(), this, tags, tagStats, mSelectedTagIds));
+        rv.setAdapter(new TopicAdapter(tagIds, quizData));
     }
 
-    @Override
-    public void onTagSelected(int tagId) {
-        mSelectedTagIds.add(tagId);
-    }
-
-    @Override
-    public void onTagUnselected(int tagId) {
-        int index = mSelectedTagIds.indexOf(tagId);
-        mSelectedTagIds.remove(index);
-    }
-
-    @Override
-    public void onBackPressed() {
-        GlobalData gd = (GlobalData) getApplication();
-        gd.getQuizData().setSelectedTagIds(mSelectedTagIds);
-        super.onBackPressed();
-    }
 
     private static class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
 
-        DatabaseHelper mDBHelper;
-        List<Tag> mTags;
-        List<Integer> mInitialSelectedTagIds;
-        TagSelectionEventListener mTagListener;
-        Map<Integer, Tag.Stats> mTagStats;
+        List<Integer> mTagIds;
+        QuizData mQuizData;
 
-        public TopicAdapter(Context context, TagSelectionEventListener listener, List<Tag> tags, Map<Integer, Tag.Stats> tagStats, List<Integer> selectedTagIds){
-            mTagStats = tagStats;
-            mDBHelper = new DatabaseHelper(context);
-            mTags = tags;
-            mInitialSelectedTagIds = selectedTagIds;
-            mTagListener = listener;
+        public TopicAdapter(List<Integer> tagIds, QuizData quizData){
+            mTagIds = tagIds;
+            mQuizData = quizData;
         }
 
-        public static class TopicViewHolder extends RecyclerView.ViewHolder{
+        public static class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
             TextView topic;
             CheckBox checkbox;
             public TopicViewHolder(View itemView) {
                 super(itemView);
                 topic = (TextView)itemView.findViewById(R.id.topic_name);
                 checkbox = (CheckBox) itemView.findViewById(R.id.checkbox_tag);
+                itemView.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), topic.getText(), Toast.LENGTH_SHORT);
             }
         }
 
         @Override
         public int getItemCount() {
-            return mTags.size();
+            return mTagIds.size();
         }
 
         @Override
@@ -105,20 +82,19 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            final Tag tag = mTags.get(position);
-            Tag.Stats stats = mTagStats.get(tag.getId());
-            holder.topic.setText(tag.getName() + "(" + stats.getLearned() + "/" + stats.getQuestionsCount() + ")");
-            holder.checkbox.setChecked(mInitialSelectedTagIds.contains(tag.getId()));
-            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        mTagListener.onTagSelected(tag.getId());
-                    } else {
-                        mTagListener.onTagUnselected(tag.getId());
-                    }
-                }
-            });
+            final Tag tag = mQuizData.getTagById(mTagIds.get(position));
+            holder.topic.setText(tag.getName());
+            //holder.checkbox.setChecked(mInitialSelectedTagIds.contains(tag.getId()));
+//            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if (isChecked) {
+//                        mTagListener.onTagSelected(tag.getId());
+//                    } else {
+//                        mTagListener.onTagUnselected(tag.getId());
+//                    }
+//                }
+//            });
         }
     }
 
@@ -165,7 +141,3 @@ public class TopicsActivity extends AppCompatActivity implements TagSelectionEve
     }
 }
 
-interface TagSelectionEventListener {
-    void onTagSelected(int tagId);
-    void onTagUnselected(int tagId);
-}

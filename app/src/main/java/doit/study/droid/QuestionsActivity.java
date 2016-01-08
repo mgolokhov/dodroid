@@ -28,17 +28,17 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         configPagerTabStrip();
 
         GlobalData gd = (GlobalData) getApplication();
-        List<Integer> questionIds = gd.getQuizData().getQuestionIdsToWorkWith();
-        Collections.shuffle(questionIds);
-        if (questionIds.size() > 10) {
-            questionIds = questionIds.subList(0, 10);
-        }
-        mPagerAdapter = new QuestionsPagerAdapter(
-                getSupportFragmentManager(),
-                gd.getQuizData(),
-                questionIds);
-        mPager.setAdapter(mPagerAdapter);
-        }
+        //List<Integer> questionIds = gd.getQuizData().getQuestionIdsToWorkWith();
+//        Collections.shuffle(questionIds);
+//        if (questionIds.size() > 10) {
+//            questionIds = questionIds.subList(0, 10);
+//        }
+//        mPagerAdapter = new QuestionsPagerAdapter(
+//                getSupportFragmentManager(),
+//                gd.getQuizData(),
+//                questionIds);
+//        mPager.setAdapter(mPagerAdapter);
+       }
 
     private void configPagerTabStrip(){
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
@@ -51,7 +51,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
     @Override
     public void onAnswer(int questionId, boolean isRight) {
         DatabaseHelper mDBHelper = new DatabaseHelper(this);
-        mDBHelper.addStats(questionId, isRight);
+        //mDBHelper.addStats(questionId, isRight);
     }
 
     @Override
