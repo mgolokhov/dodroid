@@ -1,4 +1,11 @@
 reviewed = (
+	(0.5970149253731343, 'Android UI toolkit is thread-safe', 'A Cursor object is not thread safe'),
+	(0.5308056872037915, '(True or False) Method boolean View.post(Runnable) returns true if the Runnable was successfully executed', '(True or False) The SQLite Open Helper caches database instances after they\xe2\x80\x99ve been successfully opened.'),
+	(0.5529411764705883, '(True or False) Starting with API 11 (Android 3.0) AsyncTasks can operate in parallel.', '(True or False)  SQLite database in Android is running as a separate ongoing process'),
+	(0.5121951219512195, 'Broadcast access permissions can be enforced by', 'Database queries can be returned as'),
+	(0.5314685314685315, "(True or False) Components in the content provider's application always have full read and write access, regardless of the specified permissions.", "(True or False) If a provider's application doesn't specify any permissions, then other applications have full access to the provider's data."),
+	(0.5139664804469274, '(True or False)  SQLite database in Android is running as a separate ongoing process', '(True or False) SQLite column values are required to conform to a single type (strongly typed).'),
+	(0.5193370165745856, '(True or False)  SQLite database in Android is running as a separate ongoing process', '(True or False) SQLiteDatabase.execSQL() can execute multiple statements separated by semicolons.'),
 	(0.5714285714285714, 'How can you register BroadcastReceiver?', 'A BroadcastReceiver ___.'),
 	(0.546875, 'Which actions will remove current Activity from the back stack?', 'Which methods allows you to receive data back from the broadcast?'),
 	(0.5174825174825175, 'By default, any time spent in BroadcastReceiver.onReceive() will freeze your UI', 'Which operations are forbidden in BroadcastReceiver.onReceive()?'),

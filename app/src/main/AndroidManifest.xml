@@ -15,7 +15,7 @@
         <!--Fix orientation, so don't care about rotation-->
         <activity
             android:name="doit.study.droid.MainActivity"
-            android:label="@string/willing"
+            android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,6 +29,7 @@
             />
         <activity
             android:name="doit.study.droid.QuestionsActivity"
+            android:label="@string/willing"
             android:screenOrientation="portrait"
             />
 
