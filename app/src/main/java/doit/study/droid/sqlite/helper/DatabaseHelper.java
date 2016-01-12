@@ -26,8 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 20;
-    private static final int DB_CONTENT_VERSION = 20;
+    private static final int DATABASE_VERSION = 21;
+    private static final int DB_CONTENT_VERSION = 21;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
