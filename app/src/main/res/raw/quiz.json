@@ -256,7 +256,7 @@
             "Obtaining system service"
         ], 
         "tags": [
-            "Activity, Context"
+            "Activity Class, Context"
         ], 
         "wrong": []
     }, 
@@ -355,7 +355,7 @@
     {
         "ID": 23, 
         "docRef": "http://developer.android.com/guide/components/intents-filters.html", 
-        "question": "(True or False) Android will take the Intent you supply to startActivity() and find the activities that might support it abd intent might resolve to several activities.", 
+        "question": "(True or False) Android will take the Intent you supply to startActivity() and find the activities that might support it and intent might resolve to several activities.", 
         "right": [
             "TRUE"
         ], 
@@ -2259,6 +2259,238 @@
         "wrong": [
             "can be used to download data from the internet", 
             "starts doing work in a background thread"
+        ]
+    }, 
+    {
+        "ID": 152, 
+        "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#filesInternal", 
+        "question": "(True or False) Android resources (in the res directory) are read-only at runtime and cannot be written to.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 157, 
+        "docRef": "http://developer.android.com/reference/android/database/Cursor.html", 
+        "question": "A Cursor object is not thread safe", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Data Management, Database"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 160, 
+        "docRef": "http://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html", 
+        "question": "LayoutParams are used by views to tell their ______ how they want to be laid out.", 
+        "right": [
+            "parents"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "children", 
+            "both children and parents"
+        ]
+    }, 
+    {
+        "ID": 167, 
+        "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#Permissions", 
+        "question": "(True or False) Components in the content provider's application always have full read and write access, regardless of the specified permissions.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Content Provider"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 168, 
+        "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#Permissions", 
+        "question": "(True or False) If a provider's application doesn't specify any permissions, then other applications have full access to the provider's data.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Content Provider"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 169, 
+        "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#Modifications", 
+        "question": "(True or False) The provider and provider client automatically handle security and inter-process communication.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Content Provider"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 170, 
+        "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#DataTypes", 
+        "question": "Content Providers can offer these data types (of the given column's value):", 
+        "right": [
+            "integer", 
+            "long", 
+            "floating", 
+            "double", 
+            "string", 
+            "byte array (BLOB)", 
+            "short"
+        ], 
+        "tags": [
+            "Content Provider"
+        ], 
+        "wrong": [
+            "boolean"
+        ]
+    }, 
+    {
+        "ID": 171, 
+        "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
+        "question": "(True or False) All databases are private, accessible only by the application that created them.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 172, 
+        "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
+        "question": "Android provides full support for SQLite database and it's implemented as", 
+        "right": [
+            "C library"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "java library"
+        ]
+    }, 
+    {
+        "ID": 173, 
+        "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
+        "question": "(True or False)  SQLite database in Android is running as a separate ongoing process", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 174, 
+        "docRef": "https://www.sqlite.org/different.html", 
+        "question": "(True or False) SQLite column values are required to conform to a single type (strongly typed).", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 175, 
+        "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
+        "question": "Database queries can be returned as", 
+        "right": [
+            "Cursor pointers"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "Result values"
+        ]
+    }, 
+    {
+        "ID": 176, 
+        "docRef": "http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase()", 
+        "question": "(True or False) The SQLite Open Helper caches database instances after they\u2019ve been successfully opened.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 177, 
+        "docRef": "http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#execSQL(java.lang.String)", 
+        "question": "(True or False) SQLiteDatabase.execSQL() can execute multiple statements separated by semicolons.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 178, 
+        "docRef": "http://developer.android.com/reference/android/content/SharedPreferences.html", 
+        "question": "SharedPreferences supports use across multiple processes", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 179, 
+        "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#filesExternal", 
+        "question": "Which operations by default can be done with files placed on the external storage?", 
+        "right": [
+            "all applications can read and write", 
+            "the user can remove them"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "only your app can modify them"
         ]
     }
 ]
