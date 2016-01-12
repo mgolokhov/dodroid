@@ -26,20 +26,22 @@ import doit.study.droid.model.Tag;
 public class TopicsActivity extends AppCompatActivity{
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
+    private QuizData mQuizData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
+
         GlobalData gd = (GlobalData) getApplication();
-        QuizData quizData = gd.getQuizData();
-        setTitle("Total questions: " + quizData.getQuestionIds().size());
+        mQuizData = gd.getQuizData();
+        setTitle("Total questions: " + mQuizData.getQuestionIds().size());
         List<Integer> tagIds = gd.getQuizData().getTagIds();
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-        rv.setAdapter(new TopicAdapter(tagIds, quizData));
+        rv.setAdapter(new TopicAdapter(tagIds, mQuizData));
     }
 
 
@@ -83,18 +85,21 @@ public class TopicsActivity extends AppCompatActivity{
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
             final Tag tag = mQuizData.getTagById(mTagIds.get(position));
-            holder.topic.setText(tag.getName());
-            //holder.checkbox.setChecked(mInitialSelectedTagIds.contains(tag.getId()));
-//            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if (isChecked) {
-//                        mTagListener.onTagSelected(tag.getId());
-//                    } else {
-//                        mTagListener.onTagUnselected(tag.getId());
-//                    }
-//                }
-//            });
+            String text = String.format("%s (%d/%d)", tag.getName(), tag.getQuestionsCounter(), tag.getQuestionsStudied());
+            holder.topic.setText(text);
+            holder.checkbox.setChecked(tag.getSelectionStatus());
+            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tag.select();
+                    mQuizData.setTagSelection(tag);
+                } else {
+                    tag.unselect();
+                    mQuizData.setTagSelection(tag);
+                }
+            }
+        });
         }
     }
 

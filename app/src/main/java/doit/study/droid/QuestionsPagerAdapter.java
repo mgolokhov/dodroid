@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import doit.study.droid.model.Question;
+
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
@@ -69,9 +71,14 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         StringBuffer title = new StringBuffer();
-        //for (String tag: mQuizData.getById(questionIds.get(position)).getTags())
-        //    title.append(tag+" ");
-        title.append(String.format("\t%d/%d", position+1, getCount()));
+        for (String tag: mQuizData.getQuestionById(questionIds.get(position)).getTags())
+            title.append(tag+" ");
+        title.append(String.format(" %d/%d", position+1, getCount()));
+        Question q = mQuizData.getQuestionById(questionIds.get(position));
+//        int rCnt = q.getRightCounter();
+//        int wCnt = q.getWrongCounter();
+//        Question.Status st = q.getStatus();
+//        title.append(String.format(" %d/%d/%s", rCnt, wCnt, st));
         return title;
     }
 

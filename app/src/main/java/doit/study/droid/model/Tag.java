@@ -8,29 +8,46 @@ public class Tag {
         public static final String SELECTED = "selected";
     }
 
-    private int id;
-    private String name;
-    private boolean selected;
-
-    public Tag(int id, String name, boolean selected) {
-        this.id = id;
-        this.name = name;
-        this.selected = selected;
+    public Integer getId() {
+        return mId;
     }
 
-    public int getId() {
-        return id;
-    }
+    private final Integer mId;
+    private final String mName;
+    private final Integer mQuestionsCounter;
+    private final Integer mQuestionsStudied;
+    private boolean mSelected;
 
-    public void setId(int id) {
-        this.id = id;
+
+    public Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
+        mId = id;
+        mName = name;
+        mSelected = selected;
+        mQuestionsCounter = questionsCounter;
+        mQuestionsStudied = questionsStudied;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Integer getQuestionsStudied() {
+        return mQuestionsStudied;
+    }
+
+    public Integer getQuestionsCounter() {
+        return mQuestionsCounter;
+    }
+
+    public void select(){
+        mSelected = true;
+    }
+
+    public void unselect(){
+        mSelected = false;
+    }
+
+    public boolean getSelectionStatus(){
+        return mSelected;
     }
 }

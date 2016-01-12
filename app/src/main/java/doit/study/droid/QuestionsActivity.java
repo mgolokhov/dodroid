@@ -1,5 +1,7 @@
 package doit.study.droid;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -13,12 +15,10 @@ import java.util.List;
 
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
-public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener,
-        QuestionFragment.OnAnswerCheckListener {
+public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener{
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +27,22 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         mPager = (ViewPager)findViewById(R.id.view_pager);
         configPagerTabStrip();
 
+        SharedPreferences sp = getSharedPreferences("wrong_right_counters", Context.MODE_PRIVATE);
+        SharedPreferences.Editor m = sp.edit();
+        m.putInt("wrong", 0);
+        m.putInt("right", 0);
+        m.commit();
+
         GlobalData gd = (GlobalData) getApplication();
-        //List<Integer> questionIds = gd.getQuizData().getQuestionIdsToWorkWith();
-//        Collections.shuffle(questionIds);
-//        if (questionIds.size() > 10) {
-//            questionIds = questionIds.subList(0, 10);
-//        }
-//        mPagerAdapter = new QuestionsPagerAdapter(
-//                getSupportFragmentManager(),
-//                gd.getQuizData(),
-//                questionIds);
-//        mPager.setAdapter(mPagerAdapter);
+        QuizData quizData = gd.getQuizData();
+        List<Integer> questionIds = quizData.getRandSelectedQuestionIds(10);
+        mPagerAdapter = new QuestionsPagerAdapter(
+                getSupportFragmentManager(),
+                quizData,
+                questionIds);
+        mPager.setAdapter(mPagerAdapter);
        }
+
 
     private void configPagerTabStrip(){
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
@@ -48,11 +52,6 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         pagerTabStrip.setTabIndicatorColor(0x000000);
     }
 
-    @Override
-    public void onAnswer(int questionId, boolean isRight) {
-        DatabaseHelper mDBHelper = new DatabaseHelper(this);
-        //mDBHelper.addStats(questionId, isRight);
-    }
 
     @Override
     public void updateFragments() {

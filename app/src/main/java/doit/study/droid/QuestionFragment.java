@@ -2,6 +2,7 @@ package doit.study.droid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,12 +32,14 @@ import doit.study.droid.model.Question;
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
     private int mQuestionId;
-    private OnAnswerCheckListener mOnAnswerCheckListener;
     private OnFragmentChangeListener mOnFragmentChangeListener;
+    SharedPreferences mSharedPreferences;
     // keys for bundle, to save state
     private static final String ID_KEY = "doit.study.dodroid.id_key";
     private static final String COMMIT_BUTTON_STATE_KEY = "doit.study.dodroid.commit_button_state_key";
     // model stuff
+    private int mWrongCounter;
+    private int mRightCounter;
     private Question mCurrentQuestion;
     private QuizData mQuizData;
     private int isEnabledCommitButton = 1;
@@ -56,10 +59,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public interface OnFragmentChangeListener {
         void updateFragments();
         void swipeToNext(int delay);
-    }
-
-    public interface OnAnswerCheckListener {
-        void onAnswer(int questionId, boolean isRight);
     }
     //////////////////////////////////////////////////
 
@@ -107,9 +106,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         // for a logging purpose
         ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
         super.onAttach(activity);
+        mSharedPreferences = getActivity().getSharedPreferences(QuizData.COUNTERS, Context.MODE_PRIVATE);
         try {
             mOnFragmentChangeListener = (OnFragmentChangeListener) activity;
-            mOnAnswerCheckListener = (OnAnswerCheckListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentChangeListener and OnAnswerCheckListener");
@@ -122,7 +121,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setRetainInstance(true);
         mQuestionId = getArguments().getInt(ID_KEY);
         mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        //mCurrentQuestion = mQuizData.getById(mQuestionId);
+        mCurrentQuestion = mQuizData.getQuestionById(mQuestionId);
         setHasOptionsMenu(true);
     }
 
@@ -172,15 +171,17 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void populate() {
         if (DEBUG) Log.i(TAG, "populate "+ID);
         mvQuestionText.setText(mCurrentQuestion.getText());
-        mvRight.setText("" + mQuizData.getTotalRightCounter());
+        mRightCounter = mSharedPreferences.getInt("right", 0);
+        mvRight.setText(String.format("%d", mRightCounter));
         mvRight.setTextColor(Color.GREEN);
-        mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
+        mWrongCounter = mSharedPreferences.getInt("wrong", 0);
+        mvWrong.setText(String.format("%d", mWrongCounter));
         mvWrong.setTextColor(Color.RED);
 
         mvAnswersLayout.removeAllViewsInLayout();
         ArrayList<String> allAnswers = new ArrayList<>();
-        allAnswers.addAll(mCurrentQuestion.getRightItems());
-        allAnswers.addAll(mCurrentQuestion.getWrongItems());
+        allAnswers.addAll(mCurrentQuestion.getRightAnswers());
+        allAnswers.addAll(mCurrentQuestion.getWrongAnswers());
         Collections.shuffle(allAnswers);
 
         mvCheckBoxes = new ArrayList<>();
@@ -202,33 +203,39 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             // you can have multiple right answers
             String cbText = cb.getText().toString();
             if (cb.isChecked()) {
-                if (!mCurrentQuestion.getRightItems().contains(cbText)) {
+                if (!mCurrentQuestion.getRightAnswers().contains(cbText)) {
                     goodJob = false;
                     break;
                 }
-            } else if (mCurrentQuestion.getRightItems().contains(cbText)) {
+            } else if (mCurrentQuestion.getRightAnswers().contains(cbText)) {
                 goodJob = false;
                 break;
             }
         }
+        if (toast != null)
+            toast.cancel();
         toast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         if (goodJob) {
             toast.setText("Right");
             v.setTextColor(Color.GREEN);
-            //mQuizData.incrementRightCounter(mQuestionId);
-            mvRight.setText("" + mQuizData.getTotalRightCounter());
+            mCurrentQuestion.incRightCounter();
+            mvRight.setText("" + ++mRightCounter);
             mvCommitButton.setEnabled(false);
             isEnabledCommitButton = 0;
         }
         else {
             toast.setText("Wrong");
             v.setTextColor(Color.RED);
-            //mQuizData.incrementWrongCounter(mQuestionId);
-            mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
+            mCurrentQuestion.incWrongCounter();
+            mvWrong.setText(" " + ++mWrongCounter);
 
         }
+        SharedPreferences.Editor m = mSharedPreferences.edit();
+        m.putInt(QuizData.WRONG_COUNTER, mWrongCounter);
+        m.putInt(QuizData.RIGHT_COUNTER, mRightCounter);
+        m.commit();
         mOnFragmentChangeListener.updateFragments();
         toast.show();
         return goodJob;
@@ -246,17 +253,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         switch (v.getId()) {
             case (R.id.commit_button):
                 boolean isRight = checkAnswers();
-                mOnAnswerCheckListener.onAnswer(mQuestionId, isRight);
-                if (!isRight) {
-                    v.setVisibility(View.GONE);
-                    mvNextButton.setVisibility(View.VISIBLE);
-                } else {
+                if (isRight) {
                     mOnFragmentChangeListener.swipeToNext(delay);
                 }
-                break;
-            case (R.id.next_button):
-                delay = 0;
-                mOnFragmentChangeListener.swipeToNext(delay);
                 break;
         }
         Handler handler = new Handler();
@@ -266,5 +265,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 toast.cancel();
             }
         }, delay);
+    }
+
+    @Override
+    public void onPause() {
+        mQuizData.setQuestion(mCurrentQuestion);
+        super.onPause();
     }
 }

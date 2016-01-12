@@ -10,14 +10,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import doit.study.droid.R;
 import doit.study.droid.model.Question;
-import doit.study.droid.model.Statistics;
-import doit.study.droid.model.TableRelationships;
+import doit.study.droid.model.RelationTables;
 import doit.study.droid.model.Tag;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -26,8 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 18;
-    private static final int DB_CONTENT_VERSION = 17;
+    private static final int DATABASE_VERSION = 20;
+    private static final int DB_CONTENT_VERSION = 20;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
@@ -55,11 +55,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Question.Table.RIGHT_ANSWERS + " TEXT,"
                 + Question.Table.WRONG_ANSWERS + " TEXT,"
                 + Question.Table.DOC_LINK + " TEXT,"
-                + Statistics.Table.RIGHT_ANS_CNT + " INTEGER DEFAULT 0,"
-                + Statistics.Table.WRONG_ANS_CNT + " INTEGER DEFAULT 0,"
-                + Statistics.Table.STATUS + " INTEGER DEFAULT 0,"
-                + Statistics.Table.LAST_VIEWED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
-                + Statistics.Table.STUDIED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
+                + Question.Table.RIGHT_ANS_CNT + " INTEGER DEFAULT 0,"
+                + Question.Table.WRONG_ANS_CNT + " INTEGER DEFAULT 0,"
+                + Question.Table.STATUS + " INTEGER DEFAULT 0,"
+                + Question.Table.LAST_VIEWED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                + Question.Table.STUDIED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
         String CREATE_TABLE_TAG = "CREATE TABLE "
                 + Tag.Table.NAME + "("
@@ -67,9 +67,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + Tag.Table.SELECTED + " INTEGER DEFAULT 1)";
 
         String CREATE_TABLE_RELATION_QUESTION_TAG = "CREATE TABLE "
-                + TableRelationships.QuestionTag.NAME + "("
-                + TableRelationships.QUESTION_ID + " INTEGER,"
-                + TableRelationships.QuestionTag.TAG_ID + " INTEGER)";
+                + RelationTables.QuestionTag.NAME + "("
+                + RelationTables.QUESTION_ID + " INTEGER,"
+                + RelationTables.QuestionTag.TAG_ID + " INTEGER)";
 
         db.execSQL(CREATE_TABLE_QUESTION);
         db.execSQL(CREATE_TABLE_TAG);
@@ -86,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(dropIfExists + Question.Table.NAME);
         db.execSQL(dropIfExists + Tag.Table.NAME);
         //FIXME: all stats will be lost
-        db.execSQL(dropIfExists + TableRelationships.QuestionTag.NAME);
+        db.execSQL(dropIfExists + RelationTables.QuestionTag.NAME);
 
         // create new tables
         onCreate(db);
@@ -127,9 +127,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
         SQLiteStatement insertRelationQuestionTag = db.compileStatement("INSERT OR REPLACE INTO "
-                        + TableRelationships.QuestionTag.NAME + "("
-                        + TableRelationships.QUESTION_ID + ", "
-                        + TableRelationships.QuestionTag.TAG_ID + ") VALUES (?, ?)"
+                        + RelationTables.QuestionTag.NAME + "("
+                        + RelationTables.QUESTION_ID + ", "
+                        + RelationTables.QuestionTag.TAG_ID + ") VALUES (?, ?)"
         );
 
         try {
@@ -189,30 +189,133 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Tag> getTagByIds(List<Integer> tagIds) {
         List<Tag> tags = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT ROWID, * FROM " + Tag.Table.NAME + " WHERE ROWID = ";
+        db.beginTransaction();
         for (Integer t : tagIds) {
-            Cursor c = db.rawQuery(query + t, null);
+            Cursor c = db.rawQuery(mkTagQuery(t), null);
             while (c.moveToNext()) {
                 tags.add(mkTag(c));
             }
             c.close();
         }
+        db.endTransaction();
+        return tags;
+    }
+
+    public List<Tag> getTags(){
+        List<Tag> tags = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String query = mkTagQuery(null);
+        Cursor c = db.rawQuery(query, null);
+        while(c.moveToNext()){
+            tags.add(mkTag(c));
+        }
+        c.close();
         return tags;
     }
 
     public Tag getTagById(Integer tagId) {
         Tag tag = null;
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT ROWID as _id, * FROM " + Tag.Table.NAME + " WHERE ROWID = " + tagId, null);
+        String query = mkTagQuery(tagId);
+        Cursor c = db.rawQuery(query, null);
         if (c.moveToNext())
             tag = mkTag(c);
         c.close();
         return tag;
     }
 
+    public void setTagSelection(Tag tag){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "UPDATE " + Tag.Table.NAME +
+                " SET " + Tag.Table.SELECTED + " = ? " +
+                " WHERE ROWID = ? ";
+        Log.i(TAG, " "+tag.getName()+ " " +tag.getSelectionStatus());
+        db.execSQL(query, new String[]{(tag.getSelectionStatus() == true) ? "1" : "0", tag.getId().toString()});
+    }
+
+    private String mkTagQuery(Integer id){
+        String query = String.format(
+                "SELECT t.ROWID as _id, t.%s, COUNT(t.%s) AS counter, SUM(q.%s = 3) as studied, t.%s",
+                Tag.Table.TEXT, Tag.Table.TEXT, Question.Table.STATUS, Tag.Table.SELECTED) +
+                " FROM " + Question.Table.NAME + " AS q " +
+                " JOIN " + RelationTables.QuestionTag.NAME + " AS qtr ON q.ROWID = qtr." + RelationTables.QUESTION_ID +
+                " JOIN " + Tag.Table.NAME + " AS t on t.rowid = qtr." + RelationTables.QuestionTag.TAG_ID +
+                // do we need filter by id?
+                ((id != null) ? (" WHERE t.ROWID = " + id) : "" ) +
+                " GROUP BY t." + Tag.Table.TEXT;
+        return query;
+    }
+
     private Tag mkTag(Cursor c) {
         return new Tag(c.getInt(c.getColumnIndex("_id")),
                 c.getString(c.getColumnIndex(Tag.Table.TEXT)),
-                c.getInt(c.getColumnIndex(Tag.Table.SELECTED)) == 1);
+                c.getInt(c.getColumnIndex(Tag.Table.SELECTED)) == 1,
+                c.getInt(c.getColumnIndex("counter")),
+                c.getInt(c.getColumnIndex("studied")));
+    }
+
+    public List<Integer> getRandSelectedQuestionIds(Integer limit){
+        List<Integer> ids = new ArrayList<>();
+        if (limit == null)
+            limit = 10;
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT q.ROWID from " + Question.Table.NAME + " AS q " +
+                " JOIN " + RelationTables.QuestionTag.NAME + " qtr ON q.ROWID = qtr." + RelationTables.QUESTION_ID +
+                " JOIN " + Tag.Table.NAME + " AS t ON t.ROWID = qtr." + RelationTables.QuestionTag.TAG_ID +
+                " WHERE t." + Tag.Table.SELECTED + " = 1" +
+                " ORDER BY RANDOM() LIMIT " + limit;
+        Cursor c = db.rawQuery(query, null);
+        while(c.moveToNext()){
+            ids.add(c.getInt(0));
+        }
+        c.close();
+        return ids;
+    }
+
+    public Question getQuestionById(int questionId) {
+        Log.i(TAG, "get question by id "+questionId);
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT q.ROWID as _id, * FROM " + Question.Table.NAME + " AS q " +
+                " JOIN " + RelationTables.QuestionTag.NAME + " AS qtr ON q.ROWID = qtr." + RelationTables.QUESTION_ID +
+                " JOIN " + Tag.Table.NAME + " AS t on t.rowid = qtr." + RelationTables.QuestionTag.TAG_ID +
+                " WHERE q.ROWID = " + questionId;
+
+        Cursor c = db.rawQuery(query, null);
+        Question q = null;
+        if (c.moveToNext()){
+            q =  mkQuestion(c);
+        }
+        c.close();
+        return q;
+    }
+
+    private Question mkQuestion(Cursor c) {
+        return new Question(c.getInt(c.getColumnIndex("_id")),
+                c.getString(c.getColumnIndex(Question.Table.TEXT)),
+                splitItems(c.getString(c.getColumnIndex(Question.Table.WRONG_ANSWERS))),
+                splitItems(c.getString(c.getColumnIndex(Question.Table.RIGHT_ANSWERS))),
+                splitItems(c.getString(c.getColumnIndex(Tag.Table.TEXT))),
+                c.getString(c.getColumnIndex(Question.Table.DOC_LINK)),
+                c.getInt(c.getColumnIndex(Question.Table.WRONG_ANS_CNT)),
+                c.getInt(c.getColumnIndex(Question.Table.RIGHT_ANS_CNT)),
+                c.getInt(c.getColumnIndex(Question.Table.STATUS))
+                );
+    }
+
+    private List<String> splitItems(String s){
+        if (s.equals(""))
+            return new ArrayList<>();
+        else
+            return Arrays.asList(s.split("\n"));
+    }
+
+    public void setQuestion(Question q) {
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "UPDATE "+ Question.Table.NAME +
+                " SET " + Question.Table.WRONG_ANS_CNT + " = " + q.getWrongCounter() +
+                ", " + Question.Table.RIGHT_ANS_CNT + " = " + q.getRightCounter() +
+                ", " + Question.Table.STATUS + " = " + q.getStatus().ordinal() +
+                " WHERE ROWID = " + q.getId();
+        db.execSQL(query);
     }
 }
