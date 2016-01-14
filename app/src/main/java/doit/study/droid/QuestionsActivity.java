@@ -1,5 +1,7 @@
 package doit.study.droid;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -8,17 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.Collections;
 import java.util.List;
 
-import doit.study.droid.sqlite.helper.DatabaseHelper;
-
-public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener,
-        QuestionFragment.OnAnswerCheckListener {
+public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
-
+    private int mTotalRightCounter;
+    private int mTotalWrongCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +27,15 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         configPagerTabStrip();
 
         GlobalData gd = (GlobalData) getApplication();
-        List<Integer> questionIds = gd.getQuizData().getQuestionIdsToWorkWith();
-        Collections.shuffle(questionIds);
-        if (questionIds.size() > 10) {
-            questionIds = questionIds.subList(0, 10);
-        }
+        QuizData quizData = gd.getQuizData();
+        List<Integer> questionIds = quizData.getRandSelectedQuestionIds(10);
         mPagerAdapter = new QuestionsPagerAdapter(
                 getSupportFragmentManager(),
-                gd.getQuizData(),
+                quizData,
                 questionIds);
         mPager.setAdapter(mPagerAdapter);
-        }
+       }
+
 
     private void configPagerTabStrip(){
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
@@ -48,11 +45,6 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         pagerTabStrip.setTabIndicatorColor(0x000000);
     }
 
-    @Override
-    public void onAnswer(int questionId, boolean isRight) {
-        DatabaseHelper mDBHelper = new DatabaseHelper(this);
-        mDBHelper.addStats(questionId, isRight);
-    }
 
     @Override
     public void updateFragments() {
@@ -73,6 +65,26 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
                 }
             }
         }, delay);
+    }
+
+    @Override
+    public int incTotalWrongCounter() {
+        return ++mTotalWrongCounter;
+    }
+
+    @Override
+    public int incTotalRightCounter() {
+        return ++mTotalRightCounter;
+    }
+
+    @Override
+    public int getTotalRightCounter() {
+        return mTotalRightCounter;
+    }
+
+    @Override
+    public int getTotalWrongCounter() {
+        return mTotalWrongCounter;
     }
 }
 

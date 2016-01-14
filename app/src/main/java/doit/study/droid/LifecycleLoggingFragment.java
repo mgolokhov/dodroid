@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 public abstract class  LifecycleLoggingFragment extends Fragment{
     protected final String TAG = "NSA " + getClass().getName();
     private static final boolean DEBUG = true;
-    protected String ID;
+    protected Integer ID;
 
     private void log(String message){
         if (DEBUG) Log.i(TAG, message + " " + ID);

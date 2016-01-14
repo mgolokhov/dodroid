@@ -1,11 +1,12 @@
 package doit.study.droid;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,48 +23,49 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import doit.study.droid.model.Question;
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
     private static final boolean DEBUG = true;
-    private int mQuestionId;
-    private OnAnswerCheckListener mOnAnswerCheckListener;
-    private OnFragmentChangeListener mOnFragmentChangeListener;
-    // keys for bundle, to save state
+    // Callbacks
+    private OnFragmentActivityChatter mOnFragmentActivityChatter;
+    // Keys for bundle to save state
     private static final String ID_KEY = "doit.study.dodroid.id_key";
-    private static final String COMMIT_BUTTON_STATE_KEY = "doit.study.dodroid.commit_button_state_key";
-    // model stuff
-    private Question mCurrentQuestion;
+    private static final String ANSWER_STATE_KEY = "doit.study.dodroid.answer_state_key";
+    // Model stuff
     private QuizData mQuizData;
-    private int isEnabledCommitButton = 1;
-    // view stuff
+    private Question mCurrentQuestion;
+    private boolean mGotRightAnswer;
+    // View stuff
     private View mView;
-    private ArrayList<CheckBox> mvCheckBoxes;
+    private List<CheckBox> mvCheckBoxes;
     private Button mvCommitButton;
     private TextView mvQuestionText;
     private LinearLayout mvAnswersLayout;
     private TextView mvRight;
     private TextView mvWrong;
-    private Button mvNextButton;
-    private Toast toast;
+    private Toast mvToast;
     ////////////////////////////////////////////////
     // Host Activity must implement these interfaces
     ////////////////////////////////////////////////
-    public interface OnFragmentChangeListener {
+    public interface OnFragmentActivityChatter {
         void updateFragments();
         void swipeToNext(int delay);
-    }
-
-    public interface OnAnswerCheckListener {
-        void onAnswer(int questionId, boolean isRight);
+        int getTotalRightCounter();
+        int getTotalWrongCounter();
+        int incTotalWrongCounter();
+        int incTotalRightCounter();
     }
     //////////////////////////////////////////////////
 
     public static QuestionFragment newInstance(int questionId) {
         if (DEBUG) Log.i("NSA", "newInstance "+questionId);
-        // add Bundle args if needed here before returning new instance of this class
+        // Add Bundle args if needed here before returning new instance of this class
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ID_KEY, questionId);
@@ -73,7 +75,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     @Override
     public void update(Observable observable, Object data) {
-        populate();
+        if (DEBUG) Log.i(TAG, "update "+ID);
+        // Will be called for cached fragments
+        updateDynamicViews(null);
     }
 
     @Override
@@ -103,14 +107,13 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     @Override
     public void onAttach(Context activity){
         // for a logging purpose
-        ID = ((Integer) getArguments().getInt(ID_KEY)).toString();
+        ID = getArguments().getInt(ID_KEY);
         super.onAttach(activity);
         try {
-            mOnFragmentChangeListener = (OnFragmentChangeListener) activity;
-            mOnAnswerCheckListener = (OnAnswerCheckListener) activity;
+            mOnFragmentActivityChatter = (OnFragmentActivityChatter) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentChangeListener and OnAnswerCheckListener");
+                    + " must implement OnFragmentActivityChatter");
         }
     }
 
@@ -118,30 +121,31 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        mQuestionId = getArguments().getInt(ID_KEY);
-        mQuizData = ((GlobalData)getActivity().getApplication()).getQuizData();
-        mCurrentQuestion = mQuizData.getById(mQuestionId);
         setHasOptionsMenu(true);
+        // Do non-graphical initialisations, get data
+        updateStaticModel();
+    }
+
+
+    private void updateStaticModel() {
+        Activity activity = getActivity();
+        mQuizData = ((GlobalData)activity.getApplication()).getQuizData();
+        int questionId = getArguments().getInt(ID_KEY);
+        mCurrentQuestion = mQuizData.getQuestionById(questionId);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mkViewsLinks(inflater, container);
-        updateModel();
-        updateView();
-        populate();
-        if (savedInstanceState != null) {
-            Log.i(TAG, "isEnabledCommitButton " + savedInstanceState.getInt("COMMIT_BUTTON_ENABLED"));
-            isEnabledCommitButton = savedInstanceState.getInt(COMMIT_BUTTON_STATE_KEY);
-            mvCommitButton.setEnabled(isEnabledCommitButton == 1);
-        }
+        mkViewLinks(inflater, container);
+        updateAllViews(savedInstanceState);
         return mView;
     }
 
-    private void mkViewsLinks(LayoutInflater inflater, ViewGroup container){
-        if (DEBUG) Log.i(TAG, "mkViewsLinks "+ID);
+
+    private void mkViewLinks(LayoutInflater inflater, ViewGroup container){
+        if (DEBUG) Log.i(TAG, "mkViewLinks "+ID);
         // You can not use the findViewById method the way you can in an Activity in a Fragment
         // So we get a reference to the view/layout_file that we used for this Fragment
         // That allows use to then reference the views by id in that file
@@ -149,93 +153,114 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (LinearLayout) mView.findViewById(R.id.answers);
         mvCommitButton = (Button) mView.findViewById(R.id.commit_button);
-        mvNextButton = (Button) mView.findViewById(R.id.next_button);
         // You can not add onclick listener to a button in a fragment's xml
         // So we implement OnClickListener interface, check onClick() method
         mvCommitButton.setOnClickListener(this);
-        mvNextButton.setOnClickListener(this);
         mvRight = (TextView) mView.findViewById(R.id.right_counter);
         mvWrong = (TextView) mView.findViewById(R.id.wrong_counter);
     }
 
-    private void updateView(){
-
-    }
-
-    private void updateModel(){
-
-    }
 
     // Map data from the current Question to the View elements
-    public void populate() {
-        if (DEBUG) Log.i(TAG, "populate "+ID);
+    private void updateAllViews(Bundle savedInstanceState) {
+        if (DEBUG) Log.i(TAG, "updateAllViews "+ID);
+
+        updateDynamicViews(null);
         mvQuestionText.setText(mCurrentQuestion.getText());
-        mvRight.setText("" + mQuizData.getTotalRightCounter());
         mvRight.setTextColor(Color.GREEN);
-        mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
         mvWrong.setTextColor(Color.RED);
 
-        mvAnswersLayout.removeAllViewsInLayout();
-        ArrayList<String> allAnswers = new ArrayList<>();
-        allAnswers.addAll(mCurrentQuestion.getRightItems());
-        allAnswers.addAll(mCurrentQuestion.getWrongItems());
-        Collections.shuffle(allAnswers);
+        if (savedInstanceState != null) {
+            mGotRightAnswer = savedInstanceState.getInt(ANSWER_STATE_KEY) == 1;
+            Log.i(TAG, "mGotRightAnswer " + mGotRightAnswer);
+            mvCommitButton.setEnabled(!mGotRightAnswer);
+        }
 
-        mvCheckBoxes = new ArrayList<>();
-        // create checkboxes dynamically
-        for (int i = 0; i < allAnswers.size(); i++) {
-            // Can not use "this" keyword for constructor here. Requires a Context and Fragment class does not inherit from Context
-            CheckBox checkBox = new CheckBox(getContext());
-            checkBox.setText(allAnswers.get(i));
-            mvAnswersLayout.addView(checkBox);
-            mvCheckBoxes.add(checkBox);
+        // Create checkboxes dynamically
+        if (mvAnswersLayout.getChildCount() == 0) {
+            mvAnswersLayout.removeAllViewsInLayout();
+            List<String> allAnswers = new ArrayList<>();
+            allAnswers.addAll(mCurrentQuestion.getRightAnswers());
+            allAnswers.addAll(mCurrentQuestion.getWrongAnswers());
+            Collections.shuffle(allAnswers);
+
+            mvCheckBoxes = new ArrayList<>();
+            for (String answer : allAnswers) {
+                // Can not use "this" keyword for constructor here.
+                // Requires a Context and Fragment class does not inherit from Context
+                CheckBox checkBox = new CheckBox(getContext());
+                checkBox.setText(answer);
+                mvCheckBoxes.add(checkBox);
+                mvAnswersLayout.addView(checkBox);
+            }
         }
     }
 
+    private void updateDynamicViews(Boolean isRight){
+        if (isRight == null){
+            mvRight.setText(String.format("%d", mOnFragmentActivityChatter.getTotalRightCounter()));
+            mvWrong.setText(String.format("%d", mOnFragmentActivityChatter.getTotalWrongCounter()));
+        }
+        else if (isRight) {
+            mvRight.setText(String.format("%d", mOnFragmentActivityChatter.getTotalRightCounter()));
+            mvCommitButton.setEnabled(false);
+        }
+        else {
+            mvWrong.setText(String.format("%d", mOnFragmentActivityChatter.getTotalWrongCounter()));
+        }
+    }
 
-    public Boolean checkAnswers() {
-        if (DEBUG) Log.i(TAG, "checkAnswers "+ID);
-        Boolean goodJob = true;
+    private boolean isRightAnswer() {
+        if (DEBUG) Log.i(TAG, "isRightAnswer "+ID);
+        boolean goodJob = true;
         for (CheckBox cb : mvCheckBoxes) {
-            // you can have multiple right answers
+            // You can have multiple right answers
             String cbText = cb.getText().toString();
             if (cb.isChecked()) {
-                if (!mCurrentQuestion.getRightItems().contains(cbText)) {
+                if (!mCurrentQuestion.getRightAnswers().contains(cbText)) {
                     goodJob = false;
                     break;
                 }
-            } else if (mCurrentQuestion.getRightItems().contains(cbText)) {
+            } else if (mCurrentQuestion.getRightAnswers().contains(cbText)) {
                 goodJob = false;
                 break;
             }
         }
-        toast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if (goodJob) {
-            toast.setText("Right");
-            v.setTextColor(Color.GREEN);
-            mQuizData.incrementRightCounter(mQuestionId);
-            mvRight.setText("" + mQuizData.getTotalRightCounter());
-            mvCommitButton.setEnabled(false);
-            isEnabledCommitButton = 0;
+        return goodJob;
+    }
+
+    private void updateDynamicModel(boolean isRight){
+        if (isRight) {
+            mCurrentQuestion.incRightCounter();
+            mOnFragmentActivityChatter.incTotalRightCounter();
+            mGotRightAnswer = true;
         }
         else {
-            toast.setText("Wrong");
-            v.setTextColor(Color.RED);
-            mQuizData.incrementWrongCounter(mQuestionId);
-            mvWrong.setText(" " + mQuizData.getTotalWrongCounter());
-
+            mCurrentQuestion.incWrongCounter();
+            mOnFragmentActivityChatter.incTotalWrongCounter();
         }
-        mOnFragmentChangeListener.updateFragments();
-        toast.show();
-        return goodJob;
+    }
+
+    private void showToast(boolean isRight){
+        if (mvToast != null)
+            mvToast.cancel();
+        mvToast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
+        mvToast.setGravity(Gravity.CENTER, 0, 0);
+        TextView v = (TextView) mvToast.getView().findViewById(android.R.id.message);
+        if (isRight) {
+            mvToast.setText("Right");
+            v.setTextColor(Color.GREEN);
+        } else {
+            mvToast.setText("Wrong");
+            v.setTextColor(Color.RED);
+        }
+        mvToast.show();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(COMMIT_BUTTON_STATE_KEY, isEnabledCommitButton);
+        outState.putInt(ANSWER_STATE_KEY, mGotRightAnswer ? 1 : 0);
     }
 
     @Override
@@ -243,26 +268,20 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         int delay = 2000;
         switch (v.getId()) {
             case (R.id.commit_button):
-                boolean isRight = checkAnswers();
-                mOnAnswerCheckListener.onAnswer(mQuestionId, isRight);
-                if (!isRight) {
-                    v.setVisibility(View.GONE);
-                    mvNextButton.setVisibility(View.VISIBLE);
-                } else {
-                    mOnFragmentChangeListener.swipeToNext(delay);
-                }
-                break;
-            case (R.id.next_button):
-                delay = 0;
-                mOnFragmentChangeListener.swipeToNext(delay);
+                boolean isRight = isRightAnswer();
+                showToast(isRight);
+                updateDynamicModel(isRight);
+                updateDynamicViews(isRight);
+                mOnFragmentActivityChatter.updateFragments();
+                if (isRight)
+                    mOnFragmentActivityChatter.swipeToNext(delay);
                 break;
         }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                toast.cancel();
-            }
-        }, delay);
+    }
+
+    @Override
+    public void onPause() {
+        mQuizData.setQuestion(mCurrentQuestion);
+        super.onPause();
     }
 }
