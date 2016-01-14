@@ -6,18 +6,15 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import doit.study.droid.model.Question;
 
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
-    private final List<Integer> questionIds;
+    private final List<Integer> mQuestionIds;
     private FragmentObserver mFragmentObserver = new FragmentObserver();
 
     private static class FragmentObserver extends Observable {
@@ -31,8 +28,8 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData, List<Integer> questionIds) {
         super(fm);
-        this.mQuizData = quizData;
-        this.questionIds = questionIds;
+        mQuizData = quizData;
+        mQuestionIds = questionIds;
     }
 
     public void updateFragments(ViewGroup container, int posInFocus){
@@ -45,7 +42,7 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem, pos=" + position);
-        Fragment fragment = QuestionFragment.newInstance(questionIds.get(position));
+        Fragment fragment = QuestionFragment.newInstance(mQuestionIds.get(position));
         mFragmentObserver.addObserver((Observer) fragment);
         return fragment;
     }
@@ -64,17 +61,17 @@ class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return questionIds.size();
+        return mQuestionIds.size();
     }
 
 
     @Override
     public CharSequence getPageTitle(int position) {
         StringBuffer title = new StringBuffer();
-        for (String tag: mQuizData.getQuestionById(questionIds.get(position)).getTags())
+        for (String tag: mQuizData.getQuestionById(mQuestionIds.get(position)).getTags())
             title.append(tag+" ");
         title.append(String.format(" %d/%d", position+1, getCount()));
-        Question q = mQuizData.getQuestionById(questionIds.get(position));
+//        Question q = mQuizData.getQuestionById(mQuestionIds.get(position));
 //        int rCnt = q.getRightCounter();
 //        int wCnt = q.getWrongCounter();
 //        Question.Status st = q.getStatus();

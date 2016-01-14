@@ -7,10 +7,6 @@ import doit.study.droid.model.Tag;
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 public class QuizData {
-    public final static String COUNTERS = "wrong_right_counters";
-    public final static String WRONG_COUNTER = "wrong_counter";
-    public final static String RIGHT_COUNTER = "right_counter";
-
     private DatabaseHelper mDBHelper;
 
     public QuizData(DatabaseHelper dbHelper) {

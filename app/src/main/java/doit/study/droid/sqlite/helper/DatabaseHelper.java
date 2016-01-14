@@ -21,6 +21,7 @@ import doit.study.droid.model.RelationTables;
 import doit.study.droid.model.Tag;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final boolean DEBUG = true;
     // Logcat tag
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
@@ -255,6 +256,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Integer> getRandSelectedQuestionIds(Integer limit){
+        Log.i(TAG, "getRandSelectedQuestionIds with limit "+limit);
         List<Integer> ids = new ArrayList<>();
         if (limit == null)
             limit = 10;

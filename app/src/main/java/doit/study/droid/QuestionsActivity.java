@@ -10,15 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.Collections;
 import java.util.List;
 
-import doit.study.droid.sqlite.helper.DatabaseHelper;
-
-public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentChangeListener{
+public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private int mTotalRightCounter;
+    private int mTotalWrongCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +25,6 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         setContentView(R.layout.viewpager_layout);
         mPager = (ViewPager)findViewById(R.id.view_pager);
         configPagerTabStrip();
-
-        SharedPreferences sp = getSharedPreferences("wrong_right_counters", Context.MODE_PRIVATE);
-        SharedPreferences.Editor m = sp.edit();
-        m.putInt("wrong", 0);
-        m.putInt("right", 0);
-        m.commit();
 
         GlobalData gd = (GlobalData) getApplication();
         QuizData quizData = gd.getQuizData();
@@ -72,6 +65,26 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
                 }
             }
         }, delay);
+    }
+
+    @Override
+    public int incTotalWrongCounter() {
+        return ++mTotalWrongCounter;
+    }
+
+    @Override
+    public int incTotalRightCounter() {
+        return ++mTotalRightCounter;
+    }
+
+    @Override
+    public int getTotalRightCounter() {
+        return mTotalRightCounter;
+    }
+
+    @Override
+    public int getTotalWrongCounter() {
+        return mTotalWrongCounter;
     }
 }
 
