@@ -1,7 +1,5 @@
 package doit.study.droid;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -11,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.List;
+
+import doit.study.droid.model.GlobalData;
+import doit.study.droid.model.QuizData;
 
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter {
     private final String TAG = "NSA " + getClass().getName();

@@ -18,8 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Map;
 
+import doit.study.droid.model.GlobalData;
+import doit.study.droid.model.QuizData;
 import doit.study.droid.model.Tag;
 
 

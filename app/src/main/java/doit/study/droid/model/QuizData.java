@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.model;
 
 import java.util.List;
 

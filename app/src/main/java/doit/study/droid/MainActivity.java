@@ -2,6 +2,7 @@ package doit.study.droid;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setVersionInTitle();
+    }
+
+    private void setVersionInTitle(){
+        String title = getTitle().toString();
+        try {
+            title += " " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        setTitle(title);
     }
 
     public void motivationButton(View v){

@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import doit.study.droid.model.QuizData;
+
 
 class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();

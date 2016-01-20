@@ -1,7 +1,8 @@
-package doit.study.droid;
+package doit.study.droid.model;
 
 import android.app.Application;
 
+import doit.study.droid.model.QuizData;
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 /**

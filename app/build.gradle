@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def versionMajor = 0
+def versionMinor = 2
+def versionBuild = 14
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -8,8 +12,8 @@ android {
         applicationId "doit.study.droid"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 13
-        versionName "0.2.11"
+        versionCode versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionBuild}"
     }
     buildTypes {
         release {

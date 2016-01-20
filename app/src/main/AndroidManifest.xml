@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name="doit.study.droid.GlobalData"
+        android:name=".model.GlobalData"
         android:allowBackup="true"
         android:icon="@drawable/hero"
         android:label="@string/app_name"

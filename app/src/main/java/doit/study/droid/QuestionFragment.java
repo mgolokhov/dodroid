@@ -3,7 +3,6 @@ package doit.study.droid;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +26,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import doit.study.droid.model.GlobalData;
 import doit.study.droid.model.Question;
+import doit.study.droid.model.QuizData;
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener, Observer {
@@ -37,6 +38,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     // Keys for bundle to save state
     private static final String ID_KEY = "doit.study.dodroid.id_key";
     private static final String ANSWER_STATE_KEY = "doit.study.dodroid.answer_state_key";
+    private Sound mSound;
     // Model stuff
     private QuizData mQuizData;
     private Question mCurrentQuestion;
@@ -124,6 +126,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         setHasOptionsMenu(true);
         // Do non-graphical initialisations, get data
         updateStaticModel();
+        mSound = Sound.newInstance(getContext());
     }
 
 
@@ -211,7 +214,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private boolean isRightAnswer() {
-        if (DEBUG) Log.i(TAG, "isRightAnswer "+ID);
+        if (DEBUG) Log.i(TAG, "isRightAnswer " + ID);
         boolean goodJob = true;
         for (CheckBox cb : mvCheckBoxes) {
             // You can have multiple right answers
@@ -272,9 +275,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 showToast(isRight);
                 updateDynamicModel(isRight);
                 updateDynamicViews(isRight);
+                mSound.play(isRight);
                 mOnFragmentActivityChatter.updateFragments();
-                if (isRight)
+                if (isRight) {
                     mOnFragmentActivityChatter.swipeToNext(delay);
+                }
                 break;
         }
     }
@@ -282,6 +287,14 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     @Override
     public void onPause() {
         mQuizData.setQuestion(mCurrentQuestion);
+        mSound.stop();
         super.onPause();
     }
+
+    @Override
+    public void onStop() {
+        mSound.release();
+        super.onStop();
+    }
+
 }
