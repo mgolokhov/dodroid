@@ -3,9 +3,11 @@ package doit.study.droid;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,6 +45,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private QuizData mQuizData;
     private Question mCurrentQuestion;
     private boolean mGotRightAnswer;
+    private boolean mIsSoundOn;
     // View stuff
     private View mView;
     private List<CheckBox> mvCheckBoxes;
@@ -99,6 +102,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                     intent.setData(Uri.parse(mCurrentQuestion.getDocRef()));
                     startActivity(intent);
                 }
+                return true;
+            }
+            case(R.id.action_settings):{
+                // TODO: start settings fragment or activity
+                startActivity(new Intent(getContext(), SettingsActivity.class));
                 return true;
             }
             default:
@@ -267,6 +275,13 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mIsSoundOn = SP.getBoolean(getString(R.string.pref_sound), true);
+    }
+
+    @Override
     public void onClick(View v) {
         int delay = 2000;
         switch (v.getId()) {
@@ -275,7 +290,8 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 showToast(isRight);
                 updateDynamicModel(isRight);
                 updateDynamicViews(isRight);
-                mSound.play(isRight);
+                if (mIsSoundOn)
+                    mSound.play(isRight);
                 mOnFragmentActivityChatter.updateFragments();
                 if (isRight) {
                     mOnFragmentActivityChatter.swipeToNext(delay);

@@ -32,6 +32,9 @@
             android:label="@string/willing"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".SettingsActivity"
+            android:label="@string/action_settings"
+            />
 
     </application>
 

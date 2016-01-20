@@ -9,4 +9,9 @@
     <string name="motto">a journey of a thousand miles begins with a single step</string>
     <string name="set_topic_button">setTopic</string>
     <string name="willing">Willing is not enough</string>
+    <string name="action_settings">settings</string>
+    <string name="doc_reference">documentaion reference</string>
+    <string name="turn_sound_on">turn on</string>
+    <string name="turn_sound_off">turn off</string>
+    <string name="pref_sound">pref_sound</string>
 </resources>

@@ -1,4 +1,9 @@
 reviewed = (
+	(0.5255474452554745, '(True or False) You can call start() again on the MediaPlayer once you have called stop()', '(True or False) You can broadcast within an app.'),
+	(0.5504587155963303, 'The uniqueness of your application defined by', 'Which components of an application can be activated by intents. '),
+	(0.5645161290322581, 'Which components of an application can be activated by intents. ', 'Components of different applications run in the same process'),
+	(0.5660377358490566, 'You can set a Fragment tag by', 'You can apply a theme to'),
+	(0.5247524752475248, '(True or False) The SQLite Open Helper caches database instances after they\xe2\x80\x99ve been successfully opened.', '(True or False) SQLiteOpenHelper.onCreate method is called only when the database does not exist'),
 	(0.5970149253731343, 'Android UI toolkit is thread-safe', 'A Cursor object is not thread safe'),
 	(0.5308056872037915, '(True or False) Method boolean View.post(Runnable) returns true if the Runnable was successfully executed', '(True or False) The SQLite Open Helper caches database instances after they\xe2\x80\x99ve been successfully opened.'),
 	(0.5529411764705883, '(True or False) Starting with API 11 (Android 3.0) AsyncTasks can operate in parallel.', '(True or False)  SQLite database in Android is running as a separate ongoing process'),
