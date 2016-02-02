@@ -1,4 +1,5 @@
 .gradle
+app/src/main/java/doit/droid/MyScratch.java
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
