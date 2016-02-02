@@ -10,6 +10,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import doit.study.droid.model.GlobalData;
+
 
 // Entry point for the app.
 // Because we set in manifest action=MAIN category=LAUNCHER
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setVersionInTitle();
+        // Make sure that Analytics tracking has started
+        ((GlobalData) getApplication()).startTracking();
     }
 
     private void setVersionInTitle(){
