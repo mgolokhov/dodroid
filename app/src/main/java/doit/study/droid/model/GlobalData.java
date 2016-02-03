@@ -3,11 +3,9 @@ package doit.study.droid.model;
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 
 import doit.study.droid.R;
-import doit.study.droid.model.QuizData;
 import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 /**

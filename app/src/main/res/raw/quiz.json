@@ -242,7 +242,7 @@
     {
         "ID": 16, 
         "docRef": "http://developer.android.com/reference/android/app/Activity.html#onSaveInstanceState(android.os.Bundle)", 
-        "question": "Check true statements about Activity.onRestoreInstanceState(Bundle)", 
+        "question": "Check true statements about Activity.onSaveInstanceState(Bundle)", 
         "right": [
             "this method will occur before onStop()", 
             "there are no guarantees about whether it will occur before or after onPause()"
@@ -2674,6 +2674,22 @@
         ]
     }, 
     {
+        "ID": 178, 
+        "docRef": "", 
+        "question": "Check true statements about a Service.", 
+        "right": [
+            "runs in the background", 
+            "is used for long running operations", 
+            "supports interaction with remote processes"
+        ], 
+        "tags": [
+            "Service"
+        ], 
+        "wrong": [
+            "is used to start new Activities"
+        ]
+    }, 
+    {
         "ID": 192, 
         "docRef": "http://stackoverflow.com/a/16374538/5766983", 
         "question": "(True or False) PreferenceActivity is deprecated for API Level 11 and higher", 
@@ -2682,6 +2698,20 @@
         ], 
         "tags": [
             "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 193, 
+        "docRef": "http://developer.android.com/reference/android/view/LayoutInflater.html#inflate(org.xmlpull.v1.XmlPullParser, android.view.ViewGroup)", 
+        "question": "(True or False) You can use LayoutInflater with an XmlPullParser over a plain XML file at runtime.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
         ], 
         "wrong": [
             "TRUE"
