@@ -23,7 +23,7 @@ public abstract class  LifecycleLoggingFragment extends Fragment{
     protected Integer ID;
 
     private void log(String message){
-        if (DEBUG) Log.i(TAG, message + " " + ID);
+        if (DEBUG) Log.d(TAG, message + " " + ID);
     }
     private void logWithState(String message, Bundle savedInstanceState){
         if (DEBUG){

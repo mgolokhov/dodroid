@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -49,7 +51,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     // View stuff
     private View mView;
     private List<CheckBox> mvCheckBoxes;
-    private Button mvCommitButton;
+    private FloatingActionButton mvCommitButton;
     private TextView mvQuestionText;
     private LinearLayout mvAnswersLayout;
     private TextView mvRight;
@@ -163,7 +165,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mView = inflater.inflate(R.layout.fragment_questions, container, false);
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (LinearLayout) mView.findViewById(R.id.answers);
-        mvCommitButton = (Button) mView.findViewById(R.id.commit_button);
+        mvCommitButton = (FloatingActionButton) mView.findViewById(R.id.commit_button);
         // You can not add onclick listener to a button in a fragment's xml
         // So we implement OnClickListener interface, check onClick() method
         mvCommitButton.setOnClickListener(this);
@@ -183,8 +185,11 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
         if (savedInstanceState != null) {
             mGotRightAnswer = savedInstanceState.getInt(ANSWER_STATE_KEY) == 1;
-            Log.i(TAG, "mGotRightAnswer " + mGotRightAnswer);
-            mvCommitButton.setEnabled(!mGotRightAnswer);
+            if (mGotRightAnswer) {
+                if (DEBUG) Log.d(TAG, "mGotRightAnswer " + mGotRightAnswer);
+                setCommitButton();
+            }
+
         }
 
         // Create checkboxes dynamically
@@ -214,10 +219,18 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         }
         else if (isRight) {
             mvRight.setText(String.format("%d", mOnFragmentActivityChatter.getTotalRightCounter()));
-            mvCommitButton.setEnabled(false);
+            setCommitButton();
         }
         else {
             mvWrong.setText(String.format("%d", mOnFragmentActivityChatter.getTotalWrongCounter()));
+        }
+    }
+
+    private void setCommitButton(){
+        if (mGotRightAnswer) {
+            mvCommitButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_insert_emoticon_black_48dp));
+            mvCommitButton.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+            mvCommitButton.setEnabled(false);
         }
     }
 
@@ -313,4 +326,10 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         super.onStop();
     }
 
+    @Override
+    public void onDetach() {
+        // with setRetainInstance(true) can be a leak
+        mOnFragmentActivityChatter = null;
+        super.onDetach();
+    }
 }
