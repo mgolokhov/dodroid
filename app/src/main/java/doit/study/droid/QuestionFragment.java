@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -57,6 +58,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private TextView mvRight;
     private TextView mvWrong;
     private Toast mvToast;
+    private int mWrongCounterForHint;
     ////////////////////////////////////////////////
     // Host Activity must implement these interfaces
     ////////////////////////////////////////////////
@@ -97,22 +99,25 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch(menuItem.getItemId()){
             case(R.id.doc_reference):{
-                if (mCurrentQuestion.getDocRef().isEmpty())
-                    Toast.makeText(getActivity(), "Not yet", Toast.LENGTH_SHORT).show();
-                else {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(mCurrentQuestion.getDocRef()));
-                    startActivity(intent);
-                }
+                checkDocRef();
                 return true;
             }
             case(R.id.action_settings):{
-                // TODO: start settings fragment or activity
                 startActivity(new Intent(getContext(), SettingsActivity.class));
                 return true;
             }
             default:
                 return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
+    private void checkDocRef(){
+        if (mCurrentQuestion.getDocRef().isEmpty())
+            Toast.makeText(getActivity(), "Not yet", Toast.LENGTH_SHORT).show();
+        else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(mCurrentQuestion.getDocRef()));
+            startActivity(intent);
         }
     }
 
@@ -224,6 +229,15 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         else {
             mvWrong.setText(String.format("%d", mOnFragmentActivityChatter.getTotalWrongCounter()));
         }
+        if (mWrongCounterForHint >= 2)
+            Snackbar.make(getView(), "Check documentation", Snackbar.LENGTH_LONG)
+                    .setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            checkDocRef();
+                        }
+                    })
+                    .show();
     }
 
     private void setCommitButton(){
@@ -260,6 +274,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             mGotRightAnswer = true;
         }
         else {
+            mWrongCounterForHint++;
             mCurrentQuestion.incWrongCounter();
             mOnFragmentActivityChatter.incTotalWrongCounter();
         }

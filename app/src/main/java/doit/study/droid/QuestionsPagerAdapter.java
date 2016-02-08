@@ -13,7 +13,7 @@ import java.util.Observer;
 import doit.study.droid.model.QuizData;
 
 
-class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
+public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
     private final List<Integer> mQuestionIds;
