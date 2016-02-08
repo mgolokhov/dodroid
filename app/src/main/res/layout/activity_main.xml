@@ -16,6 +16,9 @@
         android:layout_height="wrap_content"
         android:onClick="motivationButton"
         android:text="@string/need_motivation_button"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_round_corners"
         />
 
     <Button
@@ -24,6 +27,9 @@
         android:layout_height="wrap_content"
         android:onClick="setTopicButton"
         android:text="@string/set_topic_button"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_round_corners"
         />
 
     <Button
@@ -32,6 +38,9 @@
         android:layout_height="wrap_content"
         android:onClick="doitButton"
         android:text="@string/doit_button"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_round_corners"
         />
 
     </LinearLayout>

@@ -228,16 +228,16 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         }
         else {
             mvWrong.setText(String.format("%d", mOnFragmentActivityChatter.getTotalWrongCounter()));
+            if (mWrongCounterForHint >= 2)
+                Snackbar.make(getView(), "Check documentation", Snackbar.LENGTH_LONG)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                checkDocRef();
+                            }
+                        })
+                        .show();
         }
-        if (mWrongCounterForHint >= 2)
-            Snackbar.make(getView(), "Check documentation", Snackbar.LENGTH_LONG)
-                    .setAction("OK", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            checkDocRef();
-                        }
-                    })
-                    .show();
     }
 
     private void setCommitButton(){
