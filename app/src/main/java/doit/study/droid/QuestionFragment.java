@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.PreferenceManager;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,9 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +53,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private List<CheckBox> mvCheckBoxes;
     private FloatingActionButton mvCommitButton;
     private TextView mvQuestionText;
-    private LinearLayout mvAnswersLayout;
+    private ViewGroup mvAnswersLayout;
     private TextView mvRight;
     private TextView mvWrong;
     private Toast mvToast;
@@ -86,7 +85,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void update(Observable observable, Object data) {
         if (DEBUG) Log.i(TAG, "update "+ID);
         // Will be called for cached fragments
-        updateDynamicViews(null);
+        //updateDynamicViews(null);
     }
 
     @Override
@@ -157,7 +156,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mkViewLinks(inflater, container);
-        updateAllViews(savedInstanceState);
+//        updateAllViews(savedInstanceState);
         return mView;
     }
 
@@ -167,15 +166,18 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         // You can not use the findViewById method the way you can in an Activity in a Fragment
         // So we get a reference to the view/layout_file that we used for this Fragment
         // That allows use to then reference the views by id in that file
-        mView = inflater.inflate(R.layout.fragment_questions, container, false);
-        mvQuestionText = (TextView) mView.findViewById(R.id.question);
-        mvAnswersLayout = (LinearLayout) mView.findViewById(R.id.answers);
+        mView = inflater.inflate(R.layout.debug_6, container, false);
+//        mvQuestionText = (TextView) mView.findViewById(R.id.question);
+//        mvQuestionText.setMovementMethod(new ScrollingMovementMethod());
+////        mvQuestionText.setScrollbarFadingEnabled(false);
+//        mvAnswersLayout = (ViewGroup) mView.findViewById(R.id.answers);
         mvCommitButton = (FloatingActionButton) mView.findViewById(R.id.commit_button);
-        // You can not add onclick listener to a button in a fragment's xml
-        // So we implement OnClickListener interface, check onClick() method
+//
+//        // You can not add onclick listener to a button in a fragment's xml
+//        // So we implement OnClickListener interface, check onClick() method
         mvCommitButton.setOnClickListener(this);
-        mvRight = (TextView) mView.findViewById(R.id.right_counter);
-        mvWrong = (TextView) mView.findViewById(R.id.wrong_counter);
+        //mvRight = (TextView) mView.findViewById(R.id.right_counter);
+        //mvWrong = (TextView) mView.findViewById(R.id.wrong_counter);
     }
 
 
@@ -183,10 +185,10 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private void updateAllViews(Bundle savedInstanceState) {
         if (DEBUG) Log.i(TAG, "updateAllViews "+ID);
 
-        updateDynamicViews(null);
-        mvQuestionText.setText(mCurrentQuestion.getText());
-        mvRight.setTextColor(Color.GREEN);
-        mvWrong.setTextColor(Color.RED);
+        //updateDynamicViews(null);
+//        mvQuestionText.setText(mCurrentQuestion.getText());
+//        mvRight.setTextColor(Color.GREEN);
+//        mvWrong.setTextColor(Color.RED);
 
         if (savedInstanceState != null) {
             mGotRightAnswer = savedInstanceState.getInt(ANSWER_STATE_KEY) == 1;
@@ -210,9 +212,12 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 // Can not use "this" keyword for constructor here.
                 // Requires a Context and Fragment class does not inherit from Context
                 CheckBox checkBox = new CheckBox(getContext());
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                checkBox.setLayoutParams();
+                checkBox.setGravity(Gravity.CENTER);
                 checkBox.setText(answer);
                 mvCheckBoxes.add(checkBox);
-                mvAnswersLayout.addView(checkBox);
+                mvAnswersLayout.addView(checkBox, mvAnswersLayout.getLayoutParams());
             }
         }
     }
@@ -309,21 +314,33 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mIsSoundOn = SP.getBoolean(getString(R.string.pref_sound), true);
     }
 
+    public void debug_snackbar(View v){
+        Snackbar.make(v, "Check documentation", Snackbar.LENGTH_LONG)
+                .setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        checkDocRef();
+                    }
+                })
+                .show();
+    }
+
     @Override
     public void onClick(View v) {
         int delay = 2000;
         switch (v.getId()) {
             case (R.id.commit_button):
-                boolean isRight = isRightAnswer();
-                showToast(isRight);
-                updateDynamicModel(isRight);
-                updateDynamicViews(isRight);
-                if (mIsSoundOn)
-                    mSound.play(isRight);
-                mOnFragmentActivityChatter.updateFragments();
-                if (isRight) {
-                    mOnFragmentActivityChatter.swipeToNext(delay);
-                }
+                debug_snackbar(v);
+//                boolean isRight = isRightAnswer();
+//                showToast(isRight);
+//                updateDynamicModel(isRight);
+//                //updateDynamicViews(isRight);
+//                if (mIsSoundOn)
+//                    mSound.play(isRight);
+//                mOnFragmentActivityChatter.updateFragments();
+//                if (isRight) {
+//                    mOnFragmentActivityChatter.swipeToNext(delay);
+//                }
                 break;
         }
     }

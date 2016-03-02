@@ -1,96 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--<android.support.design.widget.CoordinatorLayout-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!-->-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--&gt;-->
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ScrollView
+        android:id="@+id/question_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_above="@+id/commit_button"
+        android:fadeScrollbars="false"
+        android:fillViewport="true"
+        >
 
-        <ScrollView
-            android:id="@+id/question_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:fadeScrollbars="false"
-            android:scrollbars="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/question"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="17sp"
-                    tools:text="@string/test"/>
-
-                <LinearLayout
-                    android:id="@+id/answers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical">
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
+            android:orientation="vertical"
             >
 
-            <TextView
-                android:id="@+id/right_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="2"
-                android:gravity="center"
-                android:textSize="30sp"
-                tools:text="5"
-                />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/commit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_done_black_48dp"
-                app:backgroundTint="#33b5e5"
-                app:layout_anchorGravity="bottom"
-                />
 
             <TextView
-                android:id="@+id/wrong_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="2"
+                android:id="@+id/question"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/center_anchor"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:textSize="30sp"
-                tools:text=" 13"
+                android:textSize="17sp"
                 />
 
-        </LinearLayout>
+            <Space
+                android:id="@+id/center_anchor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+                />
 
-    </RelativeLayout>
-<!--</android.support.design.widget.CoordinatorLayout>-->
+            <LinearLayout
+                android:id="@+id/answers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/center_anchor"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/commit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_done_black_48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="#33b5e5"
+        app:layout_anchorGravity="bottom|center"
+        />
+
+</RelativeLayout>
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
