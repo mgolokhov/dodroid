@@ -11,14 +11,16 @@ import android.util.Log;
 import java.util.List;
 
 import doit.study.droid.model.GlobalData;
+import doit.study.droid.model.Question;
 import doit.study.droid.model.QuizData;
 
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
-    private int mTotalRightCounter;
-    private int mTotalWrongCounter;
+    private QuizData mQuizData;
+    private int QUIZ_SIZE = 10;
+    private int right_answered = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +30,14 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         configPagerTabStrip();
 
         GlobalData gd = (GlobalData) getApplication();
-        QuizData quizData = gd.getQuizData();
-        List<Integer> questionIds = quizData.getRandSelectedQuestionIds(10);
-        mPagerAdapter = new QuestionsPagerAdapter(
+        mQuizData = gd.getQuizData();
+        List<Integer> questionIds = mQuizData.getRandSelectedQuestionIds(QUIZ_SIZE);
+
+        PagerAdapter pagerAdapter = new QuestionsPagerAdapter(
                 getSupportFragmentManager(),
-                quizData,
+                mQuizData,
                 questionIds);
-        mPager.setAdapter(mPagerAdapter);
+        mPager.setAdapter(pagerAdapter);
        }
 
 
@@ -48,10 +51,13 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
 
 
     @Override
-    public void updateFragments() {
-        Log.i(TAG, "update");
-        int posInFocus = mPager.getCurrentItem();
-        ((QuestionsPagerAdapter)mPagerAdapter).updateFragments(mPager, posInFocus);
+    public void saveStat(Question question) {
+        mQuizData.setQuestion(question);
+    }
+
+    @Override
+    public void updateProgress(){
+        setTitle(String.format("Progress: %d%%", (++right_answered)*100/QUIZ_SIZE));
     }
 
     @Override
@@ -61,7 +67,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         handler.postDelayed(new Runnable() {
             public void run() {
                 if (posInFocus == mPager.getCurrentItem()) {
-                    Log.i(TAG, "swipe to the next page");
+                    Log.d(TAG, "swipe to the next page");
                     mPager.setCurrentItem(posInFocus + 1);
                 }
             }
@@ -69,23 +75,8 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
     }
 
     @Override
-    public int incTotalWrongCounter() {
-        return ++mTotalWrongCounter;
-    }
-
-    @Override
-    public int incTotalRightCounter() {
-        return ++mTotalRightCounter;
-    }
-
-    @Override
-    public int getTotalRightCounter() {
-        return mTotalRightCounter;
-    }
-
-    @Override
-    public int getTotalWrongCounter() {
-        return mTotalWrongCounter;
+    public Question getQuestion(int id) {
+        return mQuizData.getQuestionById(id);
     }
 }
 

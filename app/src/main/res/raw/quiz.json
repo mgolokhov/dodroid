@@ -87,7 +87,9 @@
         "tags": [
             "General"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 6, 
@@ -303,7 +305,9 @@
         "tags": [
             "Activity Class, Context"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 20, 
@@ -756,7 +760,9 @@
         "tags": [
             "Fragments"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 50, 
@@ -1241,7 +1247,9 @@
         "tags": [
             "User Interfaces"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 82, 
@@ -1508,7 +1516,9 @@
         "tags": [
             "User Interfaces"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 99, 
@@ -1538,7 +1548,9 @@
         "tags": [
             "User Interfaces"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 101, 
@@ -2038,7 +2050,9 @@
         "tags": [
             "User Notifications"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 135, 
@@ -2173,7 +2187,9 @@
         "tags": [
             "Broadcast Receivers"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 144, 
@@ -2346,7 +2362,9 @@
         "tags": [
             "Broadcast Receivers"
         ], 
-        "wrong": []
+        "wrong": [
+            "None of the above"
+        ]
     }, 
     {
         "ID": 156, 
@@ -3048,6 +3066,303 @@
             "Activity", 
             "Broadcast receiver", 
             "Service"
+        ]
+    }, 
+    {
+        "ID": 208, 
+        "docRef": "http://developer.android.com/tools/help/adb.html", 
+        "question": "What is ADB in android?", 
+        "right": [
+            "Android Debug Bridge"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Image tool", 
+            "Development tool", 
+            "None of the above"
+        ]
+    }, 
+    {
+        "ID": 209, 
+        "docRef": "http://developer.android.com/training/articles/perf-anr.html", 
+        "question": "What is ANR in android?", 
+        "right": [
+            "When the application is not responding ANR will occur"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "Dialog box is called as ANR", 
+            "When Android forcefully kills an application, it is called ANR", 
+            "None of the above"
+        ]
+    }, 
+    {
+        "ID": 210, 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#onReceive(android.content.Context, android.content.Intent)", 
+        "question": "What is the time limit of broadcast receiver in android?", 
+        "right": [
+            "10 sec"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "15 sec", 
+            "5 sec", 
+            "1 min", 
+            "1 hour", 
+            "infinite"
+        ]
+    }, 
+    {
+        "ID": 211, 
+        "docRef": "http://stackoverflow.com/questions/14671897/super-oncreatesavedinstancestate", 
+        "question": "What is the purpose of super.onCreate() in android?", 
+        "right": [
+            "To create a graphical window for subclass"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "To create an activity", 
+            "It allows the developers to write the program", 
+            "None of the above"
+        ]
+    }, 
+    {
+        "ID": 212, 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
+        "question": "What is the difference between services and thread in android?", 
+        "right": [
+            "Services performs functionalities in the background. By default services run on main thread only"
+        ], 
+        "tags": [
+            "Threads, Services"
+        ], 
+        "wrong": [
+            "Thread and services are having same functionalities", 
+            "Threads works on services", 
+            "None of the above"
+        ]
+    }, 
+    {
+        "ID": 213, 
+        "docRef": "http://developer.android.com/training/basics/supporting-devices/index.html", 
+        "question": "Which features are considered while creating android application?", 
+        "right": [
+            "Screen size", 
+            "Input configuration", 
+            "Platform version", 
+            "Device features"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 214, 
+        "docRef": "http://developer.android.com/guide/topics/manifest/activity-element.html#screen", 
+        "question": "How many orientations does android support (screenOrientation)?", 
+        "right": [
+            "more than 4"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "2", 
+            "4"
+        ]
+    }, 
+    {
+        "ID": 215, 
+        "docRef": "http://developer.android.com/training/basics/data-storage/index.html", 
+        "question": "How to store heavy structured data in android?", 
+        "right": [
+            "SQLite database"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "Cursor", 
+            "Shared Preferences", 
+            "Files", 
+            "Not possible"
+        ]
+    }, 
+    {
+        "ID": 216, 
+        "docRef": "http://stackoverflow.com/questions/12817311/launch-service-from-app-start-not-activity/12817384#12817384", 
+        "question": "Is it possible activity without UI in android?", 
+        "right": [
+            "Yes, it's possible"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "No, it's not possible", 
+            "It's not recommended"
+        ]
+    }, 
+    {
+        "ID": 217, 
+        "docRef": "http://developer.android.com/training/improving-layouts/optimizing-layout.html#Lint", 
+        "question": "Layouts with too much nesting are bad for performance. The default maximum depth is", 
+        "right": [
+            "10"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "5", 
+            "15", 
+            "100", 
+            "there is no limit"
+        ]
+    }, 
+    {
+        "ID": 218, 
+        "docRef": "http://developer.android.com/reference/android/widget/RelativeLayout.html", 
+        "question": "Which dependencies cannot be set for RelativeLayout", 
+        "right": [
+            "height is set to WRAP_CONTENT and a child set to ALIGN_PARENT_BOTTOM", 
+            "width is set to WRAP_CONTENT and a child set to ALIGN_PARENT_LEFT"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "height is set to MATCH_PARENT and a child set to ALIGN_PARENT_BOTTOM"
+        ]
+    }, 
+    {
+        "ID": 219, 
+        "docRef": "https://github.com/codepath/android_guides/wiki/Constructing-View-Layouts#relativelayout", 
+        "question": "RelativeLayout positions views based on", 
+        "right": [
+            "Position based on siblings", 
+            "Alignment based on parent", 
+            "Alignment based on siblings"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Position based on siblings weight"
+        ]
+    }, 
+    {
+        "ID": 220, 
+        "docRef": "http://developer.android.com/reference/android/widget/RelativeLayout.html", 
+        "question": "(True or False) RelativeLayout has orientation attribute", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 221, 
+        "docRef": "http://stackoverflow.com/a/5226111/5766983", 
+        "question": "AsyncTask is tied to the", 
+        "right": [
+            "process of it's Activity"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "lifecycle of it\u2019s Activity", 
+            "lifecycle of it's Fragment"
+        ]
+    }, 
+    {
+        "ID": 222, 
+        "docRef": "http://stackoverflow.com/questions/7120813/asynctaskloader-vs-asynctask", 
+        "question": "AsyncTaskLoader is tied to the", 
+        "right": [
+            "the lifecycle of it\u2019s Activity/Fragment"
+        ], 
+        "tags": [
+            "AsyncTasks, Threads"
+        ], 
+        "wrong": [
+            "the process of it's Activity/Fragment"
+        ]
+    }, 
+    {
+        "ID": 223, 
+        "docRef": "http://developer.android.com/training/custom-views/index.html", 
+        "question": "How does Android draw the view hierarchy?", 
+        "right": [
+            "Drawing begins with the root node of the layout", 
+            "Parents are drawn before their children", 
+            "Children are drawn in the order of declaration"
+        ], 
+        "tags": [
+            "Graphics, User Interfaces, Layout"
+        ], 
+        "wrong": [
+            "Children are drawn before there parents", 
+            "Drawing order of children is underfined"
+        ]
+    }, 
+    {
+        "ID": 224, 
+        "docRef": "http://developer.android.com/training/custom-views/index.html", 
+        "question": "Check Views responsibilities.", 
+        "right": [
+            "measuring themselves", 
+            "layouting themselves", 
+            "drawing themselves", 
+            "saving their UI state", 
+            "handling touch events"
+        ], 
+        "tags": [
+            "Graphics, User Interfaces"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 225, 
+        "docRef": "http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html", 
+        "question": "CoordinatorLayout is a descendant of _____", 
+        "right": [
+            "FrameLayout"
+        ], 
+        "tags": [
+            "CoordinatorLayout"
+        ], 
+        "wrong": [
+            "LinearLayout", 
+            "RelativeLayout"
+        ]
+    }, 
+    {
+        "ID": 226, 
+        "docRef": "http://developer.android.com/guide/components/tasks-and-back-stack.html", 
+        "question": "Suppose that you have an app with just one activity. Your foreground activity will be destroyed, when the user presses ", 
+        "right": [
+            "BACK button"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "HOME button"
         ]
     }
 ]

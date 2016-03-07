@@ -13,31 +13,33 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class ScrollAwareFABBehavior2 extends CoordinatorLayout.Behavior<View> {
-    private static final String LOG_TAG = "C.Behavior";
-    public ScrollAwareFABBehavior2(Context context, AttributeSet attrs) {
+public class SnackBarAwareBehavior extends CoordinatorLayout.Behavior<View> {
+    private static final boolean DEBUG = false;
+    private final String LOG_TAG = "NSA " + getClass().getName();
+
+    public SnackBarAwareBehavior(Context context, AttributeSet attrs) {
         super();
-        Log.i(LOG_TAG, "ctor");
+        if (DEBUG) Log.d(LOG_TAG, "ctor");
     }
 
-    public ScrollAwareFABBehavior2() {
+    public SnackBarAwareBehavior() {
         super();
-        Log.i(LOG_TAG, "ctor empty");
+        if (DEBUG) Log.d(LOG_TAG, "ctor empty");
     }
 
 
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
-        Log.i(LOG_TAG, "layoutDependsOn " + dependency.getClass());
+        if (DEBUG) Log.d(LOG_TAG, "layoutDependsOn " + dependency.getClass());
         return super.layoutDependsOn(parent, child, dependency)
-                || dependency instanceof NestedScrollView
+                //|| dependency instanceof NestedScrollView
                 || dependency instanceof Snackbar.SnackbarLayout;
     }
 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
-        Log.i(LOG_TAG, "onDependentViewChanged");
+        if (DEBUG) Log.d(LOG_TAG, "onDependentViewChanged");
         float translationY = Math.min(0, dependency.getTranslationY() - dependency.getHeight());
         child.setTranslationY(translationY);
         //return super.onDependentViewChanged(parent, child, dependency);
@@ -46,117 +48,117 @@ public class ScrollAwareFABBehavior2 extends CoordinatorLayout.Behavior<View> {
 
     @Override
     public boolean onLayoutChild(CoordinatorLayout parent, View child, int layoutDirection) {
-        Log.i(LOG_TAG, "onLayoutChild");
+        if (DEBUG) Log.d(LOG_TAG, "onLayoutChild");
         return super.onLayoutChild(parent, child, layoutDirection);
     }
 
     @Override
     public boolean onInterceptTouchEvent(CoordinatorLayout parent, View child, MotionEvent ev) {
-        Log.i(LOG_TAG, "onInterceptTouchEvent");
+        if (DEBUG) Log.d(LOG_TAG, "onInterceptTouchEvent");
         return super.onInterceptTouchEvent(parent, child, ev);
     }
 
     @Override
     public boolean onTouchEvent(CoordinatorLayout parent, View child, MotionEvent ev) {
-        Log.i(LOG_TAG, "onTouchEvent");
+        if (DEBUG) Log.d(LOG_TAG, "onTouchEvent");
         return super.onTouchEvent(parent, child, ev);
     }
 
     @Override
     public boolean blocksInteractionBelow(CoordinatorLayout parent, View child) {
-        Log.i(LOG_TAG, "blocksInteractionBelow");
+        if (DEBUG) Log.d(LOG_TAG, "blocksInteractionBelow");
         return super.blocksInteractionBelow(parent, child);
     }
 
     @Override
     public void onDependentViewRemoved(CoordinatorLayout parent, View child, View dependency) {
-        Log.i(LOG_TAG, "onDependentViewRemoved");
+        if (DEBUG) Log.d(LOG_TAG, "onDependentViewRemoved");
         super.onDependentViewRemoved(parent, child, dependency);
     }
 
     @Override
     public boolean isDirty(CoordinatorLayout parent, View child) {
-        Log.i(LOG_TAG, "isDirty");
+        if (DEBUG) Log.d(LOG_TAG, "isDirty");
         return super.isDirty(parent, child);
     }
 
     @Override
     public boolean onMeasureChild(CoordinatorLayout parent, View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
-        Log.i(LOG_TAG, "onMeasureChild");
+        if (DEBUG) Log.d(LOG_TAG, "onMeasureChild");
         return super.onMeasureChild(parent, child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed);
     }
 
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
-        Log.i(LOG_TAG, "onStartNestedScroll");
+        if (DEBUG) Log.d(LOG_TAG, "onStartNestedScroll");
 //        return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
         return true;
     }
 
     @Override
     public void onNestedScrollAccepted(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
-        Log.i(LOG_TAG, "onNestedScrollAccepted");
+        if (DEBUG) Log.d(LOG_TAG, "onNestedScrollAccepted");
         super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
     }
 
     @Override
     public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target) {
-        Log.i(LOG_TAG, "onStopNestedScroll " + target.getClass());
+        if (DEBUG) Log.d(LOG_TAG, "onStopNestedScroll " + target.getClass());
         super.onStopNestedScroll(coordinatorLayout, child, target);
     }
 
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-        Log.i(LOG_TAG, "onNestedScroll");
+        if (DEBUG) Log.d(LOG_TAG, "onNestedScroll");
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
-        if (dyConsumed > 0) {
-            // User scrolled down
-            child.animate()
-                    .alpha(0.0f)
-                    .translationY(child.getHeight())
-                    .setDuration(500);
-        } else if (dyConsumed < 0) {
-            // User scrolled up
-            child.animate()
-                    .alpha(1.0f)
-                    .translationY(0)
-                    .setDuration(500);
-        }
+//        if (dyConsumed > 0) {
+//            // User scrolled down
+//            child.animate()
+//                    .alpha(0.0f)
+//                    .translationY(child.getHeight())
+//                    .setDuration(500);
+//        } else if (dyConsumed < 0) {
+//            // User scrolled up
+//            child.animate()
+//                    .alpha(1.0f)
+//                    .translationY(0)
+//                    .setDuration(500);
+//        }
     }
 
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
-        Log.i(LOG_TAG, "onNestedPreScroll");
+        if (DEBUG) Log.d(LOG_TAG, "onNestedPreScroll");
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
     }
 
     @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, View child, View target, float velocityX, float velocityY, boolean consumed) {
-        Log.i(LOG_TAG, "onNestedFling");
+        if (DEBUG) Log.d(LOG_TAG, "onNestedFling");
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
     }
 
     @Override
     public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, View child, View target, float velocityX, float velocityY) {
-        Log.i(LOG_TAG, "onNestedPreFling");
+        if (DEBUG) Log.d(LOG_TAG, "onNestedPreFling");
         return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY);
     }
 
     @Override
     public WindowInsetsCompat onApplyWindowInsets(CoordinatorLayout coordinatorLayout, View child, WindowInsetsCompat insets) {
-        Log.i(LOG_TAG, "onApplyWindowInsets");
+        if (DEBUG) Log.d(LOG_TAG, "onApplyWindowInsets");
         return super.onApplyWindowInsets(coordinatorLayout, child, insets);
     }
 
     @Override
     public void onRestoreInstanceState(CoordinatorLayout parent, View child, Parcelable state) {
-        Log.i(LOG_TAG, "onRestoreInstanceState");
+        if (DEBUG) Log.d(LOG_TAG, "onRestoreInstanceState");
         super.onRestoreInstanceState(parent, child, state);
     }
 
     @Override
     public Parcelable onSaveInstanceState(CoordinatorLayout parent, View child) {
-        Log.i(LOG_TAG, "onSaveInstanceState");
+        if (DEBUG) Log.d(LOG_TAG, "onSaveInstanceState");
         return super.onSaveInstanceState(parent, child);
     }
 }

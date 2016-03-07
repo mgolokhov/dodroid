@@ -1,87 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<android.support.design.widget.CoordinatorLayout-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--xmlns:tools="http://schemas.android.com/tools"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--&gt;-->
-
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    >
 
-    <ScrollView
-        android:id="@+id/question_scroll"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/commit_button"
+        android:layout_gravity="center"
         android:fadeScrollbars="false"
         android:fillViewport="true"
+        android:scrollbarFadeDuration="0"
         >
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_above="@+id/center_anchor"
-                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="17sp"
-                />
-
-            <Space
-                android:id="@+id/center_anchor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="invisible"
+                android:padding="10dp"
                 />
 
             <LinearLayout
                 android:id="@+id/answers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/center_anchor"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                >
 
             </LinearLayout>
-        </RelativeLayout>
 
-    </ScrollView>
+        </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/commit_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ctrl_panel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_done_black_48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:backgroundTint="#33b5e5"
-        app:layout_anchorGravity="bottom|center"
-        />
+        android:layout_gravity="center|bottom"
+        android:gravity="center"
+        app:layout_behavior="doit.study.droid.SnackBarAwareBehavior"
+        >
 
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/thump_up_button"
+            android:clickable="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_thumb_up_black_48dp"
+            />
 
-    <!--</android.support.design.widget.CoordinatorLayout>-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/commit_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/floating_action_button"
+            app:elevation="6dp"
+            app:pressedTranslationZ="12dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_done_black_48dp"
+            app:backgroundTint="#33b5e5"
+            app:layout_anchorGravity="bottom"
+            />
+
+
+        <ImageButton
+            android:id="@+id/thump_down_button"
+            android:clickable="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_thumb_down_black_48dp"
+            />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

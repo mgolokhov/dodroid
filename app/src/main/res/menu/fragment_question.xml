@@ -6,9 +6,9 @@
     tools:context=".QuestionsActivity">
     <item
         android:id="@+id/doc_reference"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:icon="@drawable/ic_school_white_24dp"
         android:title="@string/doc_reference"
-        app:showAsAction="ifRoom|withText"
+        app:showAsAction="never"
         />
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"

@@ -32,7 +32,7 @@
             />
         <activity
             android:name="doit.study.droid.QuestionsActivity"
-            android:label="@string/willing"
+            android:label="Progress: 0%"
             android:screenOrientation="portrait"
             />
         <activity android:name=".SettingsActivity"

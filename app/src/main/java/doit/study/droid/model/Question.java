@@ -96,10 +96,10 @@ public class Question{
         return mWrongCounter;
     }
 
-    public void incWrongCounter(){
+    public int incWrongCounter(){
         mStatus = Status.ADDED;
         mRightCounter = 0;
-        mWrongCounter++;
+        return ++mWrongCounter;
     }
 
     public void incRightCounter(){

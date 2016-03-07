@@ -17,16 +17,16 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "NSA " + getClass().getName();
     private QuizData mQuizData;
     private final List<Integer> mQuestionIds;
-    private FragmentObserver mFragmentObserver = new FragmentObserver();
+    //private FragmentObserver mFragmentObserver = new FragmentObserver();
 
-    private static class FragmentObserver extends Observable {
-        @Override
-        public void notifyObservers() {
-            // Set the changed flag to true, otherwise observers won't be notified.
-            setChanged();
-            super.notifyObservers();
-        }
-    }
+//    private static class FragmentObserver extends Observable {
+//        @Override
+//        public void notifyObservers() {
+//            // Set the changed flag to true, otherwise observers won't be notified.
+//            setChanged();
+//            super.notifyObservers();
+//        }
+//    }
 
     public QuestionsPagerAdapter(FragmentManager fm, QuizData quizData, List<Integer> questionIds) {
         super(fm);
@@ -34,18 +34,18 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         mQuestionIds = questionIds;
     }
 
-    public void updateFragments(ViewGroup container, int posInFocus){
-        Observer curFragment  = (Observer) instantiateItem(container, posInFocus);
-        mFragmentObserver.deleteObserver(curFragment);
-        mFragmentObserver.notifyObservers();
-    }
+//    public void updateFragments(ViewGroup container, int posInFocus){
+//        Observer curFragment  = (Observer) instantiateItem(container, posInFocus);
+//        mFragmentObserver.deleteObserver(curFragment);
+//        mFragmentObserver.notifyObservers();
+//    }
 
 
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem, pos=" + position);
         Fragment fragment = QuestionFragment.newInstance(mQuestionIds.get(position));
-        mFragmentObserver.addObserver((Observer) fragment);
+        //mFragmentObserver.addObserver((Observer) fragment);
         return fragment;
     }
 
@@ -55,11 +55,11 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         return super.instantiateItem(container, position);
     }
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        mFragmentObserver.deleteObserver((Observer)object);
-        super.destroyItem(container, position, object);
-    }
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+//        mFragmentObserver.deleteObserver((Observer)object);
+//        super.destroyItem(container, position, object);
+//    }
 
     @Override
     public int getCount() {

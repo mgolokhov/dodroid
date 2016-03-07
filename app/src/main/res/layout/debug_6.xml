@@ -33,6 +33,7 @@
                 />
 
             <LinearLayout
+                android:id="@+id/answers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -168,13 +169,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <!--<doit.study.droid.CustomLinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center|bottom"-->
-        <!--app:layout_behavior="doit.study.droid.ScrollAwareFABBehavior2"-->
-        <!--android:gravity="center"-->
-        <!--&gt;-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
