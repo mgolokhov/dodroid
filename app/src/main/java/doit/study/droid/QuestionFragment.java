@@ -308,7 +308,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void handleThumpDownButton(){
-        Toast.makeText(getActivity(), "handleThumpDownButton", Toast.LENGTH_SHORT).show();
+        DislikeDialog dislikeDialog = new DislikeDialog();
+        dislikeDialog.show(getFragmentManager(), "dislike_dialog");
+        //Toast.makeText(getActivity(), "handleThumpDownButton", Toast.LENGTH_SHORT).show();
     }
 
     private void handleCommitButton(){
