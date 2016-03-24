@@ -10,16 +10,16 @@ import android.util.Log;
 
 import java.util.List;
 
-import doit.study.droid.model.GlobalData;
-import doit.study.droid.model.Question;
-import doit.study.droid.model.QuizData;
+import doit.study.droid.data.GlobalData;
+import doit.study.droid.data.Question;
+import doit.study.droid.data.QuizData;
 
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter {
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private QuizData mQuizData;
-    private int QUIZ_SIZE = 10;
-    private int right_answered = 0;
+    private final int QUIZ_SIZE = 10;
+    private int mRightAnswered = 0;
 
 
     @Override
@@ -57,7 +57,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
 
     @Override
     public void updateProgress(){
-        setTitle(String.format("Progress: %d%%", (++right_answered)*100/QUIZ_SIZE));
+        setTitle(String.format("Progress: %d%%", (++mRightAnswered)*100/QUIZ_SIZE));
     }
 
     @Override

@@ -7,12 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
 
-import java.util.ArrayList;
-
-import doit.study.droid.model.GlobalData;
+import doit.study.droid.data.GlobalData;
 
 
 // Entry point for the app.

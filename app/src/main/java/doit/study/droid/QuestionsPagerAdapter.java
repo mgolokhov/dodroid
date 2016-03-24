@@ -7,10 +7,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-import doit.study.droid.model.QuizData;
+import doit.study.droid.data.QuizData;
 
 
 public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {

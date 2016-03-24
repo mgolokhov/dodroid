@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import doit.study.droid.model.Question;
+import doit.study.droid.data.Question;
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener{

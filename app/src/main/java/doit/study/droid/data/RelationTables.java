@@ -1,4 +1,4 @@
-package doit.study.droid.model;
+package doit.study.droid.data;
 
 public class RelationTables {
 

@@ -15,13 +15,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
-import doit.study.droid.model.GlobalData;
-import doit.study.droid.model.QuizData;
-import doit.study.droid.model.Tag;
+import doit.study.droid.data.GlobalData;
+import doit.study.droid.data.QuizData;
+import doit.study.droid.data.Tag;
 
 
 public class TopicsActivity extends AppCompatActivity{
@@ -68,7 +67,7 @@ public class TopicsActivity extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), topic.getText(), Toast.LENGTH_SHORT);
+//                Toast.makeText(v.getContext(), topic.getText(), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -96,7 +95,7 @@ public class TopicsActivity extends AppCompatActivity{
                     tag.select();
                     mQuizData.setTagSelection(tag);
                 } else {
-                    tag.unselect();
+                    tag.deselect();
                     mQuizData.setTagSelection(tag);
                 }
             }

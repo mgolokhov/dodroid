@@ -1,4 +1,7 @@
-package doit.study.droid.model;
+package doit.study.droid.data;
+
+import android.database.Cursor;
+import android.os.Bundle;
 
 public class Tag {
 
@@ -18,8 +21,16 @@ public class Tag {
     private final Integer mQuestionsStudied;
     private boolean mSelected;
 
+    public static Tag newInstance(Cursor c) {
+        return new Tag(c.getInt(c.getColumnIndex("_id")),
+                c.getString(c.getColumnIndex(Tag.Table.TEXT)),
+                c.getInt(c.getColumnIndex(Tag.Table.SELECTED)) == 1,
+                c.getInt(c.getColumnIndex("counter")),
+                c.getInt(c.getColumnIndex("studied")));
+    }
 
-    public Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
+
+    private Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
         mId = id;
         mName = name;
         mSelected = selected;
@@ -43,7 +54,7 @@ public class Tag {
         mSelected = true;
     }
 
-    public void unselect(){
+    public void deselect(){
         mSelected = false;
     }
 

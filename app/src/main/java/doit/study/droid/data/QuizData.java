@@ -1,15 +1,11 @@
-package doit.study.droid.model;
+package doit.study.droid.data;
 
 import java.util.List;
 
-import doit.study.droid.model.Question;
-import doit.study.droid.model.Tag;
-import doit.study.droid.sqlite.helper.DatabaseHelper;
-
 public class QuizData {
-    private DatabaseHelper mDBHelper;
+    private QuizDBHelper mDBHelper;
 
-    public QuizData(DatabaseHelper dbHelper) {
+    public QuizData(QuizDBHelper dbHelper) {
         mDBHelper = dbHelper;
     }
 

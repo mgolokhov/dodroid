@@ -1,4 +1,4 @@
-package doit.study.droid.sqlite.helper;
+package doit.study.droid.data;
 
 import android.util.Log;
 

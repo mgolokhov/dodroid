@@ -1,4 +1,4 @@
-package doit.study.droid.model;
+package doit.study.droid.data;
 
 import android.app.Application;
 
@@ -6,7 +6,6 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
 import doit.study.droid.R;
-import doit.study.droid.sqlite.helper.DatabaseHelper;
 
 /**
  * Use application singleton
@@ -20,7 +19,7 @@ public class GlobalData extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DatabaseHelper helper = new DatabaseHelper(this);
+        QuizDBHelper helper = new QuizDBHelper(this);
         mQuizData = new QuizData(helper);
     }
 

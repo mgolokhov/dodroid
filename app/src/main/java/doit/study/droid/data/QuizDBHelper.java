@@ -1,4 +1,4 @@
-package doit.study.droid.sqlite.helper;
+package doit.study.droid.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,11 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 import doit.study.droid.R;
-import doit.study.droid.model.Question;
-import doit.study.droid.model.RelationTables;
-import doit.study.droid.model.Tag;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
     // Logcat tag
     @SuppressWarnings("unused")
@@ -38,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
-    public DatabaseHelper(Context context) {
+    public QuizDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -231,7 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " SET " + Tag.Table.SELECTED + " = ? " +
                 " WHERE ROWID = ? ";
         Log.i(TAG, " "+tag.getName()+ " " +tag.getSelectionStatus());
-        db.execSQL(query, new String[]{(tag.getSelectionStatus() == true) ? "1" : "0", tag.getId().toString()});
+        db.execSQL(query, new String[]{tag.getSelectionStatus() ? "1" : "0", tag.getId().toString()});
     }
 
     private String mkTagQuery(Integer id){
