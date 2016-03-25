@@ -6,25 +6,31 @@
               android:orientation="vertical">
 
     <CheckBox
+        android:id="@+id/question_incorrect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="question incorrect"
+        android:layout_gravity="center"
+        android:text="@string/question_incorrect"
         />
 
     <CheckBox
+        android:id="@+id/answer_incorrect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="answer incorrect"
+        android:layout_gravity="center"
+        android:text="@string/answer_incorrect"
         />
 
     <CheckBox
+        android:id="@+id/documentation_irrelevant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="documentation irrelevant"
+        android:layout_gravity="center"
+        android:text="@string/documentation_irrelevant"
         />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -32,6 +38,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="4dp"
-        android:hint="Your comment here"
+        android:hint="@string/your_comment_here"
         />
 </LinearLayout>

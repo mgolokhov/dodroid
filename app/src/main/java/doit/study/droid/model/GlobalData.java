@@ -45,4 +45,12 @@ public class GlobalData extends Application {
             ga.enableAutoActivityReports(this);
         }
     }
+
+    public Tracker getTracker() {
+        // Make sure the tracker exists
+        startTracking();
+
+        // Then return the tracker
+        return mTracker;
+    }
 }

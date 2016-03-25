@@ -10,8 +10,13 @@
     <string name="set_topic_button">setTopic</string>
     <string name="willing">Willing is not enough</string>
     <string name="action_settings">settings</string>
-    <string name="doc_reference">documentaion reference</string>
+    <string name="doc_reference">documentation reference</string>
     <string name="turn_sound_on">turn on</string>
     <string name="turn_sound_off">turn off</string>
     <string name="pref_sound">pref_sound</string>
+    <string name="report_because">Report because</string>
+    <string name="question_incorrect">question incorrect</string>
+    <string name="answer_incorrect">answer incorrect</string>
+    <string name="documentation_irrelevant">documentation irrelevant</string>
+    <string name="your_comment_here">Your comment here</string>
 </resources>

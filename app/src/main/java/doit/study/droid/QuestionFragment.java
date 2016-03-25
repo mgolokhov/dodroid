@@ -25,10 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import doit.study.droid.model.GlobalData;
 import doit.study.droid.model.Question;
 
 
@@ -304,11 +308,17 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void handleThumpUpButton(){
-        Toast.makeText(getActivity(), "handleThumpUpButton", Toast.LENGTH_SHORT).show();
+        Tracker tracker = ((GlobalData) getActivity().getApplication()).getTracker();
+        tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory(getString(R.string.report_because))
+                        .setAction("like")
+                        .setLabel(mCurrentQuestion.getText())
+                        .build());
+        Toast.makeText(getActivity(), "Thx:)", Toast.LENGTH_SHORT).show();
     }
 
     private void handleThumpDownButton(){
-        DislikeDialog dislikeDialog = new DislikeDialog();
+        DislikeDialog dislikeDialog = DislikeDialog.newInstance(mCurrentQuestion.getText());
         dislikeDialog.show(getFragmentManager(), "dislike_dialog");
         //Toast.makeText(getActivity(), "handleThumpDownButton", Toast.LENGTH_SHORT).show();
     }
