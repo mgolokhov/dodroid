@@ -3,26 +3,24 @@ package doit.study.droid;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
-import doit.study.droid.model.GlobalData;
-
-public class DislikeDialog extends DialogFragment implements View.OnClickListener{
+public class DislikeDialog extends DialogFragment {
+    public static final String EXTRA_CAUSE = "doit.study.droid.extra_cause";
     private static final String QUESTION_TEXT_KEY = "doit.study.droid.question_text_key";
     private Activity mHostActivity;
     private View mView;
-    private String mCause = "Not selected";
+    private int[] mCauseIds = {R.id.question_incorrect, R.id.answer_incorrect, R.id.documentation_irrelevant};
 
-    public static DislikeDialog newInstance(String questionText){
+    public static DislikeDialog newInstance(String questionText) {
         DislikeDialog dislikeDialog = new DislikeDialog();
         Bundle arg = new Bundle();
         arg.putString(QUESTION_TEXT_KEY, questionText);
@@ -35,25 +33,21 @@ public class DislikeDialog extends DialogFragment implements View.OnClickListene
         mHostActivity = getActivity();
         LayoutInflater inflater = mHostActivity.getLayoutInflater();
         mView = inflater.inflate(R.layout.dislike_dialog, null);
-        mView.findViewById(R.id.answer_incorrect).setOnClickListener(this);
-        mView.findViewById(R.id.question_incorrect).setOnClickListener(this);
-        mView.findViewById(R.id.documentation_irrelevant).setOnClickListener(this);
 
-        final Tracker tracker = ((GlobalData) mHostActivity.getApplication()).getTracker();
         AlertDialog.Builder builder = new AlertDialog.Builder(mHostActivity);
         builder.setMessage(getString(R.string.report_because))
                 .setView(mView)
-                .setPositiveButton("Report", new DialogInterface.OnClickListener() {
+                .setPositiveButton(mHostActivity.getString(R.string.report), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        tracker.send(new HitBuilders.EventBuilder()
-                                .setCategory(getString(R.string.report_because))
-                                .setAction("dislike")
-                                .setLabel(formReport())
-                                .build()
-                        );
+                        Fragment fr = getTargetFragment();
+                        if (fr != null) {
+                            Intent intent = new Intent();
+                            intent.putExtra(EXTRA_CAUSE, formReport());
+                            fr.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                        }
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }
@@ -62,32 +56,18 @@ public class DislikeDialog extends DialogFragment implements View.OnClickListene
         return builder.create();
     }
 
-    private String formReport(){
+    private String formReport() {
         EditText editText = (EditText) mView.findViewById(R.id.comment);
-        String result = getArguments().getString(QUESTION_TEXT_KEY) + "#"
-                + mCause + "#"
-                + editText.getText();
-        return result;
+        StringBuilder result = new StringBuilder(" Cause:");
+        for (int id : mCauseIds) {
+            CheckBox checkBox = (CheckBox) mView.findViewById(id);
+            if (checkBox.isChecked())
+                result.append(checkBox.getText())
+                        .append(",");
+        }
+        result.append(" Comment:");
+        result.append(editText.getText());
+        return result.toString();
     }
 
-    @Override
-    public void onClick(View v) {
-        Log.i("NSA", "CLICK " + v);
-        switch(v.getId()) {
-            case (R.id.answer_incorrect): {
-                mCause = getString(R.string.answer_incorrect);
-                break;
-            }
-            case (R.id.question_incorrect): {
-                mCause = getString(R.string.question_incorrect);
-                break;
-            }
-            case (R.id.documentation_irrelevant): {
-                mCause = getString(R.string.documentation_irrelevant);
-                break;
-            }
-            default:
-                mCause = "Not selected";
-        }
-    }
 }

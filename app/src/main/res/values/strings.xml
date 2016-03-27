@@ -19,4 +19,7 @@
     <string name="answer_incorrect">answer incorrect</string>
     <string name="documentation_irrelevant">documentation irrelevant</string>
     <string name="your_comment_here">Your comment here</string>
+    <string name="report">Report</string>
+    <string name="dislike">dislike</string>
+    <string name="like">like</string>
 </resources>
