@@ -6,9 +6,19 @@ import android.os.Bundle;
 public class Tag {
 
     public static final class Table {
+
         public static final String NAME = "tags";
+        public static final String _ID = "_id";
         public static final String TEXT = "text";
         public static final String SELECTED = "selected";
+        // fully qualified names
+        public static final String FQ_ID = NAME + "." + _ID;
+        public static final String FQ_TEXT = NAME + "." + TEXT;
+        public static final String FQ_SELECTION = NAME + "." + SELECTED;
+        // helper constants
+        public static final String QTY_WHEN_STUDIED = "3";
+        public static final String TOTAL_COUNTER = "tagTotalCounter";
+        public static final String STUDIED_COUNTER = "tagStudiedCounter";
     }
 
     public Integer getId() {
@@ -25,17 +35,22 @@ public class Tag {
         return new Tag(c.getInt(c.getColumnIndex("_id")),
                 c.getString(c.getColumnIndex(Tag.Table.TEXT)),
                 c.getInt(c.getColumnIndex(Tag.Table.SELECTED)) == 1,
-                c.getInt(c.getColumnIndex("counter")),
-                c.getInt(c.getColumnIndex("studied")));
+                c.getInt(c.getColumnIndex(Tag.Table.TOTAL_COUNTER)),
+                c.getInt(c.getColumnIndex(Table.STUDIED_COUNTER)));
     }
 
 
-    private Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
+    public Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
         mId = id;
         mName = name;
         mSelected = selected;
         mQuestionsCounter = questionsCounter;
         mQuestionsStudied = questionsStudied;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%d# Name: %s, selection: %s", hashCode(), mName, mSelected);
     }
 
     public String getName() {
@@ -50,12 +65,8 @@ public class Tag {
         return mQuestionsCounter;
     }
 
-    public void select(){
-        mSelected = true;
-    }
-
-    public void deselect(){
-        mSelected = false;
+    public void setChecked(boolean checked){
+        mSelected = checked;
     }
 
     public boolean getSelectionStatus(){

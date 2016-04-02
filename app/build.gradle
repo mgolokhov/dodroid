@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 def versionMajor = 0
-def versionMinor = 2
-def versionBuild = 17
+def versionMinor = 3
+def versionBuild = 18
 
 android {
     compileSdkVersion 23
@@ -31,11 +31,12 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
 }
 
 
 
-task exportQuestions(type:Exec, description: 'Run the pre-build python script') {
+task exportQuestions(type: Exec, description: 'Run the pre-build python script') {
     workingDir 'src/main/res/raw/'
     commandLine 'python', 'import_quiz_to_json.py'
 }

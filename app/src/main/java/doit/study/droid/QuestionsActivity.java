@@ -1,43 +1,41 @@
 package doit.study.droid;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.List;
-
-import doit.study.droid.data.GlobalData;
 import doit.study.droid.data.Question;
-import doit.study.droid.data.QuizData;
+import doit.study.droid.data.QuizProvider;
 
-public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter {
+
+public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
+    private static final boolean DEBUG = true;
     private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
-    private QuizData mQuizData;
     private final int QUIZ_SIZE = 10;
     private int mRightAnswered = 0;
+    private static final int QUESTION_LOADER = 0;
+    private QuestionsPagerAdapter mPagerAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager_layout);
+        getSupportLoaderManager().initLoader(QUESTION_LOADER, null, QuestionsActivity.this);
         mPager = (ViewPager)findViewById(R.id.view_pager);
         configPagerTabStrip();
-
-        GlobalData gd = (GlobalData) getApplication();
-        mQuizData = gd.getQuizData();
-        List<Integer> questionIds = mQuizData.getRandSelectedQuestionIds(QUIZ_SIZE);
-
-        PagerAdapter pagerAdapter = new QuestionsPagerAdapter(
-                getSupportFragmentManager(),
-                mQuizData,
-                questionIds);
-        mPager.setAdapter(pagerAdapter);
+        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
        }
 
 
@@ -52,7 +50,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
 
     @Override
     public void saveStat(Question question) {
-        mQuizData.setQuestion(question);
+        //mQuizData.setQuestion(question);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         handler.postDelayed(new Runnable() {
             public void run() {
                 if (posInFocus == mPager.getCurrentItem()) {
-                    Log.d(TAG, "swipe to the next page");
+                    if (DEBUG) Log.d(TAG, "swipe to the next page");
                     mPager.setCurrentItem(posInFocus + 1);
                 }
             }
@@ -75,8 +73,22 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
     }
 
     @Override
-    public Question getQuestion(int id) {
-        return mQuizData.getQuestionById(id);
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Uri randQuestionUri = QuizProvider.QUESTION_URI
+                .buildUpon()
+                .appendPath("rand").appendPath(Integer.toString(QUIZ_SIZE))
+                .build();
+        return new CursorLoader(this, randQuestionUri, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mPagerAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mPagerAdapter.swapCursor(null);
     }
 }
 

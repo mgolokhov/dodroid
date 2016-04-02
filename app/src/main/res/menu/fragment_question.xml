@@ -8,7 +8,7 @@
         android:id="@+id/doc_reference"
         android:icon="@drawable/ic_school_white_24dp"
         android:title="@string/doc_reference"
-        app:showAsAction="never"
+        app:showAsAction="ifRoom"
         />
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"

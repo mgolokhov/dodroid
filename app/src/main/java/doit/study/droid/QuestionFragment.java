@@ -1,5 +1,6 @@
 package doit.study.droid;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,25 +26,37 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import doit.study.droid.data.GlobalData;
 import doit.study.droid.data.Question;
+
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener{
     private static final boolean DEBUG = true;
+
+    private static final int REPORT_DIALOG_REQUEST_CODE = 0;
+    public static final String REPORT_DIALOG_TAG = "dislike_dialog";
     // Callbacks
     private OnFragmentActivityChatter mOnFragmentActivityChatter;
     // Keys for bundle to save state
-    private static final String ID_KEY = "doit.study.dodroid.id_key";
+    private static final String QUESTION_KEY = "doit.study.dodroid.id_key";
+    private static final String VOTE_STATE_KEY = "doit.study.dodroid.vote_state_key";
     private static final String QUESTION_STATE_KEY = "doit.study.dodroid.question_state_key";
     // Model stuff
-    private static final int SWIPE_BY_RIGHT_ANSWER_DELAY = 2000;
+    private static final int SWIPE_DELAY = 2000;
     private static final int ATTEMPTS_LIMIT = 2;
+
     private enum State {NEW, TRIED, ANSWERED_RIGHT, ANSWERED_WRONG}
     private State mState = State.NEW;
+    private enum Vote {NONE, LIKED, DISLIKED}
+    private Vote mVote = Vote.NONE;
     private Question mCurrentQuestion;
     private Sound mSound;
     private boolean mIsSoundOn;
@@ -54,23 +67,20 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private TextView mvQuestionText;
     private ViewGroup mvAnswersLayout;
     private Toast mvToast;
-    private Menu mvMenu;
+
 
     // Host Activity must implement these interfaces
     public interface OnFragmentActivityChatter {
         void swipeToNext(int delay);
         void saveStat(Question question);
         void updateProgress();
-        Question getQuestion(int id);
     }
 
-    public static QuestionFragment newInstance(int questionId) {
-        if (DEBUG) Log.d("NSA", "newInstance " + questionId);
+    public static QuestionFragment newInstance(Question question) {
+        if (DEBUG) Log.d("NSA", "newInstance " + question);
         QuestionFragment fragment = new QuestionFragment();
-        // for a logging purpose
-        fragment.ID = questionId;
         Bundle bundle = new Bundle();
-        bundle.putInt(ID_KEY, questionId);
+        bundle.putParcelable(QUESTION_KEY, question);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -79,11 +89,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
         super.onCreateOptionsMenu(menu, menuInflater);
         menuInflater.inflate(R.menu.fragment_question, menu);
-        mvMenu = menu;
-        if (mState == State.ANSWERED_WRONG) {
-            MenuItem mi = mvMenu.findItem(R.id.doc_reference);
-            mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
     }
 
     @Override
@@ -126,27 +131,29 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+//        setRetainInstance(true);
         setHasOptionsMenu(true);
-        mCurrentQuestion = mOnFragmentActivityChatter.getQuestion(getArguments().getInt(ID_KEY));
         mSound = Sound.newInstance(getContext());
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             mState = (State) savedInstanceState.getSerializable(QUESTION_STATE_KEY);
+            mVote = (Vote) savedInstanceState.getSerializable(VOTE_STATE_KEY);
+            mCurrentQuestion = savedInstanceState.getParcelable(QUESTION_KEY);
+        }
+        else
+            mCurrentQuestion = getArguments().getParcelable(QUESTION_KEY);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mkViewLinks(inflater, container);
-        updateStaticViews();
-        updateDynamicViews();
+        updateViews(savedInstanceState);
         return mView;
     }
 
 
     private void mkViewLinks(LayoutInflater inflater, ViewGroup container){
-        if (DEBUG) Log.d(TAG, "mkViewLinks " + ID);
-
+        if (DEBUG) Log.d(TAG, "mkViewLinks " + hashCode());
         mView = inflater.inflate(R.layout.fragment_questions, container, false);
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (ViewGroup) mView.findViewById(R.id.answers);
@@ -158,33 +165,14 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     // Map data from the current Question to the View elements
-    private void updateStaticViews() {
-        if (DEBUG) Log.d(TAG, "updateStaticViews " + ID);
-        if (DEBUG) Log.d(TAG, "mState " + mState);
-
+    private void updateViews(Bundle savedInstanceState) {
         mvQuestionText.setText(mCurrentQuestion.getText());
+        updateAnswers(savedInstanceState);
+        updateCommitButton();
+        wodooWithPadding();
+    }
 
-        // Create checkboxes dynamically
-        if (mvAnswersLayout.getChildCount() == 0) {
-            mvAnswersLayout.removeAllViewsInLayout();
-            List<String> allAnswers = new ArrayList<>();
-            allAnswers.addAll(mCurrentQuestion.getRightAnswers());
-            allAnswers.addAll(mCurrentQuestion.getWrongAnswers());
-            Collections.shuffle(allAnswers);
-
-            mvCheckBoxes = new ArrayList<>();
-            for (String answer : allAnswers) {
-                CheckBox checkBox = new CheckBox(getContext());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.CENTER;
-                checkBox.setLayoutParams(lp);
-                checkBox.setGravity(Gravity.CENTER);
-                checkBox.setText(answer);
-                mvCheckBoxes.add(checkBox);
-                mvAnswersLayout.addView(checkBox,lp);
-            }
-        }
-
+    private void wodooWithPadding(){
         // add padding to the answers list after the view is build
         // so floating button doesn't overlay content
         final LinearLayout vCtrlPanel = (LinearLayout) mView.findViewById(R.id.ctrl_panel);
@@ -205,8 +193,40 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         });
     }
 
-    private void updateDynamicViews(){
-        updateCommitButton();
+    private void updateAnswers(Bundle savedInstanceState){
+        boolean isDisabled = (mState == State.ANSWERED_RIGHT || mState == State.ANSWERED_WRONG);
+
+        if (isDisabled && mvAnswersLayout.getChildCount()!=0) {
+            for(CheckBox c: mvCheckBoxes)
+                c.setEnabled(false);
+        }
+        else {
+            mvAnswersLayout.removeAllViewsInLayout();
+            mvCheckBoxes = new ArrayList<>();
+            for (String answer : generateAnswers()) {
+                CheckBox checkBox = new CheckBox(getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.CENTER;
+                checkBox.setLayoutParams(lp);
+                checkBox.setGravity(Gravity.CENTER);
+                checkBox.setText(answer);
+                if (null != savedInstanceState) {
+                    checkBox.setChecked(savedInstanceState.getInt(answer) == 1);
+                    if (isDisabled)
+                        checkBox.setEnabled(false);
+                }
+                mvCheckBoxes.add(checkBox);
+                mvAnswersLayout.addView(checkBox, lp);
+            }
+        }
+    }
+
+    private List<String> generateAnswers(){
+        List<String> allAnswers = new ArrayList<>();
+        allAnswers.addAll(mCurrentQuestion.getRightAnswers());
+        allAnswers.addAll(mCurrentQuestion.getWrongAnswers());
+        Collections.shuffle(allAnswers);
+        return allAnswers;
     }
 
 
@@ -217,10 +237,6 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 break;
             case ANSWERED_WRONG:
                 mvCommitButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_sentiment_dissatisfied_black_24dp));
-                if (mvMenu != null) {
-                    MenuItem mi = mvMenu.findItem(R.id.doc_reference);
-                    mi.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                }
                 break;
             default:
                 return;
@@ -230,7 +246,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void checkAnswer() {
-        if (DEBUG) Log.d(TAG, "checkAnswer " + ID);
+        if (DEBUG) Log.d(TAG, "checkAnswer " + hashCode());
         mState = State.ANSWERED_RIGHT;
         for (CheckBox cb : mvCheckBoxes) {
             // You can have multiple right answers
@@ -247,7 +263,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         }
     }
 
-    private void updateDynamicModel(){
+    private void updateModel(){
         if (mState == State.ANSWERED_RIGHT) {
             mCurrentQuestion.incRightCounter();
             mOnFragmentActivityChatter.updateProgress();
@@ -258,7 +274,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         }
     }
 
-    private void showToast(){
+    private void showResultToast(){
         if (mvToast != null)
             mvToast.cancel();
         mvToast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
@@ -276,8 +292,13 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putSerializable(QUESTION_STATE_KEY, mState);
+        outState.putSerializable(VOTE_STATE_KEY, mVote);
+        outState.putParcelable(QUESTION_KEY, mCurrentQuestion);
+        for(CheckBox cb: mvCheckBoxes) {
+            outState.putInt(cb.getText().toString(), cb.isChecked() ? 1 : 0);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -304,27 +325,71 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void handleThumpUpButton(){
-        Toast.makeText(getActivity(), "handleThumpUpButton", Toast.LENGTH_SHORT).show();
+        if (isVoted()) return;
+        mVote = Vote.LIKED;
+        sendReport(getString(R.string.report_because), getString(R.string.like), mCurrentQuestion.getText());
+        Toast t = Toast.makeText(getActivity(), "Thx:)", Toast.LENGTH_SHORT);
+        t.setGravity(Gravity.CENTER, 0, 0);
+        t.show();
     }
 
     private void handleThumpDownButton(){
-        Toast.makeText(getActivity(), "handleThumpDownButton", Toast.LENGTH_SHORT).show();
+        if (isVoted()) return;
+        DislikeDialog dislikeDialog = DislikeDialog.newInstance(mCurrentQuestion.getText());
+        dislikeDialog.setTargetFragment(this, REPORT_DIALOG_REQUEST_CODE);
+        dislikeDialog.show(getFragmentManager(), REPORT_DIALOG_TAG);
     }
 
-    private void handleCommitButton(){
-        checkAnswer();
-        showToast();
-        showSnackBar();
-        updateDynamicModel();
-        updateDynamicViews();
-        if (mIsSoundOn)
-            mSound.play(mState == State.ANSWERED_RIGHT);
-        if (mState == State.ANSWERED_RIGHT) {
-            mOnFragmentActivityChatter.swipeToNext(SWIPE_BY_RIGHT_ANSWER_DELAY);
+    private boolean isVoted(){
+        if (mVote != Vote.NONE) {
+            Toast t = Toast.makeText(getActivity(), "Your have already voted", Toast.LENGTH_SHORT);
+            t.setGravity(Gravity.CENTER, 0, 0);
+            t.show();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
+            if (data != null) {
+                String label = mCurrentQuestion.getText() + data.getStringExtra(DislikeDialog.EXTRA_CAUSE);
+                sendReport(getString(R.string.report_because), getString(R.string.dislike), label);
+                mVote = Vote.DISLIKED;
+                Toast t = Toast.makeText(getActivity(), "Report was sent. Thank you.", Toast.LENGTH_SHORT);
+                t.setGravity(Gravity.CENTER, 0, 0);
+                t.show();
+            }
         }
     }
 
-    private void showSnackBar(){
+    private void sendReport(String category, String action, String label){
+        Tracker tracker = ((GlobalData) getActivity().getApplication()).getTracker();
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory(category)
+                .setAction(action)
+                .setLabel(label)
+                .build());
+    }
+
+
+    private void handleCommitButton(){
+        checkAnswer();
+        showResultToast();
+        showDocumentationSnackBar();
+        updateModel();
+        updateViews(null);
+        if (mIsSoundOn)
+            mSound.play(mState == State.ANSWERED_RIGHT);
+        if (mState == State.ANSWERED_RIGHT) {
+            mOnFragmentActivityChatter.swipeToNext(SWIPE_DELAY);
+        }
+    }
+
+    private void showDocumentationSnackBar(){
         if (mState != State.ANSWERED_RIGHT)
             Snackbar.make(mView, "Check documentation", Snackbar.LENGTH_LONG)
                     .setAction("GO", new View.OnClickListener() {

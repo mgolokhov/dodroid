@@ -15,7 +15,7 @@
     }, 
     {
         "ID": 1, 
-        "docRef": "", 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
         "question": "Check true statements about a Service.", 
         "right": [
             "runs in the background", 
@@ -169,7 +169,7 @@
     }, 
     {
         "ID": 11, 
-        "docRef": "", 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html", 
         "question": "You can have multiple Activities in the foreground", 
         "right": [
             "FALSE"
@@ -184,7 +184,7 @@
     {
         "ID": 12, 
         "docRef": "http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle", 
-        "question": "In which callback method should you save data before the current Activity loses focus?", 
+        "question": "In which callback method should you save persistent data before the current Activity loses focus?", 
         "right": [
             "onPause"
         ], 
@@ -766,7 +766,7 @@
     }, 
     {
         "ID": 50, 
-        "docRef": "", 
+        "docRef": "http://developer.android.com/guide/components/fragments.html#Adding", 
         "question": "Only FrameLayout can be a placeholder container for your fragment", 
         "right": [
             "FALSE"
@@ -1011,8 +1011,8 @@
     }, 
     {
         "ID": 66, 
-        "docRef": "", 
-        "question": "Which attribute sets the gravity of the content of the View its used on?", 
+        "docRef": "http://stackoverflow.com/questions/3482742/gravity-and-layout-gravity-on-android", 
+        "question": "Which attribute determines the position of the content (ex. text) within a View?", 
         "right": [
             "android:gravity"
         ], 
@@ -1025,8 +1025,8 @@
     }, 
     {
         "ID": 67, 
-        "docRef": "", 
-        "question": "Which attribute sets the gravity of the View or Layout in its parent?", 
+        "docRef": "http://stackoverflow.com/questions/3482742/gravity-and-layout-gravity-on-android", 
+        "question": "Which attribute controls where a child View appears within its parent ViewGroup?", 
         "right": [
             "android:layout_gravity"
         ], 
@@ -1095,7 +1095,7 @@
     }, 
     {
         "ID": 72, 
-        "docRef": "", 
+        "docRef": "http://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html", 
         "question": "What kind of approach towards allocating space is used by LinearLayout container with attribute android:layout_width=\"match_parent\"", 
         "right": [
             "first child View gets all available space"
@@ -1205,7 +1205,7 @@
     {
         "ID": 79, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
-        "question": "To create a linear layout in which each child uses the same amount of space on the screen you have to set ", 
+        "question": "To create a linear layout in which each child uses the same amount of space on the screen (regardless of screeen size or density) you have to set ", 
         "right": [
             "android:layout_height=\"0dp\" and android:layout_weight=\"1\""
         ], 
@@ -1253,7 +1253,7 @@
     }, 
     {
         "ID": 82, 
-        "docRef": "", 
+        "docRef": "http://developer.android.com/guide/topics/resources/layout-resource.html", 
         "question": "XML layout resources can be stored in ____ directory(ies)", 
         "right": [
             "res/layout", 
@@ -1629,7 +1629,7 @@
     }, 
     {
         "ID": 106, 
-        "docRef": "", 
+        "docRef": "http://stackoverflow.com/a/15480186/5766983", 
         "question": "Choose the recommended (best practice) for the ListView attributes", 
         "right": [
             "android:layout_height=\"0dp\" and android:layout_weight=\"1\"", 
@@ -2385,7 +2385,7 @@
     }, 
     {
         "ID": 157, 
-        "docRef": "", 
+        "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "A BroadcastReceiver ___.", 
         "right": [
             "listens for and responds to events", 
@@ -2747,6 +2747,22 @@
         ], 
         "wrong": [
             "TRUE"
+        ]
+    }, 
+    {
+        "ID": 182, 
+        "docRef": "http://stackoverflow.com/questions/10407159/how-to-manage-startactivityforresult-on-android", 
+        "question": "You have two activities:  activity1 and activity2.  If activity1 starts activity2 with the startActivityWithResult() method, what must activity2 do in order to return both a result and data to activity1?", 
+        "right": [
+            "Specify result code RESULT_OK", 
+            "Form Intent that carries the result data", 
+            "Call the activity2.finish() method"
+        ], 
+        "tags": [
+            "Activity Class, Intents"
+        ], 
+        "wrong": [
+            "Create return intent using newIntent()"
         ]
     }, 
     {
@@ -3279,14 +3295,14 @@
         "docRef": "http://stackoverflow.com/a/5226111/5766983", 
         "question": "AsyncTask is tied to the", 
         "right": [
-            "process of it's Activity"
+            "process of its Activity"
         ], 
         "tags": [
             "AsyncTasks"
         ], 
         "wrong": [
-            "lifecycle of it\u2019s Activity", 
-            "lifecycle of it's Fragment"
+            "lifecycle of its Activity", 
+            "lifecycle of its Fragment"
         ]
     }, 
     {
@@ -3294,13 +3310,13 @@
         "docRef": "http://stackoverflow.com/questions/7120813/asynctaskloader-vs-asynctask", 
         "question": "AsyncTaskLoader is tied to the", 
         "right": [
-            "the lifecycle of it\u2019s Activity/Fragment"
+            "the lifecycle of its Activity/Fragment"
         ], 
         "tags": [
             "AsyncTasks, Threads"
         ], 
         "wrong": [
-            "the process of it's Activity/Fragment"
+            "the process of its Activity/Fragment"
         ]
     }, 
     {
@@ -3354,7 +3370,7 @@
     {
         "ID": 226, 
         "docRef": "http://developer.android.com/guide/components/tasks-and-back-stack.html", 
-        "question": "Suppose that you have an app with just one activity. Your foreground activity will be destroyed, when the user presses ", 
+        "question": "Suppose that you have an app with just one activity. Your foreground activity will be destroyed when the user presses ", 
         "right": [
             "BACK button"
         ], 
@@ -3363,6 +3379,474 @@
         ], 
         "wrong": [
             "HOME button"
+        ]
+    }, 
+    {
+        "ID": 227, 
+        "docRef": "http://developer.android.com/guide/topics/resources/runtime-changes.html#HandlingTheChange", 
+        "question": "Device rotation can trigger these configuration changes:", 
+        "right": [
+            "orientation", 
+            "screenSize"
+        ], 
+        "tags": [
+            "Activity Class, Data Management, Configuration change"
+        ], 
+        "wrong": [
+            "layoutDirection", 
+            "screenLayout"
+        ]
+    }, 
+    {
+        "ID": 228, 
+        "docRef": "http://developer.android.com/reference/android/app/Activity.html#onConfigurationChanged(android.content.res.Configuration)", 
+        "question": "(True or False) Activity.onConfigurationChanged() always will be called by the system when the device configuration changes while your activity is running.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 229, 
+        "docRef": "http://stackoverflow.com/questions/7536988/android-app-out-of-memory-issues-tried-everything-and-still-at-a-loss/7576275#7576275", 
+        "question": "Android can destroy your background Activities (apart of foreground in the same process) of  to reclaim memory.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 230, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html#lifecycle-states", 
+        "question": "The paused activity ", 
+        "right": [
+            "can be visible"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "can receive user input", 
+            "can execute code"
+        ]
+    }, 
+    {
+        "ID": 231, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html#lifecycle-states", 
+        "question": "In what states can the Activity exist for an extended period of time (static states opposed to transient)?", 
+        "right": [
+            "resumed (running)", 
+            "paused", 
+            "stopped"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "created", 
+            "started"
+        ]
+    }, 
+    {
+        "ID": 232, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/stopping.html", 
+        "question": "When Activity is stopped?", 
+        "right": [
+            "The user opens the Recent Apps window and switches from your app to another app.", 
+            "The user performs an action in your app that starts a new activity. ", 
+            "The user receives a phone call while using your app."
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "The user presses the Back button."
+        ]
+    }, 
+    {
+        "ID": 233, 
+        "docRef": "http://www.intertech.com/Blog/saving-and-retrieving-android-instance-state-part-1/", 
+        "question": "Can you put state in the bundle of Activity A and have Activity B opened and expect to see the state of Activity A in its bundle?", 
+        "right": [
+            "No"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "Yes"
+        ]
+    }, 
+    {
+        "ID": 234, 
+        "docRef": "http://developer.android.com/guide/topics/resources/runtime-changes.html", 
+        "question": "onRestoreInstanceState (Bundle savedInstanceState) is called when the activity is being re-initialized from a previously saved state. Check true statements", 
+        "right": [
+            "savedInstanceState is not null", 
+            "savedInstanceState is the data most recently supplied in onSaveInstanceState(Bundle)", 
+            "onRestoreInstanceState is called only when onSaveInstanceState was invoked"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 235, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "(True or False) Not unlike activities, fragments have a similar lifecycle methods. But which method(s) fragments doesn't have?", 
+        "right": [
+            "onRestoreInstanceState"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onCreate", 
+            "onSaveInstanceState", 
+            "onStart"
+        ]
+    }, 
+    {
+        "ID": 236, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onSaveInstanceState(android.os.Bundle)", 
+        "question": "If a new instance of the fragment later needs to be re-created, the data you place in the Bundle will be available in ", 
+        "right": [
+            "onCreate", 
+            "onCreateView", 
+            "onActivityCreated"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onRestoreInstanceState"
+        ]
+    }, 
+    {
+        "ID": 237, 
+        "docRef": "http://stackoverflow.com/questions/11182180/understanding-fragments-setretaininstanceboolean", 
+        "question": "(True or False) setRetainInstance controls whether a fragment views are retained across Activity re-creation (such as from a configuration change)", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 238, 
+        "docRef": "https://androidbycode.wordpress.com/2015/02/14/goodbye-launcher-drawables-hello-mipmaps/", 
+        "question": "It\u2019s best practice to place your launcher icons in the _______ folder. ", 
+        "right": [
+            "Mipmap"
+        ], 
+        "tags": [
+            "Project Structure"
+        ], 
+        "wrong": [
+            "Drawable", 
+            "Values", 
+            "Layout", 
+            "Styles"
+        ]
+    }, 
+    {
+        "ID": 239, 
+        "docRef": "https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-pixel-density", 
+        "question": "Which unit of measurement should you use to ensure consistent appearance/layout/size in all screen sizes/densities.", 
+        "right": [
+            "dp"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "px", 
+            "pt", 
+            "sp"
+        ]
+    }, 
+    {
+        "ID": 240, 
+        "docRef": "https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-", 
+        "question": "Which unit of measurement should you use to ensure proper scaling and responsiveness of fonts for all screen sizes/densities? ", 
+        "right": [
+            "sp"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "dp", 
+            "px", 
+            "pt"
+        ]
+    }, 
+    {
+        "ID": 241, 
+        "docRef": "https://stuff.mit.edu/afs/sipb/project/android/docs/guide/practices/ui_guidelines/icon_design_launcher.html", 
+        "question": "Unlike regular graphic assets, launcher icons are density independent so a single graphic (.png) file is needed for all screen densities.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 242, 
+        "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
+        "question": "The LayoutParam.layout_weight is available in all ViewGroup subclasses.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 243, 
+        "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
+        "question": "Given a vertial Linear Layout ViewGroup, what is the best way to ensure all child views appear on the screen regardless of screen size or density?", 
+        "right": [
+            "Set layout_height to 0dp and layout_weight to 1 for all child views in LinearLayout."
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Set layout_height to 100 dp and  layout_gravity to 1 for all child views in LinearLayout.", 
+            "Set layout_height to wrap_content for all child views in LinearLayout."
+        ]
+    }, 
+    {
+        "ID": 244, 
+        "docRef": "http://sandipchitale.blogspot.in/2010/05/linearlayout-gravity-and-layoutgravity.html", 
+        "question": "LayoutParams configure the way an Android ViewGroup arranges (lays out) its child views.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 246, 
+        "docRef": "http://developer.android.com/guide/topics/ui/layout/relative.html", 
+        "question": "With RelativeLayout the first child View will be placed at the top-left position by default (assuming a left-to-right language setting).  Where will the next child be positioned if no alignment is specified?", 
+        "right": [
+            "On top of the first view in the top-left corner."
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "To the right of the first View.", 
+            "Directly below the first View.", 
+            "The top-right corner."
+        ]
+    }, 
+    {
+        "ID": 247, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html", 
+        "question": "Which is the correct Activity Lifecycle callback sequence called when an app is first launched?", 
+        "right": [
+            "onCreate()-> onStart()-> onResume()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onCreate()-> onStart()", 
+            "onCreate()-> onResume()-> onStart()"
+        ]
+    }, 
+    {
+        "ID": 248, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
+        "question": "A Bundle savedInstanceState is a collection of key-value pairs which are used to re-create an Activity exactly as it was prior to its destruction.  Which of the following scenarios lead to a saved Instance State?", 
+        "right": [
+            "System destroys stopped activity to reclaim memory resources."
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "The back button is pressed while the activity is in the Resumed state.", 
+            "The finish() method is called by the activity."
+        ]
+    }, 
+    {
+        "ID": 249, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
+        "question": "Which callback method(s) of Activity receive the saved instance Bundle as a parameter?", 
+        "right": [
+            "onCreate()", 
+            "onRestoreInstanceState()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onRestart()"
+        ]
+    }, 
+    {
+        "ID": 250, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
+        "question": "By overriding an Activity's onSaveInstanceState() method, it eliminates the need to call the superclass implementation of onSaveInstanceState().", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 251, 
+        "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
+        "question": "The activity onRestoreInstanceState() method is called after:", 
+        "right": [
+            "onStart()"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "onCreate()", 
+            "onResume()", 
+            "onRestart()"
+        ]
+    }, 
+    {
+        "ID": 252, 
+        "docRef": "http://stackoverflow.com/questions/17230049/sqlitequerybuilder-query-vs-sqlitedatabase-query", 
+        "question": "To create table joins and unions you can use", 
+        "right": [
+            "SQLiteQueryBuilder", 
+            "SQLiteDatabase.rawQuery()"
+        ], 
+        "tags": [
+            "Data Management, Database"
+        ], 
+        "wrong": [
+            "SQLiteDatabase.query()"
+        ]
+    }, 
+    {
+        "ID": 254, 
+        "docRef": "http://developer.android.com/training/basics/intents/result.html", 
+        "question": "startActivityForResult() can be called only with explicit Intent", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 255, 
+        "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
+        "question": "(from API 11) AsyncTasks are executed serially on a single background thread. So long running worker can block others.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 256, 
+        "docRef": "http://developer.android.com/guide/topics/manifest/manifest-intro.html", 
+        "question": "All Android components should be registered in the AndroidManifest.xml file", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 257, 
+        "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
+        "question": "What is default value for layout_weight of LinearLayout?", 
+        "right": [
+            "0"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "1", 
+            "null", 
+            "-1"
+        ]
+    }, 
+    {
+        "ID": 258, 
+        "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
+        "question": "By default, all the components (Activity, Service, BroadcastReceiver, Content Providers) instantiated in", 
+        "right": [
+            "the same process", 
+            "the main (UI) thread"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "different processes", 
+            "different threads"
+        ]
+    }, 
+    {
+        "ID": 259, 
+        "docRef": "http://developer.android.com/reference/android/os/Bundle.html", 
+        "question": "Bundle can hold ", 
+        "right": [
+            "primitive type", 
+            "Parcelable type", 
+            "Serializable type"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "any object"
         ]
     }
 ]

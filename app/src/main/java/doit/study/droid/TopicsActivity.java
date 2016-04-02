@@ -1,14 +1,25 @@
 package doit.study.droid;
 
+import android.content.ContentProvider;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,44 +27,101 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
-import doit.study.droid.data.GlobalData;
-import doit.study.droid.data.QuizData;
+import doit.study.droid.data.Question;
+import doit.study.droid.data.QuizProvider;
 import doit.study.droid.data.Tag;
 
 
-public class TopicsActivity extends AppCompatActivity{
+public class TopicsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
-    private QuizData mQuizData;
+    private TopicAdapter mTopicAdapter;
+    private static final int TAG_LOADER = 0;
+    private static final int QUESTION_LOADER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topics_layout);
-
-        GlobalData gd = (GlobalData) getApplication();
-        mQuizData = gd.getQuizData();
-        setTitle("Total questions: " + mQuizData.getQuestionIds().size());
-        List<Integer> tagIds = gd.getQuizData().getTagIds();
+        getSupportLoaderManager().initLoader(TAG_LOADER, null, this);
+        getSupportLoaderManager().initLoader(QUESTION_LOADER, null, this);
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
         rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         rv.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
-        rv.setAdapter(new TopicAdapter(tagIds, mQuizData));
+        mTopicAdapter = new TopicAdapter();
+        rv.setAdapter(mTopicAdapter);
+    }
+
+    @Override
+    protected void onPause() {
+        new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ContentProviderOperation> ops = new ArrayList<>();
+                ContentProviderOperation.Builder builder;
+                for (Tag tag: mTopicAdapter.getTags()) {
+                    builder = ContentProviderOperation.newUpdate(QuizProvider.TAG_URI);
+                    builder.withValue(Tag.Table.SELECTED, tag.getSelectionStatus());
+                    builder.withSelection(Tag.Table._ID + " = " + tag.getId(), null);
+                    ops.add(builder.build());
+                }
+                try {
+                    getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } catch (OperationApplicationException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+        super.onPause();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch(id){
+            case TAG_LOADER:
+                return new CursorLoader(this, QuizProvider.TAG_URI, null, null, null, null);
+            case QUESTION_LOADER:
+                return new CursorLoader(this, QuizProvider.QUESTION_URI, new String[]{Question.Table._ID}, null, null, null);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        switch(loader.getId()){
+            case TAG_LOADER:
+                mTopicAdapter.swapCursor(data);
+                break;
+            case QUESTION_LOADER:
+                setTitle("Total questions: " + data.getCount());
+                break;
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        switch(loader.getId()){
+            case TAG_LOADER:
+                mTopicAdapter.swapCursor(null);
+                break;
+            case QUESTION_LOADER:
+                break;
+        }
     }
 
 
     private static class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
-
-        List<Integer> mTagIds;
-        QuizData mQuizData;
-
-        public TopicAdapter(List<Integer> tagIds, QuizData quizData){
-            mTagIds = tagIds;
-            mQuizData = quizData;
-        }
+        private List<Tag> mTags = new ArrayList<>();
+        private Cursor mCursor;
 
         public static class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
             TextView topic;
@@ -73,7 +141,15 @@ public class TopicsActivity extends AppCompatActivity{
 
         @Override
         public int getItemCount() {
-            return mTagIds.size();
+            if (mCursor != null)
+                return mCursor.getCount();
+            else
+                return 0;
+        }
+
+
+        public List<Tag> getTags(){
+            return mTags;
         }
 
         @Override
@@ -84,22 +160,30 @@ public class TopicsActivity extends AppCompatActivity{
 
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
-            final Tag tag = mQuizData.getTagById(mTagIds.get(position));
+            if (mTags.size() <= position) {
+                mCursor.moveToPosition(position);
+                mTags.add(Tag.newInstance(mCursor));
+            }
+            final Tag tag = mTags.get(position);
+            Log.d("NSA", tag.toString()+" "+position);
             String text = String.format("%s (%d/%d)", tag.getName(), tag.getQuestionsCounter(), tag.getQuestionsStudied());
             holder.topic.setText(text);
             holder.checkbox.setChecked(tag.getSelectionStatus());
-            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            holder.checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    tag.select();
-                    mQuizData.setTagSelection(tag);
-                } else {
-                    tag.deselect();
-                    mQuizData.setTagSelection(tag);
-                }
+            public void onClick(View v) {
+                tag.setChecked(((CheckBox)v).isChecked());
+                Log.d("NSA", "change " + tag);
             }
         });
+        }
+        public void swapCursor(Cursor newCursor) {
+            mCursor = newCursor;
+            notifyDataSetChanged();
+        }
+
+        public Cursor getCursor() {
+            return mCursor;
         }
     }
 

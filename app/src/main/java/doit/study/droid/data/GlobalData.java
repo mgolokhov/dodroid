@@ -13,19 +13,15 @@ import doit.study.droid.R;
 public class GlobalData extends Application {
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
-    private QuizData mQuizData;
     private Tracker mTracker;
 
     @Override
     public void onCreate() {
         super.onCreate();
         QuizDBHelper helper = new QuizDBHelper(this);
-        mQuizData = new QuizData(helper);
     }
 
-    public QuizData getQuizData() {
-        return mQuizData;
-    }
+
 
     // Get the tracker associated with this app
     public void startTracking() {
@@ -43,5 +39,13 @@ public class GlobalData extends Application {
             // Enable tracking of activities
             ga.enableAutoActivityReports(this);
         }
+    }
+
+    public Tracker getTracker() {
+        // Make sure the tracker exists
+        startTracking();
+
+        // Then return the tracker
+        return mTracker;
     }
 }

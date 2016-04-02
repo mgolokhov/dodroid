@@ -38,7 +38,9 @@
         <activity android:name=".SettingsActivity"
             android:label="@string/action_settings"
             />
-
+        <provider
+            android:authorities="doit.study.droid"
+            android:name=".data.QuizProvider" />
     </application>
 
 </manifest>
