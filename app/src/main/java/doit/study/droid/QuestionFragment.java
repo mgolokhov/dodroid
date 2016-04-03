@@ -13,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -208,6 +209,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 lp.gravity = Gravity.CENTER;
                 checkBox.setLayoutParams(lp);
+                checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 checkBox.setGravity(Gravity.CENTER);
                 checkBox.setText(answer);
                 if (null != savedInstanceState) {
