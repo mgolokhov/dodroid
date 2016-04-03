@@ -90,6 +90,11 @@ public class Question implements Parcelable {
         );
     }
 
+    @Override
+    public String toString(){
+        return "tags: " + mTags.toString();
+    }
+
     private static List<String> splitItems(String s){
         if (s.equals(""))
             return new ArrayList<>();

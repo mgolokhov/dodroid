@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import doit.study.droid.utils.LifecycleLoggingFragment;
 import doit.study.droid.data.GlobalData;
 import doit.study.droid.data.Question;
 
@@ -92,6 +93,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         menuInflater.inflate(R.menu.fragment_question, menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch(menuItem.getItemId()){
@@ -107,6 +109,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
                 return super.onOptionsItemSelected(menuItem);
         }
     }
+
 
     private void openDocumentation(){
         if (mCurrentQuestion.getDocRef().isEmpty())

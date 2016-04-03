@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.utils;
 
 
 import android.content.Context;

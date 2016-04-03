@@ -1,8 +1,8 @@
-package doit.study.droid;
+package doit.study.droid.utils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Utils {
+public class General {
 
     private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 

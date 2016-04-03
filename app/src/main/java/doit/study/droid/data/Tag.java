@@ -1,7 +1,6 @@
 package doit.study.droid.data;
 
 import android.database.Cursor;
-import android.os.Bundle;
 
 public class Tag {
 

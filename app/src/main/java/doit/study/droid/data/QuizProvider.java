@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.util.Log;
-
-import java.util.List;
 
 public class QuizProvider extends ContentProvider {
     public static final String AUTHORITY = "doit.study.droid";
