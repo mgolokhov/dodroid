@@ -33,6 +33,7 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import doit.study.droid.utils.LifecycleLoggingFragment;
 import doit.study.droid.data.GlobalData;
@@ -62,6 +63,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     private Question mCurrentQuestion;
     private Sound mSound;
     private boolean mIsSoundOn;
+
+    private String[] mFeedbackWrongAnswered;
+    private String[] mFeedbackRightAnswered;
     // View stuff
     private View mView;
     private List<CheckBox> mvCheckBoxes;
@@ -137,6 +141,8 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         super.onCreate(savedInstanceState);
 //        setRetainInstance(true);
         setHasOptionsMenu(true);
+        mFeedbackRightAnswered = getResources().getStringArray(R.array.feedback_right_answer);
+        mFeedbackWrongAnswered = getResources().getStringArray(R.array.feedback_wrong_answer);
         mSound = Sound.newInstance(getContext());
         if (savedInstanceState != null) {
             mState = (State) savedInstanceState.getSerializable(QUESTION_STATE_KEY);
@@ -285,11 +291,12 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         mvToast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
         mvToast.setGravity(Gravity.CENTER, 0, 0);
         TextView v = (TextView) mvToast.getView().findViewById(android.R.id.message);
+        Random rand = new Random();
         if (mState == State.ANSWERED_RIGHT) {
-            mvToast.setText("Right");
+            mvToast.setText(mFeedbackRightAnswered[rand.nextInt(mFeedbackRightAnswered.length)]);
             v.setTextColor(Color.GREEN);
         } else {
-            mvToast.setText("Wrong");
+            mvToast.setText(mFeedbackWrongAnswered[rand.nextInt(mFeedbackWrongAnswered.length)]);
             v.setTextColor(Color.RED);
         }
         mvToast.show();

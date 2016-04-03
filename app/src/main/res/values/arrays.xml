@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feedback_right_answer">
+        <item>Right</item>
+        <item>Correct</item>
+        <item>Good job</item>
+        <item>Super</item>
+        <item>Great</item>
+        <item>Hooray</item>
+    </string-array>
+
+    <string-array name="feedback_wrong_answer">
+        <item>Wrong</item>
+        <!--<item>You can do this</item>-->
+        <!--<item>Try again</item>-->
+        <item>Next time</item>
+    </string-array>
+</resources>
