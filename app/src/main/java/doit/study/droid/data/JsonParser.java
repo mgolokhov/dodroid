@@ -16,9 +16,9 @@ import java.util.List;
 
 // TODO: implement iterator
 public class JsonParser {
-    // Logcat tag
     @SuppressWarnings("unused")
     private static final String TAG = "NSA JsonParser";
+    private static final boolean DEBUG = true;
 
     public static List<ParsedQuestion> getQuestions(InputStream inputStream){
         return parseTests(readFile(inputStream));
@@ -43,12 +43,12 @@ public class JsonParser {
     // Parse and map json data to the Question object
     // Many questions => List of questions
     private static List<ParsedQuestion> parseTests(String data){
-        // TODO: move constant in json file
-        final int SIZE = 150;
-        List<ParsedQuestion> parsedQuestions = new ArrayList<>(SIZE);
+        List<ParsedQuestion> parsedQuestions = null;
         try {
             JSONArray questions = new JSONArray(data);
-            for(int i=0; i < questions.length(); i++) {
+            final int SIZE = questions.getJSONObject(0).getInt("quiz_size");
+            parsedQuestions = new ArrayList<>(SIZE);
+            for(int i=1; i < questions.length(); i++) {
                 ParsedQuestion parsedQuestion = new ParsedQuestion();
                 JSONObject currentQuestion = questions.getJSONObject(i);
                 parsedQuestion.mTopicId = 0;//Integer.parseInt(currentQuestion.getString("topic_id"));
@@ -79,7 +79,7 @@ public class JsonParser {
             e.printStackTrace();
             //throw new RuntimeException(e);
         }
-        Log.i(TAG, parsedQuestions.toString());
+        if (DEBUG) Log.d(TAG, parsedQuestions != null ? parsedQuestions.toString() : "none");
         return parsedQuestions;
     }
 

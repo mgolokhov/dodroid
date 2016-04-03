@@ -18,7 +18,14 @@ public class GlobalData extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        QuizDBHelper helper = new QuizDBHelper(this);
+        new Thread(){
+            @Override
+            public void run() {
+                QuizDBHelper helper = new QuizDBHelper(GlobalData.this);
+                helper.getReadableDatabase();
+                helper.close();
+            }
+        }.start();
     }
 
 

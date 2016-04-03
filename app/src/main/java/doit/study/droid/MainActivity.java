@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import doit.study.droid.data.GlobalData;
@@ -14,6 +15,7 @@ import doit.study.droid.data.GlobalData;
 // Entry point for the app.
 // Because we set in manifest action=MAIN category=LAUNCHER
 public class MainActivity extends AppCompatActivity {
+    private static final boolean DEBUG = true;
     // Shia LaBeouf - Just Do it! (Auto-tuned)
     private final String URL = "http://www.youtube.com/watch?v=gJscrxxl_Bg";
     @SuppressWarnings("unused")
@@ -23,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setContentView(R.layout.fragment_questions);
         setVersionInTitle();
         // Make sure that Analytics tracking has started
         ((GlobalData) getApplication()).startTracking();
+        if (DEBUG) Log.d(TAG, "MainActivity");
     }
 
     private void setVersionInTitle(){

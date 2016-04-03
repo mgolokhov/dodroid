@@ -15,6 +15,7 @@ data = resp.read()
 
 res = []
 for index, question in enumerate(csv.DictReader(StringIO(data))):
+	# ids can be nonsequential
 	if question['ID']:
 		res.append({
 			"ID": index,
@@ -24,7 +25,6 @@ for index, question in enumerate(csv.DictReader(StringIO(data))):
 			"tags": [i for i in question['Question Tag'].split("\n") if i],
 			"docRef" : question["Reference Link"],
 		})
-
 
 # cannot import local modules like
 # from checked_questions import reviewed
@@ -45,6 +45,8 @@ for index, i in enumerate(res):
 
 if exit_by_dupl:
 	sys.exit("\nFound possible duplicates, exit...")
+
+res.insert(0, {"quiz_size": len(res)})
 
 with open(local_json_file, 'w') as jsonfile:
 	json.dump(res, jsonfile, indent=4, sort_keys=True)

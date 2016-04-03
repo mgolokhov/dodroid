@@ -21,7 +21,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     private final String TAG = "NSA " + getClass().getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 28;
+    private static final int DATABASE_VERSION = 33;
     //private static final int DB_CONTENT_VERSION = 28;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
@@ -39,7 +39,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i(TAG, "create db");
+        if (DEBUG) Log.d(TAG, "create db");
         // Enable foreign key constraints
         db.execSQL("PRAGMA foreign_keys=ON;");
 
@@ -77,7 +77,9 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.i(TAG, "update db");
+        if (DEBUG) Log.d(TAG, "update db");
+        // Start timing how long it takes to update
+        long startTime = System.nanoTime();
         // Drop all tables
         String dropIfExists = "DROP TABLE IF EXISTS ";
         db.execSQL(dropIfExists + Question.Table.NAME);
@@ -87,6 +89,10 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
         // create new tables
         onCreate(db);
+
+        long stopTime = System.nanoTime();
+        long elapsedTime = (stopTime - startTime) / 1000000; //ms
+        if (DEBUG) Log.d(TAG, "update db in " + elapsedTime);
     }
 
 
@@ -131,7 +137,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         );
 
         try {
-            Log.i(TAG, "wanna to insert data");
+            if (DEBUG) Log.d(TAG, "wanna to insert data");
             db.beginTransaction();
             Map<String, Long> tags = new HashMap<>();
             for (ParsedQuestion q : parsedQuestions) {
@@ -159,7 +165,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
             }
             db.setTransactionSuccessful();
-            Log.i(TAG, "data is inserted");
+            if (DEBUG) Log.d(TAG, "data was inserted");
         } finally {
             db.endTransaction();
         }

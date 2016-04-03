@@ -1,5 +1,8 @@
 [
     {
+        "quiz_size": 255
+    }, 
+    {
         "ID": 0, 
         "docRef": "http://developer.android.com/reference/android/media/MediaPlayer.html", 
         "question": "(True or False) You can call start() again on the MediaPlayer once you have called stop()", 
@@ -1500,7 +1503,7 @@
             "User Interfaces"
         ], 
         "wrong": [
-            "ActionBar", 
+            "AppBar", 
             "NotificationBar", 
             "NavigationBar"
         ]
@@ -3820,7 +3823,7 @@
     {
         "ID": 258, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
-        "question": "By default, all the components (Activity, Service, BroadcastReceiver, Content Providers) instantiated in", 
+        "question": "By default, all the components (Activity, Service, BroadcastReceiver, Content Providers) are instantiated in", 
         "right": [
             "the same process", 
             "the main (UI) thread"
@@ -3847,6 +3850,21 @@
         ], 
         "wrong": [
             "any object"
+        ]
+    }, 
+    {
+        "ID": 261, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#Lifecycle", 
+        "question": "What is the first method in a Fragment's lifecycle to be called after it has been associated with an Activity?", 
+        "right": [
+            "onAttach()"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onActivityCreated()", 
+            "onCreate()"
         ]
     }
 ]

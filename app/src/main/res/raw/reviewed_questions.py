@@ -1,4 +1,6 @@
 reviewed = (
+	(0.5181347150259067, 'This callback tells the Fragment when it is fully associated with the host Activity', "What is the first method in a Fragment's lifecycle to be called after it has been associated with an Activity?"),
+	(0.5454545454545454, 'By default, any time spent in BroadcastReceiver.onReceive() will freeze your UI', 'By default, all the components (Activity, Service, BroadcastReceiver, Content Providers) are instantiated in'),
 	(0.5355191256830601, 'By default, any time spent in BroadcastReceiver.onReceive() will freeze your UI', 'By default, all the components (Activity, Service, BroadcastReceiver, Content Providers) instantiated in'),
 	(0.5897435897435898, 'To develop Android app you can use', 'To create table joins and unions you can use'),
 	(0.6990291262135923, 'What events trigger device configuration change', 'Device rotation can trigger these configuration changes:'),
