@@ -110,7 +110,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 //
 //    }
 
-    private void insertFromFile(List<ParsedQuestion> parsedQuestions, SQLiteDatabase db) {
+    private void insertFromFile(List<JsonParser.ParsedQuestion> parsedQuestions, SQLiteDatabase db) {
         // TODO: do we need replace?
         SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
                         + Question.Table.NAME + "("
@@ -139,7 +139,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
             if (DEBUG) Log.d(TAG, "wanna to insert data");
             db.beginTransaction();
             Map<String, Long> tags = new HashMap<>();
-            for (ParsedQuestion q : parsedQuestions) {
+            for (JsonParser.ParsedQuestion q : parsedQuestions) {
                 insertQuestion.bindAllArgsAsStrings(new String[]{
                         q.mText,
                         q.mDocRef,
