@@ -10,7 +10,7 @@ import doit.study.droid.R;
 /**
  * Use application singleton
 */
-public class GlobalData extends Application {
+abstract class MyBaseApplication extends Application {
     @SuppressWarnings("unused")
     private final String TAG = "NSA " + getClass().getName();
     private Tracker mTracker;
@@ -18,16 +18,19 @@ public class GlobalData extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        createDB();
+    }
+
+    protected void createDB(){
         new Thread(){
             @Override
             public void run() {
-                QuizDBHelper helper = new QuizDBHelper(GlobalData.this);
+                QuizDBHelper helper = new QuizDBHelper(MyBaseApplication.this);
                 helper.getReadableDatabase();
                 helper.close();
             }
         }.start();
     }
-
 
 
     // Get the tracker associated with this app

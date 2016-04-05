@@ -67,8 +67,8 @@ public class JsonParser {
                 JSONArray tags = currentQuestion.optJSONArray("tags");
                 if (tags != null)
                     for(int j=0; j<tags.length(); j++) {
-                        String[] splitedTags = (tags.get(j).toString()).split("\n");
-                        parsedQuestion.mTags.addAll(Arrays.asList(splitedTags));
+                        String[] splitTags = (tags.get(j).toString()).split("\n");
+                        parsedQuestion.mTags.addAll(Arrays.asList(splitTags));
                     }
                 else
                     parsedQuestion.mTags.add("Other");

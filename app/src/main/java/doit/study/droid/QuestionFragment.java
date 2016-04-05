@@ -35,8 +35,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import doit.study.droid.utils.LifecycleLoggingFragment;
 import doit.study.droid.data.GlobalData;
+import doit.study.droid.utils.LifecycleLoggingFragment;
 import doit.study.droid.data.Question;
 
 

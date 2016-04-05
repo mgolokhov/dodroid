@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import doit.study.droid.data.GlobalData;
+import timber.log.Timber;
 
 
 // Entry point for the app.
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // Make sure that Analytics tracking has started
         ((GlobalData) getApplication()).startTracking();
         if (DEBUG) Log.d(TAG, "MainActivity");
+        Timber.d("Wazzzz");
     }
 
     private void setVersionInTitle(){

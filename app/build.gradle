@@ -6,8 +6,7 @@ def versionBuild = 18
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-
+    buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "doit.study.droid"
         minSdkVersion 15
@@ -32,6 +31,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.android.support:design:23.2.1'
     compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.jakewharton.timber:timber:4.1.2'
 }
 
 
