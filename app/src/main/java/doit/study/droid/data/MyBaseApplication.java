@@ -10,9 +10,7 @@ import doit.study.droid.R;
 /**
  * Use application singleton
 */
-abstract class MyBaseApplication extends Application {
-    @SuppressWarnings("unused")
-    private final String TAG = "NSA " + getClass().getName();
+public abstract class MyBaseApplication extends Application {
     private Tracker mTracker;
 
     @Override

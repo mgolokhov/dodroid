@@ -5,20 +5,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import doit.study.droid.R;
+import timber.log.Timber;
 
 public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
-    // Logcat tag
-    @SuppressWarnings("unused")
-    private final String TAG = "NSA " + getClass().getName();
-
     // Database Version
     private static final int DATABASE_VERSION = 33;
     //private static final int DB_CONTENT_VERSION = 28;
@@ -38,7 +34,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        if (DEBUG) Log.d(TAG, "create db");
+        if (DEBUG) Timber.d("create db");
         // Enable foreign key constraints
         db.execSQL("PRAGMA foreign_keys=ON;");
 
@@ -76,7 +72,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (DEBUG) Log.d(TAG, "update db");
+        if (DEBUG) Timber.d("update db");
         // Start timing how long it takes to update
         long startTime = System.nanoTime();
         // Drop all tables
@@ -91,7 +87,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
         long stopTime = System.nanoTime();
         long elapsedTime = (stopTime - startTime) / 1000000; //ms
-        if (DEBUG) Log.d(TAG, "update db in " + elapsedTime);
+        if (DEBUG) Timber.d("update db in " + elapsedTime);
     }
 
 
@@ -136,7 +132,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         );
 
         try {
-            if (DEBUG) Log.d(TAG, "wanna to insert data");
+            if (DEBUG) Timber.d("wanna to insert data");
             db.beginTransaction();
             Map<String, Long> tags = new HashMap<>();
             for (JsonParser.ParsedQuestion q : parsedQuestions) {
@@ -164,7 +160,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
             }
             db.setTransactionSuccessful();
-            if (DEBUG) Log.d(TAG, "data was inserted");
+            if (DEBUG) Timber.d("data was inserted");
         } finally {
             db.endTransaction();
         }

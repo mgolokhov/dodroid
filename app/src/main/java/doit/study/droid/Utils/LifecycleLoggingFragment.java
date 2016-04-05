@@ -4,10 +4,11 @@ package doit.study.droid.utils;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import timber.log.Timber;
 
 /**
  * This abstract class extends the Fragment class and overrides lifecycle
@@ -23,7 +24,7 @@ public abstract class  LifecycleLoggingFragment extends Fragment{
     protected Integer ID;
 
     private void log(String message){
-        if (DEBUG) Log.d(TAG, message + " Hash: " + hashCode());
+        if (DEBUG) Timber.d(message + " Hash: " + hashCode());
     }
     private void logWithState(String message, Bundle savedInstanceState){
         if (DEBUG){

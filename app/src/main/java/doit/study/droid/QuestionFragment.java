@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.PreferenceManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,14 +35,13 @@ import java.util.List;
 import java.util.Random;
 
 import doit.study.droid.data.GlobalData;
-import doit.study.droid.utils.LifecycleLoggingFragment;
 import doit.study.droid.data.Question;
-
+import doit.study.droid.utils.LifecycleLoggingFragment;
+import timber.log.Timber;
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener{
     private static final boolean DEBUG = true;
-
     private static final int REPORT_DIALOG_REQUEST_CODE = 0;
     public static final String REPORT_DIALOG_TAG = "dislike_dialog";
     // Callbacks
@@ -83,7 +81,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     public static QuestionFragment newInstance(Question question) {
-        if (DEBUG) Log.d("NSA", "newInstance " + question);
+        Timber.d("newInstance " + question);
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(QUESTION_KEY, question);
@@ -163,7 +161,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     private void mkViewLinks(LayoutInflater inflater, ViewGroup container){
-        if (DEBUG) Log.d(TAG, "mkViewLinks " + hashCode());
+        Timber.d("mkViewLinks " + hashCode());
         mView = inflater.inflate(R.layout.fragment_questions, container, false);
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (ViewGroup) mView.findViewById(R.id.answers);
@@ -192,7 +190,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             public void onGlobalLayout() {
                 ViewTreeObserver obs = vCtrlPanel.getViewTreeObserver();
                 int bottom_padding = vCtrlPanel.getHeight();
-                if (DEBUG) Log.d(TAG, "height "+bottom_padding);
+                Timber.d("height "+bottom_padding);
                 mvAnswersLayout.setPadding(0, 0, 0, bottom_padding);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     obs.removeOnGlobalLayoutListener(this);
@@ -257,7 +255,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void checkAnswer() {
-        if (DEBUG) Log.d(TAG, "checkAnswer " + hashCode());
+        if (DEBUG) Timber.d("checkAnswer " + hashCode());
         mState = State.ANSWERED_RIGHT;
         for (CheckBox cb : mvCheckBoxes) {
             // You can have multiple right answers
@@ -322,7 +320,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, ""+v.getId());
+        Timber.d(""+v.getId());
         switch (v.getId()) {
             case (R.id.commit_button):
                 handleCommitButton();

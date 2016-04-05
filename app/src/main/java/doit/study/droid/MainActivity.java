@@ -6,31 +6,19 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import doit.study.droid.data.GlobalData;
-import timber.log.Timber;
 
 
-// Entry point for the app.
-// Because we set in manifest action=MAIN category=LAUNCHER
 public class MainActivity extends AppCompatActivity {
-    private static final boolean DEBUG = true;
     // Shia LaBeouf - Just Do it! (Auto-tuned)
     private final String URL = "http://www.youtube.com/watch?v=gJscrxxl_Bg";
-    @SuppressWarnings("unused")
-    private final String TAG = "NSA " + getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setVersionInTitle();
-        // Make sure that Analytics tracking has started
-        ((GlobalData) getApplication()).startTracking();
-        if (DEBUG) Log.d(TAG, "MainActivity");
-        Timber.d("Wazzzz");
     }
 
     private void setVersionInTitle(){

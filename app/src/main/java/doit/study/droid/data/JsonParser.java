@@ -1,7 +1,5 @@
 package doit.study.droid.data;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import timber.log.Timber;
+
 // TODO: implement iterator
 public class JsonParser {
-    @SuppressWarnings("unused")
-    private static final String TAG = "NSA JsonParser";
     private static final boolean DEBUG = true;
 
     public static List<ParsedQuestion> getQuestions(InputStream inputStream){
@@ -35,7 +33,7 @@ public class JsonParser {
             }
             inputStream.close();
         } catch (IOException e) {
-            Log.i(TAG, "IOException");
+            Timber.e(e, "wtf");
         }
         return buffer.toString();
     }
@@ -79,7 +77,7 @@ public class JsonParser {
             e.printStackTrace();
             //throw new RuntimeException(e);
         }
-        if (DEBUG) Log.d(TAG, parsedQuestions != null ? parsedQuestions.toString() : "none");
+        if (DEBUG) Timber.d(parsedQuestions != null ? parsedQuestions.toString() : "none");
         return parsedQuestions;
     }
 

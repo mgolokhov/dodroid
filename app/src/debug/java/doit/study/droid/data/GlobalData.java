@@ -13,5 +13,6 @@ public class GlobalData extends MyBaseApplication {
                 return "NSA:" + super.createStackElementTag(element) + ":" + element.getLineNumber();
             }
         });
+        Timber.d("Debug mode with logging");
     }
 }

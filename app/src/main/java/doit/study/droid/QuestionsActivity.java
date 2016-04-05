@@ -10,15 +10,14 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
+import timber.log.Timber;
 
 
 public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
     private static final boolean DEBUG = true;
-    private final String TAG = "NSA " + getClass().getName();
     private ViewPager mPager;
     private final int QUIZ_SIZE = 10;
     private int mRightAnswered = 0;
@@ -64,7 +63,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
         handler.postDelayed(new Runnable() {
             public void run() {
                 if (posInFocus == mPager.getCurrentItem()) {
-                    if (DEBUG) Log.d(TAG, "swipe to the next page");
+                    if (DEBUG) Timber.d("swipe to the next page");
                     mPager.setCurrentItem(posInFocus + 1);
                 }
             }

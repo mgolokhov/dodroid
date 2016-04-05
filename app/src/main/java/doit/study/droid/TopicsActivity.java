@@ -16,7 +16,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,12 +30,11 @@ import java.util.List;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
 import doit.study.droid.data.Tag;
+import timber.log.Timber;
 
 
 public class TopicsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private final static boolean DEBUG = false;
-    @SuppressWarnings("unused")
-    private final String TAG = "NSA " + getClass().getName();
     private TopicAdapter mTopicAdapter;
     private static final int TAG_LOADER = 0;
     private static final int QUESTION_LOADER = 1;
@@ -194,7 +192,7 @@ public class TopicsActivity extends AppCompatActivity implements LoaderManager.L
         @Override
         public void onBindViewHolder(TopicViewHolder holder, int position) {
             final Tag tag = mTags.get(position);
-            if (DEBUG) Log.d("NSA", tag.toString()+" "+position);
+            if (DEBUG) Timber.d(tag.toString()+" "+position);
             String text = String.format("%s (%d/%d)", tag.getName(), tag.getQuestionsCounter(), tag.getQuestionsStudied());
             holder.topic.setText(text);
             holder.checkbox.setChecked(tag.getSelectionStatus());
@@ -202,7 +200,7 @@ public class TopicsActivity extends AppCompatActivity implements LoaderManager.L
             @Override
             public void onClick(View v) {
                 tag.setChecked(((CheckBox)v).isChecked());
-                if (DEBUG) Log.d("NSA", "change " + tag);
+                if (DEBUG) Timber.d("change " + tag);
             }
         });
         }
