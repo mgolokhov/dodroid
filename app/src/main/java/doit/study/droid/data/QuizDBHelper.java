@@ -16,7 +16,7 @@ import timber.log.Timber;
 public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
     // Database Version
-    private static final int DATABASE_VERSION = 33;
+    private static final int DATABASE_VERSION = 34;
     //private static final int DB_CONTENT_VERSION = 28;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 

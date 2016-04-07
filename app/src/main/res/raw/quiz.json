@@ -1,6 +1,6 @@
 [
     {
-        "quiz_size": 255
+        "quiz_size": 280
     }, 
     {
         "ID": 0, 
@@ -965,22 +965,6 @@
     }, 
     {
         "ID": 63, 
-        "docRef": "http://developer.android.com/reference/android/widget/FrameLayout.html", 
-        "question": "Which layout does not arrange its children in any particular manner", 
-        "right": [
-            "FrameLayout"
-        ], 
-        "tags": [
-            "User Interfaces"
-        ], 
-        "wrong": [
-            "LinearLayout", 
-            "RelativeLayout", 
-            "GridLayout"
-        ]
-    }, 
-    {
-        "ID": 64, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html#attributes", 
         "question": "android:layout_width and android:layout_height can be set to", 
         "right": [
@@ -997,7 +981,7 @@
         ]
     }, 
     {
-        "ID": 65, 
+        "ID": 64, 
         "docRef": "http://developer.android.com/guide/topics/resources/string-resource.html#String", 
         "question": "To use string resources you should meet requirements: ", 
         "right": [
@@ -1013,7 +997,7 @@
         ]
     }, 
     {
-        "ID": 66, 
+        "ID": 65, 
         "docRef": "http://stackoverflow.com/questions/3482742/gravity-and-layout-gravity-on-android", 
         "question": "Which attribute determines the position of the content (ex. text) within a View?", 
         "right": [
@@ -1027,7 +1011,7 @@
         ]
     }, 
     {
-        "ID": 67, 
+        "ID": 66, 
         "docRef": "http://stackoverflow.com/questions/3482742/gravity-and-layout-gravity-on-android", 
         "question": "Which attribute controls where a child View appears within its parent ViewGroup?", 
         "right": [
@@ -1041,7 +1025,7 @@
         ]
     }, 
     {
-        "ID": 68, 
+        "ID": 67, 
         "docRef": "http://stackoverflow.com/questions/4619899/difference-between-a-views-padding-and-margin", 
         "question": "_____ is the space inside the border, between the border and the actual view's content.", 
         "right": [
@@ -1055,7 +1039,7 @@
         ]
     }, 
     {
-        "ID": 69, 
+        "ID": 68, 
         "docRef": "http://stackoverflow.com/questions/4619899/difference-between-a-views-padding-and-margin", 
         "question": "The space outside the border, between the border and the other elements next to this view are defined by", 
         "right": [
@@ -1069,7 +1053,7 @@
         ]
     }, 
     {
-        "ID": 70, 
+        "ID": 69, 
         "docRef": "http://developer.android.com/reference/android/view/View.html", 
         "question": "All widgets extend View class", 
         "right": [
@@ -1083,7 +1067,7 @@
         ]
     }, 
     {
-        "ID": 71, 
+        "ID": 70, 
         "docRef": "http://developer.android.com/reference/android/view/ViewGroup.html", 
         "question": "All widgets containers (layouts) extend ViewGroup", 
         "right": [
@@ -1097,7 +1081,7 @@
         ]
     }, 
     {
-        "ID": 72, 
+        "ID": 71, 
         "docRef": "http://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html", 
         "question": "What kind of approach towards allocating space is used by LinearLayout container with attribute android:layout_width=\"match_parent\"", 
         "right": [
@@ -1112,7 +1096,7 @@
         ]
     }, 
     {
-        "ID": 73, 
+        "ID": 72, 
         "docRef": "http://developer.android.com/reference/android/widget/ArrayAdapter.html", 
         "question": "ArrayAdapter can handle data based on", 
         "right": [
@@ -1127,7 +1111,7 @@
         ]
     }, 
     {
-        "ID": 74, 
+        "ID": 73, 
         "docRef": "http://marcoscarvalho.com/tag/viewgroup/", 
         "question": "A ViewGroup is a visible interface which contains other views", 
         "right": [
@@ -1141,7 +1125,7 @@
         ]
     }, 
     {
-        "ID": 75, 
+        "ID": 74, 
         "docRef": "http://developer.android.com/reference/android/view/ViewGroup.html", 
         "question": "Which of the following are subclasses of the ViewGroup?", 
         "right": [
@@ -1158,7 +1142,7 @@
         ]
     }, 
     {
-        "ID": 76, 
+        "ID": 75, 
         "docRef": "http://developer.android.com/reference/android/widget/Adapter.html", 
         "question": "If you include an AdapterView (ListView, GridView, etc.) in an Activity, you create an object responsible for providing the AdapterView with individual item views.  Which interface must this object implement?", 
         "right": [
@@ -1174,7 +1158,7 @@
         ]
     }, 
     {
-        "ID": 77, 
+        "ID": 76, 
         "docRef": "http://developer.android.com/reference/android/widget/AdapterView.html", 
         "question": "AdapterView extends", 
         "right": [
@@ -1189,7 +1173,7 @@
         ]
     }, 
     {
-        "ID": 78, 
+        "ID": 77, 
         "docRef": "http://developer.android.com/reference/android/widget/Toast.html", 
         "question": "To create Toast without custom layout, you can call", 
         "right": [
@@ -1206,7 +1190,7 @@
         ]
     }, 
     {
-        "ID": 79, 
+        "ID": 78, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
         "question": "To create a linear layout in which each child uses the same amount of space on the screen (regardless of screeen size or density) you have to set ", 
         "right": [
@@ -1224,9 +1208,9 @@
         ]
     }, 
     {
-        "ID": 80, 
+        "ID": 79, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
-        "question": "Which layouts support assigning a weight to individual children with the android:layout_weight", 
+        "question": "Which layouts prior to API 21 support assigning a weight to individual children with the android:layout_weight", 
         "right": [
             "LinearLayout"
         ], 
@@ -1240,7 +1224,7 @@
         ]
     }, 
     {
-        "ID": 81, 
+        "ID": 80, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html", 
         "question": "Android user interface can be", 
         "right": [
@@ -1255,7 +1239,7 @@
         ]
     }, 
     {
-        "ID": 82, 
+        "ID": 81, 
         "docRef": "http://developer.android.com/guide/topics/resources/layout-resource.html", 
         "question": "XML layout resources can be stored in ____ directory(ies)", 
         "right": [
@@ -1273,7 +1257,7 @@
         ]
     }, 
     {
-        "ID": 83, 
+        "ID": 82, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html#load", 
         "question": "If the layout resource was stored in the /res/layout/main.xml file. Within the Activity to load and display a layout resource on the screen you should call", 
         "right": [
@@ -1290,7 +1274,7 @@
         ]
     }, 
     {
-        "ID": 84, 
+        "ID": 83, 
         "docRef": "http://developer.android.com/guide/topics/ui/declaring-layout.html#attributes", 
         "question": "A view object may have a unique ID assigned to it which will identify the View uniquely within the tree. The syntax for an ID is", 
         "right": [
@@ -1306,7 +1290,7 @@
         ]
     }, 
     {
-        "ID": 85, 
+        "ID": 84, 
         "docRef": "", 
         "question": "The default <LinearLayout> orientation is", 
         "right": [
@@ -1321,7 +1305,7 @@
         ]
     }, 
     {
-        "ID": 86, 
+        "ID": 85, 
         "docRef": "http://developer.android.com/training/improving-layouts/optimizing-layout.html", 
         "question": "Flat layout hierarchy improves performance", 
         "right": [
@@ -1335,7 +1319,7 @@
         ]
     }, 
     {
-        "ID": 87, 
+        "ID": 86, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/relative.html#Position", 
         "question": "By default, all child views of RelativeLayout are drawn at the", 
         "right": [
@@ -1352,7 +1336,7 @@
         ]
     }, 
     {
-        "ID": 88, 
+        "ID": 87, 
         "docRef": "http://developer.android.com/reference/android/widget/RelativeLayout.html", 
         "question": "The default <RelativeLayout> orientation is", 
         "right": [
@@ -1367,7 +1351,7 @@
         ]
     }, 
     {
-        "ID": 89, 
+        "ID": 88, 
         "docRef": "http://developer.android.com/reference/android/widget/ListView.html", 
         "question": "You want to add a footer to your ListView by calling method addFooterView(). Check true statements for API 17", 
         "right": [
@@ -1382,7 +1366,7 @@
         ]
     }, 
     {
-        "ID": 90, 
+        "ID": 89, 
         "docRef": "http://developer.android.com/reference/android/widget/BaseAdapter.html", 
         "question": "To extend BaseAdapter you have to implement these methods", 
         "right": [
@@ -1400,7 +1384,7 @@
         ]
     }, 
     {
-        "ID": 91, 
+        "ID": 90, 
         "docRef": "http://developer.android.com/reference/android/app/ListActivity.html", 
         "question": "Check true statements about ListActivity", 
         "right": [
@@ -1414,7 +1398,7 @@
         ]
     }, 
     {
-        "ID": 92, 
+        "ID": 91, 
         "docRef": "http://developer.android.com/reference/android/view/LayoutInflater.html#inflate(int, android.view.ViewGroup, boolean)", 
         "question": "Which of the following are true statements about LayoutInfalater.inflate()", 
         "right": [
@@ -1430,7 +1414,7 @@
         ]
     }, 
     {
-        "ID": 93, 
+        "ID": 92, 
         "docRef": "http://developer.android.com/reference/android/widget/RadioGroup.html", 
         "question": "Check true statements about RadioGroup", 
         "right": [
@@ -1446,7 +1430,7 @@
         ]
     }, 
     {
-        "ID": 94, 
+        "ID": 93, 
         "docRef": "http://developer.android.com/guide/topics/resources/accessing-resources.html", 
         "question": "You can define the position with android:layout_below=\"@+id/myTextView\" and THEN define the element itself with android:id=\"@id/myTextView\"", 
         "right": [
@@ -1460,7 +1444,7 @@
         ]
     }, 
     {
-        "ID": 95, 
+        "ID": 94, 
         "docRef": "http://developer.android.com/reference/android/widget/CheckBox.html", 
         "question": "A checkbox is a specific type of ___ button.", 
         "right": [
@@ -1474,7 +1458,7 @@
         ]
     }, 
     {
-        "ID": 96, 
+        "ID": 95, 
         "docRef": "http://developer.android.com/guide/topics/ui/controls/checkbox.html#HandlingEvents", 
         "question": "To define the click event handler in layout xml, add the android:onClick attribute. The method you declare in the android:onClick must", 
         "right": [
@@ -1493,7 +1477,7 @@
         ]
     }, 
     {
-        "ID": 97, 
+        "ID": 96, 
         "docRef": "http://developer.android.com/reference/android/widget/SeekBar.html", 
         "question": "SeekBar is an extension of", 
         "right": [
@@ -1509,7 +1493,7 @@
         ]
     }, 
     {
-        "ID": 98, 
+        "ID": 97, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html", 
         "question": "Entries (actions) in the toolbar can be created via", 
         "right": [
@@ -1524,7 +1508,7 @@
         ]
     }, 
     {
-        "ID": 99, 
+        "ID": 98, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html#xml", 
         "question": "What conditions should be fulfilled to define the menu via xml file?", 
         "right": [
@@ -1541,7 +1525,7 @@
         ]
     }, 
     {
-        "ID": 100, 
+        "ID": 99, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html#options-menu", 
         "question": "Check true statements", 
         "right": [
@@ -1556,7 +1540,7 @@
         ]
     }, 
     {
-        "ID": 101, 
+        "ID": 100, 
         "docRef": "http://developer.android.com/guide/topics/ui/menus.html#options-menu", 
         "question": "The activity's options menu items appear first, followed by those of each fragment in the order in which each fragment is added to the activity", 
         "right": [
@@ -1570,7 +1554,7 @@
         ]
     }, 
     {
-        "ID": 102, 
+        "ID": 101, 
         "docRef": "", 
         "question": "Your application uses options menu. Method onCreateOptionsMenu() will be called after", 
         "right": [
@@ -1585,7 +1569,7 @@
         ]
     }, 
     {
-        "ID": 103, 
+        "ID": 102, 
         "docRef": "http://developer.android.com/guide/topics/ui/dialogs.html", 
         "question": "If you need to indicate progress, you can use", 
         "right": [
@@ -1600,7 +1584,7 @@
         ]
     }, 
     {
-        "ID": 104, 
+        "ID": 103, 
         "docRef": "http://developer.android.com/guide/topics/ui/dialogs.html", 
         "question": "Which of the following are true statements about AlertDialog. Dialog can show", 
         "right": [
@@ -1617,7 +1601,7 @@
         ]
     }, 
     {
-        "ID": 105, 
+        "ID": 104, 
         "docRef": "http://developer.android.com/guide/topics/ui/dialogs.html#AlertDialog", 
         "question": "The AlertDialog should always have a title", 
         "right": [
@@ -1631,7 +1615,7 @@
         ]
     }, 
     {
-        "ID": 106, 
+        "ID": 105, 
         "docRef": "http://stackoverflow.com/a/15480186/5766983", 
         "question": "Choose the recommended (best practice) for the ListView attributes", 
         "right": [
@@ -1646,7 +1630,7 @@
         ]
     }, 
     {
-        "ID": 107, 
+        "ID": 106, 
         "docRef": "http://developer.android.com/guide/topics/resources/more-resources.html#Dimension", 
         "question": "Which dimension unit is recommend when specifying font sizes", 
         "right": [
@@ -1663,7 +1647,7 @@
         ]
     }, 
     {
-        "ID": 108, 
+        "ID": 107, 
         "docRef": "http://developer.android.com/guide/topics/resources/more-resources.html#Dimension", 
         "question": "Which dimension units are recommend when specifying margins and padding", 
         "right": [
@@ -1680,7 +1664,7 @@
         ]
     }, 
     {
-        "ID": 109, 
+        "ID": 108, 
         "docRef": "http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder", 
         "question": "findViewById(int) is", 
         "right": [
@@ -1694,7 +1678,7 @@
         ]
     }, 
     {
-        "ID": 110, 
+        "ID": 109, 
         "docRef": "", 
         "question": "Inflation (LayoutInflater.inflate) is", 
         "right": [
@@ -1708,7 +1692,7 @@
         ]
     }, 
     {
-        "ID": 111, 
+        "ID": 110, 
         "docRef": "http://developer.android.com/training/implementing-navigation/lateral.html#horizontal-paging", 
         "question": "____ is best when navigating between sibling screens representing a fixed, small number of pages.", 
         "right": [
@@ -1722,7 +1706,7 @@
         ]
     }, 
     {
-        "ID": 112, 
+        "ID": 111, 
         "docRef": "http://developer.android.com/training/implementing-navigation/lateral.html#horizontal-paging", 
         "question": "____ is best for paging across a collection of objects for which the number of pages is undetermined. It destroys fragments as the user navigates to other pages, minimizing memory usage.", 
         "right": [
@@ -1736,7 +1720,7 @@
         ]
     }, 
     {
-        "ID": 113, 
+        "ID": 112, 
         "docRef": "http://developer.android.com/reference/android/widget/ScrollView.html", 
         "question": "ScrollView supports", 
         "right": [
@@ -1750,7 +1734,7 @@
         ]
     }, 
     {
-        "ID": 114, 
+        "ID": 113, 
         "docRef": "http://developer.android.com/reference/android/widget/ScrollView.html", 
         "question": "(True or False) ScrollView can host multiple direct children.", 
         "right": [
@@ -1764,7 +1748,7 @@
         ]
     }, 
     {
-        "ID": 115, 
+        "ID": 114, 
         "docRef": "https://en.wikipedia.org/wiki/Thread_(computing)", 
         "question": "Java Threads running in the same Process share", 
         "right": [
@@ -1780,7 +1764,7 @@
         ]
     }, 
     {
-        "ID": 116, 
+        "ID": 115, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Android UI toolkit is thread-safe", 
         "right": [
@@ -1794,7 +1778,7 @@
         ]
     }, 
     {
-        "ID": 117, 
+        "ID": 116, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Application components in the same process use the same UI thread", 
         "right": [
@@ -1808,7 +1792,7 @@
         ]
     }, 
     {
-        "ID": 118, 
+        "ID": 117, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "The View hierarchy can be updated from a background Thread", 
         "right": [
@@ -1823,7 +1807,7 @@
         ]
     }, 
     {
-        "ID": 119, 
+        "ID": 118, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "If an application component starts and there already exists a process for that application (because another component from the application exists), then the component is started within a new process", 
         "right": [
@@ -1837,7 +1821,7 @@
         ]
     }, 
     {
-        "ID": 120, 
+        "ID": 119, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Components of different applications run in the same process", 
         "right": [
@@ -1851,7 +1835,7 @@
         ]
     }, 
     {
-        "ID": 121, 
+        "ID": 120, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "Android app can run multiple processes in the foreground", 
         "right": [
@@ -1865,7 +1849,7 @@
         ]
     }, 
     {
-        "ID": 122, 
+        "ID": 121, 
         "docRef": "http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)", 
         "question": "(True or False) Method boolean View.post(Runnable) returns true if the Runnable was successfully executed", 
         "right": [
@@ -1879,7 +1863,7 @@
         ]
     }, 
     {
-        "ID": 123, 
+        "ID": 122, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html#Threads", 
         "question": "Your app is using AsyncTask, which methods are invoked on the UI thread?", 
         "right": [
@@ -1897,7 +1881,7 @@
         ]
     }, 
     {
-        "ID": 124, 
+        "ID": 123, 
         "docRef": "http://developer.android.com/reference/android/os/AsyncTask.html", 
         "question": "(True or False) You implemented AsyncTask to perform background operations. The task can be executed multiple times.", 
         "right": [
@@ -1911,7 +1895,7 @@
         ]
     }, 
     {
-        "ID": 125, 
+        "ID": 124, 
         "docRef": "http://developer.android.com/reference/android/os/AsyncTask.html", 
         "question": "(True or False) Starting with API 11 (Android 3.0) AsyncTasks can operate in parallel.", 
         "right": [
@@ -1925,7 +1909,7 @@
         ]
     }, 
     {
-        "ID": 126, 
+        "ID": 125, 
         "docRef": "http://developer.android.com/reference/android/os/AsyncTask.html", 
         "question": "(True or False) AsyncTask can be cancelled.", 
         "right": [
@@ -1939,7 +1923,7 @@
         ]
     }, 
     {
-        "ID": 127, 
+        "ID": 126, 
         "docRef": "", 
         "question": "What methods can be used to make sure work performed in a background thread gets used in the main UI thread?", 
         "right": [
@@ -1955,7 +1939,7 @@
         ]
     }, 
     {
-        "ID": 128, 
+        "ID": 127, 
         "docRef": "http://developer.android.com/training/articles/perf-anr.html", 
         "question": "(True or False) If you don't care about responsiveness and have a long running process (network access) you can run your code in UI thread.", 
         "right": [
@@ -1969,7 +1953,7 @@
         ]
     }, 
     {
-        "ID": 129, 
+        "ID": 128, 
         "docRef": "http://developer.android.com/guide/components/services.html", 
         "question": "Services by default run in", 
         "right": [
@@ -1983,7 +1967,7 @@
         ]
     }, 
     {
-        "ID": 130, 
+        "ID": 129, 
         "docRef": "http://developer.android.com/reference/android/os/Handler.html", 
         "question": "A handler can be associated with a multiple threads", 
         "right": [
@@ -1997,7 +1981,7 @@
         ]
     }, 
     {
-        "ID": 131, 
+        "ID": 130, 
         "docRef": "http://developer.android.com/reference/android/widget/Toast.html#setDuration(int)", 
         "question": "(True or False) When using setDuration for a Toast is it possible to set any custom length.", 
         "right": [
@@ -2011,7 +1995,7 @@
         ]
     }, 
     {
-        "ID": 132, 
+        "ID": 131, 
         "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html#CreateNotification", 
         "question": "A Notification object must contain the following:", 
         "right": [
@@ -2028,7 +2012,7 @@
         ]
     }, 
     {
-        "ID": 133, 
+        "ID": 132, 
         "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
         "question": "Your application can use Notifications to alert users of events that may require their attention without one of its Activity\u2019s being visible.", 
         "right": [
@@ -2042,7 +2026,7 @@
         ]
     }, 
     {
-        "ID": 134, 
+        "ID": 133, 
         "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
         "question": "Using the Notification Manager, you can", 
         "right": [
@@ -2058,7 +2042,7 @@
         ]
     }, 
     {
-        "ID": 135, 
+        "ID": 134, 
         "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
         "question": "Both the notification area and the notification drawer are ___-controlled areas that the user can view at any time.", 
         "right": [
@@ -2073,7 +2057,7 @@
         ]
     }, 
     {
-        "ID": 136, 
+        "ID": 135, 
         "docRef": "http://developer.android.com/guide/topics/ui/notifiers/notifications.html", 
         "question": "Which of the following are examples of User Notification?", 
         "right": [
@@ -2089,7 +2073,7 @@
         ]
     }, 
     {
-        "ID": 137, 
+        "ID": 136, 
         "docRef": "http://developer.android.com/reference/android/widget/Toast.html", 
         "question": "(True or False) Toast messages are temporary messages that pop up on the display.", 
         "right": [
@@ -2103,7 +2087,7 @@
         ]
     }, 
     {
-        "ID": 138, 
+        "ID": 137, 
         "docRef": "http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-apache-http-client", 
         "question": "Which one of the following HTTP clients is Android's preferred HTTP client?", 
         "right": [
@@ -2119,7 +2103,7 @@
         ]
     }, 
     {
-        "ID": 139, 
+        "ID": 138, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#onReceive(android.content.Context, android.content.Intent)", 
         "question": "By default, any time spent in BroadcastReceiver.onReceive() will freeze your UI", 
         "right": [
@@ -2133,7 +2117,7 @@
         ]
     }, 
     {
-        "ID": 140, 
+        "ID": 139, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "By default, if you broadcast an Intent, and there are many registered BroadcastReceivers that match that Intent, all of them will receive the broadcast, in indeterminate order", 
         "right": [
@@ -2147,7 +2131,7 @@
         ]
     }, 
     {
-        "ID": 141, 
+        "ID": 140, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "(True or False) The priority is a positive integer, with lower numbers indicating higher priority.", 
         "right": [
@@ -2161,7 +2145,7 @@
         ]
     }, 
     {
-        "ID": 142, 
+        "ID": 141, 
         "docRef": "http://developer.android.com/guide/topics/manifest/intent-filter-element.html", 
         "question": "Check true statements about a broadcast receiver priority.", 
         "right": [
@@ -2180,7 +2164,7 @@
         ]
     }, 
     {
-        "ID": 143, 
+        "ID": 142, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "How can you register BroadcastReceiver?", 
         "right": [
@@ -2195,7 +2179,7 @@
         ]
     }, 
     {
-        "ID": 144, 
+        "ID": 143, 
         "docRef": "http://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html", 
         "question": "(True or False) You can broadcast within an app.", 
         "right": [
@@ -2209,7 +2193,7 @@
         ]
     }, 
     {
-        "ID": 145, 
+        "ID": 144, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "Check true statements about normal broadcasts (sent with Context.sendBroadcast)", 
         "right": [
@@ -2224,7 +2208,7 @@
         ]
     }, 
     {
-        "ID": 146, 
+        "ID": 145, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "Check true statements about ordered broadcasts (sent with Context.sendOrderedBroadcast) ", 
         "right": [
@@ -2240,7 +2224,7 @@
         ]
     }, 
     {
-        "ID": 147, 
+        "ID": 146, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "(True or False) When you use registerReceiver(BroadcastReceiver, IntentFilter), you can control who can send broadcasts to it through permissions", 
         "right": [
@@ -2254,7 +2238,7 @@
         ]
     }, 
     {
-        "ID": 148, 
+        "ID": 147, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "(True or False) Application with broadcast receivers can respond to broadcast events even after app has been closed or killed.", 
         "right": [
@@ -2268,7 +2252,7 @@
         ]
     }, 
     {
-        "ID": 149, 
+        "ID": 148, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "(True or False) A Receiver registered programmatically will respond to Broadcast Intents even when the application component it is registered within is not running.", 
         "right": [
@@ -2282,7 +2266,7 @@
         ]
     }, 
     {
-        "ID": 150, 
+        "ID": 149, 
         "docRef": "http://developer.android.com/reference/android/content/Context.html#sendOrderedBroadcast(android.content.Intent, java.lang.String, android.content.BroadcastReceiver, android.os.Handler, int, java.lang.String, android.os.Bundle)", 
         "question": "Which methods allows you to receive data back from the broadcast?", 
         "right": [
@@ -2299,7 +2283,7 @@
         ]
     }, 
     {
-        "ID": 151, 
+        "ID": 150, 
         "docRef": "http://developer.android.com/reference/android/content/Context.html#sendStickyOrderedBroadcast(android.content.Intent, android.content.BroadcastReceiver, android.os.Handler, int, java.lang.String, android.os.Bundle)", 
         "question": "(True or False) Sticky broadcasts provide no security (anyone can access them), no protection (anyone can modify them).", 
         "right": [
@@ -2313,7 +2297,7 @@
         ]
     }, 
     {
-        "ID": 152, 
+        "ID": 151, 
         "docRef": "http://developer.android.com/reference/android/support/v4/content/LocalBroadcastManager.html", 
         "question": "(True or False) Using the Local Broadcast Manager is more efficient than sending a global broadcast.", 
         "right": [
@@ -2327,7 +2311,7 @@
         ]
     }, 
     {
-        "ID": 153, 
+        "ID": 152, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "(True or False) The Intent message bus uses different channels (completely separate) to start activity and send broadcast", 
         "right": [
@@ -2341,7 +2325,7 @@
         ]
     }, 
     {
-        "ID": 154, 
+        "ID": 153, 
         "docRef": "http://developer.android.com/guide/components/intents-filters.html", 
         "question": "(True or False) You should set an Intent filter for every indirectly targeted broadcast receiver.", 
         "right": [
@@ -2355,7 +2339,7 @@
         ]
     }, 
     {
-        "ID": 155, 
+        "ID": 154, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "Broadcast access permissions can be enforced by", 
         "right": [
@@ -2370,7 +2354,7 @@
         ]
     }, 
     {
-        "ID": 156, 
+        "ID": 155, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#ReceiverLifecycle", 
         "question": "Which operations are forbidden in BroadcastReceiver.onReceive()?", 
         "right": [
@@ -2387,7 +2371,7 @@
         ]
     }, 
     {
-        "ID": 157, 
+        "ID": 156, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html", 
         "question": "A BroadcastReceiver ___.", 
         "right": [
@@ -2403,7 +2387,7 @@
         ]
     }, 
     {
-        "ID": 158, 
+        "ID": 157, 
         "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#filesInternal", 
         "question": "(True or False) Android resources (in the res directory) are read-only at runtime and cannot be written to.", 
         "right": [
@@ -2417,7 +2401,7 @@
         ]
     }, 
     {
-        "ID": 159, 
+        "ID": 158, 
         "docRef": "http://developer.android.com/reference/android/database/Cursor.html", 
         "question": "A Cursor object is not thread safe", 
         "right": [
@@ -2431,7 +2415,7 @@
         ]
     }, 
     {
-        "ID": 160, 
+        "ID": 159, 
         "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#Permissions", 
         "question": "(True or False) Components in the content provider's application always have full read and write access, regardless of the specified permissions.", 
         "right": [
@@ -2445,7 +2429,7 @@
         ]
     }, 
     {
-        "ID": 161, 
+        "ID": 160, 
         "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#Permissions", 
         "question": "(True or False) If a provider's application doesn't specify any permissions, then other applications have full access to the provider's data.", 
         "right": [
@@ -2459,7 +2443,7 @@
         ]
     }, 
     {
-        "ID": 162, 
+        "ID": 161, 
         "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#Modifications", 
         "question": "(True or False) The provider and provider client automatically handle security and inter-process communication.", 
         "right": [
@@ -2473,7 +2457,7 @@
         ]
     }, 
     {
-        "ID": 163, 
+        "ID": 162, 
         "docRef": "http://developer.android.com/guide/topics/providers/content-provider-basics.html#DataTypes", 
         "question": "Content Providers can offer these data types (of the given column's value):", 
         "right": [
@@ -2493,7 +2477,7 @@
         ]
     }, 
     {
-        "ID": 164, 
+        "ID": 163, 
         "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
         "question": "(True or False) All databases are private, accessible only by the application that created them.", 
         "right": [
@@ -2507,7 +2491,7 @@
         ]
     }, 
     {
-        "ID": 165, 
+        "ID": 164, 
         "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
         "question": "Android provides full support for SQLite database and it's implemented as", 
         "right": [
@@ -2521,7 +2505,7 @@
         ]
     }, 
     {
-        "ID": 166, 
+        "ID": 165, 
         "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
         "question": "(True or False)  SQLite database in Android is running as a separate ongoing process", 
         "right": [
@@ -2535,7 +2519,7 @@
         ]
     }, 
     {
-        "ID": 167, 
+        "ID": 166, 
         "docRef": "https://www.sqlite.org/different.html", 
         "question": "(True or False) SQLite column values are required to conform to a single type (strongly typed).", 
         "right": [
@@ -2549,7 +2533,7 @@
         ]
     }, 
     {
-        "ID": 168, 
+        "ID": 167, 
         "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#db", 
         "question": "Database queries can be returned as", 
         "right": [
@@ -2563,7 +2547,7 @@
         ]
     }, 
     {
-        "ID": 169, 
+        "ID": 168, 
         "docRef": "http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase()", 
         "question": "(True or False) The SQLite Open Helper caches database instances after they\u2019ve been successfully opened.", 
         "right": [
@@ -2577,7 +2561,7 @@
         ]
     }, 
     {
-        "ID": 170, 
+        "ID": 169, 
         "docRef": "http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#execSQL(java.lang.String)", 
         "question": "(True or False) SQLiteDatabase.execSQL() can execute multiple statements separated by semicolons.", 
         "right": [
@@ -2591,7 +2575,7 @@
         ]
     }, 
     {
-        "ID": 171, 
+        "ID": 170, 
         "docRef": "http://developer.android.com/reference/android/content/SharedPreferences.html", 
         "question": "SharedPreferences supports use across multiple processes", 
         "right": [
@@ -2605,7 +2589,7 @@
         ]
     }, 
     {
-        "ID": 172, 
+        "ID": 171, 
         "docRef": "http://developer.android.com/guide/topics/data/data-storage.html#filesExternal", 
         "question": "Which operations by default can be done with files placed on the external storage?", 
         "right": [
@@ -2620,7 +2604,7 @@
         ]
     }, 
     {
-        "ID": 173, 
+        "ID": 172, 
         "docRef": "http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#onCreate(android.database.sqlite.SQLiteDatabase)", 
         "question": "(True or False) SQLiteOpenHelper.onCreate method is called only when the database does not exist", 
         "right": [
@@ -2634,7 +2618,7 @@
         ]
     }, 
     {
-        "ID": 174, 
+        "ID": 173, 
         "docRef": "http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html#getReadableDatabase()", 
         "question": "(True or False) Unless some problem  SQLiteOpenHelper.getReadableDatabase and getWrittableDatabase will return the same object.", 
         "right": [
@@ -2648,7 +2632,7 @@
         ]
     }, 
     {
-        "ID": 175, 
+        "ID": 174, 
         "docRef": "", 
         "question": "(True or False) A query (e.g. rawQuery) is not actually executed until we do something that needs the result set.", 
         "right": [
@@ -2662,7 +2646,7 @@
         ]
     }, 
     {
-        "ID": 176, 
+        "ID": 175, 
         "docRef": "http://developer.android.com/reference/android/content/SharedPreferences.html", 
         "question": "The value saved in SharedPreferences can be one of the following data types:", 
         "right": [
@@ -2681,7 +2665,7 @@
         ]
     }, 
     {
-        "ID": 177, 
+        "ID": 176, 
         "docRef": "http://developer.android.com/guide/topics/ui/settings.html#DefiningPrefs", 
         "question": "You can define your list of settings in XML with a hierarchy of Preference objects. And the XML file must be saved in the ____ directory.", 
         "right": [
@@ -2697,7 +2681,7 @@
         ]
     }, 
     {
-        "ID": 178, 
+        "ID": 177, 
         "docRef": "http://developer.android.com/guide/topics/ui/settings.html#Fragment", 
         "question": "To provide settings for an app you can use a PreferenceFragment and you can add it to", 
         "right": [
@@ -2711,7 +2695,7 @@
         ]
     }, 
     {
-        "ID": 179, 
+        "ID": 178, 
         "docRef": "http://developer.android.com/guide/topics/ui/settings.html#Activity", 
         "question": "(True or False) PreferenceActivity or PreferenceFragment class expects you do load a layout of views during the onCreate()", 
         "right": [
@@ -2725,7 +2709,7 @@
         ]
     }, 
     {
-        "ID": 180, 
+        "ID": 179, 
         "docRef": "http://developer.android.com/guide/topics/ui/settings.html#Activity", 
         "question": "(True or False) The PreferenceActivity automatically persists the settings associated with each Preference when the user makes a change.", 
         "right": [
@@ -2739,7 +2723,7 @@
         ]
     }, 
     {
-        "ID": 181, 
+        "ID": 180, 
         "docRef": "http://stackoverflow.com/a/16374538/5766983", 
         "question": "(True or False) PreferenceActivity is deprecated for API Level 11 and higher", 
         "right": [
@@ -2753,7 +2737,7 @@
         ]
     }, 
     {
-        "ID": 182, 
+        "ID": 181, 
         "docRef": "http://stackoverflow.com/questions/10407159/how-to-manage-startactivityforresult-on-android", 
         "question": "You have two activities:  activity1 and activity2.  If activity1 starts activity2 with the startActivityWithResult() method, what must activity2 do in order to return both a result and data to activity1?", 
         "right": [
@@ -2769,7 +2753,7 @@
         ]
     }, 
     {
-        "ID": 187, 
+        "ID": 186, 
         "docRef": "http://developer.android.com/guide/topics/graphics/overview.html", 
         "question": "Android provides a variety of animation systems. Which ones?", 
         "right": [
@@ -2785,7 +2769,7 @@
         ]
     }, 
     {
-        "ID": 188, 
+        "ID": 187, 
         "docRef": "http://developer.android.com/reference/android/graphics/drawable/Drawable.html", 
         "question": "(True or False) Drawable does not have any facility to receive events or otherwise interact with the user.", 
         "right": [
@@ -2799,7 +2783,7 @@
         ]
     }, 
     {
-        "ID": 189, 
+        "ID": 188, 
         "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html", 
         "question": "Drawing to a View is better suited for", 
         "right": [
@@ -2813,7 +2797,7 @@
         ]
     }, 
     {
-        "ID": 190, 
+        "ID": 189, 
         "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html", 
         "question": "Drawing to a Canvas is better suited for", 
         "right": [
@@ -2827,7 +2811,7 @@
         ]
     }, 
     {
-        "ID": 191, 
+        "ID": 190, 
         "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html#drawables-from-images", 
         "question": "A simple way to add graphics to your application is by referencing an image file from your project resources. Supported file types are ", 
         "right": [
@@ -2845,7 +2829,7 @@
         ]
     }, 
     {
-        "ID": 192, 
+        "ID": 191, 
         "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html#drawables-from-images", 
         "question": "(True or False) Image resources placed in res/drawable/ may be automatically optimized with lossless image compression tool during the build process.", 
         "right": [
@@ -2859,7 +2843,7 @@
         ]
     }, 
     {
-        "ID": 193, 
+        "ID": 192, 
         "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html#drawables-from-images", 
         "question": "If you plan on reading an image as a bit stream in order to convert it to a bitmap, put your images in the", 
         "right": [
@@ -2875,7 +2859,7 @@
         ]
     }, 
     {
-        "ID": 194, 
+        "ID": 193, 
         "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html#drawables-from-images", 
         "question": "(True or False) If you instantiate two Drawable objects from the same image resource, then change a property (such as the alpha) for one of the Drawables, then it will not affect the other.", 
         "right": [
@@ -2889,7 +2873,7 @@
         ]
     }, 
     {
-        "ID": 195, 
+        "ID": 194, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
         "question": "(True or False) Methods of an Activity onSaveInstanceState and onRestoreInstanceState are not guaranteed to be called together. ", 
         "right": [
@@ -2903,7 +2887,7 @@
         ]
     }, 
     {
-        "ID": 196, 
+        "ID": 195, 
         "docRef": "https://guides.codepath.com/android/Creating-and-Using-Fragments#fragment-with-arguments", 
         "question": "To construct a Fragment you can use", 
         "right": [
@@ -2918,7 +2902,7 @@
         ]
     }, 
     {
-        "ID": 197, 
+        "ID": 196, 
         "docRef": "", 
         "question": "(True or False) Static Fragments can be headless (without UI).", 
         "right": [
@@ -2932,7 +2916,7 @@
         ]
     }, 
     {
-        "ID": 198, 
+        "ID": 197, 
         "docRef": "", 
         "question": "(True or False) Dynamic Fragments can be headless (without UI).", 
         "right": [
@@ -2946,7 +2930,7 @@
         ]
     }, 
     {
-        "ID": 199, 
+        "ID": 198, 
         "docRef": "", 
         "question": "Which Fragments must have a view container.", 
         "right": [
@@ -2960,7 +2944,7 @@
         ]
     }, 
     {
-        "ID": 200, 
+        "ID": 199, 
         "docRef": "http://developer.android.com/training/improving-layouts/reusing-layouts.html", 
         "question": "(True or False) You can embed one layout inside the another layout.", 
         "right": [
@@ -2974,7 +2958,7 @@
         ]
     }, 
     {
-        "ID": 201, 
+        "ID": 200, 
         "docRef": "http://developer.android.com/training/improving-layouts/reusing-layouts.html", 
         "question": "If you want to override layout attributes using the <include> tag, you must override ______ in order for other layout attributes to take effect.", 
         "right": [
@@ -2989,7 +2973,7 @@
         ]
     }, 
     {
-        "ID": 202, 
+        "ID": 201, 
         "docRef": "http://developer.android.com/reference/android/support/design/widget/Snackbar.html", 
         "question": "What's the difference between toast and snackbar? ", 
         "right": [
@@ -3004,7 +2988,7 @@
         ]
     }, 
     {
-        "ID": 203, 
+        "ID": 202, 
         "docRef": "http://developer.android.com/reference/android/content/ContentProvider.html", 
         "question": "Which methods must be implemented in your Content Provider?", 
         "right": [
@@ -3024,7 +3008,7 @@
         ]
     }, 
     {
-        "ID": 204, 
+        "ID": 203, 
         "docRef": "http://developer.android.com/guide/components/fundamentals.html", 
         "question": "Check a component that drives the bulk of your user interface.", 
         "right": [
@@ -3040,7 +3024,7 @@
         ]
     }, 
     {
-        "ID": 205, 
+        "ID": 204, 
         "docRef": "http://developer.android.com/guide/components/fundamentals.html", 
         "question": "Check a component that exists for longer-running operations that are logically decoupled from the user interface.", 
         "right": [
@@ -3056,7 +3040,7 @@
         ]
     }, 
     {
-        "ID": 206, 
+        "ID": 205, 
         "docRef": "http://developer.android.com/guide/components/fundamentals.html", 
         "question": "Check a component that is a publish/subscribe messaging system, to allow you to send messages to arbitrary subscribers, or to subscribe to messages from arbitrary senders, across process boundaries", 
         "right": [
@@ -3072,7 +3056,7 @@
         ]
     }, 
     {
-        "ID": 207, 
+        "ID": 206, 
         "docRef": "http://developer.android.com/guide/components/fundamentals.html", 
         "question": "Check a component that is for bulk data transfer, whether in the form of a database-style structure (rows and columns) or in the form of a stream, particularly for working with other apps", 
         "right": [
@@ -3088,7 +3072,7 @@
         ]
     }, 
     {
-        "ID": 208, 
+        "ID": 207, 
         "docRef": "http://developer.android.com/tools/help/adb.html", 
         "question": "What is ADB in android?", 
         "right": [
@@ -3104,7 +3088,7 @@
         ]
     }, 
     {
-        "ID": 209, 
+        "ID": 208, 
         "docRef": "http://developer.android.com/training/articles/perf-anr.html", 
         "question": "What is ANR in android?", 
         "right": [
@@ -3120,7 +3104,7 @@
         ]
     }, 
     {
-        "ID": 210, 
+        "ID": 209, 
         "docRef": "http://developer.android.com/reference/android/content/BroadcastReceiver.html#onReceive(android.content.Context, android.content.Intent)", 
         "question": "What is the time limit of broadcast receiver in android?", 
         "right": [
@@ -3138,7 +3122,7 @@
         ]
     }, 
     {
-        "ID": 211, 
+        "ID": 210, 
         "docRef": "http://stackoverflow.com/questions/14671897/super-oncreatesavedinstancestate", 
         "question": "What is the purpose of super.onCreate() in android?", 
         "right": [
@@ -3154,7 +3138,7 @@
         ]
     }, 
     {
-        "ID": 212, 
+        "ID": 211, 
         "docRef": "http://developer.android.com/guide/components/services.html", 
         "question": "What is the difference between services and thread in android?", 
         "right": [
@@ -3170,7 +3154,7 @@
         ]
     }, 
     {
-        "ID": 213, 
+        "ID": 212, 
         "docRef": "http://developer.android.com/training/basics/supporting-devices/index.html", 
         "question": "Which features are considered while creating android application?", 
         "right": [
@@ -3185,7 +3169,7 @@
         "wrong": []
     }, 
     {
-        "ID": 214, 
+        "ID": 213, 
         "docRef": "http://developer.android.com/guide/topics/manifest/activity-element.html#screen", 
         "question": "How many orientations does android support (screenOrientation)?", 
         "right": [
@@ -3200,7 +3184,7 @@
         ]
     }, 
     {
-        "ID": 215, 
+        "ID": 214, 
         "docRef": "http://developer.android.com/training/basics/data-storage/index.html", 
         "question": "How to store heavy structured data in android?", 
         "right": [
@@ -3217,7 +3201,7 @@
         ]
     }, 
     {
-        "ID": 216, 
+        "ID": 215, 
         "docRef": "http://stackoverflow.com/questions/12817311/launch-service-from-app-start-not-activity/12817384#12817384", 
         "question": "Is it possible activity without UI in android?", 
         "right": [
@@ -3232,7 +3216,7 @@
         ]
     }, 
     {
-        "ID": 217, 
+        "ID": 216, 
         "docRef": "http://developer.android.com/training/improving-layouts/optimizing-layout.html#Lint", 
         "question": "Layouts with too much nesting are bad for performance. The default maximum depth is", 
         "right": [
@@ -3249,7 +3233,7 @@
         ]
     }, 
     {
-        "ID": 218, 
+        "ID": 217, 
         "docRef": "http://developer.android.com/reference/android/widget/RelativeLayout.html", 
         "question": "Which dependencies cannot be set for RelativeLayout", 
         "right": [
@@ -3264,7 +3248,7 @@
         ]
     }, 
     {
-        "ID": 219, 
+        "ID": 218, 
         "docRef": "https://github.com/codepath/android_guides/wiki/Constructing-View-Layouts#relativelayout", 
         "question": "RelativeLayout positions views based on", 
         "right": [
@@ -3280,7 +3264,7 @@
         ]
     }, 
     {
-        "ID": 220, 
+        "ID": 219, 
         "docRef": "http://developer.android.com/reference/android/widget/RelativeLayout.html", 
         "question": "(True or False) RelativeLayout has orientation attribute", 
         "right": [
@@ -3294,7 +3278,7 @@
         ]
     }, 
     {
-        "ID": 221, 
+        "ID": 220, 
         "docRef": "http://stackoverflow.com/a/5226111/5766983", 
         "question": "AsyncTask is tied to the", 
         "right": [
@@ -3309,7 +3293,7 @@
         ]
     }, 
     {
-        "ID": 222, 
+        "ID": 221, 
         "docRef": "http://stackoverflow.com/questions/7120813/asynctaskloader-vs-asynctask", 
         "question": "AsyncTaskLoader is tied to the", 
         "right": [
@@ -3323,7 +3307,7 @@
         ]
     }, 
     {
-        "ID": 223, 
+        "ID": 222, 
         "docRef": "http://developer.android.com/training/custom-views/index.html", 
         "question": "How does Android draw the view hierarchy?", 
         "right": [
@@ -3340,7 +3324,7 @@
         ]
     }, 
     {
-        "ID": 224, 
+        "ID": 223, 
         "docRef": "http://developer.android.com/training/custom-views/index.html", 
         "question": "Check Views responsibilities.", 
         "right": [
@@ -3356,7 +3340,7 @@
         "wrong": []
     }, 
     {
-        "ID": 225, 
+        "ID": 224, 
         "docRef": "http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html", 
         "question": "CoordinatorLayout is a descendant of _____", 
         "right": [
@@ -3371,7 +3355,7 @@
         ]
     }, 
     {
-        "ID": 226, 
+        "ID": 225, 
         "docRef": "http://developer.android.com/guide/components/tasks-and-back-stack.html", 
         "question": "Suppose that you have an app with just one activity. Your foreground activity will be destroyed when the user presses ", 
         "right": [
@@ -3385,7 +3369,7 @@
         ]
     }, 
     {
-        "ID": 227, 
+        "ID": 226, 
         "docRef": "http://developer.android.com/guide/topics/resources/runtime-changes.html#HandlingTheChange", 
         "question": "Device rotation can trigger these configuration changes:", 
         "right": [
@@ -3401,7 +3385,7 @@
         ]
     }, 
     {
-        "ID": 228, 
+        "ID": 227, 
         "docRef": "http://developer.android.com/reference/android/app/Activity.html#onConfigurationChanged(android.content.res.Configuration)", 
         "question": "(True or False) Activity.onConfigurationChanged() always will be called by the system when the device configuration changes while your activity is running.", 
         "right": [
@@ -3415,7 +3399,7 @@
         ]
     }, 
     {
-        "ID": 229, 
+        "ID": 228, 
         "docRef": "http://stackoverflow.com/questions/7536988/android-app-out-of-memory-issues-tried-everything-and-still-at-a-loss/7576275#7576275", 
         "question": "Android can destroy your background Activities (apart of foreground in the same process) of  to reclaim memory.", 
         "right": [
@@ -3429,7 +3413,7 @@
         ]
     }, 
     {
-        "ID": 230, 
+        "ID": 229, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html#lifecycle-states", 
         "question": "The paused activity ", 
         "right": [
@@ -3444,7 +3428,7 @@
         ]
     }, 
     {
-        "ID": 231, 
+        "ID": 230, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html#lifecycle-states", 
         "question": "In what states can the Activity exist for an extended period of time (static states opposed to transient)?", 
         "right": [
@@ -3461,7 +3445,7 @@
         ]
     }, 
     {
-        "ID": 232, 
+        "ID": 231, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/stopping.html", 
         "question": "When Activity is stopped?", 
         "right": [
@@ -3477,7 +3461,7 @@
         ]
     }, 
     {
-        "ID": 233, 
+        "ID": 232, 
         "docRef": "http://www.intertech.com/Blog/saving-and-retrieving-android-instance-state-part-1/", 
         "question": "Can you put state in the bundle of Activity A and have Activity B opened and expect to see the state of Activity A in its bundle?", 
         "right": [
@@ -3491,7 +3475,7 @@
         ]
     }, 
     {
-        "ID": 234, 
+        "ID": 233, 
         "docRef": "http://developer.android.com/guide/topics/resources/runtime-changes.html", 
         "question": "onRestoreInstanceState (Bundle savedInstanceState) is called when the activity is being re-initialized from a previously saved state. Check true statements", 
         "right": [
@@ -3505,7 +3489,7 @@
         "wrong": []
     }, 
     {
-        "ID": 235, 
+        "ID": 234, 
         "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
         "question": "(True or False) Not unlike activities, fragments have a similar lifecycle methods. But which method(s) fragments doesn't have?", 
         "right": [
@@ -3521,7 +3505,7 @@
         ]
     }, 
     {
-        "ID": 236, 
+        "ID": 235, 
         "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onSaveInstanceState(android.os.Bundle)", 
         "question": "If a new instance of the fragment later needs to be re-created, the data you place in the Bundle will be available in ", 
         "right": [
@@ -3537,7 +3521,7 @@
         ]
     }, 
     {
-        "ID": 237, 
+        "ID": 236, 
         "docRef": "http://stackoverflow.com/questions/11182180/understanding-fragments-setretaininstanceboolean", 
         "question": "(True or False) setRetainInstance controls whether a fragment views are retained across Activity re-creation (such as from a configuration change)", 
         "right": [
@@ -3551,7 +3535,7 @@
         ]
     }, 
     {
-        "ID": 238, 
+        "ID": 237, 
         "docRef": "https://androidbycode.wordpress.com/2015/02/14/goodbye-launcher-drawables-hello-mipmaps/", 
         "question": "It\u2019s best practice to place your launcher icons in the _______ folder. ", 
         "right": [
@@ -3568,7 +3552,7 @@
         ]
     }, 
     {
-        "ID": 239, 
+        "ID": 238, 
         "docRef": "https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-pixel-density", 
         "question": "Which unit of measurement should you use to ensure consistent appearance/layout/size in all screen sizes/densities.", 
         "right": [
@@ -3584,7 +3568,7 @@
         ]
     }, 
     {
-        "ID": 240, 
+        "ID": 239, 
         "docRef": "https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-", 
         "question": "Which unit of measurement should you use to ensure proper scaling and responsiveness of fonts for all screen sizes/densities? ", 
         "right": [
@@ -3600,7 +3584,7 @@
         ]
     }, 
     {
-        "ID": 241, 
+        "ID": 240, 
         "docRef": "https://stuff.mit.edu/afs/sipb/project/android/docs/guide/practices/ui_guidelines/icon_design_launcher.html", 
         "question": "Unlike regular graphic assets, launcher icons are density independent so a single graphic (.png) file is needed for all screen densities.", 
         "right": [
@@ -3614,7 +3598,7 @@
         ]
     }, 
     {
-        "ID": 242, 
+        "ID": 241, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
         "question": "The LayoutParam.layout_weight is available in all ViewGroup subclasses.", 
         "right": [
@@ -3628,7 +3612,7 @@
         ]
     }, 
     {
-        "ID": 243, 
+        "ID": 242, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
         "question": "Given a vertial Linear Layout ViewGroup, what is the best way to ensure all child views appear on the screen regardless of screen size or density?", 
         "right": [
@@ -3643,7 +3627,7 @@
         ]
     }, 
     {
-        "ID": 244, 
+        "ID": 243, 
         "docRef": "http://sandipchitale.blogspot.in/2010/05/linearlayout-gravity-and-layoutgravity.html", 
         "question": "LayoutParams configure the way an Android ViewGroup arranges (lays out) its child views.", 
         "right": [
@@ -3657,7 +3641,7 @@
         ]
     }, 
     {
-        "ID": 246, 
+        "ID": 245, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/relative.html", 
         "question": "With RelativeLayout the first child View will be placed at the top-left position by default (assuming a left-to-right language setting).  Where will the next child be positioned if no alignment is specified?", 
         "right": [
@@ -3673,7 +3657,7 @@
         ]
     }, 
     {
-        "ID": 247, 
+        "ID": 246, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/starting.html", 
         "question": "Which is the correct Activity Lifecycle callback sequence called when an app is first launched?", 
         "right": [
@@ -3688,7 +3672,7 @@
         ]
     }, 
     {
-        "ID": 248, 
+        "ID": 247, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
         "question": "A Bundle savedInstanceState is a collection of key-value pairs which are used to re-create an Activity exactly as it was prior to its destruction.  Which of the following scenarios lead to a saved Instance State?", 
         "right": [
@@ -3703,7 +3687,7 @@
         ]
     }, 
     {
-        "ID": 249, 
+        "ID": 248, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
         "question": "Which callback method(s) of Activity receive the saved instance Bundle as a parameter?", 
         "right": [
@@ -3718,7 +3702,7 @@
         ]
     }, 
     {
-        "ID": 250, 
+        "ID": 249, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
         "question": "By overriding an Activity's onSaveInstanceState() method, it eliminates the need to call the superclass implementation of onSaveInstanceState().", 
         "right": [
@@ -3732,7 +3716,7 @@
         ]
     }, 
     {
-        "ID": 251, 
+        "ID": 250, 
         "docRef": "http://developer.android.com/training/basics/activity-lifecycle/recreating.html", 
         "question": "The activity onRestoreInstanceState() method is called after:", 
         "right": [
@@ -3748,7 +3732,7 @@
         ]
     }, 
     {
-        "ID": 252, 
+        "ID": 251, 
         "docRef": "http://stackoverflow.com/questions/17230049/sqlitequerybuilder-query-vs-sqlitedatabase-query", 
         "question": "To create table joins and unions you can use", 
         "right": [
@@ -3763,7 +3747,24 @@
         ]
     }, 
     {
-        "ID": 254, 
+        "ID": 252, 
+        "docRef": "http://developer.android.com/guide/topics/resources/color-list-resource.html", 
+        "question": "What is the XML root element of a Color State List Resource (effects a color change based on the state of the view object)", 
+        "right": [
+            "<selector>"
+        ], 
+        "tags": [
+            "Animation, User Interfaces"
+        ], 
+        "wrong": [
+            "<item>", 
+            "<view>", 
+            "<color>", 
+            "<resources>"
+        ]
+    }, 
+    {
+        "ID": 253, 
         "docRef": "http://developer.android.com/training/basics/intents/result.html", 
         "question": "startActivityForResult() can be called only with explicit Intent", 
         "right": [
@@ -3777,7 +3778,7 @@
         ]
     }, 
     {
-        "ID": 255, 
+        "ID": 254, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "(from API 11) AsyncTasks are executed serially on a single background thread. So long running worker can block others.", 
         "right": [
@@ -3791,7 +3792,7 @@
         ]
     }, 
     {
-        "ID": 256, 
+        "ID": 255, 
         "docRef": "http://developer.android.com/guide/topics/manifest/manifest-intro.html", 
         "question": "All Android components should be registered in the AndroidManifest.xml file", 
         "right": [
@@ -3805,7 +3806,7 @@
         ]
     }, 
     {
-        "ID": 257, 
+        "ID": 256, 
         "docRef": "http://developer.android.com/guide/topics/ui/layout/linear.html#Weight", 
         "question": "What is default value for layout_weight of LinearLayout?", 
         "right": [
@@ -3821,7 +3822,7 @@
         ]
     }, 
     {
-        "ID": 258, 
+        "ID": 257, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
         "question": "By default, all the components (Activity, Service, BroadcastReceiver, Content Providers) are instantiated in", 
         "right": [
@@ -3837,7 +3838,7 @@
         ]
     }, 
     {
-        "ID": 259, 
+        "ID": 258, 
         "docRef": "http://developer.android.com/reference/android/os/Bundle.html", 
         "question": "Bundle can hold ", 
         "right": [
@@ -3853,7 +3854,21 @@
         ]
     }, 
     {
-        "ID": 261, 
+        "ID": 259, 
+        "docRef": "http://developer.android.com/reference/android/widget/Toolbar.html", 
+        "question": "While an action bar is traditionally part of an Activity's opaque window decor controlled by the framework, a Toolbar may be placed at any arbitrary level of nesting within a view hierarchy.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 260, 
         "docRef": "http://developer.android.com/reference/android/app/Fragment.html#Lifecycle", 
         "question": "What is the first method in a Fragment's lifecycle to be called after it has been associated with an Activity?", 
         "right": [
@@ -3865,6 +3880,363 @@
         "wrong": [
             "onActivityCreated()", 
             "onCreate()"
+        ]
+    }, 
+    {
+        "ID": 261, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html", 
+        "question": "To ensure fragment stability, you must have a default constructor (implicit or explicit) in the fragment class.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 262, 
+        "docRef": "http://stackoverflow.com/questions/8903874/can-i-remove-a-fragment-defined-in-a-layout-xml-file", 
+        "question": "Which FragmentTransaction method should be used to replace a fragment defined in the host activity's XML layout file using <fragment> with a different fragment?", 
+        "right": [
+            "Static fragments cannot be manipulated through FragmentTransaction"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "replace(Fragment)", 
+            "detach(Fragment)", 
+            "remove(Fragment)"
+        ]
+    }, 
+    {
+        "ID": 263, 
+        "docRef": "http://developer.android.com/reference/android/app/FragmentManager.html#findFragmentById(int)WithFrag", 
+        "question": "When adding a fragment to an activity's XML layout, what are the two fragment attributes which allow the activity's FragmentManager to uniquely identify the fragment?", 
+        "right": [
+            "android:tag", 
+            "android:id"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "android:name", 
+            "class"
+        ]
+    }, 
+    {
+        "ID": 264, 
+        "docRef": "https://blog.nikitaog.me/2014/10/11/android-looper-handler-handlerthread-i/", 
+        "question": "All methods of the AsyncTask class run in on the UI thread other than doInBackground().", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "AsyncTasks"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 265, 
+        "docRef": "http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList", 
+        "question": "StateListDrawable lets you assign a number of graphic images to a single Drawable, depending on the state of the object. During each state change, the state list is traversed top to bottom and the selection is based on ", 
+        "right": [
+            "the first item that meets the minimum criteria of the state"
+        ], 
+        "tags": [
+            "Graphics, Resource Types"
+        ], 
+        "wrong": [
+            "the \"best match\""
+        ]
+    }, 
+    {
+        "ID": 267, 
+        "docRef": "http://developer.android.com/reference/android/widget/FrameLayout.html", 
+        "question": "FrameLayout can hold only a single item.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 268, 
+        "docRef": "http://developer.android.com/reference/android/widget/Toolbar.html", 
+        "question": "A Toolbar is a view group, so you can add children to it.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 269, 
+        "docRef": "http://developer.android.com/reference/android/os/Looper.html", 
+        "question": "Every thread has a Looper with a MessageQueue.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 270, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "Which threads have a Looper with a MessageQueue", 
+        "right": [
+            "UI thread", 
+            "thread created by HeandlerThread"
+        ], 
+        "tags": [
+            "Handlers, Threads"
+        ], 
+        "wrong": [
+            "thread created by AsyncTask", 
+            "all threads"
+        ]
+    }, 
+    {
+        "ID": 271, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "For long running operations use", 
+        "right": [
+            "Services"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "AsyncTasks", 
+            "Handlers", 
+            "HeandlerThreads"
+        ]
+    }, 
+    {
+        "ID": 272, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "AsyncTask.cancel() kills the Thread.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 273, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "(From API11) Multiple AsyncTasks are executed ", 
+        "right": [
+            "serially on a single background thread"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "in different background threads"
+        ]
+    }, 
+    {
+        "ID": 274, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "Running AsyncTask will be killed with destruction of host Activity.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 275, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "Looper sorts messages by ", 
+        "right": [
+            "message timestamp"
+        ], 
+        "tags": [
+            "Handlers, Threads"
+        ], 
+        "wrong": [
+            "by message priority", 
+            "by order of arrival in the message queue"
+        ]
+    }, 
+    {
+        "ID": 276, 
+        "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
+        "question": "Thread can be reused multiple times after the job is completed.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 277, 
+        "docRef": "http://developer.android.com/tools/help/proguard.html", 
+        "question": "ProGuard tool can", 
+        "right": [
+            "optimize Java bytecode", 
+            "obfuscate your code"
+        ], 
+        "tags": [
+            "Handlers, Threads"
+        ], 
+        "wrong": [
+            "throw away unused images from res directory", 
+            "encrypt your binary code, so no one can decompile it"
+        ]
+    }, 
+    {
+        "ID": 278, 
+        "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
+        "question": "The Android system tries to maintain an application process for as long as possible, but eventually needs to remove old processes to reclaim memory for new or more important processes. In which order the processes will be killed?", 
+        "right": [
+            "1 Empty process 2 Background process 3 Service process 4 Visible process 5 Foreground process"
+        ], 
+        "tags": [
+            "Threads"
+        ], 
+        "wrong": [
+            "1 Empty process 2 Service process 3 Background process 4 Visible process 5 Foreground process", 
+            "1 Background process 2 Empty process 3 Service process 4 Visible process 5 Foreground process", 
+            "1 Empty process 2 Background process 3 Visible process 4 Foreground process 5 Service process"
+        ]
+    }, 
+    {
+        "ID": 279, 
+        "docRef": "http://developer.android.com/guide/components/fragments.html#Lifecycle", 
+        "question": "If a host activity stops, its fragments are also stopped.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 280, 
+        "docRef": "http://developer.android.com/guide/components/fragments.html", 
+        "question": "Check true statements about a Fragment.", 
+        "right": [
+            "A Fragment is a piece of an activity which enable more modular activity design.", 
+            "A Fragment is a kind of sub-activity.", 
+            "A Fragment can be used in multiple activities.", 
+            "A Fragment can implement a behaviour that has no UI."
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "A Fragment is a replacement for an Activity."
+        ]
+    }, 
+    {
+        "ID": 281, 
+        "docRef": "http://developer.android.com/training/basics/fragments/creating.html", 
+        "question": "Android introduced fragments in Android 3.0 (API 11), so they cannot be use with older API level.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 282, 
+        "docRef": "http://developer.android.com/training/implementing-navigation/nav-drawer.html#DrawerLayout", 
+        "question": "To create a Drawer Layout you have to fill the following requirements:", 
+        "right": [
+            "a DrawerLayout object should be the root view of your layout", 
+            "the main content view must be the first child in the DrawerLayout", 
+            "the drawer view must specify its horizontal gravity with the android:layout_gravity attribute"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "the main content view should be the FrameLayout", 
+            "the drawer view must be the ListView"
+        ]
+    }, 
+    {
+        "ID": 283, 
+        "docRef": "http://codetheory.in/android-navigation-drawer/", 
+        "question": "What is a hamburger?", 
+        "right": [
+            "navigation drawer indicator in the action bar", 
+            "three lines icon"
+        ], 
+        "tags": [
+            "User Interfaces, Joke"
+        ], 
+        "wrong": [
+            "A juicy 100% beef patty simply seasoned with a pinch of salt and pepper, tangy pickles, minced onions, ketchup and mustard", 
+            "I'm not a fan of mcdonalds"
+        ]
+    }, 
+    {
+        "ID": 284, 
+        "docRef": "http://developer.android.com/guide/topics/ui/menus.html", 
+        "question": "A menu resource defines an application menu that can be inflated as an xml. What ID is used to identify resource?", 
+        "right": [
+            "the filename will be used as the resource ID"
+        ], 
+        "tags": [
+            "User Interfaces, Resource Types"
+        ], 
+        "wrong": [
+            "the element's name will be used as the resource ID"
+        ]
+    }, 
+    {
+        "ID": 285, 
+        "docRef": "http://developer.android.com/guide/topics/resources/style-resource.html", 
+        "question": "A style resource defines the format and look for a UI. What ID is used to identify resource?", 
+        "right": [
+            "the element's name will be used as the resource ID"
+        ], 
+        "tags": [
+            "User Interfaces, Resource Types"
+        ], 
+        "wrong": [
+            "the filename will be used as the resource ID"
         ]
     }
 ]
