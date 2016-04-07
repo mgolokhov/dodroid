@@ -5,14 +5,17 @@
         <item
             android:id="@+id/nav_first_fragment"
             android:icon="@drawable/ic_coffee_drink_glass_outline_with_cover"
-            android:title="@string/need_motivation_button" />
+            android:title="@string/need_motivation_button"
+            />
         <item
             android:id="@+id/nav_second_fragment"
             android:icon="@drawable/ic_set_topic"
-            android:title="@string/set_topic_button" />
+            android:title="@string/set_topic_button"
+            />
         <item
             android:id="@+id/nav_third_fragment"
             android:icon="@drawable/ic_arrow_in_the_target"
-            android:title="@string/doit_button" />
+            android:title="@string/doit_button"
+            />
     </group>
 </menu>
