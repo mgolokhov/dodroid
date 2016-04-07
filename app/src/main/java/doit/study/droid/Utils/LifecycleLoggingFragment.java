@@ -19,9 +19,7 @@ import timber.log.Timber;
  */
 
 public abstract class  LifecycleLoggingFragment extends Fragment{
-    protected final String TAG = "NSA " + getClass().getName();
     private static final boolean DEBUG = true;
-    protected Integer ID;
 
     private void log(String message){
         if (DEBUG) Timber.d(message + " Hash: " + hashCode());

@@ -377,12 +377,14 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     private void sendReport(String category, String action, String label){
-        Tracker tracker = ((GlobalData) getActivity().getApplication()).getTracker();
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory(category)
-                .setAction(action)
-                .setLabel(label)
-                .build());
+        if (!BuildConfig.DEBUG) {
+            Tracker tracker = ((GlobalData) getActivity().getApplication()).getTracker();
+            tracker.send(new HitBuilders.EventBuilder()
+                    .setCategory(category)
+                    .setAction(action)
+                    .setLabel(label)
+                    .build());
+        }
     }
 
 

@@ -16,7 +16,7 @@ import doit.study.droid.data.QuizProvider;
 import timber.log.Timber;
 
 
-public class QuestionsActivity extends AppCompatActivity implements QuestionFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
+public class QuestionsActivity extends ActivityWithDrawer implements QuestionFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
     private static final boolean DEBUG = true;
     private ViewPager mPager;
     private final int QUIZ_SIZE = 10;
@@ -28,7 +28,7 @@ public class QuestionsActivity extends AppCompatActivity implements QuestionFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.viewpager_layout);
+        getLayoutInflater().inflate(R.layout.viewpager_layout, mFrameLayout);
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, QuestionsActivity.this);
         mPager = (ViewPager)findViewById(R.id.view_pager);
         configPagerTabStrip();

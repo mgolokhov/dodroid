@@ -33,7 +33,7 @@ import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
 
-public class TopicsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.LoaderCallbacks<Cursor>{
     private final static boolean DEBUG = false;
     private TopicAdapter mTopicAdapter;
     private static final int TAG_LOADER = 0;
@@ -43,7 +43,7 @@ public class TopicsActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.topics_layout);
+        getLayoutInflater().inflate(R.layout.topics_layout, mFrameLayout);
         getSupportLoaderManager().initLoader(TAG_LOADER, null, this);
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, this);
 

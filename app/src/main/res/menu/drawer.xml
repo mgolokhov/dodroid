@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:icon="@drawable/ic_coffee_drink_glass_outline_with_cover"
+            android:title="@string/need_motivation_button" />
+        <item
+            android:id="@+id/nav_second_fragment"
+            android:icon="@drawable/ic_set_topic"
+            android:title="@string/set_topic_button" />
+        <item
+            android:id="@+id/nav_third_fragment"
+            android:icon="@drawable/ic_arrow_in_the_target"
+            android:title="@string/doit_button" />
+    </group>
+</menu>

@@ -1,5 +1,9 @@
 package doit.study.droid.data;
 
+import android.os.SystemClock;
+
+import java.util.concurrent.TimeUnit;
+
 import timber.log.Timber;
 
 public class GlobalData extends MyBaseApplication {
@@ -14,5 +18,6 @@ public class GlobalData extends MyBaseApplication {
             }
         });
         Timber.d("Debug mode with logging");
+//        SystemClock.sleep(TimeUnit.SECONDS.toMillis(1));
     }
 }
