@@ -11,7 +11,7 @@ import timber.log.Timber;
 
 
 public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private Cursor mCursor;
     private Question mQuestion;
 
@@ -22,7 +22,7 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (DEBUG) Timber.d("getItem, pos=" + position);
+        if (DEBUG) Timber.d("getItem, pos=%d", position);
         mCursor.moveToPosition(position);
         mQuestion = Question.newInstance(mCursor);
         Fragment fragment = QuestionFragment.newInstance(mQuestion);
@@ -32,14 +32,14 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position){
-        if (DEBUG) Timber.d("instantiateItem, pos="+position);
+        if (DEBUG) Timber.d("instantiateItem, pos=%d", position);
         return super.instantiateItem(container, position);
     }
 
 
     @Override
     public int getCount() {
-        if (DEBUG) Timber.d("counter "+ (mCursor == null ? 0 : mCursor.getCount()));
+        if (DEBUG) Timber.d("counter: %d", (mCursor == null ? 0 : mCursor.getCount()));
         if (mCursor != null)
             return mCursor.getCount();
         else
@@ -49,7 +49,7 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
     // don't know why, but getPageTitle called before getItem
     @Override
     public CharSequence getPageTitle(int position) {
-        if (DEBUG) Timber.d("title pos: "+position+" questions: "+mQuestion);
+        if (DEBUG) Timber.d("title pos: %d, questions: %s", position, mQuestion);
         StringBuffer title = new StringBuffer();
         // at exit pager asks title, cursor invalid
         if (mCursor != null) {
@@ -63,7 +63,7 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
 
 
     public void swapCursor(Cursor newCursor) {
-        if (DEBUG) Timber.d("swap cursor");
+        if (DEBUG) Timber.d("swap cursor, cnt: %d", newCursor != null ? newCursor.getCount() : 0);
         mCursor = newCursor;
         notifyDataSetChanged();
     }

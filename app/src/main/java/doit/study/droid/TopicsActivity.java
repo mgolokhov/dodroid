@@ -1,12 +1,15 @@
 package doit.study.droid;
 
 import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.LoaderManager;
@@ -81,6 +84,38 @@ public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.
         mTopicAdapter.notifyDataSetChanged();
     }
 
+//    @Override
+//    protected void onPause() {
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                Uri uri = QuizProvider.TAG_URI;
+//                StringBuilder selected = new StringBuilder();
+//                StringBuilder unselected = new StringBuilder();
+//                ContentValues contentValuesSelected = new ContentValues();
+//                contentValuesSelected.put(Tag.Table.SELECTED, 1);
+//                ContentValues contentValuesUnselected = new ContentValues();
+//                contentValuesUnselected.put(Tag.Table.SELECTED, 0);
+//                for (Tag tag: mTopicAdapter.getTags()) {
+//                    if (tag.getSelectionStatus()) {
+//                        if (selected.length() != 0)
+//                            selected.append(" OR ");
+//                        selected.append(Tag.Table._ID).append(" = ").append(tag.getId());
+//                    }
+//                    else {
+//                        if (unselected.length() != 0)
+//                            unselected.append(" OR ");
+//                        unselected.append(Tag.Table._ID).append(" = ").append(tag.getId());
+//                    }
+//                }
+//                getContentResolver().update(uri, contentValuesSelected, selected.toString(), null);
+//                getContentResolver().update(uri, contentValuesUnselected, unselected.toString(), null);
+//            }
+//        }.start();
+//        super.onPause();
+//    }
+
+
     @Override
     protected void onPause() {
         new Thread(){
@@ -96,6 +131,8 @@ public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.
                 }
                 try {
                     getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
+                    getContentResolver().notifyChange(QuizProvider.TAG_URI, null);
+                    getContentResolver().notifyChange(QuizProvider.QUESTION_URI, null);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } catch (OperationApplicationException e) {

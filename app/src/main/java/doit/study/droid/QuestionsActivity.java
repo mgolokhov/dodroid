@@ -19,7 +19,7 @@ import timber.log.Timber;
 public class QuestionsActivity extends ActivityWithDrawer implements QuestionFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
     private static final boolean DEBUG = true;
     private ViewPager mPager;
-    private final int QUIZ_SIZE = 10;
+    private final int QUIZ_SIZE = 280;
     private int mRightAnswered = 0;
     private static final int QUESTION_LOADER = 0;
     private QuestionsPagerAdapter mPagerAdapter;
@@ -81,6 +81,7 @@ public class QuestionsActivity extends ActivityWithDrawer implements QuestionFra
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (DEBUG) Timber.d("load finished: %d", data.hashCode());
         mPagerAdapter.swapCursor(data);
     }
 

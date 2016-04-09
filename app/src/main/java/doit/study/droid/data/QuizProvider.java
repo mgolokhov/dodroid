@@ -10,7 +10,11 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import timber.log.Timber;
+
 public class QuizProvider extends ContentProvider {
+    private static final boolean DEBUG = true;
+
     public static final String AUTHORITY = "doit.study.droid";
     public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 
@@ -96,6 +100,7 @@ public class QuizProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        if (DEBUG) Timber.d("query db: %s %s %s", uri, projection, selectionArgs);
         Cursor cursor;
         switch (sUriMatcher.match(uri)) {
             case (RAND_QUESTION_DIR): {
@@ -113,6 +118,7 @@ public class QuizProvider extends ContentProvider {
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
 
@@ -128,7 +134,10 @@ public class QuizProvider extends ContentProvider {
         SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         switch(sUriMatcher.match(uri)){
             case (TAG_DIR):{
-                return db.update(Tag.Table.NAME, values, selection, selectionArgs);
+                int mod = db.update(Tag.Table.NAME, values, selection, selectionArgs);
+                if (DEBUG) Timber.d("update db: %s %s", values, selection);
+                getContext().getContentResolver().notifyChange(uri, null);
+                return mod;
             }
         }
         return 0;

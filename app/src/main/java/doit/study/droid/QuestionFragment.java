@@ -41,7 +41,7 @@ import timber.log.Timber;
 
 
 public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener{
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static final int REPORT_DIALOG_REQUEST_CODE = 0;
     public static final String REPORT_DIALOG_TAG = "dislike_dialog";
     // Callbacks
@@ -81,7 +81,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
     }
 
     public static QuestionFragment newInstance(Question question) {
-        Timber.d("newInstance " + question);
+        if (DEBUG) Timber.d("newInstance " + question);
         QuestionFragment fragment = new QuestionFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(QUESTION_KEY, question);
@@ -161,7 +161,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
 
     private void mkViewLinks(LayoutInflater inflater, ViewGroup container){
-        Timber.d("mkViewLinks " + hashCode());
+        if (DEBUG) Timber.d("mkViewLinks " + hashCode());
         mView = inflater.inflate(R.layout.fragment_questions, container, false);
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (ViewGroup) mView.findViewById(R.id.answers);
@@ -190,7 +190,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             public void onGlobalLayout() {
                 ViewTreeObserver obs = vCtrlPanel.getViewTreeObserver();
                 int bottom_padding = vCtrlPanel.getHeight();
-                Timber.d("height "+bottom_padding);
+                if (DEBUG) Timber.d("height "+bottom_padding);
                 mvAnswersLayout.setPadding(0, 0, 0, bottom_padding);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     obs.removeOnGlobalLayoutListener(this);

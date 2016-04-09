@@ -19,7 +19,7 @@ import timber.log.Timber;
  */
 
 public abstract class  LifecycleLoggingFragment extends Fragment{
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private void log(String message){
         if (DEBUG) Timber.d(message + " Hash: " + hashCode());
