@@ -61,7 +61,6 @@ public class ActivityWithDrawer extends AppCompatActivity {
                         intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(URL));
                         startActivity(intent);
-                        finish();
                         break;
                     case R.id.nav_second_fragment:
                         intent = new Intent(ActivityWithDrawer.this, TopicsActivity.class);
