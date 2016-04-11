@@ -1,6 +1,7 @@
 package doit.study.droid;
 
 import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.LoaderManager;
@@ -84,64 +86,53 @@ public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.
         mTopicAdapter.notifyDataSetChanged();
     }
 
-//    @Override
-//    protected void onPause() {
-//        new Thread(){
-//            @Override
-//            public void run() {
-//                Uri uri = QuizProvider.TAG_URI;
-//                StringBuilder selected = new StringBuilder();
-//                StringBuilder unselected = new StringBuilder();
-//                ContentValues contentValuesSelected = new ContentValues();
-//                contentValuesSelected.put(Tag.Table.SELECTED, 1);
-//                ContentValues contentValuesUnselected = new ContentValues();
-//                contentValuesUnselected.put(Tag.Table.SELECTED, 0);
-//                for (Tag tag: mTopicAdapter.getTags()) {
-//                    if (tag.getSelectionStatus()) {
-//                        if (selected.length() != 0)
-//                            selected.append(" OR ");
-//                        selected.append(Tag.Table._ID).append(" = ").append(tag.getId());
-//                    }
-//                    else {
-//                        if (unselected.length() != 0)
-//                            unselected.append(" OR ");
-//                        unselected.append(Tag.Table._ID).append(" = ").append(tag.getId());
-//                    }
-//                }
-//                getContentResolver().update(uri, contentValuesSelected, selected.toString(), null);
-//                getContentResolver().update(uri, contentValuesUnselected, unselected.toString(), null);
-//            }
-//        }.start();
-//        super.onPause();
-//    }
-
-
     @Override
     protected void onPause() {
         new Thread(){
             @Override
             public void run() {
+                StringBuilder selected = new StringBuilder();
+                StringBuilder unselected = new StringBuilder();
+                for (Tag tag: mTopicAdapter.getTags()) {
+                    if (tag.getSelectionStatus()) {
+                        appendSelection(selected, tag.getId());
+                    }
+                    else {
+                        appendSelection(unselected, tag.getId());
+                    }
+                }
                 ArrayList<ContentProviderOperation> ops = new ArrayList<>();
                 ContentProviderOperation.Builder builder;
-                for (Tag tag: mTopicAdapter.getTags()) {
-                    builder = ContentProviderOperation.newUpdate(QuizProvider.TAG_URI);
-                    builder.withValue(Tag.Table.SELECTED, tag.getSelectionStatus());
-                    builder.withSelection(Tag.Table._ID + " = " + tag.getId(), null);
+                if (selected.length() != 0) {
+                    builder = ContentProviderOperation.newUpdate(QuizProvider.TAG_URI)
+                            .withValue(Tag.Table.SELECTED, true)
+                            .withSelection(selected.toString(), null);
+                    ops.add(builder.build());
+                }
+                if (unselected.length() != 0) {
+                    builder = ContentProviderOperation.newUpdate(QuizProvider.TAG_URI)
+                            .withValue(Tag.Table.SELECTED, false)
+                            .withSelection(unselected.toString(), null);
                     ops.add(builder.build());
                 }
                 try {
-                    getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
-                    getContentResolver().notifyChange(QuizProvider.TAG_URI, null);
-                    getContentResolver().notifyChange(QuizProvider.QUESTION_URI, null);
+                    ContentProviderResult[] res = getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
+                    Timber.d("Update result: %d", res.length);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } catch (OperationApplicationException e) {
                     e.printStackTrace();
                 }
             }
+            private void appendSelection(StringBuilder s, int id){
+                if (s.length() != 0)
+                    s.append(" OR ");
+                s.append(Tag.Table._ID).append(" = ").append(id);
+            }
         }.start();
         super.onPause();
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -245,11 +236,8 @@ public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.
             mCursor = newCursor;
             notifyDataSetChanged();
         }
-
-        public Cursor getCursor() {
-            return mCursor;
-        }
     }
+
 
     private static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 

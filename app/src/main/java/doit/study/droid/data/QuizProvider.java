@@ -1,19 +1,26 @@
 package doit.study.droid.data;
 
 import android.content.ContentProvider;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import java.util.ArrayList;
 
 import timber.log.Timber;
 
 public class QuizProvider extends ContentProvider {
     private static final boolean DEBUG = true;
+    private boolean mIsBatchMode = false;
 
     public static final String AUTHORITY = "doit.study.droid";
     public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
@@ -65,8 +72,6 @@ public class QuizProvider extends ContentProvider {
     static {
         sQuizQueryBuilder = new SQLiteQueryBuilder();
 
-        //This is an inner join which looks like
-        //weather INNER JOIN location ON weather.location_id = location._id
         sQuizQueryBuilder.setTables(
                 Question.Table.NAME +
                         " INNER JOIN " + RelationTables.QuestionTag.NAME +
@@ -75,6 +80,7 @@ public class QuizProvider extends ContentProvider {
                         " ON " + RelationTables.QuestionTag.FQ_TAG_ID + " = " + Tag.Table.FQ_ID
         );
     }
+
 
     @Override
     public boolean onCreate() {
@@ -136,7 +142,8 @@ public class QuizProvider extends ContentProvider {
             case (TAG_DIR):{
                 int mod = db.update(Tag.Table.NAME, values, selection, selectionArgs);
                 if (DEBUG) Timber.d("update db: %s %s", values, selection);
-                getContext().getContentResolver().notifyChange(uri, null);
+                if (!mIsBatchMode)
+                    getContext().getContentResolver().notifyChange(uri, null);
                 return mod;
             }
         }
@@ -151,7 +158,7 @@ public class QuizProvider extends ContentProvider {
 
     private Cursor getRandSelectedQuestions(Uri uri, String[] projection) {
         String limit = uri.getPathSegments().get(2);
-        SQLiteDatabase db = mQuizDBHelper.getReadableDatabase();
+        SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         String selection = Tag.Table.NAME + "." + Tag.Table.SELECTED + " = 1";
         String sortOrder = "RANDOM()";
         return sQuizQueryBuilder.query(db, projection, selection, null, null, null, sortOrder, limit);
@@ -160,7 +167,7 @@ public class QuizProvider extends ContentProvider {
 
     private Cursor getTags() {
         // authority/tag/
-        SQLiteDatabase db = mQuizDBHelper.getReadableDatabase();
+        SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         String tagTotalCounter = "COUNT(" + Tag.Table.FQ_TEXT + ") as " + Tag.Table.TOTAL_COUNTER;
         String tagStudiedCounter = "SUM(" + Question.Table.FQ_STATUS + "=" + Tag.Table.QTY_WHEN_STUDIED + ") as " +
                 Tag.Table.STUDIED_COUNTER;
@@ -169,7 +176,25 @@ public class QuizProvider extends ContentProvider {
     }
 
     private Cursor getQuestions(Uri uri, String [] projection){
-        SQLiteDatabase db = mQuizDBHelper.getReadableDatabase();
+        SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         return db.query(Question.Table.NAME, projection, null, null, null, null, null);
+    }
+
+
+    @NonNull
+    @Override
+    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
+        SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
+        mIsBatchMode = true;
+        db.beginTransaction();
+        try {
+            final ContentProviderResult [] res = super.applyBatch(operations);
+            db.setTransactionSuccessful();
+            getContext().getContentResolver().notifyChange(QuizProvider.BASE_URI, null);
+            return res;
+        } finally {
+            mIsBatchMode = false;
+            db.endTransaction();
+        }
     }
 }
