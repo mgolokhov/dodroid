@@ -51,6 +51,6 @@ res.insert(0, {"quiz_size": len(res)})
 with open(local_json_file, 'w') as jsonfile:
 	json.dump(res, jsonfile, indent=4, sort_keys=True)
 
-print "Imported {} questions".format(len(res-1))
+print "Imported {} questions".format(len(res)-1)
 
 

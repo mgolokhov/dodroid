@@ -1,6 +1,6 @@
 [
     {
-        "quiz_size": 280
+        "quiz_size": 327
     }, 
     {
         "ID": 0, 
@@ -3931,7 +3931,7 @@
     {
         "ID": 264, 
         "docRef": "https://blog.nikitaog.me/2014/10/11/android-looper-handler-handlerthread-i/", 
-        "question": "All methods of the AsyncTask class run in on the UI thread other than doInBackground().", 
+        "question": "Other than doInBackground(), all methods of the AsyncTask class run in on the UI thread.", 
         "right": [
             "TRUE"
         ], 
@@ -3945,7 +3945,7 @@
     {
         "ID": 265, 
         "docRef": "http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList", 
-        "question": "StateListDrawable lets you assign a number of graphic images to a single Drawable, depending on the state of the object. During each state change, the state list is traversed top to bottom and the selection is based on ", 
+        "question": "Depending on the state of the object, StateListDrawable lets you assign a number of graphic images to a single Drawable. During each state change, the state list is traversed top to bottom and the selection is based on ", 
         "right": [
             "the first item that meets the minimum criteria of the state"
         ], 
@@ -4004,7 +4004,7 @@
         "question": "Which threads have a Looper with a MessageQueue", 
         "right": [
             "UI thread", 
-            "thread created by HeandlerThread"
+            "thread created by HandlerThread"
         ], 
         "tags": [
             "Handlers, Threads"
@@ -4027,7 +4027,7 @@
         "wrong": [
             "AsyncTasks", 
             "Handlers", 
-            "HeandlerThreads"
+            "HandlerThreads"
         ]
     }, 
     {
@@ -4061,7 +4061,7 @@
     {
         "ID": 274, 
         "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
-        "question": "Running AsyncTask will be killed with destruction of host Activity.", 
+        "question": "A running AsyncTask will be killed when the host activity is destroyed.", 
         "right": [
             "FALSE"
         ], 
@@ -4083,14 +4083,14 @@
             "Handlers, Threads"
         ], 
         "wrong": [
-            "by message priority", 
-            "by order of arrival in the message queue"
+            "message priority", 
+            "order of arrival in the message queue"
         ]
     }, 
     {
         "ID": 276, 
         "docRef": "http://mgolokhov.github.io/processes_and_threads/", 
-        "question": "Thread can be reused multiple times after the job is completed.", 
+        "question": "A Thread object can be reused multiple times.", 
         "right": [
             "FALSE"
         ], 
@@ -4114,13 +4114,13 @@
         ], 
         "wrong": [
             "throw away unused images from res directory", 
-            "encrypt your binary code, so no one can decompile it"
+            "encrypt your binary code so no one can decompile it"
         ]
     }, 
     {
         "ID": 278, 
         "docRef": "http://developer.android.com/guide/components/processes-and-threads.html", 
-        "question": "The Android system tries to maintain an application process for as long as possible, but eventually needs to remove old processes to reclaim memory for new or more important processes. In which order the processes will be killed?", 
+        "question": "The Android system tries to maintain an application process for as long as possible, but eventually needs to remove old processes to reclaim memory for new or more important processes. In which order will the processes be killed?", 
         "right": [
             "1 Empty process 2 Background process 3 Service process 4 Visible process 5 Foreground process"
         ], 
@@ -4152,7 +4152,7 @@
         "docRef": "http://developer.android.com/guide/components/fragments.html", 
         "question": "Check true statements about a Fragment.", 
         "right": [
-            "A Fragment is a piece of an activity which enable more modular activity design.", 
+            "A Fragment is a piece of an activity which enables more modular activity design.", 
             "A Fragment is a kind of sub-activity.", 
             "A Fragment can be used in multiple activities.", 
             "A Fragment can implement a behaviour that has no UI."
@@ -4167,7 +4167,7 @@
     {
         "ID": 281, 
         "docRef": "http://developer.android.com/training/basics/fragments/creating.html", 
-        "question": "Android introduced fragments in Android 3.0 (API 11), so they cannot be use with older API level.", 
+        "question": "Android introduced fragments in Android 3.0 (API 11), so they cannot be used with older API levels.", 
         "right": [
             "FALSE"
         ], 
@@ -4181,7 +4181,7 @@
     {
         "ID": 282, 
         "docRef": "http://developer.android.com/training/implementing-navigation/nav-drawer.html#DrawerLayout", 
-        "question": "To create a Drawer Layout you have to fill the following requirements:", 
+        "question": "To create a Drawer Layout you have to fulfill the following requirements:", 
         "right": [
             "a DrawerLayout object should be the root view of your layout", 
             "the main content view must be the first child in the DrawerLayout", 
@@ -4237,6 +4237,712 @@
         ], 
         "wrong": [
             "the filename will be used as the resource ID"
+        ]
+    }, 
+    {
+        "ID": 286, 
+        "docRef": "http://developer.android.com/reference/android/content/ContentProvider.html", 
+        "question": "Content Provider operations are thread safe", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 287, 
+        "docRef": "http://developer.android.com/reference/android/view/View.html", 
+        "question": "All Android widgets have this ancestor. ", 
+        "right": [
+            "View class"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Widget class", 
+            "Drawable class", 
+            "Rectangle class"
+        ]
+    }, 
+    {
+        "ID": 288, 
+        "docRef": "http://stackoverflow.com/questions/17567326/how-does-getcontentresolver-work", 
+        "question": "How many Content Resolvers can there be in one application?", 
+        "right": [
+            "the single, global instance"
+        ], 
+        "tags": [
+            "Data Management, Content Provider"
+        ], 
+        "wrong": [
+            "unlimited instances", 
+            "defined by constant CONTENT_PROVIDER_MAX"
+        ]
+    }, 
+    {
+        "ID": 289, 
+        "docRef": "http://developer.android.com/guide/topics/manifest/provider-element.html#multi", 
+        "question": "A Content Provider is instantiated only in the process of the application that defined it.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management, Content Provider"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 290, 
+        "docRef": "http://developer.android.com/training/material/lists-cards.html#RecyclerView", 
+        "question": "RecyclerView consists of multiple elements. Which element is responsible for positioning item views inside the RecyclerView and determining when to reuse ViewHolders that are no longer visible to the user?", 
+        "right": [
+            "LayoutManager"
+        ], 
+        "tags": [
+            "User Interfaces, Support Library "
+        ], 
+        "wrong": [
+            "RecyclerView.Adapter", 
+            "ItemAnimator", 
+            "ViewHolder"
+        ]
+    }, 
+    {
+        "ID": 291, 
+        "docRef": "https://guides.codepath.com/android/using-the-recyclerview", 
+        "question": "Implementation of the view holder pattern for RecyclerView as well as for ListView is optional.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces, Support Library"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 292, 
+        "docRef": "http://developer.android.com/training/material/lists-cards.html#RecyclerView", 
+        "question": "RecyclerView consists of multiple elements. Which element does provide access to the items in your data set, create views for items, and replace the content of some of the views with new data items when the original item is no longer visible?", 
+        "right": [
+            "RecyclerView.Adapter"
+        ], 
+        "tags": [
+            "User Interfaces, Support Library"
+        ], 
+        "wrong": [
+            "ItemAnimator", 
+            "LayoutManager", 
+            "ViewHolder"
+        ]
+    }, 
+    {
+        "ID": 293, 
+        "docRef": "http://developer.android.com/reference/android/support/v7/widget/RecyclerView.html", 
+        "question": "RecyclerView inherits from AdapterView", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces, Support Library"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 294, 
+        "docRef": "http://developer.android.com/reference/android/support/v7/widget/RecyclerView.ItemDecoration.html", 
+        "question": "How many ItemDecorations can you add to the RecyclerView?", 
+        "right": [
+            "as many as you like"
+        ], 
+        "tags": [
+            "User Interfaces, Support Library"
+        ], 
+        "wrong": [
+            "one", 
+            "two, for top and bottom side", 
+            "four, for each side of square"
+        ]
+    }, 
+    {
+        "ID": 295, 
+        "docRef": "http://developer.android.com/intl/ru/reference/android/support/v7/widget/RecyclerView.html", 
+        "question": "Which listener(s) does RecyclerView offer?", 
+        "right": [
+            "OnItemTouchListener"
+        ], 
+        "tags": [
+            "User Interfaces, Support Library"
+        ], 
+        "wrong": [
+            "OnItemClickListener", 
+            "OnItemLongClickListener"
+        ]
+    }, 
+    {
+        "ID": 296, 
+        "docRef": "http://stackoverflow.com/q/8101178/5766983", 
+        "question": "You can use mathematical expressions in resource XML files (ex. calculate dimensions).", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 297, 
+        "docRef": "http://developer.android.com/guide/topics/resources/string-resource.html#FormattingAndStyling", 
+        "question": "How can you style a text?  ", 
+        "right": [
+            "With a style that is defined in an XML resource", 
+            "You can add styling to your strings with HTML markup", 
+            "You can style with typeface properties of a Spannable text object "
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 298, 
+        "docRef": "https://android.googlesource.com/platform/sdk/+/a85107f7d763276a5a040cf68e2046ac54202015/lint/libs/lint_checks/src/com/android/tools/lint/checks/TooManyViewsDetector.java", 
+        "question": "(Recommendation) Full hierarchy should never have more than", 
+        "right": [
+            "10 nested Views", 
+            "over 80 Views in total"
+        ], 
+        "tags": [
+            "User Interfaces, Performance"
+        ], 
+        "wrong": [
+            "50 nested Views", 
+            "over 50 Views in total", 
+            "there are no limits"
+        ]
+    }, 
+    {
+        "ID": 299, 
+        "docRef": "http://developer.android.com/guide/practices/screens_support.html#range", 
+        "question": "The characteristics that define a device's screen size and density are independent from each other.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 300, 
+        "docRef": "http://developer.android.com/guide/practices/screens_support.html", 
+        "question": "The density-independent pixel is equivalent to one physical pixel _____, which is the baseline density.", 
+        "right": [
+            "on a 160 dpi screen"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "on a 240 dpi screen", 
+            "on a 100 dpi screen", 
+            "on a 120 dpi screen", 
+            "on a 320 dpi screen"
+        ]
+    }, 
+    {
+        "ID": 301, 
+        "docRef": "http://developer.android.com/guide/practices/screens_support.html#overview", 
+        "question": "Actual physical screen size is measured as", 
+        "right": [
+            "the screen's diagonal"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "the screen's perimeter", 
+            "the screen's square", 
+            "the biggest possible screen's width", 
+            "the smallest possible screen's width "
+        ]
+    }, 
+    {
+        "ID": 302, 
+        "docRef": "http://developer.android.com/guide/practices/screens_support.html#DesigningResources", 
+        "question": "You need to provide density-specific drawables for", 
+        "right": [
+            "bitmap .png files ", 
+            "bitmap .jpg files", 
+            "bitmap .gif files", 
+            "Nine-Patch files (.9.png) "
+        ], 
+        "tags": [
+            "User Interfaces, Supporting Multiple Screens"
+        ], 
+        "wrong": [
+            "XML files with shapes and colors"
+        ]
+    }, 
+    {
+        "ID": 303, 
+        "docRef": "http://developer.android.com/guide/practices/screens_support.html#NewQualifiers", 
+        "question": "Qualifiers like sw600dp, sw720dp define the smallestWidth that depends on the screen's orientation changes.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces, Supporting Multiple Screens"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 304, 
+        "docRef": "http://developer.android.com/guide/practices/screens_support.html#NewQualifiers", 
+        "question": "The sizes that you specify using sw600dp, w720dp qualifiers are", 
+        "right": [
+            "the sizes that are available to your activity's window"
+        ], 
+        "tags": [
+            "User Interfaces, Supporting Multiple Screens"
+        ], 
+        "wrong": [
+            " the actual screen sizes"
+        ]
+    }, 
+    {
+        "ID": 305, 
+        "docRef": "http://developer.android.com/reference/android/app/Fragment.html#onActivityCreated(android.os.Bundle)", 
+        "question": "In which method can a Fragment safely interact with the UI of its host Activity?", 
+        "right": [
+            "onActivityCreated()"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "onCreate()", 
+            "onCreateView()", 
+            "onResume()", 
+            "onStart()", 
+            "onAttach()"
+        ]
+    }, 
+    {
+        "ID": 306, 
+        "docRef": "http://developer.android.com/guide/topics/ui/themes.html#DefiningStyles", 
+        "question": "A style can be applied as a style for a single View or as a theme for an entire Activity or application. ", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 307, 
+        "docRef": "http://stackoverflow.com/questions/3257656/styles-multiple-inheritance", 
+        "question": " A style can inherit from multiple other styles.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 308, 
+        "docRef": "http://developer.android.com/guide/topics/ui/themes.html#Inheritance", 
+        "question": "A style can inherit by chaining together names (ex. <style name=\"CodeFont.Red.Big\">). It only works for", 
+        "right": [
+            "styles defined by your own resources"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Android built-in styles"
+        ]
+    }, 
+    {
+        "ID": 309, 
+        "docRef": "http://developer.android.com/guide/topics/ui/themes.html#Inheritance", 
+        "question": "A style can inherit ", 
+        "right": [
+            "Android built-in styles", 
+            "styles defined by your own resources"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 310, 
+        "docRef": "http://developer.android.com/guide/topics/ui/themes.html", 
+        "question": "You can set style to ", 
+        "right": [
+            "an individual view", 
+            "an entire Activity", 
+            "an entire Application"
+        ], 
+        "tags": [
+            "User Notifications"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 311, 
+        "docRef": "http://developer.android.com/reference/android/view/ViewGroup.html", 
+        "question": "ViewGroup extends ", 
+        "right": [
+            "View"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "Group", 
+            "Layout"
+        ]
+    }, 
+    {
+        "ID": 312, 
+        "docRef": "http://developer.android.com/intl/es/reference/android/view/View.html", 
+        "question": "Which of the following XML attributes give a view the appearance of floating above the activity?", 
+        "right": [
+            "android:elevation"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "android:layerType", 
+            "android:padding"
+        ]
+    }, 
+    {
+        "ID": 313, 
+        "docRef": "http://developer.android.com/intl/es/training/appbar/setting-up.html", 
+        "question": "In which Activity callback method should you call setSupportActionBar()?", 
+        "right": [
+            "OnCreate()"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "onStart()", 
+            "onResume()"
+        ]
+    }, 
+    {
+        "ID": 314, 
+        "docRef": "http://developer.android.com/intl/es/training/appbar/setting-up.html", 
+        "question": "Which method sets a toolbar as the app bar for an activity?", 
+        "right": [
+            "setSupportActionBar()"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "setToolbar()", 
+            "addContentView()", 
+            "setContentView()"
+        ]
+    }, 
+    {
+        "ID": 315, 
+        "docRef": "http://developer.android.com/intl/es/tools/projects/index.html#ApplicationModules", 
+        "question": "Files that you save here are compiled into an .apk file as-is, and the original filename is preserved. You can navigate this directory in the same way as a typical file system. This is a good location for textures and game data.", 
+        "right": [
+            "main/assets/"
+        ], 
+        "tags": [
+            "Project Structure"
+        ], 
+        "wrong": [
+            "main/res/", 
+            "main/res/anim/", 
+            "main/res/raw/"
+        ]
+    }, 
+    {
+        "ID": 316, 
+        "docRef": "http://developer.android.com/guide/topics/graphics/2d-graphics.html", 
+        "question": "You can draw 2D graphics with Views and Canvas. Which of the following factors would lead to draw with a View, rather than with a Canvas.", 
+        "right": [
+            "The graphics for the application are simple.", 
+            "The graphics for application won't be upgraded regularly."
+        ], 
+        "tags": [
+            "Graphics"
+        ], 
+        "wrong": [
+            "The device is memory-constrained.", 
+            "The device doesn't support the OpenGL language."
+        ]
+    }, 
+    {
+        "ID": 317, 
+        "docRef": "http://developer.android.com/reference/android/graphics/Paint.html", 
+        "question": "The Paint class modifies drawing operations. Which of the following drawing characteristics are influenced by Paint Object?", 
+        "right": [
+            "Text size.", 
+            "Line width."
+        ], 
+        "tags": [
+            "Graphics"
+        ], 
+        "wrong": [
+            "layout_weight.", 
+            "onClick."
+        ]
+    }, 
+    {
+        "ID": 318, 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
+        "question": "Only one component can bind to the service ", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 319, 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
+        "question": "A bound service offers an interface that allows components", 
+        "right": [
+            "to interact with the service", 
+            "send requests", 
+            "get results", 
+            "do interprocess communication"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 320, 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
+        "question": "Which service does run indefinitely?", 
+        "right": [
+            "Started"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "Bound"
+        ]
+    }, 
+    {
+        "ID": 321, 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
+        "question": "Bound service runs", 
+        "right": [
+            "only as long as another application component is bound to it"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "indefinitely"
+        ]
+    }, 
+    {
+        "ID": 322, 
+        "docRef": "http://developer.android.com/reference/android/app/Service.html#onBind(android.content.Intent)", 
+        "question": "You must always implement onBind() for", 
+        "right": [
+            "Bound Services", 
+            "Started Services"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 323, 
+        "docRef": "http://developer.android.com/guide/components/services.html#Basics", 
+        "question": "You have to implement onStartCommand() for", 
+        "right": [
+            "Started Services"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "Bound Services"
+        ]
+    }, 
+    {
+        "ID": 324, 
+        "docRef": "http://developer.android.com/guide/components/services.html", 
+        "question": "You can create a service that is both started and bound.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 325, 
+        "docRef": "http://stackoverflow.com/a/3692966/5766983", 
+        "question": "There can only be one instance of a given Service.", 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 326, 
+        "docRef": "http://developer.android.com/guide/topics/manifest/service-element.html#exported", 
+        "question": "To limit the exposure of a service to other applications you can use", 
+        "right": [
+            "permissions", 
+            "android:exported", 
+            "intent filters"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 327, 
+        "docRef": "http://developer.android.com/reference/android/app/Service.html", 
+        "question": "In which states can service be?", 
+        "right": [
+            "Started", 
+            "Bound", 
+            "Started and bound simultaneously "
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 328, 
+        "docRef": "", 
+        "question": "Every Context.startService(Intent) call will create a new instance of Service.", 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 329, 
+        "docRef": "http://developer.android.com/reference/android/app/Service.html", 
+        "question": "The return value from onStartCommand() must be one of the following constants:", 
+        "right": [
+            "START_NOT_STICKY", 
+            "START_STICKY", 
+            "START_REDELIVER_INTENT"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "START_ONCE", 
+            "START_FOREVER"
+        ]
+    }, 
+    {
+        "ID": 330, 
+        "docRef": "https://possiblemobile.com/2013/06/context/", 
+        "question": "Which classes are inherit from Context?", 
+        "right": [
+            "Activity", 
+            "Service", 
+            "Application"
+        ], 
+        "tags": [
+            "General"
+        ], 
+        "wrong": [
+            "BroadcastReceiver", 
+            "Fragment", 
+            "ContentProvider"
+        ]
+    }, 
+    {
+        "ID": 331, 
+        "docRef": "http://stackoverflow.com/questions/15524280/service-vs-intentservice", 
+        "question": "Which of them does auto-stop the service after all start requests have been handled?", 
+        "right": [
+            "IntentService"
+        ], 
+        "tags": [
+            "Services"
+        ], 
+        "wrong": [
+            "Service", 
+            "AutoService"
+        ]
+    }, 
+    {
+        "ID": 332, 
+        "docRef": "http://developer.android.com/design/patterns/navigation.html#within-app", 
+        "question": "Which behaviors does Back button support but Up button doesn't?", 
+        "right": [
+            "Dismisses floating windows (dialogs, popups)", 
+            "Dismisses contextual action bars", 
+            "Removes the highlight from the selected items", 
+            "Hides the onscreen keyboard (IME)", 
+            "Exits from an app"
+        ], 
+        "tags": [
+            "User Interfaces, Navigation"
+        ], 
+        "wrong": [
+            "Navigates to the previous activity in the back stack"
         ]
     }
 ]
