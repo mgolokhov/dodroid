@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,9 +34,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.zip.Inflater;
 
 import doit.study.droid.data.GlobalData;
 import doit.study.droid.data.Question;
+import doit.study.droid.utils.General;
 import doit.study.droid.utils.LifecycleLoggingFragment;
 import timber.log.Timber;
 
@@ -211,21 +214,18 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         else {
             mvAnswersLayout.removeAllViewsInLayout();
             mvCheckBoxes = new ArrayList<>();
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
             for (String answer : generateAnswers()) {
-                CheckBox checkBox = new CheckBox(getContext());
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.gravity = Gravity.CENTER;
-                checkBox.setLayoutParams(lp);
-                checkBox.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-                checkBox.setGravity(Gravity.CENTER);
+                View v = inflater.inflate(R.layout.answer_item, mvAnswersLayout, true);
+                CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkbox_id);
                 checkBox.setText(answer);
+                checkBox.setId(General.generateViewId());
                 if (null != savedInstanceState) {
                     checkBox.setChecked(savedInstanceState.getInt(answer) == 1);
                     if (isDisabled)
                         checkBox.setEnabled(false);
                 }
                 mvCheckBoxes.add(checkBox);
-                mvAnswersLayout.addView(checkBox, lp);
             }
         }
     }
