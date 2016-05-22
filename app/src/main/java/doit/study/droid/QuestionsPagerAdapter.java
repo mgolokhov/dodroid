@@ -11,7 +11,7 @@ import timber.log.Timber;
 
 
 public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private Cursor mCursor;
     private Question mQuestion;
 

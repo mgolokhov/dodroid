@@ -146,15 +146,7 @@ public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        switch(loader.getId()){
-            case TAG_LOADER:
-                mTopicAdapter.swapCursor(null);
-                break;
-            case QUESTION_LOADER:
-                break;
-        }
     }
-
 
 }
 

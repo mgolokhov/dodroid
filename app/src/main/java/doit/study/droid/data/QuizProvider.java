@@ -138,16 +138,26 @@ public class QuizProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
-        switch(sUriMatcher.match(uri)){
-            case (TAG_DIR):{
-                int mod = db.update(Tag.Table.NAME, values, selection, selectionArgs);
-                if (DEBUG) Timber.d("update db: %s %s", values, selection);
-                if (!mIsBatchMode)
-                    getContext().getContentResolver().notifyChange(uri, null);
-                return mod;
+        int mod = 0;
+        String tableName = "";
+        switch (sUriMatcher.match(uri)) {
+            case TAG_DIR: {
+                mod = db.update(Tag.Table.NAME, values, selection, selectionArgs);
+                tableName = Tag.Table.NAME;
+                break;
+            }
+            case QUESTION_DIR: {
+                mod = db.update(Question.Table.NAME, values, selection, selectionArgs);
+                tableName = Question.Table.NAME;
+                break;
             }
         }
-        return 0;
+        if (mod != 0) {
+            if (DEBUG) Timber.d("update db: %s %s %s", tableName, values, selection);
+            if (!mIsBatchMode)
+                getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return mod;
     }
 
     @Override
@@ -175,7 +185,7 @@ public class QuizProvider extends ContentProvider {
         return sQuizQueryBuilder.query(db, projection, null, null, Tag.Table.FQ_TEXT, null, null);
     }
 
-    private Cursor getQuestions(Uri uri, String [] projection){
+    private Cursor getQuestions(Uri uri, String[] projection) {
         SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         return db.query(Question.Table.NAME, projection, null, null, null, null, null);
     }
@@ -188,7 +198,7 @@ public class QuizProvider extends ContentProvider {
         mIsBatchMode = true;
         db.beginTransaction();
         try {
-            final ContentProviderResult [] res = super.applyBatch(operations);
+            final ContentProviderResult[] res = super.applyBatch(operations);
             db.setTransactionSuccessful();
             getContext().getContentResolver().notifyChange(QuizProvider.BASE_URI, null);
             return res;

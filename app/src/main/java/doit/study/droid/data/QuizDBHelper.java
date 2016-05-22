@@ -87,7 +87,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
         long stopTime = System.nanoTime();
         long elapsedTime = (stopTime - startTime) / 1000000; //ms
-        if (DEBUG) Timber.d("update db in " + elapsedTime);
+        if (DEBUG) Timber.d("update db in %d", elapsedTime);
     }
 
 

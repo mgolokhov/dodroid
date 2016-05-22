@@ -1,5 +1,6 @@
 package doit.study.droid.data;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -88,6 +89,17 @@ public class Question implements Parcelable {
                 c.getInt(c.getColumnIndex(Question.Table.RIGHT_ANS_CNT)),
                 c.getInt(c.getColumnIndex(Question.Table.STATUS))
         );
+    }
+
+
+    public static ContentValues getContentValues(Question question) {
+        ContentValues values = new ContentValues();
+        values.put(Table._ID, String.valueOf(question.getId()));
+        values.put(Table.STATUS, question.getStatus().ordinal());
+        values.put(Table.RIGHT_ANS_CNT, question.getRightCounter());
+        values.put(Table.WRONG_ANS_CNT, question.getWrongCounter());
+
+        return values;
     }
 
     @Override

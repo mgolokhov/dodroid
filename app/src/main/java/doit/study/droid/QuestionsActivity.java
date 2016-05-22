@@ -48,6 +48,8 @@ public class QuestionsActivity extends ActivityWithDrawer implements QuestionFra
 
     @Override
     public void saveStat(Question question) {
+        if (DEBUG) Timber.d("saveStat %s", question);
+        getContentResolver().update(QuizProvider.QUESTION_URI, Question.getContentValues(question), "_ID = "+question.getId(), null);
         //mQuizData.setQuestion(question);
     }
 

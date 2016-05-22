@@ -2,7 +2,6 @@ package doit.study.droid;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -18,10 +17,9 @@ import java.util.List;
 import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
-class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
+public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
     private final static boolean DEBUG = false;
     private List<Tag> mTags;
-    private Cursor mCursor;
 
     public static class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView topic;
@@ -66,7 +64,7 @@ class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
     @Override
     public void onBindViewHolder(TopicViewHolder holder, int position) {
         final Tag tag = mTags.get(position);
-        if (DEBUG) Timber.d(tag.toString()+" "+position);
+        if (DEBUG) Timber.d("%s %d", tag, position);
         String text = String.format("%s (%d/%d)", tag.getName(), tag.getQuestionsCounter(), tag.getQuestionsStudied());
         holder.topic.setText(text);
         holder.checkbox.setChecked(tag.getSelectionStatus());
@@ -74,14 +72,11 @@ class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
         @Override
         public void onClick(View v) {
             tag.setChecked(((CheckBox)v).isChecked());
-            if (DEBUG) Timber.d("change " + tag);
+            if (DEBUG) Timber.d("change %s", tag);
         }
     });
     }
-    public void swapCursor(Cursor newCursor) {
-        mCursor = newCursor;
-        notifyDataSetChanged();
-    }
+
 
     public static class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
