@@ -22,9 +22,10 @@ for index, question in enumerate(csv.DictReader(StringIO(data))):
 			"question": question['Android Test Question'],
 			"right": [i for i in question['Right Answer(s)'].split("\n") if i],
 			"wrong": [i for i in question['Wrong Answer(s)'].split("\n") if i],
-			"tags": [i for i in question['Question Tag'].split("\n") if i],
+			"tags": [i.strip() for i in question['Question Tag'].split(",") if i],
 			"docRef" : question["Reference Link"],
 		})
+		print([i.strip() for i in question['Question Tag'].split(",") if i])
 
 # cannot import local modules like
 # from checked_questions import reviewed

@@ -1,4 +1,5 @@
 reviewed = (
+	(0.5194805194805194, 'Which listener(s) does RecyclerView offer?', 'In which state(s) can a service be?'),
 	(0.5217391304347826, 'Check true statements about a Service.', 'In which states can service be?'),
 	(0.5680473372781065, 'In which callback method should you save persistent data before the current Activity loses focus?', 'In which Activity callback method should you call setSupportActionBar()?'),
 	(0.5040650406504065, 'Which components of an application can be activated by intents. ', 'Which method sets a toolbar as the app bar for an activity?'),
