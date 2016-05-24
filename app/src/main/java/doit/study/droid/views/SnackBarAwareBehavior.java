@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.views;
 
 import android.content.Context;
 import android.os.Parcelable;

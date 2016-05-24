@@ -1,4 +1,4 @@
-package doit.study.droid.utils;
+package doit.study.droid.fragments;
 
 
 import android.content.Context;
@@ -18,7 +18,7 @@ import timber.log.Timber;
  *     </a>
  */
 
-public abstract class  LifecycleLoggingFragment extends Fragment{
+public abstract class LifecycleLogFragment extends Fragment{
     private static final boolean DEBUG = false;
 
     private void log(String message){

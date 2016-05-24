@@ -14,7 +14,7 @@
 
         <!-- The ActionBar displayed at the top -->
         <include
-            layout="@layout/toolbar"
+            layout="@layout/drawer_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -30,7 +30,7 @@
     <android.support.design.widget.NavigationView
         android:theme="@style/NavigationDrawerStyle"
         android:id="@+id/nvView"
-        app:headerLayout="@layout/nav_header"
+        app:headerLayout="@layout/drawer_nav_header"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

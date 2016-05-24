@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,15 +13,17 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-public class DislikeDialog extends DialogFragment {
+import doit.study.droid.R;
+
+public class DislikeDialogFragment extends DialogFragment {
     public static final String EXTRA_CAUSE = "doit.study.droid.extra_cause";
     private static final String QUESTION_TEXT_KEY = "doit.study.droid.question_text_key";
     private Activity mHostActivity;
     private View mView;
     private int[] mCauseIds = {R.id.question_incorrect, R.id.answer_incorrect, R.id.documentation_irrelevant};
 
-    public static DislikeDialog newInstance(String questionText) {
-        DislikeDialog dislikeDialog = new DislikeDialog();
+    public static DislikeDialogFragment newInstance(String questionText) {
+        DislikeDialogFragment dislikeDialog = new DislikeDialogFragment();
         Bundle arg = new Bundle();
         arg.putString(QUESTION_TEXT_KEY, questionText);
         dislikeDialog.setArguments(arg);
@@ -32,7 +34,7 @@ public class DislikeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mHostActivity = getActivity();
         LayoutInflater inflater = mHostActivity.getLayoutInflater();
-        mView = inflater.inflate(R.layout.dislike_dialog, null);
+        mView = inflater.inflate(R.layout.fragment_dialog_dislike, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mHostActivity);
         builder.setMessage(getString(R.string.report_because))

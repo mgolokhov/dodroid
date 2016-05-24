@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import doit.study.droid.R;
 import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
@@ -57,7 +58,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     @Override
     public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.topic_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_topic_item, parent, false);
         return new TopicViewHolder(v);
     }
 

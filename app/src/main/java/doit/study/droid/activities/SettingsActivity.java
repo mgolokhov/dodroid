@@ -1,8 +1,10 @@
-package doit.study.droid;
+package doit.study.droid.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
+
+import doit.study.droid.R;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override

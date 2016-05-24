@@ -2,7 +2,10 @@ package doit.study.droid.utils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class General {
+public final class Views {
+    private Views(){
+        // No instances.
+    }
 
     private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 

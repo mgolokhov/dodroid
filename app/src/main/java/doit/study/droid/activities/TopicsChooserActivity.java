@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.activities;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -17,13 +17,15 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import doit.study.droid.R;
+import doit.study.droid.adapters.TopicAdapter;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
 import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
 
-public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.LoaderCallbacks<Cursor>{
+public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private final static boolean DEBUG = false;
     private TopicAdapter mTopicAdapter;
     private static final int TAG_LOADER = 0;
@@ -33,7 +35,7 @@ public class TopicsActivity extends ActivityWithDrawer implements LoaderManager.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.topics_layout, mFrameLayout);
+        getLayoutInflater().inflate(R.layout.activity_topics_chooser, mFrameLayout);
         getSupportLoaderManager().initLoader(TAG_LOADER, null, this);
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, this);
 

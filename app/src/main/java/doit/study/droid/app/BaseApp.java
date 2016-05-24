@@ -1,4 +1,4 @@
-package doit.study.droid.data;
+package doit.study.droid.app;
 
 import android.app.Application;
 
@@ -6,11 +6,12 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
 import doit.study.droid.R;
+import doit.study.droid.data.QuizDBHelper;
 
 /**
  * Use application singleton
 */
-public abstract class MyBaseApplication extends Application {
+public abstract class BaseApp extends Application {
     private Tracker mTracker;
 
     @Override
@@ -23,7 +24,7 @@ public abstract class MyBaseApplication extends Application {
         new Thread(){
             @Override
             public void run() {
-                QuizDBHelper helper = new QuizDBHelper(MyBaseApplication.this);
+                QuizDBHelper helper = new QuizDBHelper(BaseApp.this);
                 helper.getReadableDatabase();
                 helper.close();
             }

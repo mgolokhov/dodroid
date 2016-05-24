@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.adapters;
 
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import doit.study.droid.data.Question;
+import doit.study.droid.fragments.InterrogatorFragment;
 import timber.log.Timber;
 
 
@@ -25,7 +26,7 @@ public class QuestionsPagerAdapter extends FragmentStatePagerAdapter {
         if (DEBUG) Timber.d("getItem, pos=%d", position);
         mCursor.moveToPosition(position);
         mQuestion = Question.newInstance(mCursor);
-        Fragment fragment = QuestionFragment.newInstance(mQuestion);
+        Fragment fragment = InterrogatorFragment.newInstance(mQuestion);
         return fragment;
     }
 

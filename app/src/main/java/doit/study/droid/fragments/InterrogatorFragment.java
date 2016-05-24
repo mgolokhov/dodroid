@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.PreferenceManager;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,19 +32,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.zip.Inflater;
 
-import doit.study.droid.data.GlobalData;
+import doit.study.droid.BuildConfig;
+import doit.study.droid.R;
+import doit.study.droid.utils.Sound;
+import doit.study.droid.activities.SettingsActivity;
+import doit.study.droid.data.app.App;
 import doit.study.droid.data.Question;
-import doit.study.droid.utils.General;
-import doit.study.droid.utils.LifecycleLoggingFragment;
+import doit.study.droid.utils.Views;
 import timber.log.Timber;
 
 
-public class QuestionFragment extends LifecycleLoggingFragment implements View.OnClickListener{
+public class InterrogatorFragment extends LifecycleLogFragment implements View.OnClickListener{
     private static final boolean DEBUG = false;
     private static final int REPORT_DIALOG_REQUEST_CODE = 0;
-    public static final String REPORT_DIALOG_TAG = "dislike_dialog";
+    public static final String REPORT_DIALOG_TAG = "fragment_dialog_dislike";
     // Callbacks
     private OnFragmentActivityChatter mOnFragmentActivityChatter;
     // Keys for bundle to save state
@@ -83,9 +83,9 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
         void updateProgress();
     }
 
-    public static QuestionFragment newInstance(Question question) {
+    public static InterrogatorFragment newInstance(Question question) {
         if (DEBUG) Timber.d("newInstance %s", question);
-        QuestionFragment fragment = new QuestionFragment();
+        InterrogatorFragment fragment = new InterrogatorFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(QUESTION_KEY, question);
         fragment.setArguments(bundle);
@@ -165,7 +165,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     private void mkViewLinks(LayoutInflater inflater, ViewGroup container){
         if (DEBUG) Timber.d("mkViewLinks %s", hashCode());
-        mView = inflater.inflate(R.layout.fragment_questions, container, false);
+        mView = inflater.inflate(R.layout.fragment_interrogator, container, false);
         mvQuestionText = (TextView) mView.findViewById(R.id.question);
         mvAnswersLayout = (ViewGroup) mView.findViewById(R.id.answers);
         mvCommitButton = (FloatingActionButton) mView.findViewById(R.id.commit_button);
@@ -216,10 +216,10 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             mvCheckBoxes = new ArrayList<>();
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             for (String answer : generateAnswers()) {
-                View v = inflater.inflate(R.layout.answer_item, mvAnswersLayout, true);
+                View v = inflater.inflate(R.layout.fragment_interrogator_answer_item, mvAnswersLayout, true);
                 CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkbox_id);
                 checkBox.setText(answer);
-                checkBox.setId(General.generateViewId());
+                checkBox.setId(Views.generateViewId());
                 if (null != savedInstanceState) {
                     checkBox.setChecked(savedInstanceState.getInt(answer) == 1);
                     if (isDisabled)
@@ -345,7 +345,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     private void handleThumpDownButton(){
         if (isVoted()) return;
-        DislikeDialog dislikeDialog = DislikeDialog.newInstance(mCurrentQuestion.getText());
+        DislikeDialogFragment dislikeDialog = DislikeDialogFragment.newInstance(mCurrentQuestion.getText());
         dislikeDialog.setTargetFragment(this, REPORT_DIALOG_REQUEST_CODE);
         dislikeDialog.show(getFragmentManager(), REPORT_DIALOG_TAG);
     }
@@ -366,7 +366,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
             return;
         if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
             if (data != null) {
-                String label = mCurrentQuestion.getText() + data.getStringExtra(DislikeDialog.EXTRA_CAUSE);
+                String label = mCurrentQuestion.getText() + data.getStringExtra(DislikeDialogFragment.EXTRA_CAUSE);
                 sendReport(getString(R.string.report_because), getString(R.string.dislike), label);
                 mVote = Vote.DISLIKED;
                 Toast t = Toast.makeText(getActivity(), "Report was sent. Thank you.", Toast.LENGTH_SHORT);
@@ -378,7 +378,7 @@ public class QuestionFragment extends LifecycleLoggingFragment implements View.O
 
     private void sendReport(String category, String action, String label){
         if (!BuildConfig.DEBUG) {
-            Tracker tracker = ((GlobalData) getActivity().getApplication()).getTracker();
+            Tracker tracker = ((App) getActivity().getApplication()).getTracker();
             tracker.send(new HitBuilders.EventBuilder()
                     .setCategory(category)
                     .setAction(action)

@@ -1,12 +1,9 @@
-package doit.study.droid.data;
+package doit.study.droid.data.app;
 
-import android.os.SystemClock;
-
-import java.util.concurrent.TimeUnit;
-
+import doit.study.droid.app.BaseApp;
 import timber.log.Timber;
 
-public class GlobalData extends MyBaseApplication {
+public class App extends BaseApp {
 
     @Override
     public void onCreate() {

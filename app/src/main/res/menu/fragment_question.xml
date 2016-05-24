@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".QuestionsActivity">
+    tools:context=".activities.InterrogatorActivity">
     <item
         android:id="@+id/doc_reference"
         android:icon="@drawable/ic_school_white_24dp"

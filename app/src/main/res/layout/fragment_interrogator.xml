@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:gravity="center"
-        app:layout_behavior="doit.study.droid.SnackBarAwareBehavior"
+        app:layout_behavior="doit.study.droid.views.SnackBarAwareBehavior"
         >
 
         <ImageButton

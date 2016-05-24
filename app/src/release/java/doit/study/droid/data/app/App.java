@@ -1,6 +1,6 @@
 package doit.study.droid.data;
 
-public class GlobalData extends MyBaseApplication {
+public class App extends BaseApp {
 
     @Override
     public void onCreate() {

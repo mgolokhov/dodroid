@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".data.GlobalData"
+        android:name=".data.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,21 +15,21 @@
 
         <!-- Fix orientation, so don't care about rotation -->
         <activity
-            android:name=".TopicsActivity"
+            android:name=".activities.TopicsChooserActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".QuestionsActivity"
+            android:name=".activities.InterrogatorActivity"
             android:label="Progress: 0%"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/action_settings"/>
 
         <provider
             android:name=".data.QuizProvider"
             android:authorities="doit.study.droid"/>
 
-        <activity android:name=".SplashActivity"
+        <activity android:name=".activities.SplashActivity"
                   android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

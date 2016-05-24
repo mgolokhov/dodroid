@@ -1,4 +1,4 @@
-package doit.study.droid;
+package doit.study.droid.utils;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.Random;
 
 public class Sound {
-    @SuppressWarnings("unused")
-    private final String TAG = "NSA " + getClass().getName();
     private final static String PATH_SOUNDS_WRONG = "wrong";
     private final static String PATH_SOUNDS_RIGHT = "right";
     private String[] mSoundsWrong;
