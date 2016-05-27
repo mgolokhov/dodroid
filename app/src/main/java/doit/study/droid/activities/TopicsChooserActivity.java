@@ -9,10 +9,14 @@ import android.os.RemoteException;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,31 +29,39 @@ import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
 
-public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class TopicsChooserActivity extends DrawerBaseActivity
+        implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
     private final static boolean DEBUG = false;
     private TopicAdapter mTopicAdapter;
+    private RecyclerView mRecyclerView;
     private static final int TAG_LOADER = 0;
     private static final int QUESTION_LOADER = 1;
-    private List<Tag> mTags = new ArrayList<>();
+    private List<Tag> mMasterCopyTags = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (DEBUG) Timber.d("onCreate");
         getLayoutInflater().inflate(R.layout.activity_topics_chooser, mFrameLayout);
         getSupportLoaderManager().initLoader(TAG_LOADER, null, this);
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, this);
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.topics_view);
-        rv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        rv.addItemDecoration(new TopicAdapter.DividerItemDecoration(this, R.drawable.divider));
+        mRecyclerView = (RecyclerView) findViewById(R.id.topics_view);
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+//        mRecyclerView.addItemDecoration(new TopicAdapter.DividerItemDecoration(this, R.drawable.divider));
         mTopicAdapter = new TopicAdapter();
-        rv.setAdapter(mTopicAdapter);
+        mRecyclerView.setAdapter(mTopicAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.activity_topic, menu);
+
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -68,13 +80,14 @@ public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderM
     }
 
     private void setSelectionToAllTags(boolean checked){
-        for (Tag tag: mTags)
+        for (Tag tag: mMasterCopyTags)
             tag.setChecked(checked);
         mTopicAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onPause() {
+        if (DEBUG) Timber.d("onPause");
         new Thread(){
             @Override
             public void run() {
@@ -104,7 +117,7 @@ public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderM
                 }
                 try {
                     ContentProviderResult[] res = getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
-                    Timber.d("Update result: %d", res.length);
+                    if (DEBUG) Timber.d("Update result: %d", res.length);
                 } catch (RemoteException | OperationApplicationException e) {
                     e.printStackTrace();
                 }
@@ -121,6 +134,7 @@ public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderM
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        if (DEBUG) Timber.d("onCreateLoader");
         switch(id){
             case TAG_LOADER:
                 return new CursorLoader(this, QuizProvider.TAG_URI, null, null, null, null);
@@ -133,14 +147,18 @@ public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderM
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (DEBUG) Timber.d("onLoadFinished");
         switch(loader.getId()){
             case TAG_LOADER:
+                mMasterCopyTags = new ArrayList<>();
                 while(data.moveToNext()){
-                    mTags.add(Tag.newInstance(data));
+                    mMasterCopyTags.add(Tag.newInstance(data));
                 }
-                mTopicAdapter.setTags(mTags);
+                if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", mMasterCopyTags.size());
+                mTopicAdapter.setTags(mMasterCopyTags);
                 break;
             case QUESTION_LOADER:
+                if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.getCount());
                 setTitle("Total questions: " + data.getCount());
                 break;
         }
@@ -148,7 +166,34 @@ public class TopicsChooserActivity extends DrawerBaseActivity implements LoaderM
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        if (DEBUG) Timber.d("onLoaderReset");
+
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        final List<Tag> filteredModel = filter(mMasterCopyTags, newText);
+        mTopicAdapter.animateTo(filteredModel);
+        // don't know why but with scrollToPosition get buggy behavior
+        mRecyclerView.smoothScrollToPosition(0);
+        return true;
+    }
+
+    private List<Tag> filter (List<Tag> model, String query){
+        query = query.toLowerCase();
+        final List<Tag> filteredModel = new ArrayList<>();
+        for (Tag tag: model){
+            final String text = tag.getName().toLowerCase();
+            if (text.contains(query)){
+                filteredModel.add(tag);
+            }
+        }
+        return filteredModel;
+    }
 }
 

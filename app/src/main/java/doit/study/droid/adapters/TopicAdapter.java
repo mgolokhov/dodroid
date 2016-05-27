@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import doit.study.droid.R;
@@ -20,39 +21,93 @@ import timber.log.Timber;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
     private final static boolean DEBUG = false;
-    private List<Tag> mTags;
+    private List<Tag> mFilteredTags;
+    private List<Tag> mMasterCopyTags;
 
-    public static class TopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+    public void animateTo(List<Tag> models) {
+        if (DEBUG) Timber.d("Anim Filtered %d, current: %d", models.size(), mFilteredTags.size());
+        applyAndAnimateRemovals(models);
+        if (DEBUG) Timber.d("Rem Filtered %d, current: %d", models.size(), mFilteredTags.size());
+        applyAndAnimateAdditions(models);
+        if (DEBUG) Timber.d("Add Filtered %d, current: %d", models.size(), mFilteredTags.size());
+        applyAndAnimateMovedItems(models);
+        if (DEBUG) Timber.d("Move Filtered %d, current: %d", models.size(), mFilteredTags.size());
+    }
+
+    private void applyAndAnimateRemovals(List<Tag> newTags) {
+        for (int i = mFilteredTags.size() - 1; i >= 0; i--){
+            final Tag tag = mFilteredTags.get(i);
+            if (!newTags.contains(tag)){
+                removeItem(i);
+            }
+        }
+    }
+
+    private void applyAndAnimateAdditions(List<Tag> newModels) {
+        for (int i = 0, count = newModels.size(); i < count; i++) {
+            final Tag model = newModels.get(i);
+            if (!mFilteredTags.contains(model)) {
+                addItem(i, model);
+            }
+        }
+    }
+
+    private void applyAndAnimateMovedItems(List<Tag> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final Tag model = newModels.get(toPosition);
+            final int fromPosition = mFilteredTags.indexOf(model);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    public Tag removeItem(int position) {
+        final Tag model = mFilteredTags.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, getItemCount());
+        return model;
+    }
+
+    public void addItem(int position, Tag model) {
+        mFilteredTags.add(position, model);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        final Tag model = mFilteredTags.remove(fromPosition);
+        mFilteredTags.add(toPosition, model);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    public static class TopicViewHolder extends RecyclerView.ViewHolder{
         TextView topic;
         CheckBox checkbox;
         public TopicViewHolder(View itemView) {
             super(itemView);
             topic = (TextView)itemView.findViewById(R.id.topic_name);
             checkbox = (CheckBox) itemView.findViewById(R.id.checkbox_tag);
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-//                Toast.makeText(v.getContext(), topic.getText(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
     public int getItemCount() {
-        if (mTags != null)
-            return mTags.size();
+        if (mFilteredTags != null)
+            return mFilteredTags.size();
         else
             return 0;
     }
 
 
     public List<Tag> getTags(){
-        return mTags;
+        return mMasterCopyTags;
     }
 
     public void setTags(List<Tag> tags){
-        mTags = tags;
+        mMasterCopyTags = tags;
+        mFilteredTags = new ArrayList<>(tags);
         notifyDataSetChanged();
     }
 
@@ -64,7 +119,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     @Override
     public void onBindViewHolder(TopicViewHolder holder, int position) {
-        final Tag tag = mTags.get(position);
+        final Tag tag = mFilteredTags.get(position);
         if (DEBUG) Timber.d("%s %d", tag, position);
         String text = String.format("%s (%d/%d)", tag.getName(), tag.getQuestionsCounter(), tag.getQuestionsStudied());
         holder.topic.setText(text);
@@ -72,7 +127,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         holder.checkbox.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            tag.setChecked(((CheckBox)v).isChecked());
+            boolean isChecked = ((CheckBox)v).isChecked();
+            tag.setChecked(isChecked);
+            // synchronize with all tags
+            for (Tag t: mMasterCopyTags) {
+                if (t.getId().equals(tag.getId())){
+                    t.setChecked(isChecked);
+                }
+            }
             if (DEBUG) Timber.d("change %s", tag);
         }
     });

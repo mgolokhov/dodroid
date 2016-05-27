@@ -48,6 +48,32 @@ public class Tag {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tag tag = (Tag) o;
+
+        if (mSelected != tag.mSelected) return false;
+        if (mId != null ? !mId.equals(tag.mId) : tag.mId != null) return false;
+        if (mName != null ? !mName.equals(tag.mName) : tag.mName != null) return false;
+        if (mQuestionsCounter != null ? !mQuestionsCounter.equals(tag.mQuestionsCounter) : tag.mQuestionsCounter != null)
+            return false;
+        return mQuestionsStudied != null ? mQuestionsStudied.equals(tag.mQuestionsStudied) : tag.mQuestionsStudied == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mId != null ? mId.hashCode() : 0;
+        result = 31 * result + (mName != null ? mName.hashCode() : 0);
+        result = 31 * result + (mQuestionsCounter != null ? mQuestionsCounter.hashCode() : 0);
+        result = 31 * result + (mQuestionsStudied != null ? mQuestionsStudied.hashCode() : 0);
+        result = 31 * result + (mSelected ? 1 : 0);
+        return result;
+    }
+
+    @Override
     public String toString(){
         return String.format("%d# Name: %s, selection: %s", hashCode(), mName, mSelected);
     }
