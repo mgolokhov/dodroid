@@ -1,6 +1,5 @@
-package doit.study.droid.data.app;
+package doit.study.droid.app;
 
-import doit.study.droid.app.BaseApp;
 import timber.log.Timber;
 
 public class App extends BaseApp {
@@ -15,6 +14,5 @@ public class App extends BaseApp {
             }
         });
         Timber.d("Debug mode with logging");
-//        SystemClock.sleep(TimeUnit.SECONDS.toMillis(1));
     }
 }

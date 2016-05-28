@@ -7,6 +7,8 @@
         <item>Super</item>
         <item>Great</item>
         <item>Hooray</item>
+        <item>Woo Hoo</item>
+        <item>You are on a roll</item>
     </string-array>
 
     <string-array name="feedback_wrong_answer">
