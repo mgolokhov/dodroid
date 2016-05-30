@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -292,10 +293,10 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         Random rand = new Random();
         if (mState == State.ANSWERED_RIGHT) {
             mvToast.setText(mFeedbackRightAnswered[rand.nextInt(mFeedbackRightAnswered.length)]);
-            v.setTextColor(Color.GREEN);
+            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastRight));
         } else {
             mvToast.setText(mFeedbackWrongAnswered[rand.nextInt(mFeedbackWrongAnswered.length)]);
-            v.setTextColor(Color.RED);
+            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastWrong));
         }
         mvToast.show();
     }
@@ -338,7 +339,8 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         if (isVoted()) return;
         mVote = Vote.LIKED;
         sendReport(getString(R.string.report_because), getString(R.string.like), mCurrentQuestion.getText());
-        Toast t = Toast.makeText(getActivity(), "Thx:)", Toast.LENGTH_SHORT);
+        String mes = getResources().getString(R.string.thank_upvote);
+        Toast t = Toast.makeText(getActivity(), mes, Toast.LENGTH_SHORT);
         t.setGravity(Gravity.CENTER, 0, 0);
         t.show();
     }
@@ -352,7 +354,8 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
 
     private boolean isVoted(){
         if (mVote != Vote.NONE) {
-            Toast t = Toast.makeText(getActivity(), "Your have already voted", Toast.LENGTH_SHORT);
+            String mes = getResources().getString(R.string.already_voted);
+            Toast t = Toast.makeText(getActivity(), mes, Toast.LENGTH_SHORT);
             t.setGravity(Gravity.CENTER, 0, 0);
             t.show();
             return true;
@@ -369,7 +372,8 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
                 String label = mCurrentQuestion.getText() + data.getStringExtra(DislikeDialogFragment.EXTRA_CAUSE);
                 sendReport(getString(R.string.report_because), getString(R.string.dislike), label);
                 mVote = Vote.DISLIKED;
-                Toast t = Toast.makeText(getActivity(), "Report was sent. Thank you.", Toast.LENGTH_SHORT);
+                String mes = getResources().getString(R.string.report_was_sent);
+                Toast t = Toast.makeText(getActivity(), mes, Toast.LENGTH_SHORT);
                 t.setGravity(Gravity.CENTER, 0, 0);
                 t.show();
             }
@@ -402,15 +406,17 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     }
 
     private void showDocumentationSnackBar(){
-        if (mState != State.ANSWERED_RIGHT)
-            Snackbar.make(mView, "Check documentation", Snackbar.LENGTH_LONG)
-                    .setAction("GO", new View.OnClickListener() {
+        if (mState != State.ANSWERED_RIGHT) {
+            String mes = getResources().getString(R.string.check_docs);
+            Snackbar.make(mView, mes, Snackbar.LENGTH_LONG)
+                    .setAction(getResources().getString(R.string.go), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             openDocumentation();
                         }
                     })
                     .show();
+        }
     }
 
     @Override

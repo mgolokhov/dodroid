@@ -31,4 +31,10 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_search">Search</string>
+
+    <string name="already_voted">You have already voted</string>
+    <string name="report_was_sent">Report was sent. Thank you.</string>
+    <string name="thank_upvote">Thank you for upvote</string>
+    <string name="check_docs">Check documentation</string>
+    <string name="go">Go</string>
 </resources>
