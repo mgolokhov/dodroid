@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import timber.log.Timber;
 
@@ -171,7 +172,18 @@ public class QuizProvider extends ContentProvider {
         SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         String selection = Tag.Table.NAME + "." + Tag.Table.SELECTED + " = 1";
         String sortOrder = "RANDOM()";
-        return sQuizQueryBuilder.query(db, projection, selection, null, null, null, sortOrder, limit);
+//        Cursor c = sQuizQueryBuilder.query(db, new String[]{"DISTINCT " + Question.Table.FQ_ID}, selection, null, null, null, sortOrder, limit);
+//        selection = "";
+//        for (int i = 0; i < c.getCount(); i++){
+//            if (i > 0) selection += " OR ";
+//            c.moveToPosition(i);
+//            selection += Question.Table.FQ_ID + " = " +c.getString(c.getColumnIndex(Question.Table._ID));
+//        }
+        String[] projection2 = Arrays.copyOf(projection, projection.length + 1);
+        projection2[projection.length] = "group_concat( " + Tag.Table.FQ_TEXT + ", '\n' ) as tags2";
+//        String [] projection2 = new String[] {"group_concat(" + Tag.Table.FQ_ID + ")"};
+        Timber.d(sQuizQueryBuilder.buildQuery(projection2, selection, Question.Table.FQ_TEXT, null, sortOrder, limit));
+        return sQuizQueryBuilder.query(db, projection2, selection, null, Question.Table.FQ_TEXT, null, sortOrder, limit);
     }
 
 

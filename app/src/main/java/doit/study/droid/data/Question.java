@@ -83,7 +83,7 @@ public class Question implements Parcelable {
                 c.getString(c.getColumnIndex(Question.Table.TEXT)),
                 splitItems(c.getString(c.getColumnIndex(Question.Table.WRONG_ANSWERS))),
                 splitItems(c.getString(c.getColumnIndex(Question.Table.RIGHT_ANSWERS))),
-                splitItems(c.getString(c.getColumnIndex(Tag.Table.TEXT))),
+                splitItems(c.getString(c.getColumnIndex("tags2"))),
                 c.getString(c.getColumnIndex(Question.Table.DOC_LINK)),
                 c.getInt(c.getColumnIndex(Question.Table.WRONG_ANS_CNT)),
                 c.getInt(c.getColumnIndex(Question.Table.RIGHT_ANS_CNT)),

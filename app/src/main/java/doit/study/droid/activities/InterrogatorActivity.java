@@ -10,8 +10,9 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 
+import doit.study.droid.data.RelationTables;
 import doit.study.droid.fragments.InterrogatorFragment;
-import doit.study.droid.adapters.QuestionsPagerAdapter;
+import doit.study.droid.adapters.InterrogatorPagerAdapter;
 import doit.study.droid.R;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
@@ -24,7 +25,7 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
     private final int QUIZ_SIZE = 10;
     private int mRightAnswered = 0;
     private static final int QUESTION_LOADER = 0;
-    private QuestionsPagerAdapter mPagerAdapter;
+    private InterrogatorPagerAdapter mPagerAdapter;
 
 
     @Override
@@ -34,7 +35,7 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, InterrogatorActivity.this);
         mPager = (ViewPager)findViewById(R.id.view_pager);
         configPagerTabStrip();
-        mPagerAdapter = new QuestionsPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new InterrogatorPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
        }
 
@@ -80,18 +81,19 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
                 .buildUpon()
                 .appendPath("rand").appendPath(Integer.toString(QUIZ_SIZE))
                 .build();
-        return new CursorLoader(this, randQuestionUri, null, null, null, null);
+        return new CursorLoader(this, randQuestionUri, RelationTables.JoinedQuestionTagProjection, null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (DEBUG) Timber.d("load finished: %d", data.hashCode());
-        mPagerAdapter.swapCursor(data);
+        mPagerAdapter.setData(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mPagerAdapter.swapCursor(null);
+        if (DEBUG) Timber.d("onLoaderReset");
+        //mPagerAdapter.swapCursor(null);
     }
 }
 
