@@ -159,7 +159,7 @@ public class TopicsChooserActivity extends DrawerBaseActivity
                 break;
             case QUESTION_LOADER:
                 if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.getCount());
-                setTitle("Total questions: " + data.getCount());
+                setTitle(R.string.title_selection_quiz_topics);
                 break;
         }
     }

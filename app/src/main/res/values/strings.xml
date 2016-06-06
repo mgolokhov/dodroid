@@ -4,6 +4,7 @@
     <string name="need_motivation_button">getMotivation</string>
     <string name="set_topic_button">setTopic</string>
     <string name="doit_button">doIt!</string>
+    <string name="title_selection_quiz_topics">Select Quiz Topic(s)</string>
 
     <string name="test">question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question ?</string>
     <string name="motto">a journey of a thousand miles begins with a single step</string>
