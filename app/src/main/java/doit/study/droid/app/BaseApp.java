@@ -14,6 +14,12 @@ import doit.study.droid.data.QuizDBHelper;
 public abstract class BaseApp extends Application {
     private Tracker mTracker;
 
+//    @Override
+//    protected void attachBaseContext(Context base) {
+//        super.attachBaseContext(base);
+//        MultiDex.install(this);
+//    }
+
     @Override
     public void onCreate() {
         super.onCreate();

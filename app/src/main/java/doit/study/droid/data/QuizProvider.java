@@ -20,7 +20,7 @@ import java.util.Arrays;
 import timber.log.Timber;
 
 public class QuizProvider extends ContentProvider {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private boolean mIsBatchMode = false;
 
     public static final String AUTHORITY = "doit.study.droid";
@@ -182,7 +182,7 @@ public class QuizProvider extends ContentProvider {
         String[] projection2 = Arrays.copyOf(projection, projection.length + 1);
         projection2[projection.length] = "group_concat( " + Tag.Table.FQ_TEXT + ", '\n' ) as tags2";
 //        String [] projection2 = new String[] {"group_concat(" + Tag.Table.FQ_ID + ")"};
-        Timber.d(sQuizQueryBuilder.buildQuery(projection2, selection, Question.Table.FQ_TEXT, null, sortOrder, limit));
+        if (DEBUG) Timber.d(sQuizQueryBuilder.buildQuery(projection2, selection, Question.Table.FQ_TEXT, null, sortOrder, limit));
         return sQuizQueryBuilder.query(db, projection2, selection, null, Question.Table.FQ_TEXT, null, sortOrder, limit);
     }
 

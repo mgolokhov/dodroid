@@ -13,24 +13,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Fix orientation, so don't care about rotation -->
-        <activity
-            android:name=".activities.TopicsChooserActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activities.InterrogatorActivity"
-            android:label="Progress: 0%"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/action_settings"/>
-
         <provider
             android:name=".data.QuizProvider"
             android:authorities="doit.study.droid"/>
 
-        <activity android:name=".activities.SplashActivity"
-                  android:theme="@style/SplashTheme">
+        <!-- Fix orientation, so don't care about rotation -->
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".activities.TopicsChooserActivity"
+            android:launchMode = "singleTop"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".activities.InterrogatorActivity"
+            android:launchMode = "singleTop"
+            android:label="Progress: 0%"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activities.TopicsChooserActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.TopicsChooserActivity"/>
+        </activity>
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/action_settings"
+            />
+
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

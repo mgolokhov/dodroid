@@ -1,10 +1,10 @@
 import csv
 import json
 import sys
-from cookielib import CookieJar
-from urllib2 import build_opener, HTTPCookieProcessor
 from cStringIO import StringIO
+from cookielib import CookieJar
 from difflib import SequenceMatcher
+from urllib2 import build_opener, HTTPCookieProcessor
 
 spreadsheet_url = 'https://docs.google.com/spreadsheet/ccc?key=13bmt8pwh4x4GFTnoctxkxjKjsxDtYwwXbGS6ZEB-ik8&output=csv'
 local_json_file = 'quiz.json'

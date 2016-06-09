@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_fragment"
+            android:id="@+id/nav_get_motivation"
             android:icon="@drawable/ic_persuasion_hand"
             android:title="@string/need_motivation_button"
             />
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/nav_set_topic"
             android:icon="@drawable/ic_death_star_icon"
             android:title="@string/set_topic_button"
             />
         <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/nav_do_it"
             android:icon="@drawable/ic_lightning_sword"
             android:title="@string/doit_button"
             />

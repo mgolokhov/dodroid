@@ -37,4 +37,10 @@
     <string name="thank_upvote">Thank you for upvote</string>
     <string name="check_docs">Check documentation</string>
     <string name="go">Go</string>
+
+    <!--Shia LaBeouf - Just Do it! (Auto-tuned)-->
+    <!--<string name="url_motivate_video" translatable="false">http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DgJscrxxl_Bg</string>-->
+    <string name="url_motivational_video" translatable="false">http://www.youtube.com/watch?v=gJscrxxl_Bg</string>
+
+    <string name="press_again_to_exit" >Press again to exit</string>
 </resources>

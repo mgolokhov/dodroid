@@ -10,28 +10,29 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 
-import doit.study.droid.data.RelationTables;
-import doit.study.droid.fragments.InterrogatorFragment;
-import doit.study.droid.adapters.InterrogatorPagerAdapter;
 import doit.study.droid.R;
+import doit.study.droid.adapters.InterrogatorPagerAdapter;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
+import doit.study.droid.data.RelationTables;
+import doit.study.droid.fragments.InterrogatorFragment;
 import timber.log.Timber;
 
 
 public class InterrogatorActivity extends DrawerBaseActivity implements InterrogatorFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private ViewPager mPager;
     private final int QUIZ_SIZE = 10;
     private int mRightAnswered = 0;
     private static final int QUESTION_LOADER = 0;
     private InterrogatorPagerAdapter mPagerAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_interrogator, mFrameLayout);
+        if (DEBUG) Timber.d("onCreate");
+        mSelectionId = R.id.nav_do_it;
+        getLayoutInflater().inflate(R.layout.activity_interrogator, mContainerContent);
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, InterrogatorActivity.this);
         mPager = (ViewPager)findViewById(R.id.view_pager);
         configPagerTabStrip();
