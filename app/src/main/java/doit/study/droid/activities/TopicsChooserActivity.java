@@ -19,6 +19,7 @@ public class TopicsChooserActivity extends DrawerBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         if (DEBUG) Timber.d("onCreate");
         super.onCreate(savedInstanceState);
+		setTitle(R.string.title_selection_quiz_topics);
         mSelectionId = R.id.nav_set_topic;
         getSupportFragmentManager()
                 .beginTransaction()
@@ -48,9 +49,7 @@ public class TopicsChooserActivity extends DrawerBaseActivity {
             mToast = Toast.makeText(getBaseContext(), getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT);
             mToast.show();
         }
-
         mBackPressedTime = System.currentTimeMillis();
     }
-
 }
 
