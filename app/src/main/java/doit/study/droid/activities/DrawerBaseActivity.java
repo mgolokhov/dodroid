@@ -1,5 +1,7 @@
 package doit.study.droid.activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -56,7 +59,21 @@ public class DrawerBaseActivity extends AppCompatActivity
 
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawer,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close) {
+            // hide keyboard
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                InputMethodManager inputMethodManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        };
+
         mDrawer.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
 
@@ -64,7 +81,7 @@ public class DrawerBaseActivity extends AppCompatActivity
         setNavTitle();
     }
 
-    private void setNavTitle(){
+    private void setNavTitle() {
         View header = mNavigationView.getHeaderView(0);
         mNavigationView.setNavigationItemSelectedListener(this);
         TextView tv = (TextView) header.findViewById(R.id.version_num_header);
@@ -76,7 +93,7 @@ public class DrawerBaseActivity extends AppCompatActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         if (DEBUG) Timber.d("onPostCreate");
         super.onPostCreate(savedInstanceState);
-       // Sync the toggle state after onRestoreInstanceState has occurred.
+        // Sync the toggle state after onRestoreInstanceState has occurred.
         mActionBarDrawerToggle.syncState();
     }
 
@@ -128,7 +145,7 @@ public class DrawerBaseActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         Timber.d("selected: %d", menuItem.getItemId());
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_get_motivation:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(getString(R.string.url_motivational_video)));
@@ -152,11 +169,14 @@ public class DrawerBaseActivity extends AppCompatActivity
     /**
      * Enables back navigation for activities that are launched from the NavBar. See
      * {@code AndroidManifest.xml} to find out the parent activity names for each activity.
+     *
      * @param intent
      */
     private void createBackStack(Intent intent) {
         TaskStackBuilder builder = TaskStackBuilder.create(this);
-            builder.addNextIntentWithParentStack(intent);
-            builder.startActivities();
+        builder.addNextIntentWithParentStack(intent);
+        builder.startActivities();
     }
+
+
 }
