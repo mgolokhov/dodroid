@@ -9,6 +9,8 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.TextView;
 
 import doit.study.droid.R;
 import doit.study.droid.adapters.InterrogatorPagerAdapter;
@@ -54,7 +56,6 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
     public void saveStat(Question question) {
         if (DEBUG) Timber.d("saveStat %s", question);
         getContentResolver().update(QuizProvider.QUESTION_URI, Question.getContentValues(question), "_ID = "+question.getId(), null);
-        //mQuizData.setQuestion(question);
     }
 
     @Override
@@ -88,13 +89,19 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (DEBUG) Timber.d("load finished: %d", data.hashCode());
-        mPagerAdapter.setData(data);
+        TextView no_topic = (TextView) findViewById(R.id.no_topic_selected);
+        if (data.getCount() == 0) {
+            no_topic.setVisibility(View.VISIBLE);
+            mPager.setVisibility(View.GONE);
+        }
+        else {
+            mPagerAdapter.setData(data);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         if (DEBUG) Timber.d("onLoaderReset");
-        //mPagerAdapter.swapCursor(null);
     }
 }
 

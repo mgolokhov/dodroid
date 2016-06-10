@@ -16,7 +16,7 @@ import timber.log.Timber;
 public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
     // Database Version
-    private static final int DATABASE_VERSION = 37;
+    private static final int DATABASE_VERSION = 38;
     //private static final int DB_CONTENT_VERSION = 28;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
@@ -56,7 +56,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                 + Tag.Table.NAME + "("
                 + Tag.Table._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Tag.Table.TEXT + " TEXT,"
-                + Tag.Table.SELECTED + " INTEGER DEFAULT 1)";
+                + Tag.Table.SELECTED + " INTEGER DEFAULT 0)";
 
         String CREATE_TABLE_RELATION_QUESTION_TAG = "CREATE TABLE "
                 + RelationTables.QuestionTag.NAME + "("
@@ -132,7 +132,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         );
 
         try {
-            if (DEBUG) Timber.d("wanna to insert data");
+            if (DEBUG) Timber.d("wanna insert data");
             db.beginTransaction();
             Map<String, Long> tags = new HashMap<>();
             for (JsonParser.ParsedQuestion q : parsedQuestions) {

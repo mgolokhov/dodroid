@@ -7,7 +7,7 @@
     <string name="title_selection_quiz_topics">Select Quiz Topic(s)</string>
 
     <string name="test">question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question ?</string>
-    <string name="motto">a journey of a thousand miles begins with a single step</string>
+    <string name="select_topic_first">Select a topic first</string>
     <string name="willing">Willing is not enough</string>
 
     <string name="action_settings">settings</string>

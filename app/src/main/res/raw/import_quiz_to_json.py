@@ -25,7 +25,7 @@ for index, question in enumerate(csv.DictReader(StringIO(data))):
 			"tags": [i.strip() for i in question['Question Tag'].split(",") if i],
 			"docRef" : question["Reference Link"],
 		})
-		print([i.strip() for i in question['Question Tag'].split(",") if i])
+		#print([i.strip() for i in question['Question Tag'].split(",") if i])
 
 # cannot import local modules like
 # from checked_questions import reviewed
@@ -33,19 +33,19 @@ for index, question in enumerate(csv.DictReader(StringIO(data))):
 with open('reviewed_questions.py') as f:
 	exec(f.read())
 
-exit_by_dupl = False
-for index, i in enumerate(res):
-	for j in res[index+1:]:
-		q1 = i['question']
-		q2 = j['question']
-		ratio = SequenceMatcher(None, q1, q2).ratio()
-		maybe = (ratio, q1, q2)
-		if ratio > .5 and maybe not in reviewed:
-		 	print repr(maybe) + ","
-		 	exit_by_dupl = True
-
-if exit_by_dupl:
-	sys.exit("\nFound possible duplicates, exit...")
+# exit_by_dupl = False
+# for index, i in enumerate(res):
+# 	for j in res[index+1:]:
+# 		q1 = i['question']
+# 		q2 = j['question']
+# 		ratio = SequenceMatcher(None, q1, q2).ratio()
+# 		maybe = (ratio, q1, q2)
+# 		if ratio > .5 and maybe not in reviewed:
+# 		 	print repr(maybe) + ","
+# 		 	exit_by_dupl = True
+#
+# if exit_by_dupl:
+# 	sys.exit("\nFound possible duplicates, exit...")
 
 res.insert(0, {"quiz_size": len(res)})
 
