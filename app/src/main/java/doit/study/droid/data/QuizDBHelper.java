@@ -25,6 +25,12 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "dodroid";
 
+    // String constants
+    private static final String CREATE_TABLE = "CREATE TABLE ";
+    private static final String TEXT = " TEXT,";
+    private static final String INTEGER_DEFAULT_0 = " INTEGER DEFAULT 0,";
+    private static final String INSERT_OR_REPLACE_INTO = "INSERT OR REPLACE INTO ";
+
     private Context mContext;
 
     public QuizDBHelper(Context context) {
@@ -38,27 +44,27 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         // Enable foreign key constraints
         db.execSQL("PRAGMA foreign_keys=ON;");
 
-        String CREATE_TABLE_QUESTION = "CREATE TABLE "
+        String CREATE_TABLE_QUESTION = CREATE_TABLE
                 + Question.Table.NAME + "("
                 + Question.Table._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + Question.Table.TEXT + " TEXT,"
+                + Question.Table.TEXT + TEXT
                 + Question.Table.TRUE_OR_FALSE + " INTEGER,"
-                + Question.Table.RIGHT_ANSWERS + " TEXT,"
-                + Question.Table.WRONG_ANSWERS + " TEXT,"
-                + Question.Table.DOC_LINK + " TEXT,"
-                + Question.Table.RIGHT_ANS_CNT + " INTEGER DEFAULT 0,"
-                + Question.Table.WRONG_ANS_CNT + " INTEGER DEFAULT 0,"
-                + Question.Table.STATUS + " INTEGER DEFAULT 0,"
+                + Question.Table.RIGHT_ANSWERS + TEXT
+                + Question.Table.WRONG_ANSWERS + TEXT
+                + Question.Table.DOC_LINK + TEXT
+                + Question.Table.RIGHT_ANS_CNT + INTEGER_DEFAULT_0
+                + Question.Table.WRONG_ANS_CNT + INTEGER_DEFAULT_0
+                + Question.Table.STATUS + INTEGER_DEFAULT_0
                 + Question.Table.LAST_VIEWED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                 + Question.Table.STUDIED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
-        String CREATE_TABLE_TAG = "CREATE TABLE "
+        String CREATE_TABLE_TAG = CREATE_TABLE
                 + Tag.Table.NAME + "("
                 + Tag.Table._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Tag.Table.TEXT + " TEXT,"
+                + Tag.Table.TEXT + TEXT
                 + Tag.Table.SELECTED + " INTEGER DEFAULT 0)";
 
-        String CREATE_TABLE_RELATION_QUESTION_TAG = "CREATE TABLE "
+        String CREATE_TABLE_RELATION_QUESTION_TAG = CREATE_TABLE
                 + RelationTables.QuestionTag.NAME + "("
                 + RelationTables.QuestionTag.QUESTION_ID + " INTEGER,"
                 + RelationTables.QuestionTag.TAG_ID + " INTEGER)";
@@ -108,7 +114,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     private void insertFromFile(List<JsonParser.ParsedQuestion> parsedQuestions, SQLiteDatabase db) {
         // TODO: do we need replace?
-        SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
+        SQLiteStatement insertQuestion = db.compileStatement(INSERT_OR_REPLACE_INTO
                         + Question.Table.NAME + "("
                         + TextUtils.join(", ", new String[]{
                         Question.Table.TEXT,
@@ -120,12 +126,12 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                         + ") VALUES (?, ?, ?, ?, ?)"
         );
 
-        SQLiteStatement insertTag = db.compileStatement("INSERT OR REPLACE INTO "
+        SQLiteStatement insertTag = db.compileStatement(INSERT_OR_REPLACE_INTO
                         + Tag.Table.NAME + "("
                         + Tag.Table.TEXT + ") VALUES (?)"
         );
 
-        SQLiteStatement insertRelationQuestionTag = db.compileStatement("INSERT OR REPLACE INTO "
+        SQLiteStatement insertRelationQuestionTag = db.compileStatement(INSERT_OR_REPLACE_INTO
                         + RelationTables.QuestionTag.NAME + "("
                         + RelationTables.QuestionTag.QUESTION_ID + ", "
                         + RelationTables.QuestionTag.TAG_ID + ") VALUES (?, ?)"
