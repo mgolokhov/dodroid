@@ -137,15 +137,15 @@ public class QuizDBHelper extends SQLiteOpenHelper {
             Map<String, Long> tags = new HashMap<>();
             for (JsonParser.ParsedQuestion q : parsedQuestions) {
                 insertQuestion.bindAllArgsAsStrings(new String[]{
-                        q.mText,
-                        q.mDocRef,
-                        TextUtils.join("\n", q.mRightItems),
-                        TextUtils.join("\n", q.mWrongItems),
-                        String.valueOf(q.mTrueOrFalse ? 1 : 0)
+                        q.getmText(),
+                        q.getmDocRef(),
+                        TextUtils.join("\n", q.getmRightItems()),
+                        TextUtils.join("\n", q.getmWrongItems()),
+                        String.valueOf(q.ismTrueOrFalse() ? 1 : 0)
                 });
                 long qid = insertQuestion.executeInsert();
 
-                for (String t : q.mTags) {
+                for (String t : q.getmTags()) {
                     if (tags.containsKey(t))
                         insertRelationQuestionTag.bindLong(2, tags.get(t));
                     else {
