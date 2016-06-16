@@ -40,7 +40,6 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        //if (DEBUG) Timber.d("getCount: %d", (mCursor == null ? 0 : mCursor.getCount()));
         return mQuestions.size();
     }
 
@@ -58,7 +57,6 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
 
 
     public void setData(Cursor newCursor){
-//        mQuestions = new ArrayList<>();
         if (DEBUG) Timber.d("setData:id:############");
         if (mQuestions.size() == 0) {
             while (newCursor.moveToNext()) {

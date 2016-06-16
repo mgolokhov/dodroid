@@ -17,7 +17,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
     // Database Version
     private static final int DATABASE_VERSION = 38;
-    //private static final int DB_CONTENT_VERSION = 28;
     private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
     public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
@@ -93,19 +92,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     // Leave for the future use
     @SuppressWarnings("unused")
-//    private void createFromFile(SQLiteDatabase db) {
-//        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SQLITE_SHAREDPREF, Context.MODE_PRIVATE);
-//        int version = sharedPreferences.getInt(DB_CONTENT_VERSION_KEY, 0);
-//        if (version < DB_CONTENT_VERSION) {
-//            Log.i(TAG, "populate db from file");
-//            insertFromFile(JsonParser.getQuestions(mContext.getResources().openRawResource(R.raw.quiz)), db);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putInt(DB_CONTENT_VERSION_KEY, DB_CONTENT_VERSION);
-//            editor.commit();
-//        }
-//
-//    }
-
     private void insertFromFile(List<JsonParser.ParsedQuestion> parsedQuestions, SQLiteDatabase db) {
         // TODO: do we need replace?
         SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
