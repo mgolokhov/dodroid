@@ -18,6 +18,8 @@ public class Tag {
         public static final String QTY_WHEN_STUDIED = "3";
         public static final String TOTAL_COUNTER = "tagTotalCounter";
         public static final String STUDIED_COUNTER = "tagStudiedCounter";
+
+        private Table() {}
     }
 
     public Integer getId() {
