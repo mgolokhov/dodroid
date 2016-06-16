@@ -39,10 +39,10 @@ public class DrawerBaseActivity extends AppCompatActivity
             return sVersion;
 
         try {
-            sVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            setsVersion(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-            sVersion = "buggy";
+            setsVersion("buggy");
         }
         return sVersion;
     }
@@ -178,5 +178,11 @@ public class DrawerBaseActivity extends AppCompatActivity
         builder.startActivities();
     }
 
+    public static String getsVersion() {
+        return sVersion;
+    }
 
+    public static void setsVersion(String sVersion) {
+        DrawerBaseActivity.sVersion = sVersion;
+    }
 }
