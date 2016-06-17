@@ -60,6 +60,12 @@ public class Question implements Parcelable {
     private String mDocRef;
     private Status mStatus;
 
+    public Question(){
+        mRightAnswers = new ArrayList<>();
+        mWrongAnswers = new ArrayList<>();
+        mTags = new ArrayList<>();
+    }
+
     public Question(int id, String text,
                     List<String> wrongAnswers,
                     List<String> rightAnswers,
@@ -106,7 +112,13 @@ public class Question implements Parcelable {
 
     @Override
     public String toString(){
-        return "tags: " + mTags.toString();
+        String s = String.format("ID: %d, wrong: %s, wright: %s, tags: %s question: %s",
+                mId,
+                mWrongAnswers,
+                mRightAnswers,
+                mTags,
+                mText);
+        return s;
     }
 
     private static List<String> splitItems(String s){
@@ -130,6 +142,19 @@ public class Question implements Parcelable {
 
     public int getId() {
         return mId;
+    }
+
+    public void setText(String text) {
+        mText = text;
+    }
+
+    public void setId(int id) {
+        mId = id;
+    }
+
+
+    public void setDocRef(String docRef) {
+        mDocRef = docRef;
     }
 
     public String getText() {
