@@ -92,7 +92,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
 
     // Leave for the future use
     @SuppressWarnings("unused")
-    private void insertFromFile(List<JsonParser.ParsedQuestion> parsedQuestions, SQLiteDatabase db) {
+    private void insertFromFile(List<Question> parsedQuestions, SQLiteDatabase db) {
         // TODO: do we need replace?
         SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
                         + Question.Table.NAME + "("
@@ -121,17 +121,17 @@ public class QuizDBHelper extends SQLiteOpenHelper {
             if (DEBUG) Timber.d("wanna insert data");
             db.beginTransaction();
             Map<String, Long> tags = new HashMap<>();
-            for (JsonParser.ParsedQuestion q : parsedQuestions) {
+            for (Question q : parsedQuestions) {
                 insertQuestion.bindAllArgsAsStrings(new String[]{
-                        q.mText,
-                        q.mDocRef,
-                        TextUtils.join("\n", q.mRightItems),
-                        TextUtils.join("\n", q.mWrongItems),
-                        String.valueOf(q.mTrueOrFalse ? 1 : 0)
+                        q.getText(),
+                        q.getDocRef(),
+                        TextUtils.join("\n", q.getRightAnswers()),
+                        TextUtils.join("\n", q.getWrongAnswers()),
+                        "0"// FIXME: don't care about true or false type question
                 });
                 long qid = insertQuestion.executeInsert();
 
-                for (String t : q.mTags) {
+                for (String t : q.getTags()) {
                     if (tags.containsKey(t))
                         insertRelationQuestionTag.bindLong(2, tags.get(t));
                     else {

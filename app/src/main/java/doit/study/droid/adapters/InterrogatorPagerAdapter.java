@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 
 public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private List<Question> mQuestions = new ArrayList<>();
 
     public InterrogatorPagerAdapter(FragmentManager fm) {

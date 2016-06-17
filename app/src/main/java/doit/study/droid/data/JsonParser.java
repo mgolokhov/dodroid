@@ -20,7 +20,7 @@ public class JsonParser {
 
     private JsonParser() {}
 
-    public static List<ParsedQuestion> getQuestions(InputStream inputStream){
+    public static List<Question> getQuestions(InputStream inputStream){
         return parseTests(readFile(inputStream));
     }
 
@@ -42,61 +42,42 @@ public class JsonParser {
 
     // Parse and map json data to the Question object
     // Many questions => List of questions
-    private static List<ParsedQuestion> parseTests(String data){
-        List<ParsedQuestion> parsedQuestions = null;
+    private static List<Question> parseTests(String data){
+        List<Question> parsedQuestions = null;
         try {
             JSONArray questions = new JSONArray(data);
+            // first item indicates total number of questions
             final int SIZE = questions.getJSONObject(0).getInt("quiz_size");
             parsedQuestions = new ArrayList<>(SIZE);
             for(int i=1; i < questions.length(); i++) {
-                ParsedQuestion parsedQuestion = new ParsedQuestion();
+                Question question = new Question();
                 JSONObject currentQuestion = questions.getJSONObject(i);
-                parsedQuestion.mTopicId = 0;
-                parsedQuestion.mTestSetId = 0;
-                parsedQuestion.mQuestionId = 0;
-                parsedQuestion.mText = currentQuestion.getString("question");
+                question.setText(currentQuestion.getString("question"));
                 JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
 
                 for(int j=0; j<wrongAnswers.length(); j++){
-                    parsedQuestion.mWrongItems.add(wrongAnswers.get(j).toString());
+                    question.getWrongAnswers().add(wrongAnswers.get(j).toString());
                 }
                 JSONArray rightAnswers = currentQuestion.getJSONArray("right");
                 for(int j=0; j<rightAnswers.length(); j++){
-                    parsedQuestion.mRightItems.add(rightAnswers.get(j).toString());
+                    question.getRightAnswers().add(rightAnswers.get(j).toString());
                 }
                 JSONArray tags = currentQuestion.optJSONArray("tags");
                 if (tags != null)
                     for(int j=0; j<tags.length(); j++) {
                         String[] splitTags = (tags.get(j).toString()).split("\n");
-                        parsedQuestion.mTags.addAll(Arrays.asList(splitTags));
+                        question.getTags().addAll(Arrays.asList(splitTags));
                     }
                 else
-                    parsedQuestion.mTags.add("Other");
-                parsedQuestion.mDocRef = currentQuestion.getString("docRef");
-                parsedQuestions.add(parsedQuestion);
+                    question.getTags().add("Other");
+                question.setDocRef(currentQuestion.getString("docRef"));
+                if (DEBUG) Timber.d(question.toString());
+                parsedQuestions.add(question);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         if (DEBUG) Timber.d(parsedQuestions != null ? parsedQuestions.toString() : "none");
         return parsedQuestions;
-    }
-
-
-    public static class ParsedQuestion {
-        public int mTopicId;
-        public int mTestSetId;
-        public int mQuestionId;
-        public String mText;
-        public List<String> mWrongItems = new ArrayList<>();
-        public List<String> mRightItems = new ArrayList<>();
-        public List<String> mTags = new ArrayList<>();
-        public String mDocRef;
-        public boolean mTrueOrFalse;
-
-        @Override
-        public String toString() {
-            return mText;
-        }
     }
 }
