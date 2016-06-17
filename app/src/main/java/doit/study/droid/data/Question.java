@@ -12,6 +12,18 @@ import java.util.List;
 
 public class Question implements Parcelable {
 
+    public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel source) {
+            return new Question(source);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
     public static final class Table {
 
         public static final String NAME ="questions";
@@ -59,6 +71,19 @@ public class Question implements Parcelable {
     private List<String> mTags;
     private String mDocRef;
     private Status mStatus;
+
+    protected Question(Parcel in) {
+        this.mId = in.readInt();
+        this.mWrongCounter = in.readInt();
+        this.mRightCounter = in.readInt();
+        this.mText = in.readString();
+        this.mWrongAnswers = in.createStringArrayList();
+        this.mRightAnswers = in.createStringArrayList();
+        this.mTags = in.createStringArrayList();
+        this.mDocRef = in.readString();
+        int tmpMStatus = in.readInt();
+        this.mStatus = tmpMStatus == -1 ? null : Status.values()[tmpMStatus];
+    }
 
     public Question(int id, String text,
                     List<String> wrongAnswers,
@@ -190,29 +215,4 @@ public class Question implements Parcelable {
         dest.writeString(this.mDocRef);
         dest.writeInt(this.mStatus == null ? -1 : this.mStatus.ordinal());
     }
-
-    protected Question(Parcel in) {
-        this.mId = in.readInt();
-        this.mWrongCounter = in.readInt();
-        this.mRightCounter = in.readInt();
-        this.mText = in.readString();
-        this.mWrongAnswers = in.createStringArrayList();
-        this.mRightAnswers = in.createStringArrayList();
-        this.mTags = in.createStringArrayList();
-        this.mDocRef = in.readString();
-        int tmpMStatus = in.readInt();
-        this.mStatus = tmpMStatus == -1 ? null : Status.values()[tmpMStatus];
-    }
-
-    public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
-        @Override
-        public Question createFromParcel(Parcel source) {
-            return new Question(source);
-        }
-
-        @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
-        }
-    };
 }

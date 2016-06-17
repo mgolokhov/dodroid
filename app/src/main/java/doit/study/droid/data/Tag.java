@@ -22,15 +22,19 @@ public class Tag {
         private Table() {}
     }
 
-    public Integer getId() {
-        return mId;
-    }
-
     private final Integer mId;
     private final String mName;
     private final Integer mQuestionsCounter;
     private final Integer mQuestionsStudied;
     private boolean mSelected;
+
+    public Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
+        mId = id;
+        mName = name;
+        mSelected = selected;
+        mQuestionsCounter = questionsCounter;
+        mQuestionsStudied = questionsStudied;
+    }
 
     public static Tag newInstance(Cursor c) {
         return new Tag(c.getInt(c.getColumnIndex("_id")),
@@ -40,13 +44,8 @@ public class Tag {
                 c.getInt(c.getColumnIndex(Table.STUDIED_COUNTER)));
     }
 
-
-    public Tag (Integer id, String name, boolean selected, Integer questionsCounter, Integer questionsStudied) {
-        mId = id;
-        mName = name;
-        mSelected = selected;
-        mQuestionsCounter = questionsCounter;
-        mQuestionsStudied = questionsStudied;
+    public Integer getId() {
+        return mId;
     }
 
     @Override

@@ -3,11 +3,11 @@ package doit.study.droid.utils;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Views {
+    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
+
     private Views(){
         // No instances.
     }
-
-    private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
     /**
      * Generate a value suitable for use in {@link #setId(int)}.
