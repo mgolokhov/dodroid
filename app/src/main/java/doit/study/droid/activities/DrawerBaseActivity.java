@@ -1,9 +1,7 @@
 package doit.study.droid.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,28 +22,17 @@ import android.widget.TextView;
 import doit.study.droid.R;
 import timber.log.Timber;
 
+import static doit.study.droid.utils.Distribution.getVersion;
+
 public class DrawerBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final boolean DEBUG = true;
     private DrawerLayout mDrawer;
     protected FrameLayout mContainerContent;
-    private static String sVersion;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private NavigationView mNavigationView;
     protected int mSelectionId = R.id.nav_set_topic;
 
-    private String getVersion() {
-        if (sVersion != null)
-            return sVersion;
-
-        try {
-            sVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            sVersion = "buggy";
-        }
-        return sVersion;
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +72,7 @@ public class DrawerBaseActivity extends AppCompatActivity
         View header = mNavigationView.getHeaderView(0);
         mNavigationView.setNavigationItemSelectedListener(this);
         TextView tv = (TextView) header.findViewById(R.id.version_num_header);
-        tv.setText(getVersion());
+        tv.setText(getVersion(this));
     }
 
 
@@ -177,6 +164,4 @@ public class DrawerBaseActivity extends AppCompatActivity
         builder.addNextIntentWithParentStack(intent);
         builder.startActivities();
     }
-
-
 }
