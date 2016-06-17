@@ -84,15 +84,87 @@ public class JsonParser {
 
 
     public static class ParsedQuestion {
-        public int mTopicId;
-        public int mTestSetId;
-        public int mQuestionId;
-        public String mText;
-        public List<String> mWrongItems = new ArrayList<>();
-        public List<String> mRightItems = new ArrayList<>();
-        public List<String> mTags = new ArrayList<>();
-        public String mDocRef;
-        public boolean mTrueOrFalse;
+        private int mTopicId;
+        private int mTestSetId;
+        private int mQuestionId;
+        private String mText;
+        private List<String> mWrongItems = new ArrayList<>();
+        private List<String> mRightItems = new ArrayList<>();
+        private List<String> mTags = new ArrayList<>();
+        private String mDocRef;
+        private boolean mTrueOrFalse;
+
+        public int getmTopicId() {
+            return mTopicId;
+        }
+
+        public void setmTopicId(int mTopicId) {
+            this.mTopicId = mTopicId;
+        }
+
+        public int getmTestSetId() {
+            return mTestSetId;
+        }
+
+        public void setmTestSetId(int mTestSetId) {
+            this.mTestSetId = mTestSetId;
+        }
+
+        public int getmQuestionId() {
+            return mQuestionId;
+        }
+
+        public void setmQuestionId(int mQuestionId) {
+            this.mQuestionId = mQuestionId;
+        }
+
+        public String getmText() {
+            return mText;
+        }
+
+        public void setmText(String mText) {
+            this.mText = mText;
+        }
+
+        public List<String> getmWrongItems() {
+            return mWrongItems;
+        }
+
+        public void setmWrongItems(List<String> mWrongItems) {
+            this.mWrongItems = mWrongItems;
+        }
+
+        public List<String> getmRightItems() {
+            return mRightItems;
+        }
+
+        public void setmRightItems(List<String> mRightItems) {
+            this.mRightItems = mRightItems;
+        }
+
+        public List<String> getmTags() {
+            return mTags;
+        }
+
+        public void setmTags(List<String> mTags) {
+            this.mTags = mTags;
+        }
+
+        public String getmDocRef() {
+            return mDocRef;
+        }
+
+        public void setmDocRef(String mDocRef) {
+            this.mDocRef = mDocRef;
+        }
+
+        public boolean ismTrueOrFalse() {
+            return mTrueOrFalse;
+        }
+
+        public void setmTrueOrFalse(boolean mTrueOrFalse) {
+            this.mTrueOrFalse = mTrueOrFalse;
+        }
 
         @Override
         public String toString() {
