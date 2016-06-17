@@ -141,7 +141,6 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRetainInstance(true);
         setHasOptionsMenu(true);
         mFeedbackRightAnswered = getResources().getStringArray(R.array.feedback_right_answer);
         mFeedbackWrongAnswered = getResources().getStringArray(R.array.feedback_wrong_answer);

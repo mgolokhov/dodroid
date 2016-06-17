@@ -56,7 +56,6 @@ public class TopicFragment extends Fragment implements LoaderManager.LoaderCallb
         setHasOptionsMenu(true);
 
         if (DEBUG) Timber.d("onCreate");
-//        getLayoutInflater().inflate(R.layout.activity_topics_chooser, mFrameLayout);
         getLoaderManager().initLoader(TAG_LOADER, null, this);
         getLoaderManager().initLoader(QUESTION_LOADER, null, this);
 
@@ -75,7 +74,6 @@ public class TopicFragment extends Fragment implements LoaderManager.LoaderCallb
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.topics_view);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-//        mRecyclerView.addItemDecoration(new TopicAdapter.DividerItemDecoration(this, R.drawable.divider));
         mTopicAdapter = new TopicAdapter();
         mRecyclerView.setAdapter(mTopicAdapter);
     }
@@ -184,7 +182,6 @@ public class TopicFragment extends Fragment implements LoaderManager.LoaderCallb
                 break;
             case QUESTION_LOADER:
                 if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.getCount());
-//                setTitle("Total questions: " + data.getCount());
                 break;
         }
     }

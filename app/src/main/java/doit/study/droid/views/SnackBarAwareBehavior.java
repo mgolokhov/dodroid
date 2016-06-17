@@ -39,7 +39,6 @@ public class SnackBarAwareBehavior extends CoordinatorLayout.Behavior<View> {
         if (DEBUG) Timber.d("onDependentViewChanged");
         float translationY = Math.min(0, dependency.getTranslationY() - dependency.getHeight());
         child.setTranslationY(translationY);
-        //return super.onDependentViewChanged(parent, child, dependency);
         return true;
     }
 
@@ -88,7 +87,6 @@ public class SnackBarAwareBehavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
         if (DEBUG) Timber.d("onStartNestedScroll");
-//        return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
         return true;
     }
 
@@ -108,19 +106,6 @@ public class SnackBarAwareBehavior extends CoordinatorLayout.Behavior<View> {
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         if (DEBUG) Timber.d("onNestedScroll");
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
-//        if (dyConsumed > 0) {
-//            // User scrolled down
-//            child.animate()
-//                    .alpha(0.0f)
-//                    .translationY(child.getHeight())
-//                    .setDuration(500);
-//        } else if (dyConsumed < 0) {
-//            // User scrolled up
-//            child.animate()
-//                    .alpha(1.0f)
-//                    .translationY(0)
-//                    .setDuration(500);
-//        }
     }
 
     @Override

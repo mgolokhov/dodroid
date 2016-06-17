@@ -51,9 +51,9 @@ public class JsonParser {
             for(int i=1; i < questions.length(); i++) {
                 ParsedQuestion parsedQuestion = new ParsedQuestion();
                 JSONObject currentQuestion = questions.getJSONObject(i);
-                parsedQuestion.mTopicId = 0;//Integer.parseInt(currentQuestion.getString("topic_id"));
-                parsedQuestion.mTestSetId = 0;//Integer.parseInt(currentQuestion.getString("test_set_id"));
-                parsedQuestion.mQuestionId = 0;//Integer.parseInt(currentQuestion.getString("question_id"));
+                parsedQuestion.mTopicId = 0;
+                parsedQuestion.mTestSetId = 0;
+                parsedQuestion.mQuestionId = 0;
                 parsedQuestion.mText = currentQuestion.getString("question");
                 JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
 
@@ -77,7 +77,6 @@ public class JsonParser {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            //throw new RuntimeException(e);
         }
         if (DEBUG) Timber.d(parsedQuestions != null ? parsedQuestions.toString() : "none");
         return parsedQuestions;
