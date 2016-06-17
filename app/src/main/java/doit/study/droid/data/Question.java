@@ -44,6 +44,8 @@ public class Question implements Parcelable {
         public static final String FQ_LAST_VIEWED_AT = NAME + "." + LAST_VIEWED_AT;
         public static final String FQ_STUDIED_AT = NAME + "." + STUDIED_AT;
         public static final String FQ_STATUS = NAME + "." + STATUS;
+
+        private Table() {}
     }
 
     public enum Status {NEW, ADDED, IN_PROGRESS, STUDIED}

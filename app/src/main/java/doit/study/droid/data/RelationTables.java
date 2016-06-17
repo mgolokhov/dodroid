@@ -9,6 +9,8 @@ public class RelationTables {
         // fully qualified names
         public static final String FQ_TAG_ID = NAME + "." + TAG_ID;
         public static final String FQ_QUESTION_ID = NAME + "." + QUESTION_ID;
+
+        private QuestionTag() {}
     }
 
 
@@ -23,4 +25,6 @@ public class RelationTables {
         Question.Table.FQ_WRONG_ANS_CNT,
         Question.Table.FQ_STATUS
     };
+
+    private RelationTables() {}
 }

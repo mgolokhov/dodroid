@@ -18,6 +18,8 @@ import timber.log.Timber;
 public class JsonParser {
     private static final boolean DEBUG = true;
 
+    private JsonParser() {}
+
     public static List<ParsedQuestion> getQuestions(InputStream inputStream){
         return parseTests(readFile(inputStream));
     }
