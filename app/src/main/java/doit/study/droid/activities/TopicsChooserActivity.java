@@ -1,16 +1,15 @@
 package doit.study.droid.activities;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Toast;
 
 import doit.study.droid.R;
-import doit.study.droid.fragments.TopicFragment;
+import doit.study.droid.fragments.TopicsChooserFragment;
 import timber.log.Timber;
 
 
 public class TopicsChooserActivity extends DrawerBaseActivity {
-    private final static boolean DEBUG = true;
+    private final static boolean DEBUG = false;
     private Toast mToast;
     private static final int TIME_INTERVAL = 2000; // milliseconds, desired time passed between two back presses.
     private long mBackPressedTime;
@@ -23,7 +22,7 @@ public class TopicsChooserActivity extends DrawerBaseActivity {
         mSelectionId = R.id.nav_set_topic;
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_content, TopicFragment.newInstance())
+                .add(R.id.container_content, TopicsChooserFragment.newInstance())
                 .commit();
     }
 

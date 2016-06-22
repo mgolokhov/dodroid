@@ -14,16 +14,17 @@ public class RelationTables {
     }
 
 
-    public static final String [] JoinedQuestionTagProjection = {
-        Question.Table.FQ_ID,
-        Question.Table.FQ_TEXT,
-        Question.Table.FQ_DOC_LINK,
-        Question.Table.FQ_RIGHT_ANSWERS,
-        Question.Table.FQ_WRONG_ANSWERS,
-        Tag.Table.FQ_TEXT,
-        Question.Table.FQ_RIGHT_ANS_CNT,
-        Question.Table.FQ_WRONG_ANS_CNT,
-        Question.Table.FQ_STATUS
+    public static final String[] JoinedQuestionTagProjection = {
+            Question.Table.FQ_ID,
+            Question.Table.FQ_TEXT,
+            Question.Table.FQ_DOC_LINK,
+            Question.Table.FQ_RIGHT_ANSWERS,
+            Question.Table.FQ_WRONG_ANSWERS,
+            Tag.Table.FQ_TEXT,
+            Question.Table.FQ_RIGHT_ANS_CNT,
+            Question.Table.FQ_WRONG_ANS_CNT,
+            Question.Table.FQ_CONSECUTIVE_RIGHT_ANS_CNT,
+            Question.Table.FQ_QUESTION_TYPE
     };
 
     private RelationTables() {}

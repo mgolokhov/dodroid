@@ -33,7 +33,7 @@ import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
 
-public class TopicFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
+public class TopicsChooserFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
     private final static boolean DEBUG = false;
     private TopicAdapter mTopicAdapter;
     private RecyclerView mRecyclerView;
@@ -41,12 +41,12 @@ public class TopicFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final int QUESTION_LOADER = 1;
     private List<Tag> mMasterCopyTags = new ArrayList<>();
 
-    public TopicFragment() {
+    public TopicsChooserFragment() {
         // Required empty public constructor
     }
 
-    public static TopicFragment newInstance() {
-        TopicFragment fragment = new TopicFragment();
+    public static TopicsChooserFragment newInstance() {
+        TopicsChooserFragment fragment = new TopicsChooserFragment();
         return fragment;
     }
 

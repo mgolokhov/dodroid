@@ -15,15 +15,9 @@ import timber.log.Timber;
 
 public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
-    // Database Version
-    private static final int DATABASE_VERSION = 38;
-    private static final String DB_CONTENT_VERSION_KEY = "doit.study.droid.sqlite.db_content_version_key";
 
-    public static final String SQLITE_SHAREDPREF = "doit.study.droid.sqlite.sharedpref";
-
-    // Database Name
+    private static final int DATABASE_VERSION = 40;
     private static final String DATABASE_NAME = "dodroid";
-
     private Context mContext;
 
     public QuizDBHelper(Context context) {
@@ -41,13 +35,13 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                 + Question.Table.NAME + "("
                 + Question.Table._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Question.Table.TEXT + " TEXT,"
-                + Question.Table.TRUE_OR_FALSE + " INTEGER,"
+                + Question.Table.QUESTION_TYPE + " INTEGER,"
                 + Question.Table.RIGHT_ANSWERS + " TEXT,"
                 + Question.Table.WRONG_ANSWERS + " TEXT,"
                 + Question.Table.DOC_LINK + " TEXT,"
                 + Question.Table.RIGHT_ANS_CNT + " INTEGER DEFAULT 0,"
                 + Question.Table.WRONG_ANS_CNT + " INTEGER DEFAULT 0,"
-                + Question.Table.STATUS + " INTEGER DEFAULT 0,"
+                + Question.Table.CONSECUTIVE_RIGHT_ANS_CNT + " INTEGER DEFAULT 0,"
                 + Question.Table.LAST_VIEWED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                 + Question.Table.STUDIED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
@@ -90,8 +84,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     }
 
 
-    // Leave for the future use
-    @SuppressWarnings("unused")
     private void insertFromFile(List<Question> parsedQuestions, SQLiteDatabase db) {
         // TODO: do we need replace?
         SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
@@ -101,7 +93,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                         Question.Table.DOC_LINK,
                         Question.Table.RIGHT_ANSWERS,
                         Question.Table.WRONG_ANSWERS,
-                        Question.Table.TRUE_OR_FALSE
+                        Question.Table.QUESTION_TYPE
                         })
                         + ") VALUES (?, ?, ?, ?, ?)"
         );
@@ -127,7 +119,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
                         q.getDocRef(),
                         TextUtils.join("\n", q.getRightAnswers()),
                         TextUtils.join("\n", q.getWrongAnswers()),
-                        "0"// FIXME: don't care about true or false type question
+                        String.valueOf(q.getQuestionType()),
                 });
                 long qid = insertQuestion.executeInsert();
 

@@ -53,15 +53,17 @@ public class JsonParser {
                 Question question = new Question();
                 JSONObject currentQuestion = questions.getJSONObject(i);
                 question.setText(currentQuestion.getString("question"));
-                JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
 
+                JSONArray wrongAnswers = currentQuestion.getJSONArray("wrong");
                 for(int j=0; j<wrongAnswers.length(); j++){
                     question.getWrongAnswers().add(wrongAnswers.get(j).toString());
                 }
+
                 JSONArray rightAnswers = currentQuestion.getJSONArray("right");
                 for(int j=0; j<rightAnswers.length(); j++){
                     question.getRightAnswers().add(rightAnswers.get(j).toString());
                 }
+
                 JSONArray tags = currentQuestion.optJSONArray("tags");
                 if (tags != null)
                     for(int j=0; j<tags.length(); j++) {
@@ -70,7 +72,9 @@ public class JsonParser {
                     }
                 else
                     question.getTags().add("Other");
+
                 question.setDocRef(currentQuestion.getString("docRef"));
+                question.setQuestionType(Integer.decode(currentQuestion.getString("questionType")));
                 if (DEBUG) Timber.d(question.toString());
                 parsedQuestions.add(question);
             }

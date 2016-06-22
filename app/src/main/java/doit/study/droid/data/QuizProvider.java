@@ -183,7 +183,7 @@ public class QuizProvider extends ContentProvider {
         // authority/tag/
         SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
         String tagTotalCounter = "COUNT(" + Tag.Table.FQ_TEXT + ") as " + Tag.Table.TOTAL_COUNTER;
-        String tagStudiedCounter = "SUM(" + Question.Table.FQ_STATUS + "=" + Tag.Table.QTY_WHEN_STUDIED + ") as " +
+        String tagStudiedCounter = "SUM(" + Question.Table.FQ_CONSECUTIVE_RIGHT_ANS_CNT + ">=" + Question.NUM_TO_CONSIDER_STUDIED + ") as " +
                 Tag.Table.STUDIED_COUNTER;
         String[] projection = {Tag.Table.FQ_ID, Tag.Table.FQ_TEXT, tagTotalCounter, tagStudiedCounter, Tag.Table.FQ_SELECTION};
         return sQuizQueryBuilder.query(db, projection, null, null, Tag.Table.FQ_TEXT, null, null);

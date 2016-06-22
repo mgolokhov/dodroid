@@ -26,7 +26,7 @@ import static doit.study.droid.utils.Distribution.getVersion;
 
 public class DrawerBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private DrawerLayout mDrawer;
     protected FrameLayout mContainerContent;
     private ActionBarDrawerToggle mActionBarDrawerToggle;

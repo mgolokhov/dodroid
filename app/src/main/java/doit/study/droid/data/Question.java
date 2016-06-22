@@ -16,49 +16,50 @@ public class Question implements Parcelable {
 
         public static final String NAME ="questions";
         public static final String _ID = "_id";
-        public static final String TEXT = "atext";
+        public static final String TEXT = "question_text";
         public static final String WRONG_ANSWERS = "wrong_answers";
         public static final String RIGHT_ANSWERS = "right_answers";
-        public static final String TRUE_OR_FALSE = "true_or_false";
         public static final String DOC_LINK = "doc_link";
         public static final String WRONG_ANS_CNT = "wrong_ans_cnt";
         public static final String RIGHT_ANS_CNT = "right_ans_cnt";
+        public static final String CONSECUTIVE_RIGHT_ANS_CNT = "consecutive_right_ans_cnt";
         public static final String LAST_VIEWED_AT = "last_viewed_at";
         public static final String STUDIED_AT = "studied_at";
-        // status
-        // 0 - a new
-        // 1 - added for learning
-        // 2 - in progress (one or two right hits)
-        // 3 - studied (three or more right hits)
-        public static final String STATUS = "status";
+        public static final String QUESTION_TYPE = "question_type";
 
         // fully qualified names
-        public static final String FQ_ID = NAME + "." + _ID;
-        public static final String FQ_TEXT = NAME + "." + TEXT;
-        public static final String FQ_WRONG_ANSWERS = NAME + "." + WRONG_ANSWERS;
-        public static final String FQ_RIGHT_ANSWERS = NAME + "." + RIGHT_ANSWERS;
-        public static final String FQ_TRUE_OR_FALSE = NAME + "." + TRUE_OR_FALSE;
-        public static final String FQ_DOC_LINK = NAME + "." + DOC_LINK;
-        public static final String FQ_WRONG_ANS_CNT = NAME + "." + WRONG_ANS_CNT;
-        public static final String FQ_RIGHT_ANS_CNT = NAME + "." + RIGHT_ANS_CNT;
-        public static final String FQ_LAST_VIEWED_AT = NAME + "." + LAST_VIEWED_AT;
-        public static final String FQ_STUDIED_AT = NAME + "." + STUDIED_AT;
-        public static final String FQ_STATUS = NAME + "." + STATUS;
+        public static final String FQ_ID = mkFullyQualified(_ID);
+        public static final String FQ_TEXT = mkFullyQualified(TEXT);
+        public static final String FQ_WRONG_ANSWERS = mkFullyQualified(WRONG_ANSWERS);
+        public static final String FQ_RIGHT_ANSWERS = mkFullyQualified(RIGHT_ANSWERS);
+        public static final String FQ_DOC_LINK = mkFullyQualified(DOC_LINK);
+        public static final String FQ_WRONG_ANS_CNT = mkFullyQualified(WRONG_ANS_CNT);
+        public static final String FQ_RIGHT_ANS_CNT = mkFullyQualified(RIGHT_ANS_CNT);
+        public static final String FQ_CONSECUTIVE_RIGHT_ANS_CNT = mkFullyQualified(CONSECUTIVE_RIGHT_ANS_CNT);
+        public static final String FQ_LAST_VIEWED_AT = mkFullyQualified(LAST_VIEWED_AT);
+        public static final String FQ_STUDIED_AT = mkFullyQualified(STUDIED_AT);
+        public static final String FQ_QUESTION_TYPE = mkFullyQualified(QUESTION_TYPE);
+
+        private static String mkFullyQualified(String s){
+            return NAME + "." + s;
+        }
 
         private Table() {}
     }
 
-    public enum Status {NEW, ADDED, IN_PROGRESS, STUDIED}
 
+    // consecutive right shots when we consider question is studied
+    public static final int NUM_TO_CONSIDER_STUDIED = 3;
     private int mId;
-    private int mWrongCounter;
-    private int mRightCounter;
+    private int mWrongAnsCnt;
+    private int mRightAnsCnt;
+    private int mConsecutiveRightCnt;
     private String mText;
     private List<String> mWrongAnswers;
     private List<String> mRightAnswers;
     private List<String> mTags;
     private String mDocRef;
-    private Status mStatus;
+    private int mQuestionType;
 
     public Question(){
         mRightAnswers = new ArrayList<>();
@@ -71,9 +72,10 @@ public class Question implements Parcelable {
                     List<String> rightAnswers,
                     List<String> tags,
                     String docRef,
-                    int wrongCounter,
-                    int rightCounter,
-                    int status
+                    int wrongAnsCnt,
+                    int rightAnsCnt,
+                    int consecutiveRightCnt,
+                    int questionType
                     ){
         mId = id;
         mText = text;
@@ -81,21 +83,23 @@ public class Question implements Parcelable {
         mRightAnswers = rightAnswers;
         mTags = tags;
         mDocRef = docRef;
-        mRightCounter = rightCounter;
-        mWrongCounter = wrongCounter;
-        mStatus = initStatus(status);
+        mRightAnsCnt = rightAnsCnt;
+        mWrongAnsCnt = wrongAnsCnt;
+        mConsecutiveRightCnt = consecutiveRightCnt;
+        mQuestionType = questionType;
     }
 
     public static Question newInstance(Cursor c){
-        return new Question(c.getInt(c.getColumnIndex("_id")),
-                c.getString(c.getColumnIndex(Question.Table.TEXT)),
-                splitItems(c.getString(c.getColumnIndex(Question.Table.WRONG_ANSWERS))),
-                splitItems(c.getString(c.getColumnIndex(Question.Table.RIGHT_ANSWERS))),
+        return new Question(c.getInt(c.getColumnIndex(Table._ID)),
+                c.getString(c.getColumnIndex(Table.TEXT)),
+                splitItems(c.getString(c.getColumnIndex(Table.WRONG_ANSWERS))),
+                splitItems(c.getString(c.getColumnIndex(Table.RIGHT_ANSWERS))),
                 splitItems(c.getString(c.getColumnIndex("tags2"))),
-                c.getString(c.getColumnIndex(Question.Table.DOC_LINK)),
-                c.getInt(c.getColumnIndex(Question.Table.WRONG_ANS_CNT)),
-                c.getInt(c.getColumnIndex(Question.Table.RIGHT_ANS_CNT)),
-                c.getInt(c.getColumnIndex(Question.Table.STATUS))
+                c.getString(c.getColumnIndex(Table.DOC_LINK)),
+                c.getInt(c.getColumnIndex(Table.WRONG_ANS_CNT)),
+                c.getInt(c.getColumnIndex(Table.RIGHT_ANS_CNT)),
+                c.getInt(c.getColumnIndex(Table.CONSECUTIVE_RIGHT_ANS_CNT)),
+                c.getInt(c.getColumnIndex(Table.QUESTION_TYPE))
         );
     }
 
@@ -103,9 +107,9 @@ public class Question implements Parcelable {
     public static ContentValues getContentValues(Question question) {
         ContentValues values = new ContentValues();
         values.put(Table._ID, String.valueOf(question.getId()));
-        values.put(Table.STATUS, question.getStatus().ordinal());
-        values.put(Table.RIGHT_ANS_CNT, question.getRightCounter());
-        values.put(Table.WRONG_ANS_CNT, question.getWrongCounter());
+        values.put(Table.CONSECUTIVE_RIGHT_ANS_CNT, question.getConsecutiveRightCnt());
+        values.put(Table.RIGHT_ANS_CNT, question.getRightAnsCnt());
+        values.put(Table.WRONG_ANS_CNT, question.getWrongAnsCnt());
 
         return values;
     }
@@ -126,14 +130,6 @@ public class Question implements Parcelable {
             return new ArrayList<>();
         else
             return Arrays.asList(s.split("\n"));
-    }
-
-    private Status initStatus(int status){
-        for (Status s: Status.values()) {
-            if (s.ordinal() == status)
-                return s;
-        }
-        return Status.NEW;
     }
 
     public String getDocRef () {
@@ -173,30 +169,41 @@ public class Question implements Parcelable {
         return mTags;
     }
 
-    public int getRightCounter() {
-        return mRightCounter;
+    public int getRightAnsCnt() {
+        return mRightAnsCnt;
     }
 
-    public int getWrongCounter() {
-        return mWrongCounter;
+    public int getWrongAnsCnt() {
+        return mWrongAnsCnt;
+    }
+
+    public int getConsecutiveRightCnt() {
+        return mConsecutiveRightCnt;
+    }
+
+    public int getQuestionType(){
+        return mQuestionType;
+    }
+    // not yet
+    public void setQuestionType(int questionType){
+        mQuestionType = questionType;
     }
 
     public int incWrongCounter(){
-        mStatus = Status.ADDED;
-        mRightCounter = 0;
-        return ++mWrongCounter;
+        mConsecutiveRightCnt = 0;
+        return ++mWrongAnsCnt;
     }
 
     public void incRightCounter(){
-        if(++mRightCounter >= 3)
-            mStatus = Status.STUDIED;
-        else
-            mStatus = Status.IN_PROGRESS;
+        ++mRightAnsCnt;
+        ++mConsecutiveRightCnt;
     }
 
-    public Status getStatus() {
-        return mStatus;
+    public boolean isStudied() {
+        return mConsecutiveRightCnt >= NUM_TO_CONSIDER_STUDIED;
     }
+
+    // Serialization interface
 
     @Override
     public int describeContents() {
@@ -206,27 +213,28 @@ public class Question implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.mId);
-        dest.writeInt(this.mWrongCounter);
-        dest.writeInt(this.mRightCounter);
+        dest.writeInt(this.mWrongAnsCnt);
+        dest.writeInt(this.mRightAnsCnt);
         dest.writeString(this.mText);
         dest.writeStringList(this.mWrongAnswers);
         dest.writeStringList(this.mRightAnswers);
         dest.writeStringList(this.mTags);
         dest.writeString(this.mDocRef);
-        dest.writeInt(this.mStatus == null ? -1 : this.mStatus.ordinal());
+        dest.writeInt(this.mConsecutiveRightCnt);
+        dest.writeInt(this.mQuestionType);
     }
 
     protected Question(Parcel in) {
         this.mId = in.readInt();
-        this.mWrongCounter = in.readInt();
-        this.mRightCounter = in.readInt();
+        this.mWrongAnsCnt = in.readInt();
+        this.mRightAnsCnt = in.readInt();
         this.mText = in.readString();
         this.mWrongAnswers = in.createStringArrayList();
         this.mRightAnswers = in.createStringArrayList();
         this.mTags = in.createStringArrayList();
         this.mDocRef = in.readString();
-        int tmpMStatus = in.readInt();
-        this.mStatus = tmpMStatus == -1 ? null : Status.values()[tmpMStatus];
+        this.mConsecutiveRightCnt = in.readInt();
+        this.mQuestionType = in.readInt();
     }
 
     public static final Parcelable.Creator<Question> CREATOR = new Parcelable.Creator<Question>() {
