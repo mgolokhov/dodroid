@@ -183,6 +183,8 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
             case QUESTION_LOADER:
                 if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.getCount());
                 break;
+            default:
+                break;
         }
     }
 
