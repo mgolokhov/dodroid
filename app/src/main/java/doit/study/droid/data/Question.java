@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 
 public class Question implements Parcelable {
@@ -116,13 +117,12 @@ public class Question implements Parcelable {
 
     @Override
     public String toString(){
-        String s = String.format("ID: %d, wrong: %s, wright: %s, tags: %s question: %s",
+        return String.format(Locale.ENGLISH, "ID: %d, wrong: %s, right: %s, tags: %s question: %s",
                 mId,
                 mWrongAnswers,
                 mRightAnswers,
                 mTags,
                 mText);
-        return s;
     }
 
     private static List<String> splitItems(String s){

@@ -19,7 +19,7 @@ import doit.study.droid.R;
 import doit.study.droid.data.Tag;
 import timber.log.Timber;
 
-public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder>{
+public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>{
     private final static boolean DEBUG = false;
     private List<Tag> mFilteredTags;
     private List<Tag> mMasterCopyTags;

@@ -278,8 +278,10 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
             mOnFragmentActivityChatter.updateProgress();
         }
         else {
-            if (mCurrentQuestion.incWrongCounter() >= ATTEMPTS_LIMIT)
+            if (mCurrentQuestion.incWrongCounter() >= ATTEMPTS_LIMIT) {
                 mState = State.ANSWERED_WRONG;
+                mOnFragmentActivityChatter.updateProgress();
+            }
         }
     }
 

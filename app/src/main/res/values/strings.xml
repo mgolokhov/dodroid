@@ -39,9 +39,17 @@
     <string name="check_docs">Check documentation</string>
     <string name="go">Go</string>
 
+    <plurals name="numberOfQuestionsInTest">
+        <item quantity="one">Left %d question</item>
+        <item quantity="other">Left %d questions</item>
+    </plurals>
+
     <!--Shia LaBeouf - Just Do it! (Auto-tuned)-->
     <!--<string name="url_motivate_video" translatable="false">http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DgJscrxxl_Bg</string>-->
     <string name="url_motivational_video" translatable="false">http://www.youtube.com/watch?v=gJscrxxl_Bg</string>
 
     <string name="press_again_to_exit" >Press again to exit</string>
+    <string name="test_result_correct">Correct: 10</string>
+    <string name="test_result_wrong">Wrong: 10</string>
+    <string name="test_result_summary">Don\'t worry, you can pass this test better. Just read documentation and try again.</string>
 </resources>

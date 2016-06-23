@@ -12,6 +12,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import doit.study.droid.R;
 import doit.study.droid.adapters.InterrogatorPagerAdapter;
 import doit.study.droid.data.Question;
@@ -24,8 +26,9 @@ import timber.log.Timber;
 public class InterrogatorActivity extends DrawerBaseActivity implements InterrogatorFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
     private static final boolean DEBUG = false;
     private ViewPager mPager;
-    private final int QUIZ_SIZE = 10;
-    private int mRightAnswered = 0;
+    private final int QUIZ_SIZE = 10; // default quiz size
+    private int mQuizSize; // actual size can be lesser
+    private int mProgress; // quantity of answered questions
     private static final int QUESTION_LOADER = 0;
     private InterrogatorPagerAdapter mPagerAdapter;
 
@@ -40,7 +43,8 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
         configPagerTabStrip();
         mPagerAdapter = new InterrogatorPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-       }
+        setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
+    }
 
 
     private void configPagerTabStrip(){
@@ -60,7 +64,22 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
 
     @Override
     public void updateProgress(){
-        setTitle(String.format("Progress: %d%%", (++mRightAnswered)*100/QUIZ_SIZE));
+        --mProgress;
+        setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
+        if (mProgress == 0) {
+            final int posInFocus = mPager.getCurrentItem();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    if (posInFocus == mPager.getCurrentItem()) {
+                        if (DEBUG) Timber.d("swipe to the result page");
+                        mPagerAdapter.addResultPage();
+                        setTitle("Test completed");
+                        mPager.setCurrentItem(mQuizSize, true);
+                    }
+                }
+            }, 2000);
+        }
     }
 
     @Override
@@ -71,7 +90,7 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
             public void run() {
                 if (posInFocus == mPager.getCurrentItem()) {
                     if (DEBUG) Timber.d("swipe to the next page");
-                    mPager.setCurrentItem(posInFocus + 1);
+                    mPager.setCurrentItem(posInFocus + 1, true);
                 }
             }
         }, delay);
@@ -89,13 +108,17 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (DEBUG) Timber.d("load finished: %d", data.hashCode());
-        TextView no_topic = (TextView) findViewById(R.id.no_topic_selected);
-        if (data.getCount() == 0) {
-            no_topic.setVisibility(View.VISIBLE);
+        int size = data.getCount();
+        if (size == 0) {
+            TextView noTopic = (TextView) findViewById(R.id.no_topic_selected);
+            noTopic.setVisibility(View.VISIBLE);
             mPager.setVisibility(View.GONE);
         }
-        else {
+        // load just once
+        else if (mQuizSize == 0){
+            mProgress = mQuizSize = size;
             mPagerAdapter.setData(data);
+            setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
         }
     }
 

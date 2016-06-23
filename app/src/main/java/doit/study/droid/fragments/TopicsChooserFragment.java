@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import doit.study.droid.R;
-import doit.study.droid.adapters.TopicAdapter;
+import doit.study.droid.adapters.TopicsAdapter;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
 import doit.study.droid.data.Tag;
@@ -35,7 +35,7 @@ import timber.log.Timber;
 
 public class TopicsChooserFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
     private final static boolean DEBUG = false;
-    private TopicAdapter mTopicAdapter;
+    private TopicsAdapter mTopicsAdapter;
     private RecyclerView mRecyclerView;
     private static final int TAG_LOADER = 0;
     private static final int QUESTION_LOADER = 1;
@@ -74,8 +74,8 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.topics_view);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        mTopicAdapter = new TopicAdapter();
-        mRecyclerView.setAdapter(mTopicAdapter);
+        mTopicsAdapter = new TopicsAdapter();
+        mRecyclerView.setAdapter(mTopicsAdapter);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
     private void setSelectionToAllTags(boolean checked){
         for (Tag tag: mMasterCopyTags)
             tag.setChecked(checked);
-        mTopicAdapter.notifyDataSetChanged();
+        mTopicsAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -116,7 +116,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
             public void run() {
                 StringBuilder selected = new StringBuilder();
                 StringBuilder unselected = new StringBuilder();
-                for (Tag tag: mTopicAdapter.getTags()) {
+                for (Tag tag: mTopicsAdapter.getTags()) {
                     if (tag.getSelectionStatus()) {
                         appendSelection(selected, tag.getId());
                     }
@@ -178,7 +178,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                     mMasterCopyTags.add(Tag.newInstance(data));
                 }
                 if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", mMasterCopyTags.size());
-                mTopicAdapter.setTags(mMasterCopyTags);
+                mTopicsAdapter.setTags(mMasterCopyTags);
                 break;
             case QUESTION_LOADER:
                 if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.getCount());
@@ -199,7 +199,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
     @Override
     public boolean onQueryTextChange(String newText) {
         final List<Tag> filteredModel = filter(mMasterCopyTags, newText);
-        mTopicAdapter.animateTo(filteredModel);
+        mTopicsAdapter.animateTo(filteredModel);
         // don't know why but with scrollToPosition get buggy behavior
         mRecyclerView.smoothScrollToPosition(0);
         return true;

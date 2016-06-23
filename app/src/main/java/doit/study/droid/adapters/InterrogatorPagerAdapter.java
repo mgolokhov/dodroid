@@ -11,12 +11,14 @@ import java.util.List;
 
 import doit.study.droid.data.Question;
 import doit.study.droid.fragments.InterrogatorFragment;
+import doit.study.droid.fragments.TestResultFragment;
 import timber.log.Timber;
 
 
 public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private List<Question> mQuestions = new ArrayList<>();
+    private int mSize;
 
     public InterrogatorPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -25,9 +27,13 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = InterrogatorFragment.newInstance(mQuestions.get(position));
-        if (DEBUG) Timber.d("getItem, pos=%d, question=%s", position, mQuestions.get(position));
-        return fragment;
+//        if (DEBUG) Timber.d("getItem, pos=%d, question=%s", position, mQuestions.get(position));
+        if (position < mQuestions.size()) {
+            return InterrogatorFragment.newInstance(mQuestions.get(position));
+        }
+        else {
+            return new TestResultFragment();
+        }
     }
 
 
@@ -40,21 +46,31 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mQuestions.size();
+//        if (DEBUG) Timber.d("Size: %d", mSize);
+        return mSize;
     }
 
     // don't know why, but getPageTitle called before getItem
     @Override
     public CharSequence getPageTitle(int position) {
-        if (DEBUG) Timber.d("getPageTitle pos: %d, questions: %s", position, mQuestions.get(position));
-        StringBuffer title = new StringBuffer();
-        // at exit pager asks title, cursor invalid
-        for (String tag : mQuestions.get(position).getTags())
-            title.append(tag).append(" ");
-        title.append(String.format(" %d/%d", position + 1, getCount()));
-        return title;
+        if (position < mQuestions.size()) {
+            if (DEBUG) Timber.d("getPageTitle pos: %d, questions: %s", position, mQuestions.get(position).getId());
+            StringBuffer title = new StringBuffer();
+            // at exit pager asks title, cursor invalid
+            for (String tag : mQuestions.get(position).getTags())
+                title.append(tag).append(" ");
+            title.append(String.format(" %d/%d", position + 1, mQuestions.size()));
+            return title;
+        }
+        else {
+            return "Your Force";
+        }
     }
 
+    public void addResultPage(){
+        mSize++;
+        notifyDataSetChanged();
+    }
 
     public void setData(Cursor newCursor){
         if (DEBUG) Timber.d("setData:id:############");
@@ -64,6 +80,7 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
                 if (DEBUG) Timber.d("id: %d %s %s", q.getId(), q.getTags(), q.getText());
                 mQuestions.add(q);
             }
+            mSize = mQuestions.size();
             notifyDataSetChanged();
         }
     }
