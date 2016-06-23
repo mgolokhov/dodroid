@@ -47,7 +47,7 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (DEBUG) Timber.d("getPageTitle pos: %d, questions: %s", position, mQuestions.get(position));
-        StringBuffer title = new StringBuffer();
+        StringBuilder title = new StringBuilder();
         // at exit pager asks title, cursor invalid
         for (String tag : mQuestions.get(position).getTags())
             title.append(tag).append(" ");
