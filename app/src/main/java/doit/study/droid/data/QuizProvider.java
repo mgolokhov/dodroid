@@ -93,11 +93,11 @@ public class QuizProvider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         switch (sUriMatcher.match(uri)) {
-            case (RAND_QUESTION_DIR):
+            case RAND_QUESTION_DIR:
                 return QUESTION_TYPE;
             case QUESTION_DIR:
                 return QUESTION_TYPE;
-            case (TAG_DIR):
+            case TAG_DIR:
                 return TAG_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -110,15 +110,15 @@ public class QuizProvider extends ContentProvider {
         if (DEBUG) Timber.d("query db: %s %s %s", uri, projection, selectionArgs);
         Cursor cursor;
         switch (sUriMatcher.match(uri)) {
-            case (RAND_QUESTION_DIR): {
+            case RAND_QUESTION_DIR: {
                 cursor = getRandSelectedQuestions(uri, projection);
                 break;
             }
-            case (TAG_DIR): {
+            case TAG_DIR: {
                 cursor = getTags();
                 break;
             }
-            case (QUESTION_DIR): {
+            case QUESTION_DIR: {
                 cursor = getQuestions(uri, projection);
                 break;
             }
@@ -150,6 +150,9 @@ public class QuizProvider extends ContentProvider {
             case QUESTION_DIR: {
                 mod = db.update(Question.Table.NAME, values, selection, selectionArgs);
                 tableName = Question.Table.NAME;
+                break;
+            }
+            default: {
                 break;
             }
         }
