@@ -38,7 +38,6 @@ public class Sound {
             mSoundsRight = mAssetManager.list(PATH_SOUNDS_RIGHT);
         } catch (IOException e) {
             Timber.e(e, null);
-            throw new RuntimeException(e);
         }
     }
 
