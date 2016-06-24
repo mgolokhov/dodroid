@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import doit.study.droid.BuildConfig;
 import doit.study.droid.R;
@@ -45,6 +47,7 @@ import timber.log.Timber;
 
 
 public class InterrogatorFragment extends LifecycleLogFragment implements View.OnClickListener{
+    private static final Logger logger = Logger.getLogger(InterrogatorFragment.class.getName());
     private static final boolean DEBUG = false;
     private static final int REPORT_DIALOG_REQUEST_CODE = 0;
     public static final String REPORT_DIALOG_TAG = "fragment_dialog_dislike";
@@ -133,6 +136,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         try {
             mOnFragmentActivityChatter = (OnFragmentActivityChatter) activity;
         } catch (ClassCastException e) {
+            logger.log(Level.SEVERE, "ClassCastException in InterrogatorFragment.onAttach(Context)", e);
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentActivityChatter");
         }
