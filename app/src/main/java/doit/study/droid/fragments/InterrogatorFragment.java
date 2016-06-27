@@ -81,7 +81,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     public interface OnFragmentActivityChatter {
         void swipeToNext(int delay);
         void saveStat(Question question);
-        void updateProgress();
+        void updateProgress(boolean isRight);
     }
 
     public static InterrogatorFragment newInstance(Question question) {
@@ -275,12 +275,12 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     private void updateModel(){
         if (mState == State.ANSWERED_RIGHT) {
             mCurrentQuestion.incRightCounter();
-            mOnFragmentActivityChatter.updateProgress();
+            mOnFragmentActivityChatter.updateProgress(true);
         }
         else {
             if (mCurrentQuestion.incWrongCounter() >= ATTEMPTS_LIMIT) {
                 mState = State.ANSWERED_WRONG;
-                mOnFragmentActivityChatter.updateProgress();
+                mOnFragmentActivityChatter.updateProgress(false);
             }
         }
     }

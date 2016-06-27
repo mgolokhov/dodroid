@@ -12,8 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 import doit.study.droid.R;
 import doit.study.droid.adapters.InterrogatorPagerAdapter;
 import doit.study.droid.data.Question;
@@ -26,8 +24,14 @@ import timber.log.Timber;
 public class InterrogatorActivity extends DrawerBaseActivity implements InterrogatorFragment.OnFragmentActivityChatter, LoaderManager.LoaderCallbacks<Cursor> {
     private static final boolean DEBUG = false;
     private ViewPager mPager;
+    // counters for current test
+    private static final String WRONG_CNT_KEY = "doit.study.dodroid.wrong_cnt_key";
+    private static final String RIGHT_CNT_KEY = "doit.study.dodroid.right_cnt_key";
+    private int mRightCnt;
+    private int mWrongCnt;
     private final int QUIZ_SIZE = 10; // default quiz size
     private int mQuizSize; // actual size can be lesser
+    private static final String PROGRESS_KEY = "doit.study.dodroid.progress_key";
     private int mProgress; // quantity of answered questions
     private static final int QUESTION_LOADER = 0;
     private InterrogatorPagerAdapter mPagerAdapter;
@@ -39,15 +43,33 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
         mSelectionId = R.id.nav_do_it;
         getLayoutInflater().inflate(R.layout.activity_interrogator, mContainerContent);
         getSupportLoaderManager().initLoader(QUESTION_LOADER, null, InterrogatorActivity.this);
-        mPager = (ViewPager)findViewById(R.id.view_pager);
+        mPager = (ViewPager) findViewById(R.id.view_pager);
         configPagerTabStrip();
-        mPagerAdapter = new InterrogatorPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new InterrogatorPagerAdapter(getSupportFragmentManager(), this);
         mPager.setAdapter(mPagerAdapter);
         setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(WRONG_CNT_KEY, mWrongCnt);
+        outState.putInt(RIGHT_CNT_KEY, mRightCnt);
+        outState.putInt(PROGRESS_KEY, mProgress);
+        super.onSaveInstanceState(outState);
+    }
 
-    private void configPagerTabStrip(){
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mRightCnt = savedInstanceState.getInt(RIGHT_CNT_KEY);
+        mWrongCnt = savedInstanceState.getInt(WRONG_CNT_KEY);
+        mProgress = savedInstanceState.getInt(PROGRESS_KEY);
+        if (mProgress == 0) {
+            showProgress();
+        }
+    }
+
+    private void configPagerTabStrip() {
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
         // show one title
         pagerTabStrip.setNonPrimaryAlpha(0);
@@ -59,27 +81,32 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
     @Override
     public void saveStat(Question question) {
         if (DEBUG) Timber.d("saveStat %s", question);
-        getContentResolver().update(QuizProvider.QUESTION_URI, Question.getContentValues(question), "_ID = "+question.getId(), null);
+        getContentResolver().update(QuizProvider.QUESTION_URI, Question.getContentValues(question), "_ID = " + question.getId(), null);
     }
 
     @Override
-    public void updateProgress(){
+    public void updateProgress(boolean isRight) {
+        if (isRight)
+            ++mRightCnt;
+        else
+            ++mWrongCnt;
         --mProgress;
         setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
         if (mProgress == 0) {
-            final int posInFocus = mPager.getCurrentItem();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    if (posInFocus == mPager.getCurrentItem()) {
-                        if (DEBUG) Timber.d("swipe to the result page");
-                        mPagerAdapter.addResultPage();
-                        setTitle("Test completed");
-                        mPager.setCurrentItem(mQuizSize, true);
-                    }
-                }
-            }, 2000);
+            showProgress();
         }
+    }
+
+    private void showProgress(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (DEBUG) Timber.d("swipe to the result page");
+                mPagerAdapter.addResultPage(mRightCnt, mWrongCnt);
+                setTitle("Test completed");
+                mPager.setCurrentItem(mQuizSize, true);
+            }
+        }, 2000);
     }
 
     @Override
@@ -115,7 +142,7 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
             mPager.setVisibility(View.GONE);
         }
         // load just once
-        else if (mQuizSize == 0){
+        else if (mQuizSize == 0) {
             mProgress = mQuizSize = size;
             mPagerAdapter.setData(data);
             setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));

@@ -1,70 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
         >
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:max="300"
-            android:progress="0"
-            android:progressDrawable="@drawable/circular"/>
-
-
         <TextView
+            android:id="@+id/right_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/progressBar"
-            android:layout_alignLeft="@id/progressBar"
-            android:layout_alignRight="@id/progressBar"
-            android:layout_alignTop="@id/progressBar"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            tools:text="100%"
-            android:text="101%"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            tools:text="@string/test_result_correct"
             />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/wrong_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            tools:text="@string/test_result_wrong"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@string/test_result_correct"
-        android:text="@string/test_result_correct"
-        android:layout_gravity="center"
-        />
+        <RelativeLayout
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_margin="20dp"
+            >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@string/test_result_wrong"
-        android:text="@string/test_result_wrong"
-        android:layout_gravity="center"
-        />
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:cpb_background_progressbar_width="8dp"
+                app:cpb_progressbar_color="@color/colorAccent"
+                app:cpb_progressbar_width="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:padding="16dp"
-        tools:text="@string/test_result_summary"
-        android:text="@string/test_result_summary"
-        />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/progressBar"
+                android:layout_alignTop="@id/progressBar"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:textSize="30sp"
+                tools:text="100%"
+                />
 
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:textSize="23sp"
+            tools:text="@string/test_result_summary40"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

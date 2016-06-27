@@ -1,5 +1,6 @@
 package doit.study.droid.adapters;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import doit.study.droid.R;
 import doit.study.droid.data.Question;
 import doit.study.droid.fragments.InterrogatorFragment;
 import doit.study.droid.fragments.TestResultFragment;
@@ -16,12 +18,16 @@ import timber.log.Timber;
 
 
 public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private List<Question> mQuestions = new ArrayList<>();
     private int mSize;
+    private int mRightCnt;
+    private int mWrongCnt;
+    private Context mContext;
 
-    public InterrogatorPagerAdapter(FragmentManager fm) {
+    public InterrogatorPagerAdapter(FragmentManager fm, Context c) {
         super(fm);
+        mContext = c;
     }
 
 
@@ -32,7 +38,7 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
             return InterrogatorFragment.newInstance(mQuestions.get(position));
         }
         else {
-            return new TestResultFragment();
+            return TestResultFragment.newInstance(mWrongCnt, mRightCnt);
         }
     }
 
@@ -63,11 +69,13 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
             return title;
         }
         else {
-            return "Your Force";
+            return mContext.getResources().getString(R.string.test_result_title);
         }
     }
 
-    public void addResultPage(){
+    public void addResultPage(int rightCnt, int wrongCnt){
+        mRightCnt = rightCnt;
+        mWrongCnt = wrongCnt;
         mSize++;
         notifyDataSetChanged();
     }
