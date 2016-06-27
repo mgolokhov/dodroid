@@ -114,6 +114,7 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
         final int posInFocus = mPager.getCurrentItem();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
+            @Override
             public void run() {
                 if (posInFocus == mPager.getCurrentItem()) {
                     if (DEBUG) Timber.d("swipe to the next page");

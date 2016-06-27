@@ -126,7 +126,7 @@ public class Question implements Parcelable {
     }
 
     private static List<String> splitItems(String s){
-        if (s.equals(""))
+        if ("".equals(s))
             return new ArrayList<>();
         else
             return Arrays.asList(s.split("\n"));

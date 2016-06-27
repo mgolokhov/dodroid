@@ -11,12 +11,16 @@ public class Reversed<T> implements Iterable<T> {
         this.original = original;
     }
 
+    @Override
     public Iterator<T> iterator() {
         final ListIterator<T> i = original.listIterator(original.size());
 
         return new Iterator<T>() {
+            @Override
             public boolean hasNext() { return i.hasPrevious(); }
+            @Override
             public T next() { return i.previous(); }
+            @Override
             public void remove() { i.remove(); }
         };
     }

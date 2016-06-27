@@ -103,11 +103,11 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem){
         switch(menuItem.getItemId()){
-            case(R.id.doc_reference):{
+            case R.id.doc_reference: {
                 openDocumentation();
                 return true;
             }
-            case(R.id.action_settings):{
+            case R.id.action_settings: {
                 startActivity(new Intent(getContext(), SettingsActivity.class));
                 return true;
             }
@@ -205,7 +205,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     }
 
     private void updateAnswers(Bundle savedInstanceState){
-        boolean isDisabled = (mState == State.ANSWERED_RIGHT || mState == State.ANSWERED_WRONG);
+        boolean isDisabled = mState == State.ANSWERED_RIGHT || mState == State.ANSWERED_WRONG;
 
         if (isDisabled && mvAnswersLayout.getChildCount()!=0) {
             for(CheckBox c: mvCheckBoxes)
@@ -324,14 +324,16 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     public void onClick(View v) {
         if (DEBUG) Timber.d(String.valueOf(v.getId()));
         switch (v.getId()) {
-            case (R.id.commit_button):
+            case R.id.commit_button:
                 handleCommitButton();
                 break;
-            case (R.id.thump_up_button):
+            case R.id.thump_up_button:
                 handleThumpUpButton();
                 break;
-            case (R.id.thump_down_button):
+            case R.id.thump_down_button:
                 handleThumpDownButton();
+                break;
+            default:
                 break;
         }
     }
