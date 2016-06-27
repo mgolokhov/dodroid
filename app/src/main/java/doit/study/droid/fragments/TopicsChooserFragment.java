@@ -142,7 +142,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                     ContentProviderResult[] res = getActivity().getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
                     if (DEBUG) Timber.d("Update result: %d", res.length);
                 } catch (RemoteException | OperationApplicationException e) {
-                    e.printStackTrace();
+                    Timber.e(e, null);
                 }
             }
             private void appendSelection(StringBuilder s, int id){

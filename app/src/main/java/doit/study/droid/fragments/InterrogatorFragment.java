@@ -133,6 +133,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         try {
             mOnFragmentActivityChatter = (OnFragmentActivityChatter) activity;
         } catch (ClassCastException e) {
+            Timber.e(e, null);
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentActivityChatter");
         }

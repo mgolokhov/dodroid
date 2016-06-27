@@ -79,7 +79,7 @@ public class JsonParser {
                 parsedQuestions.add(question);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e, null);
         }
         if (DEBUG) Timber.d(parsedQuestions != null ? parsedQuestions.toString() : "none");
         return parsedQuestions;

@@ -3,6 +3,8 @@ package doit.study.droid.utils;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import timber.log.Timber;
+
 public final class Distribution {
     private static String sVersion;
 
@@ -17,7 +19,7 @@ public final class Distribution {
         try {
             sVersion = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Timber.e(e, null);
             sVersion = "buggy";
         }
         return sVersion;

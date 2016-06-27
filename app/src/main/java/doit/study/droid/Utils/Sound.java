@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import timber.log.Timber;
+
 public class Sound {
     private final static String PATH_SOUNDS_WRONG = "wrong";
     private final static String PATH_SOUNDS_RIGHT = "right";
@@ -35,6 +37,7 @@ public class Sound {
             mSoundsWrong = mAssetManager.list(PATH_SOUNDS_WRONG);
             mSoundsRight = mAssetManager.list(PATH_SOUNDS_RIGHT);
         } catch (IOException e) {
+            Timber.e(e, null);
             throw new RuntimeException(e);
         }
     }
@@ -62,7 +65,7 @@ public class Sound {
             mMediaPlayer.prepare();
             mMediaPlayer.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            Timber.e(e, null);
         }
     }
 
