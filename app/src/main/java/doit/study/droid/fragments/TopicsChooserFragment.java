@@ -24,8 +24,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import doit.study.droid.R;
 import doit.study.droid.adapters.TopicsAdapter;
@@ -36,7 +34,6 @@ import timber.log.Timber;
 
 
 public class TopicsChooserFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
-    private static final Logger logger = Logger.getLogger(TopicsChooserFragment.class.getName());
     private final static boolean DEBUG = false;
     private TopicsAdapter mTopicsAdapter;
     private RecyclerView mRecyclerView;
@@ -145,7 +142,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                     ContentProviderResult[] res = getActivity().getContentResolver().applyBatch(QuizProvider.AUTHORITY, ops);
                     if (DEBUG) Timber.d("Update result: %d", res.length);
                 } catch (RemoteException | OperationApplicationException e) {
-                    logger.log(Level.SEVERE, "RemoteException | OperationApplicationException in TopicsChooserFragment.onPause()", e);
+                    Timber.e(e, null);
                 }
             }
             private void appendSelection(StringBuilder s, int id){

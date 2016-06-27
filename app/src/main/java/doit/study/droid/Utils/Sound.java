@@ -9,11 +9,10 @@ import android.media.MediaPlayer;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import timber.log.Timber;
 
 public class Sound {
-    private static final Logger logger = Logger.getLogger(Sound.class.getName());
     private final static String PATH_SOUNDS_WRONG = "wrong";
     private final static String PATH_SOUNDS_RIGHT = "right";
     private String[] mSoundsWrong;
@@ -38,6 +37,7 @@ public class Sound {
             mSoundsWrong = mAssetManager.list(PATH_SOUNDS_WRONG);
             mSoundsRight = mAssetManager.list(PATH_SOUNDS_RIGHT);
         } catch (IOException e) {
+            Timber.e(e, null);
             throw new RuntimeException(e);
         }
     }
@@ -65,7 +65,7 @@ public class Sound {
             mMediaPlayer.prepare();
             mMediaPlayer.start();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "IOException in Sound.play(boolean)", e);
+            Timber.e(e, null);
         }
     }
 

@@ -11,14 +11,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import timber.log.Timber;
 
 // TODO: implement iterator
 public class JsonParser {
-    private static final Logger logger = Logger.getLogger(JsonParser.class.getName());
     private static final boolean DEBUG = true;
 
     private JsonParser() {}
@@ -82,7 +79,7 @@ public class JsonParser {
                 parsedQuestions.add(question);
             }
         } catch (JSONException e) {
-            logger.log(Level.SEVERE, "JSONException in JsonParser.parseTests(String)", e);
+            Timber.e(e, null);
         }
         if (DEBUG) Timber.d(parsedQuestions != null ? parsedQuestions.toString() : "none");
         return parsedQuestions;
