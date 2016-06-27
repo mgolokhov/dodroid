@@ -9,8 +9,11 @@ import android.media.MediaPlayer;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Sound {
+    private static final Logger logger = Logger.getLogger(Sound.class.getName());
     private final static String PATH_SOUNDS_WRONG = "wrong";
     private final static String PATH_SOUNDS_RIGHT = "right";
     private String[] mSoundsWrong;
@@ -62,7 +65,7 @@ public class Sound {
             mMediaPlayer.prepare();
             mMediaPlayer.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "IOException in Sound.play(boolean)", e);
         }
     }
 
