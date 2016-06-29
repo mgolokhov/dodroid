@@ -1,15 +1,19 @@
 package doit.study.droid.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
+import android.support.v7.preference.PreferenceManager;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import doit.study.droid.R;
 import timber.log.Timber;
 
 public class Sound {
@@ -20,16 +24,19 @@ public class Sound {
     AssetManager mAssetManager;
     MediaPlayer mMediaPlayer;
 
-    public Sound(Context context) {
-        Resources res = context.getResources();
-        mAssetManager = res.getAssets();
+    private static Sound instance;
+    private Context mContext;
+
+    private Sound(Context context) {
+        mContext = context;
+        mAssetManager = context.getResources().getAssets();
+        mkSoundList();
     }
 
-    public static Sound newInstance(Context context) {
-        Sound s = new Sound(context);
-        // TODO: do it in another thread
-        s.mkSoundList();
-        return s;
+    public static synchronized Sound getInstance(Context context){
+        if (instance == null)
+            instance = new Sound(context.getApplicationContext());
+        return instance;
     }
 
     private void mkSoundList() {
@@ -38,34 +45,60 @@ public class Sound {
             mSoundsRight = mAssetManager.list(PATH_SOUNDS_RIGHT);
         } catch (IOException e) {
             Timber.e(e, null);
-            throw new RuntimeException(e);
+            soundLoadErrHandler();
         }
     }
 
-    private int getRandIndex(String[] list) {
-        return new Random().nextInt(list.length);
+    private void soundLoadErrHandler(){
+        Toast.makeText(mContext, R.string.cannot_load_sound, Toast.LENGTH_SHORT).show();
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences.Editor editor = SP.edit();
+        editor.putBoolean(mContext.getResources().getString(R.string.pref_sound), false);
+        editor.commit();
+    }
+
+    private boolean isEnabled(){
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(mContext);
+        boolean prefEnabled = SP.getBoolean(mContext.getResources().getString(R.string.pref_sound), true);
+        boolean audioListLoaded = mSoundsWrong != null && mSoundsRight != null;
+        // turn off sound (user may turn it on manually again) if audio list is corrupted
+        if (prefEnabled && !audioListLoaded)
+            soundLoadErrHandler();
+        return prefEnabled && audioListLoaded;
+    }
+
+    private int getRandIndex(int maxValue) {
+        return new Random().nextInt(maxValue);
     }
 
     public void play(boolean isRight) {
-        String curSound;
+        if (!isEnabled())
+            return;
+        int randIndex;
+        String rootPath;
+        String randItem;
         if (isRight) {
-            curSound = new File(PATH_SOUNDS_RIGHT,
-                    mSoundsRight[getRandIndex(mSoundsRight)]).getPath();
+            rootPath = PATH_SOUNDS_RIGHT;
+            randIndex = getRandIndex(mSoundsRight.length);
+            randItem = mSoundsRight[randIndex];
         } else {
-            curSound = new File(PATH_SOUNDS_WRONG,
-                    mSoundsWrong[getRandIndex(mSoundsWrong)]).getPath();
+            rootPath = PATH_SOUNDS_WRONG;
+            randIndex = getRandIndex(mSoundsWrong.length);
+            randItem = mSoundsWrong[randIndex];
         }
+        String currentSound = new File(rootPath, randItem).getPath();
+
         try {
-            AssetFileDescriptor afd = mAssetManager.openFd(curSound);
-            this.stop();
+            AssetFileDescriptor afd = mAssetManager.openFd(currentSound);
+            this.release();
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             afd.close();
-            // TODO: async?
             mMediaPlayer.prepare();
             mMediaPlayer.start();
         } catch (IOException e) {
             Timber.e(e, null);
+            soundLoadErrHandler();
         }
     }
 

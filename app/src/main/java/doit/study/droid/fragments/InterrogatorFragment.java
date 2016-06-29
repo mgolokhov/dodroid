@@ -64,7 +64,6 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     private Vote mVote = Vote.NONE;
     private Question mCurrentQuestion;
     private Sound mSound;
-    private boolean mIsSoundOn;
 
     private String[] mFeedbackWrongAnswered;
     private String[] mFeedbackRightAnswered;
@@ -145,7 +144,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         setHasOptionsMenu(true);
         mFeedbackRightAnswered = getResources().getStringArray(R.array.feedback_right_answer);
         mFeedbackWrongAnswered = getResources().getStringArray(R.array.feedback_wrong_answer);
-        mSound = Sound.newInstance(getContext());
+        mSound = Sound.getInstance(getContext());
         if (savedInstanceState != null) {
             mState = (State) savedInstanceState.getSerializable(QUESTION_STATE_KEY);
             mVote = (Vote) savedInstanceState.getSerializable(VOTE_STATE_KEY);
@@ -314,12 +313,6 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getContext());
-        mIsSoundOn = SP.getBoolean(getString(R.string.pref_sound), true);
-    }
 
     @Override
     public void onClick(View v) {
@@ -402,8 +395,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
         showDocumentationSnackBar();
         updateModel();
         updateViews(null);
-        if (mIsSoundOn)
-            mSound.play(mState == State.ANSWERED_RIGHT);
+        mSound.play(mState == State.ANSWERED_RIGHT);
         if (mState == State.ANSWERED_RIGHT) {
             mOnFragmentActivityChatter.swipeToNext(SWIPE_DELAY);
         }

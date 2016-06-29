@@ -56,4 +56,5 @@
     <string name="test_result_summary70">Not bad, but you can do better. Keep on practicing and you will succeed.</string>
     <string name="test_result_summary40">Don\'t worry, you can pass this test better. Just read documentation and try again.</string>
     <string name="test_result_title">Summary</string>
+    <string name="cannot_load_sound">Can\'t load media files, sound is disabled</string>
 </resources>
