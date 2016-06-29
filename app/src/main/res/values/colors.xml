@@ -6,4 +6,5 @@
 
     <color name="toastRight">#4CAF50</color>
     <color name="toastWrong">#FF8A80</color>
+    <color name="fab">#33b5e5</color>
 </resources>

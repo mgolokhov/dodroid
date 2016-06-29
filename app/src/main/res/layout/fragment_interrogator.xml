@@ -79,7 +79,7 @@
             app:pressedTranslationZ="12dp"
             android:layout_weight="1"
             android:src="@drawable/ic_done_black_48dp"
-            app:backgroundTint="#33b5e5"
+            app:backgroundTint="@color/fab"
             app:layout_anchorGravity="bottom"
             />
 

@@ -2,13 +2,16 @@ package doit.study.droid.fragments;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
@@ -26,10 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import doit.study.droid.R;
+import doit.study.droid.activities.InterrogatorActivity;
 import doit.study.droid.adapters.TopicsAdapter;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
 import doit.study.droid.data.Tag;
+import doit.study.droid.utils.Views;
 import timber.log.Timber;
 
 
@@ -65,17 +70,41 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_topics_chooser, container, false);
+        View v = inflater.inflate(R.layout.fragment_topics_chooser, container, false);
         return v;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.topics_view);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         mTopicsAdapter = new TopicsAdapter();
         mRecyclerView.setAdapter(mTopicsAdapter);
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.commit_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), InterrogatorActivity.class);
+                TaskStackBuilder builder = TaskStackBuilder.create(getContext());
+                builder.addNextIntentWithParentStack(intent);
+                builder.startActivities();
+            }
+        });
+        // add padding to the list after the view is build
+        // so floating button doesn't overlay content
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                int padding = floatingActionButton.getPaddingBottom() +
+                        floatingActionButton.getHeight() +
+                        floatingActionButton.getPaddingTop();
+                mRecyclerView.setPadding(0,
+                        0,
+                        0,
+                        padding);
+            }
+        });
     }
 
     @Override

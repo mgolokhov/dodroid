@@ -166,24 +166,4 @@ public class TestResultFragment extends LifecycleLogFragment {
             mTextSummary.setText(getResources().getString(R.string.test_result_summary100));
     }
 
-    @SuppressWarnings("unused")
-    private void printViewCoordinates(String s, View v){
-        Rect myViewRect = new Rect();
-        v.getGlobalVisibleRect(myViewRect);
-        float x = myViewRect.left;
-        float y = myViewRect.top;
-        int [] screen = new int [2];
-        int [] window = new int [2];
-        v.getLocationOnScreen(screen);
-        v.getLocationInWindow(window);
-        Timber.d("%s:: abs screen: %s; abs win: %s; left, top:  %d %d; right, bottom: %d %d; width %d",
-                s,
-                Arrays.toString(screen),
-                Arrays.toString(window),
-                mWrongCnt.getLeft(),
-                mWrongCnt.getTop(),
-                mWrongCnt.getRight(),
-                mWrongCnt.getBottom(),
-                mWrongCnt.getWidth());
-    }
 }
