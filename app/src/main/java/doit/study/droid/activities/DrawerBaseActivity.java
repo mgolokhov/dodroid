@@ -65,6 +65,7 @@ public class DrawerBaseActivity extends AppCompatActivity
         mActionBarDrawerToggle.syncState();
 
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        mNavigationView.setItemIconTintList(null);
         setNavTitle();
     }
 

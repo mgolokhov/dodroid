@@ -91,20 +91,6 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                 builder.startActivities();
             }
         });
-        // add padding to the list after the view is build
-        // so floating button doesn't overlay content
-        mRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                int padding = floatingActionButton.getPaddingBottom() +
-                        floatingActionButton.getHeight() +
-                        floatingActionButton.getPaddingTop();
-                mRecyclerView.setPadding(0,
-                        0,
-                        0,
-                        padding);
-            }
-        });
     }
 
     @Override

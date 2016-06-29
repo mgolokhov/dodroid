@@ -4,17 +4,17 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_get_motivation"
-            android:icon="@drawable/ic_persuasion_hand"
+            android:icon="@drawable/ic_sith_order"
             android:title="@string/need_motivation_button"
             />
         <item
             android:id="@+id/nav_set_topic"
-            android:icon="@drawable/ic_death_star_icon"
+            android:icon="@drawable/ic_death_star"
             android:title="@string/set_topic_button"
             />
         <item
             android:id="@+id/nav_do_it"
-            android:icon="@drawable/ic_sword"
+            android:icon="@drawable/ic_vader_30"
             android:title="@string/doit_button"
             />
     </group>

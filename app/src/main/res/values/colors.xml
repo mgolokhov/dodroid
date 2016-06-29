@@ -5,6 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="toastRight">#4CAF50</color>
-    <color name="toastWrong">#FF8A80</color>
+    <color name="toastWrong">@color/colorAccent</color>
     <color name="fab">#33b5e5</color>
 </resources>
