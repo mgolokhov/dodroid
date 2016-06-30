@@ -4,22 +4,23 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fillViewport="true"
     >
 
     <LinearLayout
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_gravity="center"
         >
 
         <TextView
             android:id="@+id/right_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:textSize="20sp"
             tools:text="@string/test_result_correct"
             />
@@ -37,8 +38,8 @@
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
             >
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -47,7 +48,8 @@
                 android:layout_height="200dp"
                 app:cpb_background_progressbar_width="8dp"
                 app:cpb_progressbar_color="@color/black"
-                app:cpb_progressbar_width="16dp"/>
+                app:cpb_progressbar_width="16dp"
+                />
 
 
             <TextView

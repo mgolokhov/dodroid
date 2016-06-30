@@ -19,7 +19,6 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/commit_button"
-        style="@style/floating_action_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:src="@drawable/ic_vader_40"
@@ -29,6 +28,8 @@
         android:layout_gravity="bottom|right"
         app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="12dp"
+        android:layout_margin="16dp"
+        app:useCompatPadding="true"
         app:layout_behavior="doit.study.droid.views.ScrollAwareFABBehavior"
         />
 

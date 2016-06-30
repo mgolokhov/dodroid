@@ -286,21 +286,6 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     }
 
     private void showResultToast(){
-//        if (mvToast != null)
-//            mvToast.cancel();
-//        mvToast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
-//        mvToast.setGravity(Gravity.CENTER, 0, 0);
-//        TextView v = (TextView) mvToast.getView().findViewById(android.R.id.message);
-//        Random rand = new Random();
-//        if (mState == State.ANSWERED_RIGHT) {
-//            mvToast.setText(mFeedbackRightAnswered[rand.nextInt(mFeedbackRightAnswered.length)]);
-//            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastRight));
-//        } else {
-//            mvToast.setText(mFeedbackWrongAnswered[rand.nextInt(mFeedbackWrongAnswered.length)]);
-//            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastWrong));
-//        }
-//        mvToast.show();
-
         if (mvToast != null)
             mvToast.cancel();
         Random rand = new Random();
