@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
+        android:layout_gravity="center"
         >
 
         <TextView
@@ -45,8 +46,8 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 app:cpb_background_progressbar_width="8dp"
-                app:cpb_progressbar_color="@color/colorAccent"
-                app:cpb_progressbar_width="10dp"/>
+                app:cpb_progressbar_color="@color/black"
+                app:cpb_progressbar_width="16dp"/>
 
 
             <TextView

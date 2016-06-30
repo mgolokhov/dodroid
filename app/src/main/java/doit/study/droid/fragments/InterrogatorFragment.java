@@ -286,20 +286,31 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     }
 
     private void showResultToast(){
+//        if (mvToast != null)
+//            mvToast.cancel();
+//        mvToast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
+//        mvToast.setGravity(Gravity.CENTER, 0, 0);
+//        TextView v = (TextView) mvToast.getView().findViewById(android.R.id.message);
+//        Random rand = new Random();
+//        if (mState == State.ANSWERED_RIGHT) {
+//            mvToast.setText(mFeedbackRightAnswered[rand.nextInt(mFeedbackRightAnswered.length)]);
+//            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastRight));
+//        } else {
+//            mvToast.setText(mFeedbackWrongAnswered[rand.nextInt(mFeedbackWrongAnswered.length)]);
+//            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastWrong));
+//        }
+//        mvToast.show();
+
         if (mvToast != null)
             mvToast.cancel();
-        mvToast = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
-        mvToast.setGravity(Gravity.CENTER, 0, 0);
-        TextView v = (TextView) mvToast.getView().findViewById(android.R.id.message);
         Random rand = new Random();
         if (mState == State.ANSWERED_RIGHT) {
-            mvToast.setText(mFeedbackRightAnswered[rand.nextInt(mFeedbackRightAnswered.length)]);
-            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastRight));
+            mvToast = Views.CustomToast.showToastSuccess(getContext(),
+                    mFeedbackRightAnswered[rand.nextInt(mFeedbackRightAnswered.length)]);
         } else {
-            mvToast.setText(mFeedbackWrongAnswered[rand.nextInt(mFeedbackWrongAnswered.length)]);
-            v.setTextColor(ContextCompat.getColor(getActivity(), R.color.toastWrong));
+            mvToast = Views.CustomToast.showToastError(getContext(),
+                    mFeedbackWrongAnswered[rand.nextInt(mFeedbackWrongAnswered.length)]);
         }
-        mvToast.show();
     }
 
     @Override
@@ -418,6 +429,8 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     @Override
     public void onPause() {
         if (DEBUG) Timber.d("onPause, should be save");
+        if (mvToast != null)
+            mvToast.cancel();
         mOnFragmentActivityChatter.saveStat(mCurrentQuestion);
         mSound.stop();
         super.onPause();

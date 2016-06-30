@@ -3,13 +3,23 @@ package doit.study.droid.utils;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
+import android.support.annotation.LayoutRes;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import doit.study.droid.R;
 import timber.log.Timber;
 
 public final class Views {
@@ -67,5 +77,79 @@ public final class Views {
 
     public static int getScreenHeight(Context context){
         return  context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+
+    public static final class CustomToast{
+
+        /** @hide */
+        @IntDef({LENGTH_SHORT, LENGTH_LONG})
+        @Retention(RetentionPolicy.SOURCE)
+        public @interface Duration {}
+
+        /**
+         * Show the view or text notification for a short period of time.  This time
+         * could be user-definable.  This is the default.
+         * @see Toast#setDuration
+         */
+        public static final int LENGTH_SHORT = Toast.LENGTH_SHORT;
+
+        /**
+         * Show the view or text notification for a long period of time.  This time
+         * could be user-definable.
+         * @see Toast#setDuration
+         */
+        public static final int LENGTH_LONG = Toast.LENGTH_LONG;
+
+
+        /** @hide */
+        @IntDef({CENTER, BOTTOM})
+        @Retention(RetentionPolicy.SOURCE)
+        public @interface Attraction {}
+
+        public static final int CENTER = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
+        public static final int BOTTOM = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+
+
+        private CustomToast() {}
+
+        private static Toast showCustomToast(Context context, @LayoutRes int layoutId, @IdRes int textId,
+                                             String text, @Attraction int gravity, @Duration int duration){
+            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View customView = layoutInflater.inflate(layoutId, null);
+            TextView textView = (TextView) customView.findViewById(textId);
+            textView.setText(text);
+            Toast customToast = new Toast(context);
+            customToast.setView(customView);
+            customToast.setGravity(gravity, 0, 0);
+            customToast.setDuration(duration);
+            customToast.show();
+            return customToast;
+        }
+
+        public static Toast showToastError(Context context, String str, @Attraction int gravity, @Duration int duration) {
+            return showCustomToast(context, R.layout.toast_wrong, R.id.errorToast, str, gravity, duration);
+        }
+
+        public static Toast showToastError(Context context, String str, int gravity){
+            return showToastError(context, str, gravity, LENGTH_SHORT);
+        }
+
+        public static Toast showToastError(Context context, String str){
+            return showToastError(context, str, CENTER);
+        }
+
+        public static Toast showToastSuccess(Context context, String str, @Attraction int gravity, @Duration int duration) {
+            return showCustomToast(context, R.layout.toast_right, R.id.okToast, str, gravity, duration);
+        }
+
+        public static Toast showToastSuccess(Context context, String str, int gravity) {
+            return showToastSuccess(context, str, gravity, LENGTH_SHORT);
+        }
+
+        public static Toast showToastSuccess(Context context, String str){
+            return showToastSuccess(context, str, CENTER);
+        }
+
     }
 }
