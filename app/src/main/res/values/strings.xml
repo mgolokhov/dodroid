@@ -64,4 +64,5 @@
     <string name="almost_studied_questions">Almost studied: %d</string>
     <string name="studied_questions">Studied: %d</string>
     <string name="totalSummary">Your progress</string>
+    <string name="test_completed">Test completed</string>
 </resources>

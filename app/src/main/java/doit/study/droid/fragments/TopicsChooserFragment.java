@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -40,12 +42,15 @@ import timber.log.Timber;
 
 
 public class TopicsChooserFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
-    private final static boolean DEBUG = false;
+    private final static boolean DEBUG = true;
+    private static final String RECYCLER_LAYOUT_STATE_KEY = "doit.study.droid.fragments.recycler_layout_state_key";
     private TopicsAdapter mTopicsAdapter;
     private RecyclerView mRecyclerView;
     private static final int TAG_LOADER = 0;
     private static final int QUESTION_LOADER = 1;
     private List<Tag> mMasterCopyTags = new ArrayList<>();
+    // loaders resets state, have to save in var
+    private Parcelable mSavedRecyclerLayoutState;
 
     public TopicsChooserFragment() {
         // Required empty public constructor
@@ -78,7 +83,8 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.topics_view);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mTopicsAdapter = new TopicsAdapter();
         mRecyclerView.setAdapter(mTopicsAdapter);
         final FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.commit_button);
@@ -91,6 +97,12 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                 builder.startActivities();
             }
         });
+        if(savedInstanceState != null)
+        {   // restore scroll position
+            if (DEBUG) Timber.d("Restore recycler state");
+            mSavedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_LAYOUT_STATE_KEY);
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mSavedRecyclerLayoutState);
+        }
     }
 
     @Override
@@ -116,7 +128,6 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
             case R.id.total_summary:
                 Timber.d("Start new activity");
                 Intent intent = new Intent(getActivity(), TotalSummaryActivity.class);
-//                startActivity(intent);
                 TaskStackBuilder builder = TaskStackBuilder.create(getContext());
                 builder.addNextIntentWithParentStack(intent);
                 builder.startActivities();
@@ -182,6 +193,14 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
 
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // save scroll position
+        if (DEBUG) Timber.d("onSaveInstanceState");
+        outState.putParcelable(RECYCLER_LAYOUT_STATE_KEY, mRecyclerView.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if (DEBUG) Timber.d("onCreateLoader");
         switch(id){
@@ -211,6 +230,10 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                 break;
             default:
                 break;
+        }
+        if (mSavedRecyclerLayoutState != null) {
+            if (DEBUG) Timber.d("Restore layout in loader");
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mSavedRecyclerLayoutState);
         }
     }
 

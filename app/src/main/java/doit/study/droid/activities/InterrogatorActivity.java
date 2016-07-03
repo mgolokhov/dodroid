@@ -29,10 +29,12 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
     private static final String RIGHT_CNT_KEY = "doit.study.dodroid.right_cnt_key";
     private int mRightCnt;
     private int mWrongCnt;
+    private static final String PAGE_INDEX_IN_FOCUS_KEY = "doit.study.dodroid.page_index_in_focus_key";
+    private int mCurrentPageInFocus;
     private final int QUIZ_SIZE = 10; // default quiz size
     private int mQuizSize; // actual size can be lesser
     private static final String PROGRESS_KEY = "doit.study.dodroid.progress_key";
-    private int mProgress; // quantity of answered questions
+    private int mProgress = -1; // quantity of answered questions
     private static final int QUESTION_LOADER = 0;
     private InterrogatorPagerAdapter mPagerAdapter;
 
@@ -47,27 +49,33 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
         configPagerTabStrip();
         mPagerAdapter = new InterrogatorPagerAdapter(getSupportFragmentManager(), this);
         mPager.setAdapter(mPagerAdapter);
+
+        if (savedInstanceState != null){
+            if (DEBUG) Timber.d("Restore saved state");
+            mRightCnt = savedInstanceState.getInt(RIGHT_CNT_KEY);
+            mWrongCnt = savedInstanceState.getInt(WRONG_CNT_KEY);
+            mProgress = savedInstanceState.getInt(PROGRESS_KEY);
+            if (mProgress == 0) {
+                showProgress();
+            } else {
+                mCurrentPageInFocus = savedInstanceState.getInt(PAGE_INDEX_IN_FOCUS_KEY);
+                if (DEBUG) Timber.d("Cur page: %d", mCurrentPageInFocus);
+                mPager.setCurrentItem(mCurrentPageInFocus, true);
+            }
+        }
         setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        if (DEBUG) Timber.d("onSaveInstanceState");
         outState.putInt(WRONG_CNT_KEY, mWrongCnt);
         outState.putInt(RIGHT_CNT_KEY, mRightCnt);
         outState.putInt(PROGRESS_KEY, mProgress);
+        outState.putInt(PAGE_INDEX_IN_FOCUS_KEY, mPager.getCurrentItem());
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        mRightCnt = savedInstanceState.getInt(RIGHT_CNT_KEY);
-        mWrongCnt = savedInstanceState.getInt(WRONG_CNT_KEY);
-        mProgress = savedInstanceState.getInt(PROGRESS_KEY);
-        if (mProgress == 0) {
-            showProgress();
-        }
-    }
 
     private void configPagerTabStrip() {
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mPager.findViewById(R.id.pager_title_strip);
@@ -103,7 +111,7 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
             public void run() {
                 if (DEBUG) Timber.d("swipe to the result page");
                 mPagerAdapter.addResultPage(mRightCnt, mWrongCnt);
-                setTitle("Test completed");
+                setTitle(getString(R.string.test_completed));
                 mPager.setCurrentItem(mQuizSize, true);
             }
         }, 2000);
@@ -144,8 +152,11 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
         }
         // load just once
         else if (mQuizSize == 0) {
-            mProgress = mQuizSize = size;
+            mQuizSize = size;
+            if (mProgress == -1)
+                mProgress = size;
             mPagerAdapter.setData(data);
+            mPager.setCurrentItem(mCurrentPageInFocus, true);
             setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
         }
     }
