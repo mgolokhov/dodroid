@@ -76,8 +76,10 @@ public class TotalSummaryFragment extends LifecycleLogFragment implements Loader
                     Question q = Question.newInstance(data);
                     if (q.isStudied()){
                         studied++;
+                        viewed++;
                     } else if (q.getConsecutiveRightCnt() != 0) {
                         almostStudied++;
+                        viewed++;
                     } else if (q.getRightAnsCnt() != 0 || q.getWrongAnsCnt() != 0){
                         viewed++;
                     }

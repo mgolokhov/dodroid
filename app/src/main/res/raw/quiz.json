@@ -1,6 +1,6 @@
 [
     {
-        "quiz_size": 351
+        "quiz_size": 375
     }, 
     {
         "ID": 0, 
@@ -5687,6 +5687,408 @@
         ], 
         "wrong": [
             "FALSE"
+        ]
+    }, 
+    {
+        "ID": 355, 
+        "docRef": "https://developer.android.com/guide/topics/graphics/prop-animation.html#property-vs-view", 
+        "question": "The Property Animation System can animate", 
+        "questionType": 0, 
+        "right": [
+            "float properties", 
+            "int properties", 
+            "ARGB colours", 
+            "Rect objects", 
+            "Custom property"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 356, 
+        "docRef": "https://developer.android.com/guide/topics/graphics/prop-animation.html#property-vs-view", 
+        "question": "View animation interpolators can be used with property animation", 
+        "questionType": 0, 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 357, 
+        "docRef": "https://developer.android.com/reference/android/animation/Animator.html", 
+        "question": "The following subclasses extend Animator:", 
+        "questionType": 0, 
+        "right": [
+            "AnimatorSet", 
+            "ValueAnimator", 
+            "ObjectAnimator"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "TranslateAnimation", 
+            "AlphaAnimation", 
+            "AnimationSet"
+        ]
+    }, 
+    {
+        "ID": 358, 
+        "docRef": "https://developer.android.com/guide/topics/graphics/prop-animation.html#value-animator", 
+        "question": "ValueAnimator", 
+        "questionType": 0, 
+        "right": [
+            "Calculating the animated values."
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "Setting calculated values on the object and property that is being animated."
+        ]
+    }, 
+    {
+        "ID": 359, 
+        "docRef": "https://developer.android.com/reference/android/animation/ObjectAnimator.html", 
+        "question": "ObjectAnimator", 
+        "questionType": 0, 
+        "right": [
+            "Calculating the animated values.", 
+            "Setting calculated values on the object and property that is being animated."
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 360, 
+        "docRef": "https://developer.android.com/guide/topics/graphics/prop-animation.html#property-vs-view", 
+        "question": "Interpolators", 
+        "questionType": 0, 
+        "right": [
+            "define how specific values in an animation are calculated as a function of time."
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "tell the property animation system how to calculate values for a given property."
+        ]
+    }, 
+    {
+        "ID": 361, 
+        "docRef": "https://developer.android.com/guide/topics/graphics/prop-animation.html#interpolators", 
+        "question": "Evaluators", 
+        "questionType": 0, 
+        "right": [
+            "tell the property animation system how to calculate values for a given property."
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "define how specific values in an animation are calculated as a function of time."
+        ]
+    }, 
+    {
+        "ID": 362, 
+        "docRef": "https://developer.android.com/reference/android/animation/ObjectAnimator.html", 
+        "question": "ValueAnimator is subclass of ObjectAnimator", 
+        "questionType": 0, 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 363, 
+        "docRef": "https://developer.android.com/guide/topics/graphics/prop-animation.html#declaring-xml", 
+        "question": "You should save the XML files for property animations in the", 
+        "questionType": 0, 
+        "right": [
+            "res/animator"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Animation"
+        ], 
+        "wrong": [
+            "res/anim", 
+            "res/values"
+        ]
+    }, 
+    {
+        "ID": 364, 
+        "docRef": "https://groups.google.com/forum/#!topic/android-developers/6B_qYGDMkK0", 
+        "question": "Android uses ___ as the coordinate system.", 
+        "questionType": 0, 
+        "right": [
+            "float"
+        ], 
+        "tags": [
+            "Graphics"
+        ], 
+        "wrong": [
+            "integer", 
+            "long"
+        ]
+    }, 
+    {
+        "ID": 365, 
+        "docRef": "https://developer.android.com/reference/android/view/View.html", 
+        "question": "The geometry of a view can be ", 
+        "questionType": 0, 
+        "right": [
+            "rectangle"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "cycle", 
+            "any shape", 
+            "oval"
+        ]
+    }, 
+    {
+        "ID": 366, 
+        "docRef": "https://developer.android.com/reference/android/view/View.html", 
+        "question": "A view has a location, expressed as a pair of ", 
+        "questionType": 0, 
+        "right": [
+            "left and top coordinates"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "right and bottom coordinates", 
+            "x and y coordinates of shape centre"
+        ]
+    }, 
+    {
+        "ID": 367, 
+        "docRef": "https://developer.android.com/reference/android/view/View.html", 
+        "question": "The unit for View location and dimensions is the ", 
+        "questionType": 0, 
+        "right": [
+            "pixel"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "density-independent pixel", 
+            "inch"
+        ]
+    }, 
+    {
+        "ID": 368, 
+        "docRef": "https://developer.android.com/reference/android/view/View.html", 
+        "question": "A view has dimensions expressed as", 
+        "questionType": 0, 
+        "right": [
+            "a width and a height"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "it depends on type of shape"
+        ]
+    }, 
+    {
+        "ID": 369, 
+        "docRef": "https://developer.android.com/reference/android/view/View.html", 
+        "question": "It is possible to retrieve the location of a view by invoking the methods getLeft() and getTop(). It returns ", 
+        "questionType": 0, 
+        "right": [
+            "relative coordinates to its parent."
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "absolute coordinates.", 
+            "relative coordinates to the root view of the whole view hierarchy. "
+        ]
+    }, 
+    {
+        "ID": 370, 
+        "docRef": "https://youtu.be/NYtB6mlu7vA?list=WL&t=559", 
+        "question": "View has traversals scheduled by animation, requestLayout(), invalidate(). What's the right order of phases? ", 
+        "questionType": 0, 
+        "right": [
+            "animate -> measure -> layout -> draw"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "measure -> animate -> layout -> draw", 
+            "measure -> layout -> draw -> animate", 
+            "measure -> layout -> animate -> draw "
+        ]
+    }, 
+    {
+        "ID": 371, 
+        "docRef": "http://stackoverflow.com/questions/3591784/getwidth-and-getheight-of-view-returns-0", 
+        "question": "You can safely get View coordinates in the Activity (Fragment) callback ", 
+        "questionType": 0, 
+        "right": [
+            "None is right"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "onResume()", 
+            "onCreate()", 
+            "onAttach()"
+        ]
+    }, 
+    {
+        "ID": 372, 
+        "docRef": "http://stackoverflow.com/questions/3591784/getwidth-and-getheight-of-view-returns-0", 
+        "question": "You can safely get View coordinates in the Activity (Fragment) callback onResume()", 
+        "questionType": 0, 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Graphics", 
+            "View"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 373, 
+        "docRef": "https://developer.android.com/reference/android/media/MediaPlayer.html", 
+        "question": "MediaPlayer class can be used to control playback of ____ files and streams.", 
+        "questionType": 0, 
+        "right": [
+            "audio", 
+            "video"
+        ], 
+        "tags": [
+            "Multimedia"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 374, 
+        "docRef": "https://developer.android.com/reference/android/media/MediaPlayer.html#prepare()", 
+        "question": "MediaPlayer.prepare() prepares the player for playback, ____", 
+        "questionType": 0, 
+        "right": [
+            "synchronously"
+        ], 
+        "tags": [
+            "Multimedia"
+        ], 
+        "wrong": [
+            "asynchronously"
+        ]
+    }, 
+    {
+        "ID": 375, 
+        "docRef": "https://developer.android.com/guide/topics/media/mediaplayer.html", 
+        "question": "Using MediaPlayer, you can play media files", 
+        "questionType": 0, 
+        "right": [
+            "stored in your application's resources (raw resources);", 
+            "from standalone files in the filesystem;", 
+            "from a data stream arriving over a network connection;"
+        ], 
+        "tags": [
+            "Multimedia"
+        ], 
+        "wrong": []
+    }, 
+    {
+        "ID": 376, 
+        "docRef": "https://developer.android.com/guide/topics/media/mediaplayer.html#preparingasync", 
+        "question": "MediaPlayer.prepare() can cause an ANR (Application Not Responding) error.", 
+        "questionType": 0, 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Multimedia"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 377, 
+        "docRef": "https://developer.android.com/guide/topics/resources/drawable-resource.html", 
+        "question": "With ShapeDrawable you can define", 
+        "questionType": 0, 
+        "right": [
+            "geometric shapes", 
+            "colors", 
+            "gradients"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Resource Types", 
+            "Drawable"
+        ], 
+        "wrong": [
+            "cross-fade transitions"
+        ]
+    }, 
+    {
+        "ID": 378, 
+        "docRef": "https://developer.android.com/guide/topics/resources/drawable-resource.html#Shape", 
+        "question": "What type of shape you can define with ShapeDrawable?", 
+        "questionType": 0, 
+        "right": [
+            "oval", 
+            "ring", 
+            "rectangle", 
+            "line"
+        ], 
+        "tags": [
+            "Graphics", 
+            "Resource Types", 
+            "Drawable"
+        ], 
+        "wrong": [
+            "any type", 
+            "triangle"
         ]
     }
 ]

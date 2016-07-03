@@ -16,7 +16,7 @@ import timber.log.Timber;
 public class QuizDBHelper extends SQLiteOpenHelper {
     private static final boolean DEBUG = true;
 
-    private static final int DATABASE_VERSION = 40;
+    private static final int DATABASE_VERSION = 42;
     private static final String DATABASE_NAME = "dodroid";
     private Context mContext;
 
