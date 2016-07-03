@@ -138,6 +138,8 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
         new Thread(){
             @Override
             public void run() {
+                if (mTopicsAdapter == null)
+                    return;
                 StringBuilder selected = new StringBuilder();
                 StringBuilder unselected = new StringBuilder();
                 for (Tag tag: mTopicsAdapter.getTags()) {
