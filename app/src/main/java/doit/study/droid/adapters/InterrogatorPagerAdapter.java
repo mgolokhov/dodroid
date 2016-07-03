@@ -13,7 +13,7 @@ import java.util.List;
 import doit.study.droid.R;
 import doit.study.droid.data.Question;
 import doit.study.droid.fragments.InterrogatorFragment;
-import doit.study.droid.fragments.TestResultFragment;
+import doit.study.droid.fragments.OneTestSummaryFragment;
 import timber.log.Timber;
 
 
@@ -38,7 +38,7 @@ public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
             return InterrogatorFragment.newInstance(mQuestions.get(position));
         }
         else {
-            return TestResultFragment.newInstance(mWrongCnt, mRightCnt);
+            return OneTestSummaryFragment.newInstance(mWrongCnt, mRightCnt);
         }
     }
 

@@ -18,11 +18,10 @@ public class TopicsChooserActivity extends DrawerBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         if (DEBUG) Timber.d("onCreate");
         super.onCreate(savedInstanceState);
-		setTitle(R.string.title_selection_quiz_topics);
-        mSelectionId = R.id.nav_set_topic;
+		mSelectionId = R.id.nav_set_topic;
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container_content, TopicsChooserFragment.newInstance())
+                .replace(R.id.container_content, TopicsChooserFragment.newInstance())
                 .commit();
     }
 

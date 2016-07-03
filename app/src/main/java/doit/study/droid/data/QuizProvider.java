@@ -194,7 +194,15 @@ public class QuizProvider extends ContentProvider {
 
     private Cursor getQuestions(Uri uri, String[] projection) {
         SQLiteDatabase db = mQuizDBHelper.getWritableDatabase();
-        return db.query(Question.Table.NAME, projection, null, null, null, null, null);
+//        String[] projection2;
+
+//        if (projection != null)
+//            projection2 = Arrays.copyOf(projection, projection.length + 1);
+//        else
+//            projection2 = new String[1];
+//        projection2[projection.length] = "group_concat( " + Tag.Table.FQ_TEXT + ", '\n' ) as tags2";
+        return sQuizQueryBuilder.query(db, projection, null, null, Question.Table.FQ_TEXT, null, null);
+//        return db.query(Question.Table.NAME, projection, null, null, null, null, null);
     }
 
 

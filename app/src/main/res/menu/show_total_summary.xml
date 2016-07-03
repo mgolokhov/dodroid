@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".activities.TopicsChooserActivity"
+    >
+    <item
+        android:id="@+id/total_summary"
+        android:title="@string/total_summary"
+        app:showAsAction="never"
+        />
+</menu>

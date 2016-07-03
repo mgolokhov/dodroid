@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!--TODO: fix bad style-->
     <dimen name="design_navigation_icon_size">58dp</dimen>
+    <dimen name="totalSummaryFont">26sp</dimen>
 </resources>

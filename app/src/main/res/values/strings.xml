@@ -10,7 +10,7 @@
     <string name="select_topic_first">Select a topic first</string>
     <string name="willing">Willing is not enough</string>
 
-    <string name="action_settings">settings</string>
+    <string name="action_settings">Settings</string>
     <string name="doc_reference">documentation reference</string>
 
     <string name="turn_sound_on">turn on</string>
@@ -26,8 +26,8 @@
     <string name="dislike">dislike</string>
     <string name="like">like</string>
 
-    <string name="select_all">select all</string>
-    <string name="unselect_all">unselect all</string>
+    <string name="select_all">Select all</string>
+    <string name="unselect_all">Unselect all</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -57,4 +57,11 @@
     <string name="test_result_summary40">Don\'t worry, you can pass this test better. Just read documentation and try again.</string>
     <string name="test_result_title">Summary</string>
     <string name="cannot_load_sound">Can\'t load media files, sound is disabled</string>
+    <string name="total_summary">Show total summary</string>
+
+    <string name="total_questions">Total questions: %d</string>
+    <string name="viewed_questions">Viewed: %d</string>
+    <string name="almost_studied_questions">Almost studied: %d</string>
+    <string name="studied_questions">Studied: %d</string>
+    <string name="totalSummary">Your progress</string>
 </resources>

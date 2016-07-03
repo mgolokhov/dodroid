@@ -30,6 +30,7 @@ import java.util.List;
 
 import doit.study.droid.R;
 import doit.study.droid.activities.InterrogatorActivity;
+import doit.study.droid.activities.TotalSummaryActivity;
 import doit.study.droid.adapters.TopicsAdapter;
 import doit.study.droid.data.Question;
 import doit.study.droid.data.QuizProvider;
@@ -69,7 +70,6 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_topics_chooser, container, false);
         return v;
     }
@@ -97,6 +97,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         super.onCreateOptionsMenu(menu, menuInflater);
         menuInflater.inflate(R.menu.activity_topic, menu);
+        menuInflater.inflate(R.menu.show_total_summary, menu);
 
         final MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
@@ -111,6 +112,14 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
                 return true;
             case R.id.unselect_all:
                 setSelectionToAllTags(false);
+                return true;
+            case R.id.total_summary:
+                Timber.d("Start new activity");
+                Intent intent = new Intent(getActivity(), TotalSummaryActivity.class);
+//                startActivity(intent);
+                TaskStackBuilder builder = TaskStackBuilder.create(getContext());
+                builder.addNextIntentWithParentStack(intent);
+                builder.startActivities();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -177,7 +186,7 @@ public class TopicsChooserFragment extends Fragment implements LoaderManager.Loa
             case TAG_LOADER:
                 return new CursorLoader(getActivity(), QuizProvider.TAG_URI, null, null, null, null);
             case QUESTION_LOADER:
-                return new CursorLoader(getActivity(), QuizProvider.QUESTION_URI, new String[]{Question.Table._ID}, null, null, null);
+                return new CursorLoader(getActivity(), QuizProvider.QUESTION_URI, new String[]{Question.Table.FQ_ID}, null, null, null);
             default:
                 return null;
         }

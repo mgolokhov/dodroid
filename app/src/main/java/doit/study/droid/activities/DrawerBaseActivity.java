@@ -31,6 +31,7 @@ public class DrawerBaseActivity extends AppCompatActivity
     protected FrameLayout mContainerContent;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private NavigationView mNavigationView;
+    protected int NONE_SELECTED = -1;
     protected int mSelectionId = R.id.nav_set_topic;
 
 

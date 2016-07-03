@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,12 +16,10 @@ import android.widget.TextView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-import java.util.Arrays;
-
 import doit.study.droid.R;
 import timber.log.Timber;
 
-public class TestResultFragment extends LifecycleLogFragment {
+public class OneTestSummaryFragment extends LifecycleLogFragment {
     private static final String WRONG_CNT_KEY = "doit.study.dodroid.wrong_cnt_key";
     private static final String RIGHT_CNT_KEY = "doit.study.dodroid.right_cnt_key";
     private CircularProgressBar mProgressBar;
@@ -38,12 +35,12 @@ public class TestResultFragment extends LifecycleLogFragment {
     }
 
     public static Fragment newInstance(int wrongCnt, int rightCnt){
-        TestResultFragment testResultFragment = new TestResultFragment();
+        OneTestSummaryFragment oneTestSummaryFragment = new OneTestSummaryFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(WRONG_CNT_KEY, wrongCnt);
         bundle.putInt(RIGHT_CNT_KEY, rightCnt);
-        testResultFragment.setArguments(bundle);
-        return testResultFragment;
+        oneTestSummaryFragment.setArguments(bundle);
+        return oneTestSummaryFragment;
     }
 
 
@@ -127,7 +124,6 @@ public class TestResultFragment extends LifecycleLogFragment {
 
 
         mAnimatorSet = new AnimatorSet();
-//        mProgressBar.setProgressWithAnimation(65, duration);
         mAnimatorSet.play(progressBarAnimation)
                 .with(percentageAnimator)
                 .with(textSummaryAnimator)
