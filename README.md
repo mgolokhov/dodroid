@@ -10,7 +10,7 @@ You can submit your question [here](https://docs.google.com/forms/d/12t_k5dga6CP
 
 Any suggestions and issues are [welcome](https://github.com/mgolokhov/dodroid/issues).
 
-<img src=https://cloud.githubusercontent.com/assets/294512/15977883/a5752c52-2f63-11e6-9c4e-d7b93a819724.gif width=300/>
+<img src=https://cloud.githubusercontent.com/assets/294512/16547582/f0dcec82-417b-11e6-9bec-78d5c87ecbcb.gif width=300/>
 
 You can install and play with the app from 
 
