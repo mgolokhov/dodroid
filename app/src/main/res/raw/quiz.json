@@ -1,6 +1,6 @@
 [
     {
-        "quiz_size": 375
+        "quiz_size": 402
     }, 
     {
         "ID": 0, 
@@ -4404,8 +4404,7 @@
             "obfuscate your code"
         ], 
         "tags": [
-            "Handlers", 
-            "Threads"
+            "Resources"
         ], 
         "wrong": [
             "throw away unused images from res directory", 
@@ -6089,6 +6088,434 @@
         "wrong": [
             "any type", 
             "triangle"
+        ]
+    }, 
+    {
+        "ID": 379, 
+        "docRef": "https://developer.android.com/guide/topics/text/creating-input-method.html#InputMethodLifecycle", 
+        "question": "An input method editor (IME) is a user control that enables users to enter text.", 
+        "questionType": 0, 
+        "right": [
+            "Only one IME may be enabled at a time"
+        ], 
+        "tags": [
+            "Text and Input"
+        ], 
+        "wrong": [
+            "Multiple IME may be enabled at a time"
+        ]
+    }, 
+    {
+        "ID": 380, 
+        "docRef": "http://stackoverflow.com/questions/4693387/sharedpreferences-and-thread-safety", 
+        "question": "SharedPreferences is thread safe", 
+        "questionType": 0, 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 381, 
+        "docRef": "http://stackoverflow.com/questions/4693387/sharedpreferences-and-thread-safety", 
+        "question": "SharedPrefereces supports use across multiple processes.", 
+        "questionType": 0, 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 382, 
+        "docRef": "https://developer.android.com/reference/android/content/SharedPreferences.html#registerOnSharedPreferenceChangeListener%28android.content.SharedPreferences.OnSharedPreferenceChangeListener%29", 
+        "question": "To register  listener in SharedPreferences.onSharedPreferenceChangeListener you may use", 
+        "questionType": 0, 
+        "right": [
+            "a reference to the listener in the instance data"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "an anonymous inner class"
+        ]
+    }, 
+    {
+        "ID": 383, 
+        "docRef": "https://developer.android.com/reference/android/content/SharedPreferences.html#registerOnSharedPreferenceChangeListener%28android.content.SharedPreferences.OnSharedPreferenceChangeListener%29", 
+        "question": "To register  listener in SharedPreferences.onSharedPreferenceChangeListener you may use", 
+        "questionType": 0, 
+        "right": [
+            "a field in your class", 
+            "an implemented interface in your class"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "an anonymous inner class"
+        ]
+    }, 
+    {
+        "ID": 384, 
+        "docRef": "https://developer.android.com/reference/android/content/SharedPreferences.OnSharedPreferenceChangeListener.html", 
+        "question": "SharedPreferences.OnSharedPreferenceChangeListener ", 
+        "questionType": 0, 
+        "right": [
+            "will be notified when a shared preference is changed, added, or removed", 
+            "may be called even if a preference is set to its existing value"
+        ], 
+        "tags": [
+            "Data Management"
+        ], 
+        "wrong": [
+            "will be always notified when the same value was set again "
+        ]
+    }, 
+    {
+        "ID": 385, 
+        "docRef": "https://developer.android.com/reference/android/content/Intent.html#ACTION_BATTERY_CHANGED", 
+        "question": "All broadcasted intents can be received", 
+        "questionType": 0, 
+        "right": [
+            "by explicitly registering for it with Context.registerReceiver()"
+        ], 
+        "tags": [
+            "Broadcast Receivers"
+        ], 
+        "wrong": [
+            "through components declared in manifests"
+        ]
+    }, 
+    {
+        "ID": 386, 
+        "docRef": "http://stackoverflow.com/a/26038985/5766983", 
+        "question": "What kind of intents do you know?", 
+        "questionType": 0, 
+        "right": [
+            "Intents", 
+            "Sticky Intents", 
+            "Pending Intents"
+        ], 
+        "tags": [
+            "Intents"
+        ], 
+        "wrong": [
+            "Hanging Intents"
+        ]
+    }, 
+    {
+        "ID": 387, 
+        "docRef": "http://stackoverflow.com/a/26370042/5766983", 
+        "question": "Is it possible for the same Activity instance to get sequence of calls onDestroy()->onCreate()?", 
+        "questionType": 0, 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 388, 
+        "docRef": "http://stackoverflow.com/a/26370042/5766983", 
+        "question": "Is it valid sequence of calls \nonCreate()\nonCreateView()\nonDestroyView()\nonCreateView()\nonDestroyView()\nonDestroy()\nfor the same Fragment instance?", 
+        "questionType": 0, 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 389, 
+        "docRef": "https://github.com/JakeWharton/butterknife/issues/291", 
+        "question": "Can be there a case when fragment's view is destroyed, but the fragment instance is still present?", 
+        "questionType": 0, 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 390, 
+        "docRef": "https://github.com/JakeWharton/butterknife/issues/291", 
+        "question": "Is it possible Fragment's onDestroyView() is called, but onDestroy() is not?", 
+        "questionType": 0, 
+        "right": [
+            "TRUE"
+        ], 
+        "tags": [
+            "Fragments"
+        ], 
+        "wrong": [
+            "FALSE"
+        ]
+    }, 
+    {
+        "ID": 391, 
+        "docRef": "https://developer.android.com/guide/topics/resources/providing-resources.html#AlternativeResources", 
+        "question": "Almost every application should provide alternative resources to support specific device configurations. When appending multiple qualifiers", 
+        "questionType": 0, 
+        "right": [
+            "you must place them in the specific order"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "you may place them in any order", 
+            "some qualifiers need order"
+        ]
+    }, 
+    {
+        "ID": 392, 
+        "docRef": "https://developer.android.com/guide/topics/resources/providing-resources.html#AlternativeResources", 
+        "question": "Almost every application should provide alternative resources to support specific device configurations. If the qualifiers are ordered wrong", 
+        "questionType": 0, 
+        "right": [
+            "the resources are ignored"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "you'll get compile error", 
+            "you'll get runtime error"
+        ]
+    }, 
+    {
+        "ID": 393, 
+        "docRef": "https://developer.android.com/guide/topics/resources/providing-resources.html#AlternativeResources", 
+        "question": "Almost every application should provide alternative resources to support specific device configurations. If you use wrong(non-existing) qualifier ", 
+        "questionType": 0, 
+        "right": [
+            "the resources are ignored"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "you'll get compile error", 
+            "you'll get runtime error"
+        ]
+    }, 
+    {
+        "ID": 394, 
+        "docRef": "https://developer.android.com/guide/practices/screens_support.html#qualifiers", 
+        "question": "Screen Size and Orientation resource set qualifiers establish", 
+        "questionType": 0, 
+        "right": [
+            "lower bounds for when a directory\u2019s worth of resources will be used"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "upper bounds for when a directory\u2019s worth of resources will be used", 
+            "exact match"
+        ]
+    }, 
+    {
+        "ID": 395, 
+        "docRef": "https://developer.android.com/guide/practices/screens_support.html#qualifiers", 
+        "question": "Use this folder for any image you don't want to scale ", 
+        "questionType": 0, 
+        "right": [
+            "drawable-nodpi"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "drawable", 
+            "drawable-none", 
+            "drawable-nonscale"
+        ]
+    }, 
+    {
+        "ID": 396, 
+        "docRef": "https://developer.android.com/guide/practices/screens_support.html#qualifiers", 
+        "question": "If resources are only available for screens larger than the current one", 
+        "questionType": 0, 
+        "right": [
+            "you'll get runtime time error"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "you'll get compile time error", 
+            "you'll get black screen"
+        ]
+    }, 
+    {
+        "ID": 397, 
+        "docRef": "http://stackoverflow.com/a/35232895/5766983", 
+        "question": "How to find what density bucket the phone is in? It's defined by", 
+        "questionType": 0, 
+        "right": [
+            "device manufacturer "
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "dpi", 
+            "diagonal size", 
+            "resolution"
+        ]
+    }, 
+    {
+        "ID": 398, 
+        "docRef": "https://developer.android.com/guide/practices/screens_support.html#terms", 
+        "question": "Android uses ____ qualifier to identify baseline density, where 1dp is 1px.", 
+        "questionType": 0, 
+        "right": [
+            "mdpi"
+        ], 
+        "tags": [
+            "Resources"
+        ], 
+        "wrong": [
+            "ldpi", 
+            "hdpi", 
+            "xhdpi", 
+            "xxhdpi", 
+            "empty (no qualifier)"
+        ]
+    }, 
+    {
+        "ID": 399, 
+        "docRef": "https://developer.android.com/reference/android/app/Activity.html#onWindowFocusChanged(boolean)", 
+        "question": "onWindowFocusChanged() called when the current Window activity", 
+        "questionType": 0, 
+        "right": [
+            "gains and loses focus"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "only gains focus", 
+            "only loses focus"
+        ]
+    }, 
+    {
+        "ID": 400, 
+        "docRef": "https://developer.android.com/reference/android/app/Activity.html#onWindowFocusChanged(boolean)", 
+        "question": "Activity.onWindowFocusChanged() provides information about focus state, which is", 
+        "questionType": 0, 
+        "right": [
+            "managed independently of activity lifecycles"
+        ], 
+        "tags": [
+            "Activity Class"
+        ], 
+        "wrong": [
+            "a part of activity lifecycles"
+        ]
+    }, 
+    {
+        "ID": 401, 
+        "docRef": "https://firebase.google.com/docs/cloud-messaging/concept-options", 
+        "question": "With Firebase Cloud Messaging you can send these types of messages:", 
+        "questionType": 0, 
+        "right": [
+            "Notification messages", 
+            "Data messages"
+        ], 
+        "tags": [
+            "Firebase cloud messaging"
+        ], 
+        "wrong": [
+            "Sms messages"
+        ]
+    }, 
+    {
+        "ID": 402, 
+        "docRef": "https://firebase.google.com/docs/cloud-messaging/concept-options", 
+        "question": "A FCM notification message has", 
+        "questionType": 0, 
+        "right": [
+            "a 2KB limit", 
+            "a predefined set of user-visible keys"
+        ], 
+        "tags": [
+            "Firebase Cloud Messaging"
+        ], 
+        "wrong": [
+            "a 4KB limit", 
+            "a custom key-value pairs"
+        ]
+    }, 
+    {
+        "ID": 403, 
+        "docRef": "https://firebase.google.com/docs/cloud-messaging/concept-options", 
+        "question": "A FCM data message has ", 
+        "questionType": 0, 
+        "right": [
+            "a 4KB limit", 
+            "a custom key-value pairs"
+        ], 
+        "tags": [
+            "Firebase Cloud Messaging"
+        ], 
+        "wrong": [
+            "a 2KB limit", 
+            "a predefined set of user-visible keys"
+        ]
+    }, 
+    {
+        "ID": 404, 
+        "docRef": "http://stackoverflow.com/a/18666993/5766983", 
+        "question": "A View can be a child of two ViewGroup parents", 
+        "questionType": 0, 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
+        ]
+    }, 
+    {
+        "ID": 405, 
+        "docRef": "http://stackoverflow.com/questions/4159211/how-do-i-clone-a-view/4159260#4159260", 
+        "question": "You can clone views", 
+        "questionType": 0, 
+        "right": [
+            "FALSE"
+        ], 
+        "tags": [
+            "User Interfaces"
+        ], 
+        "wrong": [
+            "TRUE"
         ]
     }
 ]

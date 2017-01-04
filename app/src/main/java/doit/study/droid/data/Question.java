@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,11 +57,17 @@ public class Question implements Parcelable {
     private int mWrongAnsCnt;
     private int mRightAnsCnt;
     private int mConsecutiveRightCnt;
+    @SerializedName("question")
     private String mText;
+    @SerializedName("wrong")
     private List<String> mWrongAnswers;
+    @SerializedName("right")
     private List<String> mRightAnswers;
+    @SerializedName("tags")
     private List<String> mTags;
+    @SerializedName("docRef")
     private String mDocRef;
+    @SerializedName("questionType")
     private int mQuestionType;
 
     public Question(){

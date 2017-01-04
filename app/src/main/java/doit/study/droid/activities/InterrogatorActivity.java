@@ -63,7 +63,8 @@ public class InterrogatorActivity extends DrawerBaseActivity implements Interrog
                 mPager.setCurrentItem(mCurrentPageInFocus, true);
             }
         }
-        setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, mProgress, mProgress));
+        int questionsLeft = mProgress >= 0 ? mProgress : 0; // initial value -1
+        setTitle(getResources().getQuantityString(R.plurals.numberOfQuestionsInTest, questionsLeft, questionsLeft));
     }
 
     @Override

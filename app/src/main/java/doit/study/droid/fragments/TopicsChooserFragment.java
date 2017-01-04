@@ -42,7 +42,7 @@ import timber.log.Timber;
 
 
 public class TopicsChooserFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener{
-    private final static boolean DEBUG = true;
+    private final static boolean DEBUG = false;
     private static final String RECYCLER_LAYOUT_STATE_KEY = "doit.study.droid.fragments.recycler_layout_state_key";
     private TopicsAdapter mTopicsAdapter;
     private RecyclerView mRecyclerView;

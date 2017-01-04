@@ -45,7 +45,7 @@ import timber.log.Timber;
 
 
 public class InterrogatorFragment extends LifecycleLogFragment implements View.OnClickListener{
-    private static final boolean DEBUG = false;
+    protected boolean DEBUG = true;
     private static final int REPORT_DIALOG_REQUEST_CODE = 0;
     public static final String REPORT_DIALOG_TAG = "fragment_dialog_dislike";
     // Callbacks
@@ -84,7 +84,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
     }
 
     public static InterrogatorFragment newInstance(Question question) {
-        if (DEBUG) Timber.d("newInstance %s", question);
+        Timber.d("newInstance %s", question);
         InterrogatorFragment fragment = new InterrogatorFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(QUESTION_KEY, question);
@@ -193,7 +193,7 @@ public class InterrogatorFragment extends LifecycleLogFragment implements View.O
             public void onGlobalLayout() {
                 ViewTreeObserver obs = vCtrlPanel.getViewTreeObserver();
                 int bottom_padding = vCtrlPanel.getHeight();
-                if (DEBUG) Timber.d("height %d", bottom_padding);
+                // if (DEBUG) Timber.d("height %d", bottom_padding);
                 mvAnswersLayout.setPadding(0, 0, 0, bottom_padding);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     obs.removeOnGlobalLayoutListener(this);
