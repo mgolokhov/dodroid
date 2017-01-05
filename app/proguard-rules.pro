@@ -18,3 +18,9 @@
 -keep class android.support.v7.widget.SearchView { *; }
 -keep class android.support.design.widget.** { *; }
 -keep interface android.support.design.widget.** { *; }
+
+# Crashlytics
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**

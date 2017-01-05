@@ -46,3 +46,5 @@ build/
 
 #NDK
 obj/
+
+fabric.properties
