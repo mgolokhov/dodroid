@@ -59,8 +59,6 @@ public class QuizDBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_QUESTION);
         db.execSQL(CREATE_TABLE_TAG);
         db.execSQL(CREATE_TABLE_RELATION_QUESTION_TAG);
-
-        insertFromFile(JsonParser.getQuestions(mContext.getResources().openRawResource(R.raw.quiz)), db);
     }
 
     @Override
@@ -84,7 +82,7 @@ public class QuizDBHelper extends SQLiteOpenHelper {
     }
 
 
-    private void insertFromFile(List<Question> parsedQuestions, SQLiteDatabase db) {
+    public void insertFromFile(List<Question> parsedQuestions, SQLiteDatabase db) {
         // TODO: do we need replace?
         SQLiteStatement insertQuestion = db.compileStatement("INSERT OR REPLACE INTO "
                         + Question.Table.NAME + "("

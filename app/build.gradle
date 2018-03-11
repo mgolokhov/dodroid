@@ -20,7 +20,8 @@ ext.versions = [
         targetSdkVersion    : 27,
         minSdkVersion       : 15,
         buildtools          : "27.0.3",
-        support             : "27.1.0"
+        support             : "27.1.0",
+        retrofit            : "2.3.0"
 ]
 
 
@@ -66,6 +67,11 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$versions.support"
     implementation "com.android.support:design:$versions.support"
     implementation "com.android.support:support-v4:$versions.support"
+
+    // Retrofit & OkHttp
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
     implementation 'com.google.android.gms:play-services-analytics:11.8.0'
 
