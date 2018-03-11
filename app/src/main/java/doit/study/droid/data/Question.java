@@ -53,6 +53,7 @@ public class Question implements Parcelable {
 
     // consecutive right shots when we consider question is studied
     public static final int NUM_TO_CONSIDER_STUDIED = 3;
+    @SerializedName("ID")
     private int mId;
     private int mWrongAnsCnt;
     private int mRightAnsCnt;
