@@ -144,7 +144,7 @@ public class DrawerBaseActivity extends AppCompatActivity
                 createBackStack(new Intent(this, TopicsChooserActivity.class));
                 break;
             case R.id.nav_do_it:
-                createBackStack(new Intent(this, InterrogatorActivity.class));
+//                createBackStack(new Intent(this, InterrogatorActivity.class));
                 break;
             default:
                 break;

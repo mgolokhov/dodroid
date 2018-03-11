@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <provider
-            android:name=".data.QuizProvider"
-            android:authorities="doit.study.droid"/>
-
         <!-- Fix orientation, so don't care about rotation -->
         <activity
             android:name=".activities.TopicsChooserActivity"
@@ -25,17 +21,17 @@
             android:label="@string/title_selection_quiz_topics"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity
-            android:name=".activities.InterrogatorActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.TopicsChooserActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TopicsChooserActivity"/>
-        </activity>
+        <!--<activity-->
+            <!--android:name=".activities.InterrogatorActivity"-->
+            <!--android:launchMode="singleTop"-->
+            <!--android:parentActivityName=".activities.TopicsChooserActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"-->
+            <!--&gt;-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".activities.TopicsChooserActivity"/>-->
+        <!--</activity>-->
 
         <activity
             android:name=".activities.SettingsActivity"

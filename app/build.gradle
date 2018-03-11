@@ -21,7 +21,8 @@ ext.versions = [
         minSdkVersion       : 15,
         buildtools          : "27.0.3",
         support             : "27.1.0",
-        retrofit            : "2.3.0"
+        retrofit            : "2.3.0",
+        room                : "1.0.0"
 ]
 
 
@@ -68,6 +69,10 @@ dependencies {
     implementation "com.android.support:design:$versions.support"
     implementation "com.android.support:support-v4:$versions.support"
 
+    compile "android.arch.persistence.room:runtime:$versions.room"
+    compile "android.arch.persistence.room:rxjava2:$versions.room"
+    annotationProcessor "android.arch.persistence.room:compiler:$versions.room"
+
     // Retrofit & OkHttp
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
@@ -76,11 +81,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-analytics:11.8.0'
 
     implementation 'com.jakewharton.timber:timber:4.6.1'
+    // in terminal run adb forward tcp:8080 tcp:8080 than open http://localhost:8080/
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
+
     implementation 'com.mikhaellopez:circularprogressbar:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true
     }
+    implementation 'com.android.support:multidex:1.0.3'
 
 }
 

@@ -3,7 +3,7 @@ package doit.study.droid.activities;
 
 import android.os.Bundle;
 import doit.study.droid.R;
-import doit.study.droid.fragments.TotalSummaryFragment;
+//import doit.study.droid.fragments.TotalSummaryFragment;
 import timber.log.Timber;
 
 public class TotalSummaryActivity extends DrawerBaseActivity {
@@ -21,9 +21,9 @@ public class TotalSummaryActivity extends DrawerBaseActivity {
         super.onCreate(savedInstanceState);
         mSelectionId = NONE_SELECTED;
 //        getLayoutInflater().inflate(R.layout.activity_total_summary, mContainerContent);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container_content, new TotalSummaryFragment())
-                .commit();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.container_content, new TotalSummaryFragment())
+//                .commit();
     }
 }

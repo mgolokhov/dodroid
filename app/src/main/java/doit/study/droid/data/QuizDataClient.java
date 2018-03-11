@@ -7,5 +7,5 @@ import retrofit2.http.GET;
 
 public interface QuizDataClient {
     @GET("quiz.json?cache_stub=drop")
-    Call<List<Question>> getQuestions();
+    Call<List<QuestionNetwork>> getQuestions();
 }
