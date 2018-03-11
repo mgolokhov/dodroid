@@ -72,11 +72,11 @@ public class SnackBarAwareBehavior extends CoordinatorLayout.Behavior<View> {
         super.onDependentViewRemoved(parent, child, dependency);
     }
 
-    @Override
-    public boolean isDirty(CoordinatorLayout parent, View child) {
-        if (DEBUG) Timber.d("isDirty");
-        return super.isDirty(parent, child);
-    }
+//    @Override
+//    public boolean isDirty(CoordinatorLayout parent, View child) {
+//        if (DEBUG) Timber.d("isDirty");
+//        return super.isDirty(parent, child);
+//    }
 
     @Override
     public boolean onMeasureChild(CoordinatorLayout parent, View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
