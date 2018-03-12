@@ -1,4 +1,4 @@
-package doit.study.droid.data;
+package doit.study.droid.data.source.local.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.util.List;
 
-import static doit.study.droid.data.Converters.listToString;
+import doit.study.droid.data.source.local.Converters;
 
 @Entity(tableName = "tags")
 public class Tag {
@@ -23,7 +23,7 @@ public class Tag {
 
     @Ignore
     public Tag(List<String> text, int questionId) {
-        this.text = listToString(text);
+        this.text = Converters.listToString(text);
         this.questionId = questionId;
     }
 }

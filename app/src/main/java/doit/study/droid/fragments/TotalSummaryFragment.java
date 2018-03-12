@@ -13,8 +13,8 @@
 //import java.util.Arrays;
 //
 //import doit.study.droid.R;
-//import doit.study.droid.data.Question;
-//import doit.study.droid.data.Tag;
+//import doit.study.droid.data.source.local.entities.QuestionDb;
+//import doit.study.droid.data.source.local.entities.Tag;
 //import timber.log.Timber;
 //
 //public class TotalSummaryFragment extends LifecycleLogFragment implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -71,7 +71,7 @@
 //                int almostStudied = 0;
 //                int studied = 0;
 //                while(data.moveToNext()){
-//                    Question q = Question.newInstance(data);
+//                    QuestionDb q = QuestionDb.newInstance(data);
 //                    if (q.isStudied()){
 //                        studied++;
 //                        viewed++;

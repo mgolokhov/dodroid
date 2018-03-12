@@ -33,8 +33,8 @@
 //import doit.study.droid.activities.InterrogatorActivity;
 //import doit.study.droid.activities.TotalSummaryActivity;
 //import doit.study.droid.adapters.TopicsAdapter;
-//import doit.study.droid.data.Question;
-//import doit.study.droid.data.Tag;
+//import doit.study.droid.data.source.local.entities.QuestionDb;
+//import doit.study.droid.data.source.local.entities.Tag;
 //import timber.log.Timber;
 //
 //
@@ -204,7 +204,7 @@
 //            case TAG_LOADER:
 //                return new CursorLoader(getActivity(), QuizProvider.TAG_URI, null, null, null, null);
 //            case QUESTION_LOADER:
-//                return new CursorLoader(getActivity(), QuizProvider.QUESTION_URI, new String[]{Question.Table.FQ_ID}, null, null, null);
+//                return new CursorLoader(getActivity(), QuizProvider.QUESTION_URI, new String[]{QuestionDb.Table.FQ_ID}, null, null, null);
 //            default:
 //                return null;
 //        }

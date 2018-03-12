@@ -1,6 +1,5 @@
 package doit.study.droid.app;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
@@ -10,24 +9,26 @@ import com.google.android.gms.analytics.Tracker;
 
 import doit.study.droid.BuildConfig;
 import doit.study.droid.R;
-import doit.study.droid.data.QuizDataClient;
+import doit.study.droid.di.AppComponent;
+import doit.study.droid.di.AppModule;
+import doit.study.droid.di.DaggerAppComponent;
 import io.fabric.sdk.android.Fabric;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Use application singleton
-*/
+
 public abstract class BaseApp extends MultiDexApplication {
     private Tracker mTracker;
-    private static final String API_BASE_URL = "https://raw.githubusercontent.com/mgolokhov/dodroid_questions/master/";
-    private QuizDataClient mQuizDataClient;
 
+    private static AppComponent sAppComponent;
+
+    public static AppComponent getAppComponent(){
+        return sAppComponent;
+    }
 
     @Override
     public void onCreate() {
+        sAppComponent  = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
         super.onCreate();
         CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
         Fabric.with(this, new Crashlytics.Builder().core(core).build(), new Crashlytics());
@@ -59,28 +60,4 @@ public abstract class BaseApp extends MultiDexApplication {
         return mTracker;
     }
 
-    public QuizDataClient getQuizService(){
-        if (mQuizDataClient == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-            //httpClient.addInterceptor(createLogInterceptor());
-
-            Retrofit.Builder builder = new Retrofit.Builder()
-                            .baseUrl(API_BASE_URL)
-                            .addConverterFactory(GsonConverterFactory.create());
-
-            Retrofit retrofit = builder
-                            .client(httpClient.build())
-                            .build();
-
-            mQuizDataClient = retrofit.create(QuizDataClient.class);
-        }
-        return mQuizDataClient;
-    }
-
-
-    private HttpLoggingInterceptor createLogInterceptor() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        HttpLoggingInterceptor.Level level = BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE;
-        return logging.setLevel(level);
-    }
 }

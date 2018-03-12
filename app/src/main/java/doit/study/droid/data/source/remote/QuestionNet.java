@@ -1,10 +1,10 @@
-package doit.study.droid.data;
+package doit.study.droid.data.source.remote;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class QuestionNetwork {
+public class QuestionNet {
     @SerializedName("ID")
     public int mId;
     @SerializedName("question")
@@ -21,7 +21,7 @@ public class QuestionNetwork {
     public int mQuestionType;
 
 
-    public QuestionNetwork(int mId, String mText, List<String> mWrongAnswers, List<String> mRightAnswers, List<String> mTags, String mDocRef, int mQuestionType) {
+    public QuestionNet(int mId, String mText, List<String> mWrongAnswers, List<String> mRightAnswers, List<String> mTags, String mDocRef, int mQuestionType) {
         this.mId = mId;
         this.mText = mText;
         this.mWrongAnswers = mWrongAnswers;

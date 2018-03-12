@@ -16,7 +16,7 @@
 //import java.util.List;
 //
 //import doit.study.droid.R;
-//import doit.study.droid.data.Tag;
+//import doit.study.droid.data.source.local.entities.Tag;
 //import timber.log.Timber;
 //
 //public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>{

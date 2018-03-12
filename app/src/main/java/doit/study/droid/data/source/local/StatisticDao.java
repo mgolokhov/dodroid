@@ -1,22 +1,22 @@
-package doit.study.droid.data;
+package doit.study.droid.data.source.local;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import doit.study.droid.data.source.local.entities.Statistic;
+
 @Dao
-public interface QuestionDao {
+public interface StatisticDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<Question> questions);
+    void insert(List<Statistic> statistics);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Question question);
+    void insert(Statistic statistic);
 
-    @Query("SELECT * FROM questions")
-    List<Question> getAllQuestions();
+    @Query("SELECT * FROM statistics")
+    List<Statistic> getAllStatistics();
 }

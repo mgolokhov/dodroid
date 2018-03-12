@@ -1,9 +1,10 @@
-package doit.study.droid.data;
+package doit.study.droid.data.source.local;
 
 import android.arch.persistence.room.TypeConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Converters {
@@ -29,5 +30,19 @@ public class Converters {
             return new ArrayList<>();
         else
             return Arrays.asList(s.split("\n"));
+    }
+
+    @TypeConverter
+    public Date fromTimestamp(Long value) {
+        return value == null ? null : new Date(value);
+    }
+
+    @TypeConverter
+    public Long dateToTimestamp(Date date) {
+        if (date == null) {
+            return null;
+        } else {
+            return date.getTime();
+        }
     }
 }

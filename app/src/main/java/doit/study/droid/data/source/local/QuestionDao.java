@@ -1,4 +1,4 @@
-package doit.study.droid.data;
+package doit.study.droid.data.source.local;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
@@ -7,14 +7,16 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import doit.study.droid.data.source.local.entities.QuestionDb;
+
 @Dao
-public interface TagDao {
+public interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<Tag> tags);
+    void insert(List<QuestionDb> questions);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Tag tag);
+    void insert(QuestionDb question);
 
-    @Query("SELECT * FROM tags")
-    List<Tag> getAllTags();
+    @Query("SELECT * FROM questions")
+    List<QuestionDb> getAllQuestions();
 }
