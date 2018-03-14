@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import doit.study.droid.R;
-//import doit.study.droid.fragments.TopicsChooserFragment;
+import doit.study.droid.fragments.TopicsChooserFragment;
 import timber.log.Timber;
 
 
@@ -19,10 +19,10 @@ public class TopicsChooserActivity extends DrawerBaseActivity {
         if (DEBUG) Timber.d("onCreate");
         super.onCreate(savedInstanceState);
 		mSelectionId = R.id.nav_set_topic;
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.container_content, TopicsChooserFragment.newInstance())
-//                .commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container_content, TopicsChooserFragment.newInstance())
+                .commit();
     }
 
 

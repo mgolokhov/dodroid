@@ -22,7 +22,7 @@ public class QuestionsRepository implements QuestionsDataSource {
     private final QuizDatabase quizDatabase;
 
     @Inject
-    public QuestionsRepository(QuizWebService quizWebService, QuizDatabase quizDatabase){
+    public QuestionsRepository(QuizWebService quizWebService, QuizDatabase quizDatabase) {
         this.quizWebService = quizWebService;
         this.quizDatabase = quizDatabase;
     }
@@ -48,10 +48,10 @@ public class QuestionsRepository implements QuestionsDataSource {
                 .flatMap(Flowable::fromIterable)
                 .doOnNext(this::insertInDb)
                 .ignoreElements()
-        ;
+                ;
     }
 
-    private void insertInDb(QuestionNet questionNetwork){
+    private void insertInDb(QuestionNet questionNetwork) {
         quizDatabase.questionDao().insert(new QuestionDb(
                 questionNetwork.mId,
                 questionNetwork.mText,
@@ -60,12 +60,12 @@ public class QuestionsRepository implements QuestionsDataSource {
                 questionNetwork.mDocRef)
         );
 
-        quizDatabase.tagDao().insert(new Tag(
-                        questionNetwork.mTags,
-                        questionNetwork.mId
-                )
-        );
-
+        for (String tag : questionNetwork.mTags) {
+            quizDatabase.tagDao().insert(new Tag(
+                    tag,
+                    questionNetwork.mId)
+            );
+        }
 
         quizDatabase.statisticsDao().insert(new Statistic(
                 questionNetwork.mId,

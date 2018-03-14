@@ -4,10 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import java.util.List;
-
-import doit.study.droid.data.source.local.Converters;
-
 @Entity(tableName = "tags")
 public class Tag {
     @PrimaryKey(autoGenerate = true)
@@ -22,8 +18,20 @@ public class Tag {
     }
 
     @Ignore
-    public Tag(List<String> text, int questionId) {
-        this.text = Converters.listToString(text);
+    public Tag(String text, int questionId) {
+        this.text = text;
         this.questionId = questionId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getQuestionId() {
+        return questionId;
     }
 }
