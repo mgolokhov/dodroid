@@ -11,7 +11,7 @@
 //import java.util.List;
 //
 //import doit.study.droid.R;
-//import doit.study.droid.data.source.local.entities.QuestionDb;
+//import doit.study.droid.data.source.local.entities.QuestionEntity;
 //import doit.study.droid.fragments.InterrogatorFragment;
 //import doit.study.droid.fragments.OneTestSummaryFragment;
 //import timber.log.Timber;
@@ -19,7 +19,7 @@
 //
 //public class InterrogatorPagerAdapter extends FragmentStatePagerAdapter {
 //    private static final boolean DEBUG = false;
-//    private List<QuestionDb> mQuestions = new ArrayList<>();
+//    private List<QuestionEntity> mQuestions = new ArrayList<>();
 //    private int mSize;
 //    private int mRightCnt;
 //    private int mWrongCnt;
@@ -84,7 +84,7 @@
 //        if (DEBUG) Timber.d("setData:id:############");
 //        if (mQuestions.size() == 0) {
 //            while (newCursor.moveToNext()) {
-//                QuestionDb q = QuestionDb.newInstance(newCursor);
+//                QuestionEntity q = QuestionEntity.newInstance(newCursor);
 //                if (DEBUG) Timber.d("id: %d %s %s", q.getId(), q.getTags(), q.getText());
 //                mQuestions.add(q);
 //            }

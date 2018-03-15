@@ -5,22 +5,19 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "tags")
-public class Tag {
+public class TagEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
     public final String text;
-    public final int questionId;
 
-    public Tag(int id, String text, int questionId) {
+    public TagEntity(int id, String text) {
         this.id = id;
         this.text = text;
-        this.questionId = questionId;
     }
 
     @Ignore
-    public Tag(String text, int questionId) {
+    public TagEntity(String text) {
         this.text = text;
-        this.questionId = questionId;
     }
 
     public int getId() {
@@ -31,7 +28,4 @@ public class Tag {
         return text;
     }
 
-    public int getQuestionId() {
-        return questionId;
-    }
 }

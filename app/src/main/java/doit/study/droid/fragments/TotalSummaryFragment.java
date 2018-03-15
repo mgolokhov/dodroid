@@ -13,8 +13,8 @@
 //import java.util.Arrays;
 //
 //import doit.study.droid.R;
-//import doit.study.droid.data.source.local.entities.QuestionDb;
-//import doit.study.droid.data.source.local.entities.Tag;
+//import doit.study.droid.data.source.local.entities.QuestionEntity;
+//import doit.study.droid.data.source.local.entities.TagEntity;
 //import timber.log.Timber;
 //
 //public class TotalSummaryFragment extends LifecycleLogFragment implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -52,7 +52,7 @@
 //            case QUESTION_LOADER:
 //                String [] projection = Arrays.copyOf(RelationTables.JoinedQuestionTagProjection,
 //                        RelationTables.JoinedQuestionTagProjection.length + 1);
-//                projection[RelationTables.JoinedQuestionTagProjection.length] = "group_concat( " + Tag.Table.FQ_TEXT + ", '\n' ) as tags2";
+//                projection[RelationTables.JoinedQuestionTagProjection.length] = "group_concat( " + TagEntity.Table.FQ_TEXT + ", '\n' ) as tags2";
 //                return new CursorLoader(getActivity(), QuizProvider.QUESTION_URI, projection, null, null, null);
 //            default:
 //                return null;
@@ -71,7 +71,7 @@
 //                int almostStudied = 0;
 //                int studied = 0;
 //                while(data.moveToNext()){
-//                    QuestionDb q = QuestionDb.newInstance(data);
+//                    QuestionEntity q = QuestionEntity.newInstance(data);
 //                    if (q.isStudied()){
 //                        studied++;
 //                        viewed++;

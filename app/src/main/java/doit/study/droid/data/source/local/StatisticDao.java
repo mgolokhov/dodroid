@@ -7,16 +7,16 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import doit.study.droid.data.source.local.entities.Statistic;
+import doit.study.droid.data.source.local.entities.StatisticEntity;
 
 @Dao
 public interface StatisticDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<Statistic> statistics);
+    void insert(List<StatisticEntity> statistics);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Statistic statistic);
+    void insert(StatisticEntity statistic);
 
     @Query("SELECT * FROM statistics")
-    List<Statistic> getAllStatistics();
+    List<StatisticEntity> getAllStatistics();
 }

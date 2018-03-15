@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,8 +29,8 @@ import doit.study.droid.R;
 import doit.study.droid.activities.TotalSummaryActivity;
 import doit.study.droid.adapters.TopicsAdapter;
 import doit.study.droid.app.App;
+import doit.study.droid.data.source.Tag;
 import doit.study.droid.data.source.local.QuizDatabase;
-import doit.study.droid.data.source.local.entities.Tag;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -91,17 +92,18 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
             recyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
         }
 
-        disposable = quizDatabase.tagDao().getAllTags()
+        disposable = quizDatabase.getQuizDao().getTagStatistics()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         // onNext
-                        topicsAdapter::setTags,
+                        tags -> {
+                            topicsAdapter.setTags(tags);
+                            Timber.d(Arrays.toString(tags.toArray()));
+                            },
                         throwable -> {},
                         () -> {}
-                )
-        ;
-
+                );
     }
 
     @Override
@@ -137,7 +139,7 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
     }
 
     private void setSelectionToAllTags(boolean checked){
-//        for (Tag tag: mMasterCopyTags)
+//        for (TagEntity tag: mMasterCopyTags)
 //            tag.setChecked(checked);
         topicsAdapter.notifyDataSetChanged();
     }
@@ -178,7 +180,7 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
         query = query.toLowerCase();
         final List<Tag> filteredModel = new ArrayList<>();
         for (Tag tag: model){
-            final String text = tag.getText().toLowerCase();
+            final String text = tag.text.toLowerCase();
             if (text.contains(query)){
                 filteredModel.add(tag);
             }

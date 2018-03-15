@@ -7,5 +7,5 @@ import retrofit2.http.GET;
 
 public interface QuizWebService {
     @GET("quiz.json?cache_stub=drop")
-    Flowable<List<QuestionNet>> getQuestions();
+    Flowable<List<QuestionWeb>> getQuestions();
 }

@@ -38,7 +38,7 @@
 //import doit.study.droid.R;
 //import doit.study.droid.activities.SettingsActivity;
 //import doit.study.droid.app.App;
-//import doit.study.droid.data.QuestionDb;
+//import doit.study.droid.data.QuestionEntity;
 //import doit.study.droid.utils.Sound;
 //import doit.study.droid.utils.Views;
 //import timber.log.Timber;
@@ -62,7 +62,7 @@
 //    private State mState = State.NEW;
 //    private enum Vote {NONE, LIKED, DISLIKED}
 //    private Vote mVote = Vote.NONE;
-//    private QuestionDb mCurrentQuestion;
+//    private QuestionEntity mCurrentQuestion;
 //    private Sound mSound;
 //
 //    private String[] mFeedbackWrongAnswered;
@@ -79,11 +79,11 @@
 //    // Host Activity must implement these interfaces
 //    public interface OnFragmentActivityChatter {
 //        void swipeToNext(int delay);
-//        void saveStat(QuestionDb question);
+//        void saveStat(QuestionEntity question);
 //        void updateProgress(boolean isRight);
 //    }
 //
-//    public static InterrogatorFragment newInstance(QuestionDb question) {
+//    public static InterrogatorFragment newInstance(QuestionEntity question) {
 //        Timber.d("newInstance %s", question);
 //        InterrogatorFragment fragment = new InterrogatorFragment();
 //        Bundle bundle = new Bundle();
@@ -175,7 +175,7 @@
 //    }
 //
 //
-//    // Map data from the current QuestionDb to the View elements
+//    // Map data from the current QuestionEntity to the View elements
 //    private void updateViews(Bundle savedInstanceState) {
 //        mvQuestionText.setText(mCurrentQuestion.getText());
 //        updateAnswers(savedInstanceState);

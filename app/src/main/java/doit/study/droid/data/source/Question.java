@@ -1,4 +1,4 @@
-package doit.study.droid.data;
+package doit.study.droid.data.source;
 
 import java.util.List;
 

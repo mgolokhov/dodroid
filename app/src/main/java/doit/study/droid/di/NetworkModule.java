@@ -38,7 +38,7 @@ public class NetworkModule {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         //client.addInterceptor(new ApiKeyInterceptor());
         //client.addNetworkInterceptor(new StethoInterceptor());
-        client.addInterceptor(createLogInterceptor());
+        //client.addInterceptor(createLogInterceptor());
         return client.build();
     }
 

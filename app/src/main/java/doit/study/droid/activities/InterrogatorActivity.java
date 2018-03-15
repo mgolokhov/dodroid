@@ -14,7 +14,7 @@
 //
 //import doit.study.droid.R;
 //import doit.study.droid.adapters.InterrogatorPagerAdapter;
-//import doit.study.droid.data.source.local.entities.QuestionDb;
+//import doit.study.droid.data.source.local.entities.QuestionEntity;
 //import doit.study.droid.fragments.InterrogatorFragment;
 //import timber.log.Timber;
 //
@@ -86,9 +86,9 @@
 //
 //
 //    @Override
-//    public void saveStat(QuestionDb question) {
+//    public void saveStat(QuestionEntity question) {
 //        if (DEBUG) Timber.d("saveStat %s", question);
-//        getContentResolver().update(QuizProvider.QUESTION_URI, QuestionDb.getContentValues(question), "_ID = " + question.getId(), null);
+//        getContentResolver().update(QuizProvider.QUESTION_URI, QuestionEntity.getContentValues(question), "_ID = " + question.getId(), null);
 //    }
 //
 //    @Override

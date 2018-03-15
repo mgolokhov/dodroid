@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "statistics")
-public class Statistic {
+public class StatisticEntity {
     @PrimaryKey
     public final int id;
     public final int wrongCounter;
@@ -13,9 +13,10 @@ public class Statistic {
     public final boolean checked;
     public final long lastViewedAt;
     public final long studiedAt;
+    public final int status;
 
 
-    public Statistic(int id, int wrongCounter, int rightCounter, int consecutiveRightCnt, boolean checked, long lastViewedAt, long studiedAt) {
+    public StatisticEntity(int id, int wrongCounter, int rightCounter, int consecutiveRightCnt, boolean checked, long lastViewedAt, long studiedAt, int status) {
         this.id = id;
         this.wrongCounter = wrongCounter;
         this.rightCounter = rightCounter;
@@ -23,5 +24,6 @@ public class Statistic {
         this.checked = checked;
         this.lastViewedAt = lastViewedAt;
         this.studiedAt = studiedAt;
+        this.status = status;
     }
 }

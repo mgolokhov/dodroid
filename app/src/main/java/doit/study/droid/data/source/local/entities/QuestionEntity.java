@@ -8,7 +8,7 @@ import java.util.List;
 import doit.study.droid.data.source.local.Converters;
 
 @Entity(tableName = "questions")
-public class QuestionDb {
+public class QuestionEntity {
     @PrimaryKey
     public final int id;
     public final String text;
@@ -16,7 +16,7 @@ public class QuestionDb {
     public final String right;
     public final String docLink;
 
-    public QuestionDb(int id, String text, String wrong, String right, String docLink) {
+    public QuestionEntity(int id, String text, String wrong, String right, String docLink) {
         this.id = id;
         this.text = text;
         this.wrong = wrong;
@@ -24,7 +24,7 @@ public class QuestionDb {
         this.docLink = docLink;
     }
 
-    public QuestionDb(int id, String text, List<String> wrong, List<String> right, String docLink) {
+    public QuestionEntity(int id, String text, List<String> wrong, List<String> right, String docLink) {
         this.id = id;
         this.text = text;
         this.wrong = Converters.listToString(wrong);

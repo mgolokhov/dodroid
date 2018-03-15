@@ -12,12 +12,12 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         primaryKeys={"questionId", "tagId"},
         foreignKeys={
                 @ForeignKey(
-                        entity=QuestionDb.class,
+                        entity=QuestionEntity.class,
                         parentColumns="id",
                         childColumns="questionId",
                         onDelete=CASCADE),
                 @ForeignKey(
-                        entity=Tag.class,
+                        entity=TagEntity.class,
                         parentColumns="id",
                         childColumns="tagId",
                         onDelete=CASCADE)},
@@ -27,11 +27,11 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         } )
 public class QuestionTagJoin {
     @NonNull
-    public final String questionId;
+    public final long questionId;
     @NonNull
-    public final String tagId;
+    public final long tagId;
 
-    public QuestionTagJoin(String questionId, String tagId) {
+    public QuestionTagJoin(long questionId, long tagId) {
         this.questionId=questionId;
         this.tagId = tagId;
     }

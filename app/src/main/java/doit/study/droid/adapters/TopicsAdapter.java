@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import doit.study.droid.R;
-import doit.study.droid.data.source.local.entities.Tag;
+import doit.study.droid.data.source.Tag;
 import timber.log.Timber;
 
 public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>{
@@ -103,7 +103,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
 
     public void setTags(List<Tag> tags){
         mMasterCopyTags = tags;
-        mFilteredTags = new ArrayList<>(tags);
+        mFilteredTags = new ArrayList<Tag>(tags);
         notifyDataSetChanged();
     }
 
@@ -117,7 +117,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
     public void onBindViewHolder(TopicViewHolder holder, int position) {
         final Tag tag = mFilteredTags.get(position);
         if (DEBUG) Timber.d("%s %d", tag, position);
-        String text = String.format("%s (%d/%d)", tag.getText(), 0, 0);
+        String text = String.format("%s (%d/%d)", tag.text, tag.quantity, tag.learned);
         holder.topic.setText(text);
         //holder.checkbox.setChecked(tag.getSelectionStatus());
         holder.checkbox.setOnClickListener(new View.OnClickListener() {
