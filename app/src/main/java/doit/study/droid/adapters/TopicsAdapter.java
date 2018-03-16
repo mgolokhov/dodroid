@@ -16,8 +16,8 @@ import timber.log.Timber;
 
 public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>{
     private final static boolean DEBUG = false;
-    private List<Tag> mFilteredTags;
-    private List<Tag> mMasterCopyTags;
+    private List<Tag> mFilteredTags = new ArrayList<>();
+    private List<Tag> mMasterCopyTags = new ArrayList<>();
 
 
     public void animateTo(List<Tag> models) {
@@ -81,8 +81,8 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
         CheckBox checkbox;
         public TopicViewHolder(View itemView) {
             super(itemView);
-            topic = (TextView)itemView.findViewById(R.id.topic_name);
-            checkbox = (CheckBox) itemView.findViewById(R.id.checkbox_tag);
+            topic = itemView.findViewById(R.id.topic_name);
+            checkbox = itemView.findViewById(R.id.checkbox_tag);
         }
 
     }
@@ -103,7 +103,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
 
     public void setTags(List<Tag> tags){
         mMasterCopyTags = tags;
-        mFilteredTags = new ArrayList<Tag>(tags);
+        mFilteredTags = new ArrayList<>(tags);
         notifyDataSetChanged();
     }
 
@@ -119,21 +119,18 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
         if (DEBUG) Timber.d("%s %d", tag, position);
         String text = String.format("%s (%d/%d)", tag.text, tag.quantity, tag.learned);
         holder.topic.setText(text);
-        //holder.checkbox.setChecked(tag.getSelectionStatus());
-        holder.checkbox.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        holder.checkbox.setChecked(tag.isCheckedAnyQuestion());
+        holder.checkbox.setOnClickListener(v -> {
             boolean isChecked = ((CheckBox)v).isChecked();
             //tag.setChecked(isChecked);
             // synchronize with all tags
             for (Tag t: mMasterCopyTags) {
-//                if (t.getId().equals(tag.getId())){
-//                    t.setChecked(isChecked);
-//                }
+                if (t.getId() == tag.getId()){
+                    t.setCheckedAnyQuestion(isChecked);
+                }
             }
             if (DEBUG) Timber.d("change %s", tag);
-        }
-    });
+        });
     }
 
 }

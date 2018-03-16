@@ -31,6 +31,8 @@ import doit.study.droid.adapters.TopicsAdapter;
 import doit.study.droid.app.App;
 import doit.study.droid.data.source.Tag;
 import doit.study.droid.data.source.local.QuizDatabase;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -148,6 +150,24 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
     public void onPause() {
         if (DEBUG) Timber.d("onPause");
         super.onPause();
+        List<Tag> tags = topicsAdapter.getTags();
+        List<Integer> checkedQuestionIds = new ArrayList<>();
+        for(Tag t: tags){
+            if (t.checkedAnyQuestion) {
+                checkedQuestionIds.addAll(t.getQuestionIds());
+            }
+        }
+        Completable update = Completable.fromAction(() -> quizDatabase.statisticsDao().updateCheckedQuestions(checkedQuestionIds));
+
+        Observable.concat(update.toObservable(), quizDatabase.getQuizDao().getTagStatistics().toObservable())
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+                updated -> Timber.d("updated: " + updated.get(0)),
+                error -> Timber.e(error),
+                () -> {}
+
+        );
     }
 
 

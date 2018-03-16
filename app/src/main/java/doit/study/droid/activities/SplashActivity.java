@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import doit.study.droid.R;
 import doit.study.droid.app.App;
 import doit.study.droid.data.source.QuestionsRepository;
+import doit.study.droid.data.source.local.QuizDatabase;
+import io.reactivex.Maybe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -18,6 +22,8 @@ import timber.log.Timber;
 public class SplashActivity extends AppCompatActivity {
     @Inject
     QuestionsRepository questionsRepository;
+    @Inject
+    QuizDatabase quizDatabase;
     private Disposable disposable;
 
     @Override
@@ -25,16 +31,23 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         App.getAppComponent().inject(this);
 
-        disposable = questionsRepository.populateDb()
+        disposable = Maybe.concat(questionsRepository.populateDb().toMaybe(), quizDatabase.getQuizDao().getTagStatistics())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        // onComplete
-                        this::navigateToTopicChooser,
+                        // onNext
+                        res -> {
+                            Timber.d("result " + Arrays.toString(res.toArray()));
+                            navigateToTopicChooser();
+                        },
+//                        // onComplete
+//                        () -> {},
                         // onError
                         this::handleErrCannotLoadQuiz
                 )
         ;
+
+
     }
 
     @Override

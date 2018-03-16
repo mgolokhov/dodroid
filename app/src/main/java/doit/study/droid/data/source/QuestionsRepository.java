@@ -1,5 +1,6 @@
 package doit.study.droid.data.source;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,8 @@ import doit.study.droid.data.source.local.entities.TagEntity;
 import doit.study.droid.data.source.remote.QuestionWeb;
 import doit.study.droid.data.source.remote.QuizWebService;
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Maybe;
+import timber.log.Timber;
 
 @Singleton
 public class QuestionsRepository implements QuestionsDataSource {
@@ -32,7 +33,7 @@ public class QuestionsRepository implements QuestionsDataSource {
     }
 
     @Override
-    public Flowable<List<Question>> getQuestions() {
+    public Maybe<List<Question>> getQuestions() {
         return quizDatabase.getQuizDao().getQuestionTagStatistics();
     }
 
@@ -43,19 +44,27 @@ public class QuestionsRepository implements QuestionsDataSource {
 
     @Override
     public Completable populateDb() {
-        return quizWebService.getQuestions()
-                // https://stackoverflow.com/questions/49058715/transactions-in-android-room-w-rxjava2
-                .observeOn(Schedulers.single()) // off UI thread
-                .doOnNext(__ -> {
-                    quizDatabase.beginTransaction();
-                    tagsCache.clear();
-                })
-                .doOnComplete(quizDatabase::setTransactionSuccessful)
-                .doFinally(quizDatabase::endTransaction)
-                .flatMap(Flowable::fromIterable)
-                .doOnNext(this::insertInDb)
-                .ignoreElements()
-                ;
+        return Completable.fromAction(this::populateDbImpl);
+    }
+
+    private void populateDbImpl(){
+        try {
+            List<QuestionWeb> questions = quizWebService.getQuestionsSync().execute().body();
+            if (questions == null) return;
+            try {
+                quizDatabase.beginTransaction();
+                for (QuestionWeb q : questions) {
+                    insertInDb(q);
+                }
+                quizDatabase.setTransactionSuccessful();
+            } catch (Exception e){
+                Timber.e(e);
+            } finally {
+                quizDatabase.endTransaction();
+            }
+        } catch (IOException e) {
+            Timber.e(e);
+        }
     }
 
     private void insertInDb(QuestionWeb questionNetwork) {
@@ -78,7 +87,7 @@ public class QuestionsRepository implements QuestionsDataSource {
             quizDatabase.tagDao().insert(new QuestionTagJoin(questionNetwork.id, tagId));
         }
 
-        quizDatabase.statisticsDao().insert(new StatisticEntity(
+        long inserted = quizDatabase.statisticsDao().insert(new StatisticEntity(
                 questionNetwork.id,
                 0,
                 0,
@@ -88,5 +97,6 @@ public class QuestionsRepository implements QuestionsDataSource {
                 0,
                 0
         ));
+        Timber.d("inserted statistics " + inserted);
     }
 }
