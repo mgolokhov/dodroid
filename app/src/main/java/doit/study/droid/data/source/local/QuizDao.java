@@ -22,13 +22,14 @@ public interface QuizDao {
 
     @Query("SELECT t.id, t.text, count(*) as quantity, " +
             "sum(case s.status when 2 then 1 else 0 end) as learned, " +
-            "sum(s.checked) as checkedAnyQuestion, " +
+            // if all questions with a same tag are checked check all section
+            "case sum(s.checked) when count(*) then 1 else 0 end as checkedAnyQuestion, " +
             "group_concat(q.id) as questionIds " +
             "FROM questions q " +
             "INNER JOIN statistics s ON s.id = q.id " +
             "INNER JOIN question_tag_join as qt ON q.id = qt.questionId " +
             "INNER JOIN tags t ON t.id = qt.tagId " +
-            "GROUP BY t.text"
+            "GROUP BY t.text "
     )
     Maybe<List<Tag>> getTagStatistics();
 

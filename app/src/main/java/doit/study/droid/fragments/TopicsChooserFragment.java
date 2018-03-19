@@ -151,13 +151,15 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
         if (DEBUG) Timber.d("onPause");
         super.onPause();
         List<Tag> tags = topicsAdapter.getTags();
-        List<Integer> checkedQuestionIds = new ArrayList<>();
+        List<Integer> checkedTagIds = new ArrayList<>();
         for(Tag t: tags){
             if (t.checkedAnyQuestion) {
-                checkedQuestionIds.addAll(t.getQuestionIds());
+                checkedTagIds.add(t.getId());
             }
         }
-        Completable update = Completable.fromAction(() -> quizDatabase.statisticsDao().updateCheckedQuestions(checkedQuestionIds));
+        Completable update = Completable.fromAction(() -> quizDatabase
+                .statisticsDao()
+                .updateCheckedQuestionsByTags(checkedTagIds.toArray(new Integer[checkedTagIds.size()])));
 
         Observable.concat(update.toObservable(), quizDatabase.getQuizDao().getTagStatistics().toObservable())
         .subscribeOn(Schedulers.io())
