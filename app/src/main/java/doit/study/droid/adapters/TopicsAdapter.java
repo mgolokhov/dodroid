@@ -117,7 +117,7 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
     public void onBindViewHolder(TopicViewHolder holder, int position) {
         final Tag tag = mFilteredTags.get(position);
         if (DEBUG) Timber.d("%s %d", tag, position);
-        String text = String.format("%s (%d/%d)", tag.text, tag.quantity, tag.learned);
+        String text = String.format("%s (%d/%d)", tag.getText(), tag.getQuantity(), tag.getLearned());
         holder.topic.setText(text);
         holder.checkbox.setChecked(tag.isCheckedAnyQuestion());
         holder.checkbox.setOnClickListener(v -> {

@@ -10,11 +10,27 @@ import doit.study.droid.data.source.local.Converters;
 @Entity(tableName = "questions")
 public class QuestionEntity {
     @PrimaryKey
-    public final int id;
+    public final long id;
     public final String text;
     public final String wrong;
     public final String right;
     public final String docLink;
+
+    public QuestionEntity(long id, String text, String wrong, String right, String docLink) {
+        this.id = id;
+        this.text = text;
+        this.wrong = wrong;
+        this.right = right;
+        this.docLink = docLink;
+    }
+
+    public QuestionEntity(long id, String text, List<String> wrong, List<String> right, String docLink) {
+        this.id = id;
+        this.text = text;
+        this.wrong = Converters.listToString(wrong);
+        this.right = Converters.listToString(right);
+        this.docLink = docLink;
+    }
 
     @Override
     public String toString() {
@@ -25,22 +41,6 @@ public class QuestionEntity {
                 ", right='" + right + '\'' +
                 ", docLink='" + docLink + '\'' +
                 '}';
-    }
-
-    public QuestionEntity(int id, String text, String wrong, String right, String docLink) {
-        this.id = id;
-        this.text = text;
-        this.wrong = wrong;
-        this.right = right;
-        this.docLink = docLink;
-    }
-
-    public QuestionEntity(int id, String text, List<String> wrong, List<String> right, String docLink) {
-        this.id = id;
-        this.text = text;
-        this.wrong = Converters.listToString(wrong);
-        this.right = Converters.listToString(right);
-        this.docLink = docLink;
     }
 
     @Override
@@ -59,11 +59,12 @@ public class QuestionEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (wrong != null ? wrong.hashCode() : 0);
         result = 31 * result + (right != null ? right.hashCode() : 0);
         result = 31 * result + (docLink != null ? docLink.hashCode() : 0);
         return result;
     }
+
 }

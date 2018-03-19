@@ -7,11 +7,11 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "tags")
 public class TagEntity {
     @PrimaryKey(autoGenerate = true)
-    public int id;
-    public final String text;
+    private long id;
+    private final String text;
 
-    public TagEntity(int id, String text) {
-        this.id = id;
+    public TagEntity(long id, String text) {
+        this.setId(id);
         this.text = text;
     }
 
@@ -20,7 +20,7 @@ public class TagEntity {
         this.text = text;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -28,4 +28,7 @@ public class TagEntity {
         return text;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 }

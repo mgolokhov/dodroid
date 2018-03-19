@@ -202,9 +202,9 @@ public class QuizDatabaseTest {
                 .assertValue(v -> {
                     for (Tag t: v) {
                         // tag0, tag1 should be checked
-                        if ((t.getId() == 1 || t.getId() == 2) && !t.checkedAnyQuestion) return false;
+                        if ((t.getId() == 1 || t.getId() == 2) && !t.isCheckedAnyQuestion()) return false;
                         // tag2, tag3 should be unchecked
-                        if ((t.getId() == 3 || t.getId() == 4) && t.checkedAnyQuestion) return false;
+                        if ((t.getId() == 3 || t.getId() == 4) && t.isCheckedAnyQuestion()) return false;
                     }
                     return true;
                 });

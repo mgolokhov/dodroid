@@ -7,19 +7,19 @@ import java.util.List;
 import doit.study.droid.data.source.local.Converters;
 
 public class Tag {
-    public final int id;
-    public final String text;
-    public final int quantity;
-    public int learned;
+    private final long id;
+    private final String text;
+    private final int quantity;
+    private int learned;
 
     @TypeConverters(Converters.IdConverter.class)
-    public final List<Integer> questionIds;
+    private final List<Integer> questionIds;
 
     public List<Integer> getQuestionIds() {
         return questionIds;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -47,25 +47,25 @@ public class Tag {
         this.checkedAnyQuestion = checkedAnyQuestion;
     }
 
-    public boolean checkedAnyQuestion;
+    private boolean checkedAnyQuestion;
 
-    public Tag(int id, String text, int quantity, int learned, List<Integer> questionIds, boolean checkedAnyQuestion) {
+    public Tag(long id, String text, int quantity, int learned, List<Integer> questionIds, boolean checkedAnyQuestion) {
         this.id = id;
         this.text = text;
         this.quantity = quantity;
-        this.learned = learned;
+        this.setLearned(learned);
         this.questionIds = questionIds;
-        this.checkedAnyQuestion = checkedAnyQuestion;
+        this.setCheckedAnyQuestion(checkedAnyQuestion);
     }
 
     @Override
     public String toString() {
         return "Tag{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", checkedAnyQuestion=" + checkedAnyQuestion +
-                ", quantity=" + quantity +
-                ", learned=" + learned +
+                "id=" + getId() +
+                ", text='" + getText() + '\'' +
+                ", checkedAnyQuestion=" + isCheckedAnyQuestion() +
+                ", quantity=" + getQuantity() +
+                ", learned=" + getLearned() +
                 //", questionIds=" + questionIds +
                 '}';
     }

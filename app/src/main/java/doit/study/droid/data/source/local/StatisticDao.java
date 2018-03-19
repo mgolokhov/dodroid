@@ -39,7 +39,7 @@ public interface StatisticDao {
             ") THEN 1 ELSE 0 END"
 
     )
-    int updateCheckedQuestionsByTags(Integer... tagIds);
+    int updateCheckedQuestionsByTags(Long... tagIds);
 
 }
 

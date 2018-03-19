@@ -151,15 +151,15 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
         if (DEBUG) Timber.d("onPause");
         super.onPause();
         List<Tag> tags = topicsAdapter.getTags();
-        List<Integer> checkedTagIds = new ArrayList<>();
+        List<Long> checkedTagIds = new ArrayList<>();
         for(Tag t: tags){
-            if (t.checkedAnyQuestion) {
+            if (t.isCheckedAnyQuestion()) {
                 checkedTagIds.add(t.getId());
             }
         }
         Completable update = Completable.fromAction(() -> quizDatabase
                 .statisticsDao()
-                .updateCheckedQuestionsByTags(checkedTagIds.toArray(new Integer[checkedTagIds.size()])));
+                .updateCheckedQuestionsByTags(checkedTagIds.toArray(new Long[checkedTagIds.size()])));
 
         Observable.concat(update.toObservable(), quizDatabase.getQuizDao().getTagStatistics().toObservable())
         .subscribeOn(Schedulers.io())
@@ -202,7 +202,7 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
         query = query.toLowerCase();
         final List<Tag> filteredModel = new ArrayList<>();
         for (Tag tag: model){
-            final String text = tag.text.toLowerCase();
+            final String text = tag.getText().toLowerCase();
             if (text.contains(query)){
                 filteredModel.add(tag);
             }

@@ -6,17 +6,17 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "statistics")
 public class StatisticEntity {
     @PrimaryKey
-    public final int id;
-    public final int wrongCounter;
-    public final int rightCounter;
-    public final int consecutiveRightCnt;
-    public final boolean checked;
-    public final long lastViewedAt;
-    public final long studiedAt;
-    public final int status;
+    private final long id;
+    private final int wrongCounter;
+    private final int rightCounter;
+    private final int consecutiveRightCnt;
+    private final boolean checked;
+    private final long lastViewedAt;
+    private final long studiedAt;
+    private final int status;
 
 
-    public StatisticEntity(int id, int wrongCounter, int rightCounter, int consecutiveRightCnt, boolean checked, long lastViewedAt, long studiedAt, int status) {
+    public StatisticEntity(long id, int wrongCounter, int rightCounter, int consecutiveRightCnt, boolean checked, long lastViewedAt, long studiedAt, int status) {
         this.id = id;
         this.wrongCounter = wrongCounter;
         this.rightCounter = rightCounter;
@@ -34,40 +34,72 @@ public class StatisticEntity {
 
         StatisticEntity that = (StatisticEntity) o;
 
-        if (id != that.id) return false;
-        if (wrongCounter != that.wrongCounter) return false;
-        if (rightCounter != that.rightCounter) return false;
-        if (consecutiveRightCnt != that.consecutiveRightCnt) return false;
-        if (checked != that.checked) return false;
-        if (lastViewedAt != that.lastViewedAt) return false;
-        if (studiedAt != that.studiedAt) return false;
-        return status == that.status;
+        if (getId() != that.getId()) return false;
+        if (getWrongCounter() != that.getWrongCounter()) return false;
+        if (getRightCounter() != that.getRightCounter()) return false;
+        if (getConsecutiveRightCnt() != that.getConsecutiveRightCnt()) return false;
+        if (isChecked() != that.isChecked()) return false;
+        if (getLastViewedAt() != that.getLastViewedAt()) return false;
+        if (getStudiedAt() != that.getStudiedAt()) return false;
+        return getStatus() == that.getStatus();
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + wrongCounter;
-        result = 31 * result + rightCounter;
-        result = 31 * result + consecutiveRightCnt;
-        result = 31 * result + (checked ? 1 : 0);
-        result = 31 * result + (int) (lastViewedAt ^ (lastViewedAt >>> 32));
-        result = 31 * result + (int) (studiedAt ^ (studiedAt >>> 32));
-        result = 31 * result + status;
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getWrongCounter();
+        result = 31 * result + getRightCounter();
+        result = 31 * result + getConsecutiveRightCnt();
+        result = 31 * result + (isChecked() ? 1 : 0);
+        result = 31 * result + (int) (getLastViewedAt() ^ (getLastViewedAt() >>> 32));
+        result = 31 * result + (int) (getStudiedAt() ^ (getStudiedAt() >>> 32));
+        result = 31 * result + getStatus();
         return result;
     }
 
     @Override
     public String toString() {
         return "StatisticEntity{" +
-                "id=" + id +
-                ", wrongCounter=" + wrongCounter +
-                ", rightCounter=" + rightCounter +
-                ", consecutiveRightCnt=" + consecutiveRightCnt +
-                ", checked=" + checked +
-                ", lastViewedAt=" + lastViewedAt +
-                ", studiedAt=" + studiedAt +
-                ", status=" + status +
+                "id=" + getId() +
+                ", wrongCounter=" + getWrongCounter() +
+                ", rightCounter=" + getRightCounter() +
+                ", consecutiveRightCnt=" + getConsecutiveRightCnt() +
+                ", checked=" + isChecked() +
+                ", lastViewedAt=" + getLastViewedAt() +
+                ", studiedAt=" + getStudiedAt() +
+                ", status=" + getStatus() +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getWrongCounter() {
+        return wrongCounter;
+    }
+
+    public int getRightCounter() {
+        return rightCounter;
+    }
+
+    public int getConsecutiveRightCnt() {
+        return consecutiveRightCnt;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public long getLastViewedAt() {
+        return lastViewedAt;
+    }
+
+    public long getStudiedAt() {
+        return studiedAt;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }
