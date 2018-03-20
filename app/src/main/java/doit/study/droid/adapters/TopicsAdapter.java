@@ -119,14 +119,14 @@ public class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.TopicViewH
         if (DEBUG) Timber.d("%s %d", tag, position);
         String text = String.format("%s (%d/%d)", tag.getText(), tag.getQuantity(), tag.getLearned());
         holder.topic.setText(text);
-        holder.checkbox.setChecked(tag.isCheckedAnyQuestion());
+        holder.checkbox.setChecked(tag.isChecked());
         holder.checkbox.setOnClickListener(v -> {
             boolean isChecked = ((CheckBox)v).isChecked();
             //tag.setChecked(isChecked);
             // synchronize with all tags
             for (Tag t: mMasterCopyTags) {
                 if (t.getId() == tag.getId()){
-                    t.setCheckedAnyQuestion(isChecked);
+                    t.setChecked(isChecked);
                 }
             }
             if (DEBUG) Timber.d("change %s", tag);

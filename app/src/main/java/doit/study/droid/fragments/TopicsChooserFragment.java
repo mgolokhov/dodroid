@@ -141,8 +141,8 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
     }
 
     private void setSelectionToAllTags(boolean checked){
-//        for (TagEntity tag: mMasterCopyTags)
-//            tag.setChecked(checked);
+        for (Tag tag: topicsAdapter.getTags())
+            tag.setChecked(checked);
         topicsAdapter.notifyDataSetChanged();
     }
 
@@ -153,13 +153,13 @@ public class TopicsChooserFragment extends Fragment implements SearchView.OnQuer
         List<Tag> tags = topicsAdapter.getTags();
         List<Long> checkedTagIds = new ArrayList<>();
         for(Tag t: tags){
-            if (t.isCheckedAnyQuestion()) {
+            if (t.isChecked()) {
                 checkedTagIds.add(t.getId());
             }
         }
         Completable update = Completable.fromAction(() -> quizDatabase
-                .statisticsDao()
-                .updateCheckedQuestionsByTags(checkedTagIds.toArray(new Long[checkedTagIds.size()])));
+                .getQuizDao()
+                .updateCheckedTagsAndQuestions(checkedTagIds.toArray(new Long[checkedTagIds.size()])));
 
         Observable.concat(update.toObservable(), quizDatabase.getQuizDao().getTagStatistics().toObservable())
         .subscribeOn(Schedulers.io())

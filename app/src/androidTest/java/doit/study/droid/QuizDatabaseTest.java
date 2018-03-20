@@ -179,10 +179,10 @@ public class QuizDatabaseTest {
         quizDatabase.statisticsDao().insert(s1);
         quizDatabase.statisticsDao().insert(s2);
         quizDatabase.statisticsDao().insert(s3);
-        TagEntity t0 = new TagEntity("tag0");
-        TagEntity t1 = new TagEntity("tag1");
-        TagEntity t2 = new TagEntity("tag2");
-        TagEntity t3 = new TagEntity("tag3");
+        TagEntity t0 = new TagEntity("tag0", checked);
+        TagEntity t1 = new TagEntity("tag1", checked);
+        TagEntity t2 = new TagEntity("tag2", checked);
+        TagEntity t3 = new TagEntity("tag3", checked);
         long tagId0 = quizDatabase.tagDao().insert(t0);
         long tagId1 = quizDatabase.tagDao().insert(t1);
         long tagId2 = quizDatabase.tagDao().insert(t2);
@@ -202,9 +202,9 @@ public class QuizDatabaseTest {
                 .assertValue(v -> {
                     for (Tag t: v) {
                         // tag0, tag1 should be checked
-                        if ((t.getId() == 1 || t.getId() == 2) && !t.isCheckedAnyQuestion()) return false;
+                        if ((t.getId() == 1 || t.getId() == 2) && !t.isChecked()) return false;
                         // tag2, tag3 should be unchecked
-                        if ((t.getId() == 3 || t.getId() == 4) && t.isCheckedAnyQuestion()) return false;
+                        if ((t.getId() == 3 || t.getId() == 4) && t.isChecked()) return false;
                     }
                     return true;
                 });

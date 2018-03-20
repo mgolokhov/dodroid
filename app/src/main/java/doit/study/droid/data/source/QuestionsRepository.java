@@ -81,7 +81,7 @@ public class QuestionsRepository implements QuestionsDataSource {
             if (tagsCache.containsKey(tag)) {
                 tagId = tagsCache.get(tag);
             } else {
-                tagId = quizDatabase.tagDao().insert(new TagEntity(tag));
+                tagId = quizDatabase.tagDao().insert(new TagEntity(tag, false));
                 tagsCache.put(tag, tagId);
             }
             quizDatabase.tagDao().insert(new QuestionTagJoin(questionNetwork.id, tagId));

@@ -11,6 +11,7 @@ public class Tag {
     private final String text;
     private final int quantity;
     private int learned;
+    private boolean checked;
 
     @TypeConverters(Converters.IdConverter.class)
     private final List<Integer> questionIds;
@@ -39,23 +40,21 @@ public class Tag {
         this.learned = learned;
     }
 
-    public boolean isCheckedAnyQuestion() {
-        return checkedAnyQuestion;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setCheckedAnyQuestion(boolean checkedAnyQuestion) {
-        this.checkedAnyQuestion = checkedAnyQuestion;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
-    private boolean checkedAnyQuestion;
-
-    public Tag(long id, String text, int quantity, int learned, List<Integer> questionIds, boolean checkedAnyQuestion) {
+    public Tag(long id, String text, int quantity, int learned, List<Integer> questionIds, boolean checked) {
         this.id = id;
         this.text = text;
         this.quantity = quantity;
         this.setLearned(learned);
         this.questionIds = questionIds;
-        this.setCheckedAnyQuestion(checkedAnyQuestion);
+        this.setChecked(checked);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class Tag {
         return "Tag{" +
                 "id=" + getId() +
                 ", text='" + getText() + '\'' +
-                ", checkedAnyQuestion=" + isCheckedAnyQuestion() +
+                ", checked=" + isChecked() +
                 ", quantity=" + getQuantity() +
                 ", learned=" + getLearned() +
                 //", questionIds=" + questionIds +
