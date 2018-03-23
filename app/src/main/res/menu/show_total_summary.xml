@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".activities.TopicsChooserActivity"
+      tools:context=".topic_chooser.TopicsChooserActivity"
     >
     <item
         android:id="@+id/total_summary"

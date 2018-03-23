@@ -1,4 +1,4 @@
-package doit.study.droid.adapters;
+package doit.study.droid.topic_chooser;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

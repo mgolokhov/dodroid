@@ -13,6 +13,7 @@ import doit.study.droid.R;
 import doit.study.droid.app.App;
 import doit.study.droid.data.source.QuestionsRepository;
 import doit.study.droid.data.source.local.QuizDatabase;
+import doit.study.droid.topic_chooser.TopicsChooserActivity;
 import io.reactivex.Maybe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

@@ -1,4 +1,4 @@
-package doit.study.droid.activities;
+package doit.study.droid;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import doit.study.droid.R;
+import doit.study.droid.topic_chooser.TopicsChooserActivity;
 import timber.log.Timber;
 
 import static doit.study.droid.utils.Distribution.getVersion;

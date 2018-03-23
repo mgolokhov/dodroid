@@ -2,7 +2,8 @@ package doit.study.droid.activities;
 
 
 import android.os.Bundle;
-import doit.study.droid.R;
+
+import doit.study.droid.DrawerBaseActivity;
 //import doit.study.droid.fragments.TotalSummaryFragment;
 import timber.log.Timber;
 

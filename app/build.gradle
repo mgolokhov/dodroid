@@ -17,13 +17,14 @@ repositories {
 
 ext.versions = [
         // Android
-        targetSdkVersion    : 27,
-        minSdkVersion       : 15,
-        buildtools          : "27.0.3",
-        support             : "27.1.0",
-        retrofit            : "2.3.0",
-        room                : "1.0.0",
-        dagger              : "2.13"
+        targetSdkVersion: 27,
+        minSdkVersion   : 15,
+        buildtools      : "27.0.3",
+        support         : "27.1.0",
+        retrofit        : "2.3.0",
+        room            : "1.0.0",
+        dagger          : "2.13",
+        moxy            : "1.5.3"
 ]
 
 
@@ -70,6 +71,10 @@ dependencies {
 
     androidTestCompile 'android.arch.core:core-testing:1.0.0'
 
+    implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
+        transitive = true
+    }
+
     implementation "com.android.support:appcompat-v7:$versions.support"
     implementation "com.android.support:preference-v7:$versions.support"
     implementation "com.android.support:cardview-v7:$versions.support"
@@ -106,6 +111,10 @@ dependencies {
         transitive = true
     }
     implementation 'com.android.support:multidex:1.0.3'
+
+    implementation "com.arello-mobile:moxy:$versions.moxy"
+    annotationProcessor "com.arello-mobile:moxy-compiler:$versions.moxy"
+    implementation "com.arello-mobile:moxy-app-compat:$versions.moxy"
 
 }
 

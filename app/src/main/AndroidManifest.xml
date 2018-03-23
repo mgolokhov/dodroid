@@ -13,11 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Fix orientation, so don't care about rotation -->
         <activity
-            android:name=".activities.TopicsChooserActivity"
+            android:name=".topic_chooser.TopicsChooserActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:label="@string/title_selection_quiz_topics"
             android:theme="@style/AppTheme.NoActionBar"
             />
@@ -42,13 +40,13 @@
             android:name=".activities.TotalSummaryActivity"
             android:label="@string/totalSummary"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.TopicsChooserActivity"
+            android:parentActivityName=".topic_chooser.TopicsChooserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TopicsChooserActivity"/>
+                android:value=".topic_chooser.TopicsChooserActivity"/>
         </activity>
 
         <activity
