@@ -1,18 +1,16 @@
 package doit.study.droid.utils;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.LayoutRes;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.LayoutRes;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

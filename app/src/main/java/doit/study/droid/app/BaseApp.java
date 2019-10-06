@@ -1,17 +1,14 @@
 package doit.study.droid.app;
 
 import android.app.Application;
-import android.os.UserManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.tasks.RuntimeExecutionException;
 
 import doit.study.droid.BuildConfig;
 import doit.study.droid.R;
-import doit.study.droid.data.QuizDBHelper;
 import doit.study.droid.data.QuizDataClient;
 import io.fabric.sdk.android.Fabric;
 import okhttp3.OkHttpClient;
