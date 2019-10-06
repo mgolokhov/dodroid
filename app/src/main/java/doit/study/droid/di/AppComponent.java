@@ -16,5 +16,4 @@ public interface AppComponent {
     void inject(SplashActivity activity);
     void inject(TopicsChooserActivity activity);
     void inject(TopicsChooserPresenter presenter);
-    void inject(TopicsChooserFragment fragment);
 }

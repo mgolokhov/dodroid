@@ -24,7 +24,8 @@ ext.versions = [
         retrofit        : "2.3.0",
         room            : "1.0.0",
         dagger          : "2.13",
-        moxy            : "1.5.3"
+        moxy            : "1.5.3",
+        cicerone        : "3.0.0"
 ]
 
 
@@ -115,6 +116,8 @@ dependencies {
     implementation "com.arello-mobile:moxy:$versions.moxy"
     annotationProcessor "com.arello-mobile:moxy-compiler:$versions.moxy"
     implementation "com.arello-mobile:moxy-app-compat:$versions.moxy"
+
+    implementation "ru.terrakok.cicerone:cicerone:$versions.cicerone"
 
 }
 

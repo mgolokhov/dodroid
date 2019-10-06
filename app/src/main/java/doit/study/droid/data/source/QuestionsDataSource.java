@@ -6,7 +6,11 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 
 public interface QuestionsDataSource {
-    Maybe<List<Question>> getQuestions();
-    Completable saveQuestions(List<Question> questions);
     Completable populateDb();
+
+    Completable saveQuestions(List<Question> questions);
+    Completable saveTags(List<Tag> tags);
+
+    Maybe<List<Question>> getQuestions();
+    Maybe<List<Tag>> getTagStatistics();
 }

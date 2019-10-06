@@ -4,14 +4,12 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import doit.study.droid.data.source.Tag;
-
 public interface TopicsChooserContract {
     interface View extends MvpView{
         void navigateToInterrogator();
         void navigateToTotalSummary();
-        void showFilteredTopics(List<Tag> tags);
-        void updateViewModel(List<Tag> tags);
+        void showFilteredTopics(List<TopicModel> topics);
+        void updateTopics(List<TopicModel> topics);
         void showToastHowToExit();
         void closeDrawer();
         void exit();
@@ -21,9 +19,10 @@ public interface TopicsChooserContract {
         void navigateToTotalSummaryClicked();
         void handleBackButton(boolean drawerIsOpen);
         void loadTopics();
-        void selectTopic(int tagId);
-        void selectAllTopics(List<Tag> tags);
-        void selectNoneTopics(List<Tag> tags);
-        void filterBySearch(List<Tag> tags, String query);
+        void selectTopic(TopicModel topic);
+        void deselectTopic(TopicModel topic);
+        void selectAllTopics(List<TopicModel> topics);
+        void deselectAllTopics(List<TopicModel> topics);
+        void filterBySearch(List<TopicModel> topics, String query);
     }
 }

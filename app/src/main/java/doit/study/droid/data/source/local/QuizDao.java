@@ -22,8 +22,6 @@ public interface QuizDao {
 
     @Query("SELECT t.id, t.text, count(*) as quantity, " +
             "sum(case s.status when 2 then 1 else 0 end) as learned, " +
-            // if all questions with a same tag are checked check all section
-            //"case sum(s.checked) when count(*) then 1 else 0 end as checkedAnyQuestion, " +
             "t.checked, " +
             "group_concat(q.id) as questionIds " +
             "FROM questions q " +
@@ -42,7 +40,12 @@ public interface QuizDao {
     int updateCheckedTagsAndQuestions(Long... tagIds);
 
 
-    @Query("SELECT * FROM statistics "
+    @Query("UPDATE tags SET checked = :isChecked WHERE tags.id = :tagId"
+    )
+    int updateCheckedTag(Long tagId, boolean isChecked);
+
+
+    @Query("SELECT * FROM statistics"
     )
     Maybe<List<Statistic>> getStatistics();
 

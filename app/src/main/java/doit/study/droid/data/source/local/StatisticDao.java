@@ -43,12 +43,4 @@ public interface StatisticDao {
 
 }
 
-//    UPDATE statistics
-//    SET checked = 1 WHERE id IN
-//        (SELECT s.id
-//                FROM statistics s
-//                INNER JOIN question_tag_join as qt ON s.id = qt.questionId
-//                INNER JOIN tags t ON t.id = qt.tagId
-//                WHERE t.text IN ("Activity Class", "Animation", "AsyncTasks", "Broadcast Receivers")
-//)
 

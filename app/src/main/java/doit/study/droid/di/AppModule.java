@@ -8,7 +8,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import doit.study.droid.data.source.QuestionsRepository;
 import doit.study.droid.data.source.local.QuizDatabase;
+import doit.study.droid.data.source.remote.QuizWebService;
 
 @Module
 public class AppModule {
@@ -33,5 +35,10 @@ public class AppModule {
                 QuizDatabase.class,
                 "quizDatabase.db")
                 .build();
+    }
+    @Singleton
+    @Provides
+    QuestionsRepository provideRepository(QuizWebService quizWebService, QuizDatabase quizDatabase){
+        return new QuestionsRepository(quizWebService, quizDatabase);
     }
 }

@@ -21,7 +21,6 @@ import javax.inject.Inject;
 
 import doit.study.droid.R;
 import doit.study.droid.app.App;
-import doit.study.droid.data.source.Tag;
 import doit.study.droid.data.source.local.QuizDatabase;
 import doit.study.droid.utils.DrawerHelper;
 import timber.log.Timber;
@@ -48,8 +47,15 @@ public class TopicsChooserActivity extends MvpAppCompatActivity implements Topic
 
         recyclerView = findViewById(R.id.topics_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        topicsAdapter = new TopicsAdapter();
+        topicsAdapter = new TopicsAdapter((tag, isChecked) -> {
+            if (isChecked){
+                presenter.selectTopic(tag);
+            } else {
+                presenter.deselectTopic(tag);
+            }
+        });
         recyclerView.setAdapter(topicsAdapter);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = DrawerHelper.getDrawer(this, toolbar);
@@ -83,10 +89,10 @@ public class TopicsChooserActivity extends MvpAppCompatActivity implements Topic
                 presenter.selectAllTopics(topicsAdapter.getTags());
                 return true;
             case R.id.unselect_all:
-                presenter.selectNoneTopics(topicsAdapter.getTags());
+                presenter.deselectAllTopics(topicsAdapter.getTags());
                 return true;
             case R.id.total_summary:
-                Timber.d("Start new activity");
+                Timber.d("Start summary screen");
 //                Intent intent = new Intent(getActivity(), TotalSummaryActivity.class);
 //                TaskStackBuilder builder = TaskStackBuilder.create(getContext());
 //                builder.addNextIntentWithParentStack(intent);
@@ -99,7 +105,7 @@ public class TopicsChooserActivity extends MvpAppCompatActivity implements Topic
 
 
     @Override
-    public void updateViewModel(List<Tag> tags) {
+    public void updateTopics(List<TopicModel> tags) {
         topicsAdapter.setTags(tags);
     }
 
@@ -160,7 +166,7 @@ public class TopicsChooserActivity extends MvpAppCompatActivity implements Topic
     }
 
     @Override
-    public void showFilteredTopics(List<Tag> tags) {
+    public void showFilteredTopics(List<TopicModel> tags) {
         topicsAdapter.animateTo(tags);
         // don't know why but with scrollToPosition get buggy behavior
         recyclerView.smoothScrollToPosition(0);

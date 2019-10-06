@@ -61,9 +61,9 @@ public class QuizDatabaseTest {
         questions.add(q1);
         questions.add(q2);
 
-        quizDatabase.questionDao().insert(q1);
-        quizDatabase.questionDao().insert(q2);
-        quizDatabase.questionDao().getAllQuestions()
+        quizDatabase.getQuestionDao().insert(q1);
+        quizDatabase.getQuestionDao().insert(q2);
+        quizDatabase.getQuestionDao().getAllQuestions()
                 .test()
                 .assertValue(v -> v.size() == questions.size())
                 .assertValue(questions::containsAll)
@@ -79,8 +79,8 @@ public class QuizDatabaseTest {
         questions.add(q1);
         questions.add(q2);
 
-        quizDatabase.questionDao().insert(questions);
-        quizDatabase.questionDao().getAllQuestions()
+        quizDatabase.getQuestionDao().insert(questions);
+        quizDatabase.getQuestionDao().getAllQuestions()
                 .test()
                 .assertValue(v -> v.size() == questions.size())
                 .assertValue(questions::containsAll)
@@ -96,12 +96,12 @@ public class QuizDatabaseTest {
         questions.add(q1);
         questions.add(q2);
 
-        quizDatabase.questionDao().insert(questions);
+        quizDatabase.getQuestionDao().insert(questions);
         // insert & check id of inserted items
-        assertEquals(1, quizDatabase.questionDao().insert(q1));
-        assertEquals(2, quizDatabase.questionDao().insert(q2));
+        assertEquals(1, quizDatabase.getQuestionDao().insert(q1));
+        assertEquals(2, quizDatabase.getQuestionDao().insert(q2));
         // query back items & compare
-        quizDatabase.questionDao().getAllQuestions()
+        quizDatabase.getQuestionDao().getAllQuestions()
                 .test()
                 .assertValue(v -> v.size() == questions.size())
                 .assertValue(questions::containsAll)
@@ -117,11 +117,11 @@ public class QuizDatabaseTest {
         questions.add(q1);
         questions.add(q3); // emulate rewrite
 
-        assertEquals(1, quizDatabase.questionDao().insert(q1));
-        assertEquals(2, quizDatabase.questionDao().insert(q2));
-        assertEquals(2, quizDatabase.questionDao().insert(q3));
+        assertEquals(1, quizDatabase.getQuestionDao().insert(q1));
+        assertEquals(2, quizDatabase.getQuestionDao().insert(q2));
+        assertEquals(2, quizDatabase.getQuestionDao().insert(q3));
         // query back items & compare
-        quizDatabase.questionDao().getAllQuestions()
+        quizDatabase.getQuestionDao().getAllQuestions()
                 .test()
                 .assertValue(v -> v.size() == questions.size())
                 .assertValue(questions::containsAll)
@@ -132,8 +132,8 @@ public class QuizDatabaseTest {
     public void statisticInsertDuplicates(){
         StatisticEntity statisticEntity = new StatisticEntity(1,0,0,0,false,0,0,0);
         // check inserted ID
-        assertEquals(1, quizDatabase.statisticsDao().insert(statisticEntity));
-        quizDatabase.statisticsDao().getAllStatistics()
+        assertEquals(1, quizDatabase.getStatisticsDao().insert(statisticEntity));
+        quizDatabase.getStatisticsDao().getAllStatistics()
                 .test()
                 .assertValue(v -> v.size() == 1)
                 .assertValue(v -> statisticEntity.equals(v.get(0)));
@@ -141,8 +141,8 @@ public class QuizDatabaseTest {
 
         StatisticEntity statisticEntity2 = new StatisticEntity(1,1,1,1,false,1,1,1);
         // check inserted ID, should indicate not inserted
-        assertEquals(-1, quizDatabase.statisticsDao().insert(statisticEntity2));
-        quizDatabase.statisticsDao().getAllStatistics()
+        assertEquals(-1, quizDatabase.getStatisticsDao().insert(statisticEntity2));
+        quizDatabase.getStatisticsDao().getAllStatistics()
                 .test()
                 .assertValue(v -> v.size() == 1)
                 .assertValue(v -> {
@@ -167,35 +167,35 @@ public class QuizDatabaseTest {
         QuestionEntity q1 = new QuestionEntity((int)id[1], "text1", "w1\nw2", "r1\nr2", "link1");
         QuestionEntity q2 = new QuestionEntity((int)id[2], "text2", "w1\nw2", "r1\nr2", "link1");
         QuestionEntity q3 = new QuestionEntity((int)id[3], "text3", "w1\nw2", "r1\nr2", "link1");
-        quizDatabase.questionDao().insert(q0);
-        quizDatabase.questionDao().insert(q1);
-        quizDatabase.questionDao().insert(q2);
-        quizDatabase.questionDao().insert(q3);
+        quizDatabase.getQuestionDao().insert(q0);
+        quizDatabase.getQuestionDao().insert(q1);
+        quizDatabase.getQuestionDao().insert(q2);
+        quizDatabase.getQuestionDao().insert(q3);
         StatisticEntity s0 = new StatisticEntity((int)id[0],0,0,0,false,0,0,0);
         StatisticEntity s1 = new StatisticEntity((int)id[1],0,0,0,false,0,0,0);
         StatisticEntity s2 = new StatisticEntity((int)id[2],0,0,0,false,0,0,0);
         StatisticEntity s3 = new StatisticEntity((int)id[3],0,0,0,false,0,0,0);
-        quizDatabase.statisticsDao().insert(s0);
-        quizDatabase.statisticsDao().insert(s1);
-        quizDatabase.statisticsDao().insert(s2);
-        quizDatabase.statisticsDao().insert(s3);
+        quizDatabase.getStatisticsDao().insert(s0);
+        quizDatabase.getStatisticsDao().insert(s1);
+        quizDatabase.getStatisticsDao().insert(s2);
+        quizDatabase.getStatisticsDao().insert(s3);
         TagEntity t0 = new TagEntity("tag0", checked);
         TagEntity t1 = new TagEntity("tag1", checked);
         TagEntity t2 = new TagEntity("tag2", checked);
         TagEntity t3 = new TagEntity("tag3", checked);
-        long tagId0 = quizDatabase.tagDao().insert(t0);
-        long tagId1 = quizDatabase.tagDao().insert(t1);
-        long tagId2 = quizDatabase.tagDao().insert(t2);
-        long tagId3 = quizDatabase.tagDao().insert(t3);
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[0], tagId0));
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[0], tagId1));
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[1], tagId0));
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[1], tagId2));
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[2], tagId2));
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[2], tagId3));
-        quizDatabase.tagDao().insert(new QuestionTagJoin(id[3], tagId0));
+        long tagId0 = quizDatabase.getTagDao().insert(t0);
+        long tagId1 = quizDatabase.getTagDao().insert(t1);
+        long tagId2 = quizDatabase.getTagDao().insert(t2);
+        long tagId3 = quizDatabase.getTagDao().insert(t3);
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[0], tagId0));
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[0], tagId1));
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[1], tagId0));
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[1], tagId2));
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[2], tagId2));
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[2], tagId3));
+        quizDatabase.getTagDao().insert(new QuestionTagJoin(id[3], tagId0));
 
-        quizDatabase.statisticsDao().updateCheckedQuestionsByTags((int)id[0]);
+        quizDatabase.getStatisticsDao().updateCheckedQuestionsByTags((int)id[0]);
 
         quizDatabase.getQuizDao().getTagStatistics()
                 .test()

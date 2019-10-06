@@ -1,6 +1,7 @@
 package doit.study.droid.data.source;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +69,7 @@ public class QuestionsRepository implements QuestionsDataSource {
     }
 
     private void insertInDb(QuestionWeb questionNetwork) {
-        quizDatabase.questionDao().insert(new QuestionEntity(
+        quizDatabase.getQuestionDao().insert(new QuestionEntity(
                 questionNetwork.id,
                 questionNetwork.text,
                 questionNetwork.wrongAnswers,
@@ -81,13 +82,13 @@ public class QuestionsRepository implements QuestionsDataSource {
             if (tagsCache.containsKey(tag)) {
                 tagId = tagsCache.get(tag);
             } else {
-                tagId = quizDatabase.tagDao().insert(new TagEntity(tag, false));
+                tagId = quizDatabase.getTagDao().insert(new TagEntity(tag, false));
                 tagsCache.put(tag, tagId);
             }
-            quizDatabase.tagDao().insert(new QuestionTagJoin(questionNetwork.id, tagId));
+            quizDatabase.getTagDao().insert(new QuestionTagJoin(questionNetwork.id, tagId));
         }
 
-        long inserted = quizDatabase.statisticsDao().insert(new StatisticEntity(
+        long inserted = quizDatabase.getStatisticsDao().insert(new StatisticEntity(
                 questionNetwork.id,
                 0,
                 0,
@@ -98,5 +99,26 @@ public class QuestionsRepository implements QuestionsDataSource {
                 0
         ));
         Timber.d("inserted statistics " + inserted);
+    }
+
+    @Override
+    public Maybe<List<Tag>> getTagStatistics() {
+        return quizDatabase.getQuizDao().getTagStatistics();
+    }
+
+    @Override
+    public Completable saveTags(List<Tag> tags){
+        return Completable.fromAction(() -> saveTagsImpl(tags));
+    }
+
+    private void saveTagsImpl(List<Tag> tags){
+        List<Long> checkedTags = new ArrayList<>(tags.size());
+        for(Tag tag: tags){
+            if (tag.isChecked()){
+                checkedTags.add(tag.getId());
+            }
+        }
+        Long[] checkedTagIds = checkedTags.toArray(new Long[checkedTags.size()]);
+        quizDatabase.getStatisticsDao().updateCheckedQuestionsByTags(checkedTagIds);
     }
 }

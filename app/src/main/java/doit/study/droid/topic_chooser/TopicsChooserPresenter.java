@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import doit.study.droid.app.App;
-import doit.study.droid.data.source.Tag;
+import doit.study.droid.data.source.QuestionsRepository;
 import doit.study.droid.data.source.local.QuizDatabase;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -22,11 +22,11 @@ public class TopicsChooserPresenter extends MvpPresenter<TopicsChooserContract.V
     // desired time passed between two clicks before exit
     private static final int TIME_INTERVAL = 2_000; // milliseconds
     private long backPressedTime = 0;
-    @Inject
-    QuizDatabase quizDatabase;
+    @Inject QuestionsRepository questionsRepository;
 
     public TopicsChooserPresenter(){
         App.getAppComponent().inject(this);
+        questionsRepository.getQuestions();
     }
 
 
@@ -54,47 +54,63 @@ public class TopicsChooserPresenter extends MvpPresenter<TopicsChooserContract.V
 
     @Override
     public void loadTopics() {
-        Disposable disposable = quizDatabase.getQuizDao().getTagStatistics()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        // onNext
-                        tags -> {
-                            //topicsAdapter.setTags(tags);
-                            getViewState().updateViewModel(tags);
-                            Timber.d(Arrays.toString(tags.toArray()));
-                        },
-                        throwable -> {},
-                        () -> {}
-                );
-    }
+        // load questions from repository
+        // map questions to topics
+        // update view
 
-    @Override
-    public void selectTopic(int tagId) {
+        List<TopicModel> topicModels = new ArrayList<>();
+        topicModels.add(new TopicModel(0, "topic1", 10, 5,
+                        new ArrayList<>(Arrays.asList(1, 2, 3)), true));
+        topicModels.add(new TopicModel(1, "topic2", 10, 5,
+                new ArrayList<>(Arrays.asList(1, 2, 3)), false));
+        topicModels.add(new TopicModel(2, "topic3", 10, 5,
+                new ArrayList<>(Arrays.asList(1, 2, 3)), true));
+
+        getViewState().updateTopics(topicModels);
 
     }
 
     @Override
-    public void selectAllTopics(List<Tag> tags) {
+    public void selectTopic(TopicModel tag) {
+        tag.setChecked(true);
+        //TODO: update repo
+    }
+
+    @Override
+    public void deselectTopic(TopicModel tag) {
+        tag.setChecked(false);
+        //TODO: update repo
+    }
+
+
+    @Override
+    public void selectAllTopics(List<TopicModel> tags) {
         setSelectionToAllTags(tags, true);
+        //TODO: update repo
     }
 
     @Override
-    public void selectNoneTopics(List<Tag> tags) {
+    public void deselectAllTopics(List<TopicModel> tags) {
         setSelectionToAllTags(tags, false);
+        //TODO: update repo
     }
 
-    private void setSelectionToAllTags(List<Tag> tags, boolean checked) {
-        for (Tag tag : tags)
+    private void setSelectionToAllTags(List<TopicModel> tags, boolean checked) {
+        List<Long> tagIds = new ArrayList<>(tags.size());
+        for (TopicModel tag : tags) {
             tag.setChecked(checked);
-        getViewState().updateViewModel(tags);
+            if (tag.isChecked()){
+                tagIds.add(tag.getId());
+            }
+        }
+        getViewState().updateTopics(tags);
     }
 
     @Override
-    public void filterBySearch(List<Tag> model, String query) {
+    public void filterBySearch(List<TopicModel> model, String query) {
         query = query.toLowerCase();
-        final List<Tag> filteredModel = new ArrayList<>();
-        for (Tag tag: model){
+        final List<TopicModel> filteredModel = new ArrayList<>();
+        for (TopicModel tag: model){
             final String text = tag.getText().toLowerCase();
             if (text.contains(query)){
                 filteredModel.add(tag);
