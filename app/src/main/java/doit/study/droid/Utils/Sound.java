@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
-import android.support.v7.preference.PreferenceManager;
 import android.widget.Toast;
+
+import androidx.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.IOException;

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import doit.study.droid.R;
 import timber.log.Timber;
 
 public class QuizDBHelper extends SQLiteOpenHelper {

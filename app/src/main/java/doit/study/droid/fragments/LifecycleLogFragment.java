@@ -3,10 +3,11 @@ package doit.study.droid.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import timber.log.Timber;
 
@@ -18,7 +19,7 @@ import timber.log.Timber;
  *     </a>
  */
 
-public abstract class LifecycleLogFragment extends Fragment{
+public abstract class LifecycleLogFragment extends Fragment {
     protected boolean DEBUG = false;
 
     private void log(String message){
