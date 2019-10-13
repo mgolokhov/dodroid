@@ -12,7 +12,7 @@ class App : BaseApp() {
 
     private class MyDebugTree : Timber.DebugTree() {
         override fun createStackElementTag(element: StackTraceElement): String? {
-            return "NSA:" + super.createStackElementTag(element) + ":" + element.lineNumber
+            return "MYNSA:" + super.createStackElementTag(element) + ":" + element.lineNumber
         }
     }
 }
