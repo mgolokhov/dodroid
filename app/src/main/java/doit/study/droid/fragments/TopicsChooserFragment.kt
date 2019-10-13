@@ -38,7 +38,7 @@ import timber.log.Timber
 class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener {
     private var topicsAdapter: TopicsAdapter? = null
     private var recyclerView: RecyclerView? = null
-    private var masterCopyTags: MutableList<Tag> = ArrayList()
+    private var topics: MutableList<Tag> = ArrayList()
     // loaders resets state, have to save in var
     private var savedRecyclerLayoutState: Parcelable? = null
 
@@ -73,7 +73,15 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
     private fun setupLayout(view: View){
         recyclerView = view.findViewById(R.id.topics_view)
         recyclerView?.layoutManager = LinearLayoutManager(context)
-        topicsAdapter = TopicsAdapter()
+        topicsAdapter = TopicsAdapter {tag ->
+            topics.forEach { topic ->
+                if (topic.id == tag.id) {
+                    topic.setChecked(!topic.selectionStatus)
+                    topicsAdapter?.submitList(topics)
+                    return@forEach
+                }
+            }
+        }
         recyclerView?.adapter = topicsAdapter
 
         val floatingActionButton = view.findViewById(R.id.commit_button) as FloatingActionButton
@@ -128,7 +136,7 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
 
 
     private fun setSelectionToAllTags(checked: Boolean) {
-        masterCopyTags.forEach{ it.setChecked(checked) }
+        topics.forEach{ it.setChecked(checked) }
         topicsAdapter?.notifyDataSetChanged()
     }
 
@@ -143,7 +151,7 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
                 ops.add(it.build())
             }
             try {
-                val res = activity
+                activity
                         ?.contentResolver
                         ?.applyBatch(QuizProvider.AUTHORITY, ops)
             } catch (e: Exception) {
@@ -154,7 +162,8 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
 
     private fun createContentProviderOperationBuilder(forSelectedTag: Boolean = false): ContentProviderOperation.Builder? {
         val selection = StringBuilder()
-        topicsAdapter?.tags?.forEach{ tag ->
+
+        topics.forEach{ tag ->
             if (forSelectedTag == tag.selectionStatus) {
                 appendSelection(selection, tag.id)
             }
@@ -178,6 +187,7 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         super.onSaveInstanceState(outState)
         // save scroll position
         if (DEBUG) Timber.d("onSaveInstanceState")
+
         outState.putParcelable(RECYCLER_LAYOUT_STATE_KEY, recyclerView?.layoutManager?.onSaveInstanceState())
     }
 
@@ -194,12 +204,12 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         if (DEBUG) Timber.d("onLoadFinished")
         when (loader.id) {
             TAG_LOADER -> {
-                masterCopyTags = ArrayList()
+                topics = ArrayList()
                 while (data.moveToNext()) {
-                    masterCopyTags.add(Tag.newInstance(data))
+                    topics.add(Tag.newInstance(data))
                 }
-                if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", masterCopyTags.size)
-                topicsAdapter?.tags = masterCopyTags
+                if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", topics.size)
+                topicsAdapter?.submitList(topics)
             }
             QUESTION_LOADER ->
                 if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.count)
@@ -220,22 +230,17 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        val filteredModel = filter(masterCopyTags, newText)
-        topicsAdapter?.animateTo(filteredModel)
-        // don't know why but with scrollToPosition get buggy behavior
+        val filteredModel = filter(topics, newText)
+        topicsAdapter?.submitList(filteredModel)
         recyclerView?.smoothScrollToPosition(0)
         return true
     }
 
     private fun filter(model: List<Tag>, query: String): List<Tag> {
-        var query = query
-        query = query.toLowerCase()
         val filteredModel = ArrayList<Tag>()
-        for (tag in model) {
-            val text = tag.name.toLowerCase()
-            if (text.contains(query)) {
+        model.forEach { tag ->
+            if (tag.name.contains(query, ignoreCase = true))
                 filteredModel.add(tag)
-            }
         }
         return filteredModel
     }
