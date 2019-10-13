@@ -1,13 +1,10 @@
 package doit.study.droid.fragments
 
 import android.content.ContentProviderOperation
-import android.content.ContentProviderResult
 import android.content.Intent
-import android.content.OperationApplicationException
 import android.database.Cursor
 import android.os.Bundle
 import android.os.Parcelable
-import android.os.RemoteException
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -39,20 +36,21 @@ import timber.log.Timber
 
 
 class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener {
-    private var mTopicsAdapter: TopicsAdapter? = null
-    private var mRecyclerView: RecyclerView? = null
-    private var mMasterCopyTags: MutableList<Tag> = ArrayList()
+    private var topicsAdapter: TopicsAdapter? = null
+    private var recyclerView: RecyclerView? = null
+    private var masterCopyTags: MutableList<Tag> = ArrayList()
     // loaders resets state, have to save in var
-    private var mSavedRecyclerLayoutState: Parcelable? = null
+    private var savedRecyclerLayoutState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setupLoaders()
+    }
 
-        if (DEBUG) Timber.d("onCreate")
+    private fun setupLoaders() {
         loaderManager.initLoader(TAG_LOADER, null, this)
         loaderManager.initLoader(QUESTION_LOADER, null, this)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -62,24 +60,35 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mRecyclerView = view.findViewById<View>(R.id.topics_view) as RecyclerView
-        //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        mTopicsAdapter = TopicsAdapter()
-        mRecyclerView!!.adapter = mTopicsAdapter
-        val floatingActionButton = view.findViewById<View>(R.id.commit_button) as FloatingActionButton
-        floatingActionButton.setOnClickListener {
-            val intent = Intent(context, InterrogatorActivity::class.java)
-            val builder = TaskStackBuilder.create(context!!)
-            builder.addNextIntentWithParentStack(intent)
-            builder.startActivities()
-        }
-        if (savedInstanceState != null) {   // restore scroll position
+
+        setupLayout(view)
+        // restore scroll position
+        savedInstanceState?.let {
             if (DEBUG) Timber.d("Restore recycler state")
-            mSavedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_LAYOUT_STATE_KEY)
-            mRecyclerView!!.layoutManager!!.onRestoreInstanceState(mSavedRecyclerLayoutState)
+            savedRecyclerLayoutState = it.getParcelable(RECYCLER_LAYOUT_STATE_KEY)
+            recyclerView?.layoutManager?.onRestoreInstanceState(savedRecyclerLayoutState)
         }
     }
+
+    private fun setupLayout(view: View){
+        recyclerView = view.findViewById(R.id.topics_view)
+        recyclerView?.layoutManager = LinearLayoutManager(context)
+        topicsAdapter = TopicsAdapter()
+        recyclerView?.adapter = topicsAdapter
+
+        val floatingActionButton = view.findViewById(R.id.commit_button) as FloatingActionButton
+        floatingActionButton.setOnClickListener {
+            navigateToInterrogatorActivity()
+        }
+    }
+
+    private fun navigateToInterrogatorActivity(){
+        val intent = Intent(context, InterrogatorActivity::class.java)
+        val builder = TaskStackBuilder.create(context!!)
+        builder.addNextIntentWithParentStack(intent)
+        builder.startActivities()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, menuInflater)
@@ -103,69 +112,65 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
             }
             R.id.total_summary -> {
                 Timber.d("Start new activity")
-                val intent = Intent(activity, TotalSummaryActivity::class.java)
-                val builder = TaskStackBuilder.create(context!!)
-                builder.addNextIntentWithParentStack(intent)
-                builder.startActivities()
+                navigateToTotalSummaryActivity()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
+    private fun navigateToTotalSummaryActivity(){
+        val intent = Intent(activity, TotalSummaryActivity::class.java)
+        val builder = TaskStackBuilder.create(context!!)
+        builder.addNextIntentWithParentStack(intent)
+        builder.startActivities()
+    }
+
+
     private fun setSelectionToAllTags(checked: Boolean) {
-        for (tag in mMasterCopyTags)
-            tag.setChecked(checked)
-        mTopicsAdapter!!.notifyDataSetChanged()
+        masterCopyTags.forEach{ it.setChecked(checked) }
+        topicsAdapter?.notifyDataSetChanged()
     }
 
     override fun onPause() {
-        if (DEBUG) Timber.d("onPause")
-        object : Thread() {
-            override fun run() {
-                if (mTopicsAdapter == null)
-                    return
-                val selected = StringBuilder()
-                val unselected = StringBuilder()
-                for (tag in mTopicsAdapter!!.tags!!) {
-                    if (tag.selectionStatus) {
-                        appendSelection(selected, tag.id!!)
-                    } else {
-                        appendSelection(unselected, tag.id!!)
-                    }
-                }
-                val ops = ArrayList<ContentProviderOperation>()
-                var builder: ContentProviderOperation.Builder
-                if (selected.length != 0) {
-                    builder = ContentProviderOperation.newUpdate(QuizProvider.TAG_URI)
-                            .withValue(Tag.Table.SELECTED, true)
-                            .withSelection(selected.toString(), null)
-                    ops.add(builder.build())
-                }
-                if (unselected.length != 0) {
-                    builder = ContentProviderOperation.newUpdate(QuizProvider.TAG_URI)
-                            .withValue(Tag.Table.SELECTED, false)
-                            .withSelection(unselected.toString(), null)
-                    ops.add(builder.build())
-                }
-                try {
-                    val res = activity!!.contentResolver.applyBatch(QuizProvider.AUTHORITY, ops)
-                    if (DEBUG) Timber.d("Update result: %d", res.size)
-                } catch (e: RemoteException) {
-                    Timber.e(e, null)
-                } catch (e: OperationApplicationException) {
-                    Timber.e(e, null)
-                }
-
-            }
-
-            private fun appendSelection(s: StringBuilder, id: Int) {
-                if (s.length != 0)
-                    s.append(" OR ")
-                s.append(Tag.Table._ID).append(" = ").append(id)
-            }
-        }.start()
         super.onPause()
+        topicsAdapter?.let {
+            val ops = ArrayList<ContentProviderOperation>()
+            createContentProviderOperationBuilder(forSelectedTag = false)?.let {
+                ops.add(it.build())
+            }
+            createContentProviderOperationBuilder(forSelectedTag = true)?.let {
+                ops.add(it.build())
+            }
+            try {
+                val res = activity
+                        ?.contentResolver
+                        ?.applyBatch(QuizProvider.AUTHORITY, ops)
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+    }
+
+    private fun createContentProviderOperationBuilder(forSelectedTag: Boolean = false): ContentProviderOperation.Builder? {
+        val selection = StringBuilder()
+        topicsAdapter?.tags?.forEach{ tag ->
+            if (forSelectedTag == tag.selectionStatus) {
+                appendSelection(selection, tag.id)
+            }
+        }
+        if (selection.isNotEmpty()) {
+            return ContentProviderOperation.newUpdate(QuizProvider.TAG_URI)
+                    .withValue(Tag.Table.SELECTED, forSelectedTag)
+                    .withSelection(selection.toString(), null)
+        }
+        return null
+    }
+
+
+    private fun appendSelection(s: StringBuilder, id: Int) {
+        if (s.isNotEmpty()) s.append(" OR ")
+        s.append(Tag.Table._ID).append(" = ").append(id)
     }
 
 
@@ -173,15 +178,15 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         super.onSaveInstanceState(outState)
         // save scroll position
         if (DEBUG) Timber.d("onSaveInstanceState")
-        outState.putParcelable(RECYCLER_LAYOUT_STATE_KEY, mRecyclerView!!.layoutManager!!.onSaveInstanceState())
+        outState.putParcelable(RECYCLER_LAYOUT_STATE_KEY, recyclerView?.layoutManager?.onSaveInstanceState())
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         if (DEBUG) Timber.d("onCreateLoader")
-        when (id) {
-            TAG_LOADER -> return CursorLoader(activity!!, QuizProvider.TAG_URI, null, null, null, null)
-            QUESTION_LOADER -> return CursorLoader(activity!!, QuizProvider.QUESTION_URI, arrayOf(Question.Table.FQ_ID), null, null, null)
-            else -> return throw Exception("Wrong id for CursorLoader")
+        return when (id) {
+            TAG_LOADER -> CursorLoader(activity!!, QuizProvider.TAG_URI, null, null, null, null)
+            QUESTION_LOADER -> CursorLoader(activity!!, QuizProvider.QUESTION_URI, arrayOf(Question.Table.FQ_ID), null, null, null)
+            else -> throw Exception("Wrong id for CursorLoader")
         }
     }
 
@@ -189,20 +194,20 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         if (DEBUG) Timber.d("onLoadFinished")
         when (loader.id) {
             TAG_LOADER -> {
-                mMasterCopyTags = ArrayList()
+                masterCopyTags = ArrayList()
                 while (data.moveToNext()) {
-                    mMasterCopyTags.add(Tag.newInstance(data))
+                    masterCopyTags.add(Tag.newInstance(data))
                 }
-                if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", mMasterCopyTags.size)
-                mTopicsAdapter!!.tags = mMasterCopyTags
+                if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", masterCopyTags.size)
+                topicsAdapter?.tags = masterCopyTags
             }
-            QUESTION_LOADER -> if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.count)
-            else -> {
-            }
+            QUESTION_LOADER ->
+                if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.count)
+            else -> { }
         }
-        if (mSavedRecyclerLayoutState != null) {
+        if (savedRecyclerLayoutState != null) {
             if (DEBUG) Timber.d("Restore layout in loader")
-            mRecyclerView!!.layoutManager!!.onRestoreInstanceState(mSavedRecyclerLayoutState)
+            recyclerView?.layoutManager?.onRestoreInstanceState(savedRecyclerLayoutState)
         }
     }
 
@@ -215,10 +220,10 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        val filteredModel = filter(mMasterCopyTags, newText)
-        mTopicsAdapter!!.animateTo(filteredModel)
+        val filteredModel = filter(masterCopyTags, newText)
+        topicsAdapter?.animateTo(filteredModel)
         // don't know why but with scrollToPosition get buggy behavior
-        mRecyclerView!!.smoothScrollToPosition(0)
+        recyclerView?.smoothScrollToPosition(0)
         return true
     }
 

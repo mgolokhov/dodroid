@@ -88,22 +88,11 @@ class TopicsAdapter : RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>() {
     }
 
     class TopicViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var topic: TextView
-        internal var checkbox: CheckBox
-
-        init {
-            topic = itemView.findViewById<View>(R.id.topic_name) as TextView
-            checkbox = itemView.findViewById<View>(R.id.checkbox_tag) as CheckBox
-        }
-
+        internal var topic: TextView = itemView.findViewById(R.id.topic_name)
+        internal var checkbox: CheckBox = itemView.findViewById(R.id.checkbox_tag)
     }
 
-    override fun getItemCount(): Int {
-        return if (filteredTags != null)
-            filteredTags!!.size
-        else
-            0
-    }
+    override fun getItemCount(): Int = filteredTags?.size ?: 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_topic_item, parent, false)
@@ -129,47 +118,6 @@ class TopicsAdapter : RecyclerView.Adapter<TopicsAdapter.TopicViewHolder>() {
         }
     }
 
-
-    class DividerItemDecoration : RecyclerView.ItemDecoration {
-
-        private val ATTRS = intArrayOf(android.R.attr.listDivider)
-
-        private var divider: Drawable? = null
-
-        /**
-         * Default divider will be used
-         */
-        constructor(context: Context) {
-            val styledAttributes = context.obtainStyledAttributes(ATTRS)
-            divider = styledAttributes.getDrawable(0)
-            styledAttributes.recycle()
-        }
-
-        /**
-         * Custom divider will be used
-         */
-        constructor(context: Context, resId: Int) {
-            divider = ContextCompat.getDrawable(context, resId)
-        }
-
-        override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-            val left = parent.paddingLeft
-            val right = parent.width - parent.paddingRight
-
-            val childCount = parent.childCount
-            for (i in 0 until childCount) {
-                val child = parent.getChildAt(i)
-
-                val params = child.layoutParams as RecyclerView.LayoutParams
-
-                val top = child.bottom + params.bottomMargin
-                val bottom = top + divider!!.intrinsicHeight
-
-                divider!!.setBounds(left, top, right, bottom)
-                divider!!.draw(c)
-            }
-        }
-    }
 
     companion object {
         private const val DEBUG = false

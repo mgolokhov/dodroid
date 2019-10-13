@@ -16,10 +16,12 @@ class TopicsChooserActivity : DrawerBaseActivity() {
         if (DEBUG) Timber.d("onCreate")
         super.onCreate(savedInstanceState)
         mSelectionId = R.id.nav_set_topic
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container_content, TopicsChooserFragment.newInstance())
-                .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.container_content, TopicsChooserFragment.newInstance())
+                    .commit()
+        }
     }
 
 
