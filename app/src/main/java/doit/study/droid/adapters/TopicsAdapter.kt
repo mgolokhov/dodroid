@@ -29,7 +29,7 @@ class TopicsAdapter(private val clickListener: (Tag) -> Unit):
 
         fun bind(tag: Tag, clickListener: (Tag) -> Unit) {
             topic.text = "${tag.name} (${tag.questionsCounter}/${tag.questionsStudied})"
-            checkbox.isChecked = tag.selectionStatus
+            checkbox.isChecked = tag.selected
             checkbox.setOnClickListener {
                 clickListener(tag)
             }

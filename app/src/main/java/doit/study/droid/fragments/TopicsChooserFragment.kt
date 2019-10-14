@@ -5,12 +5,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.TaskStackBuilder
 import androidx.core.view.MenuItemCompat
@@ -20,25 +15,29 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
-import java.util.ArrayList
-
 import doit.study.droid.R
 import doit.study.droid.activities.InterrogatorActivity
 import doit.study.droid.activities.TotalSummaryActivity
 import doit.study.droid.adapters.TopicsAdapter
-import doit.study.droid.data.Question
 import doit.study.droid.data.QuizProvider
 import doit.study.droid.data.Tag
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.LinkedHashMap
+import kotlin.collections.MutableMap
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.filterValues
+import kotlin.collections.iterator
+import kotlin.collections.set
+import kotlin.collections.toList
 
 
 class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener {
     private var topicsAdapter: TopicsAdapter? = null
     private var recyclerView: RecyclerView? = null
-    private var topics: MutableList<Tag> = ArrayList()
+    private var topics: MutableMap<Int, Tag> = LinkedHashMap()
     // loaders resets state, have to save in var
     private var savedRecyclerLayoutState: Parcelable? = null
 
@@ -50,7 +49,6 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
 
     private fun setupLoaders() {
         loaderManager.initLoader(TAG_LOADER, null, this)
-        loaderManager.initLoader(QUESTION_LOADER, null, this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -74,13 +72,8 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         recyclerView = view.findViewById(R.id.topics_view)
         recyclerView?.layoutManager = LinearLayoutManager(context)
         topicsAdapter = TopicsAdapter {tag ->
-            topics.forEach { topic ->
-                if (topic.id == tag.id) {
-                    topic.setChecked(!topic.selectionStatus)
-                    topicsAdapter?.submitList(topics)
-                    return@forEach
-                }
-            }
+            topics[tag.id] = tag.copy(selected = !tag.selected)
+            topicsAdapter?.submitList(topics.values.toList())
         }
         recyclerView?.adapter = topicsAdapter
 
@@ -136,8 +129,10 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
 
 
     private fun setSelectionToAllTags(checked: Boolean) {
-        topics.forEach{ it.setChecked(checked) }
-        topicsAdapter?.notifyDataSetChanged()
+        for ((k, v) in topics) {
+            topics[k] = v.copy(selected = checked)
+        }
+        topicsAdapter?.submitList(topics.values.toList())
     }
 
     override fun onPause() {
@@ -160,14 +155,23 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        savedRecyclerLayoutState?.let {
+            if (DEBUG) Timber.d("Restore layout in loader")
+            recyclerView?.layoutManager?.onRestoreInstanceState(savedRecyclerLayoutState)
+        }
+    }
+
     private fun createContentProviderOperationBuilder(forSelectedTag: Boolean = false): ContentProviderOperation.Builder? {
         val selection = StringBuilder()
 
-        topics.forEach{ tag ->
-            if (forSelectedTag == tag.selectionStatus) {
-                appendSelection(selection, tag.id)
+        for (v in topics.values) {
+            if (v.selected == forSelectedTag) {
+                appendSelection(selection, v.id)
             }
         }
+
         if (selection.isNotEmpty()) {
             return ContentProviderOperation.newUpdate(QuizProvider.TAG_URI)
                     .withValue(Tag.Table.SELECTED, forSelectedTag)
@@ -187,7 +191,6 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         super.onSaveInstanceState(outState)
         // save scroll position
         if (DEBUG) Timber.d("onSaveInstanceState")
-
         outState.putParcelable(RECYCLER_LAYOUT_STATE_KEY, recyclerView?.layoutManager?.onSaveInstanceState())
     }
 
@@ -195,7 +198,6 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         if (DEBUG) Timber.d("onCreateLoader")
         return when (id) {
             TAG_LOADER -> CursorLoader(activity!!, QuizProvider.TAG_URI, null, null, null, null)
-            QUESTION_LOADER -> CursorLoader(activity!!, QuizProvider.QUESTION_URI, arrayOf(Question.Table.FQ_ID), null, null, null)
             else -> throw Exception("Wrong id for CursorLoader")
         }
     }
@@ -204,20 +206,17 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
         if (DEBUG) Timber.d("onLoadFinished")
         when (loader.id) {
             TAG_LOADER -> {
-                topics = ArrayList()
                 while (data.moveToNext()) {
-                    topics.add(Tag.newInstance(data))
+                    val tag = Tag.newInstance(data)
+                    topics[tag.id] = tag
                 }
                 if (DEBUG) Timber.d("TAG_LOADER Loaded size: %d", topics.size)
-                topicsAdapter?.submitList(topics)
+                topicsAdapter?.submitList(topics.values.toList())
+                savedRecyclerLayoutState?.let {
+                    recyclerView?.layoutManager?.onRestoreInstanceState(savedRecyclerLayoutState)
+                }
             }
-            QUESTION_LOADER ->
-                if (DEBUG) Timber.d("QUESTION_LOADER Total questions: %d", data.count)
             else -> { }
-        }
-        if (savedRecyclerLayoutState != null) {
-            if (DEBUG) Timber.d("Restore layout in loader")
-            recyclerView?.layoutManager?.onRestoreInstanceState(savedRecyclerLayoutState)
         }
     }
 
@@ -230,26 +229,16 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        val filteredModel = filter(topics, newText)
-        topicsAdapter?.submitList(filteredModel)
+        val filteredTopics = topics.filterValues { it.name.contains(newText, ignoreCase = true) }
+        topicsAdapter?.submitList(filteredTopics.values.toList())
         recyclerView?.smoothScrollToPosition(0)
         return true
-    }
-
-    private fun filter(model: List<Tag>, query: String): List<Tag> {
-        val filteredModel = ArrayList<Tag>()
-        model.forEach { tag ->
-            if (tag.name.contains(query, ignoreCase = true))
-                filteredModel.add(tag)
-        }
-        return filteredModel
     }
 
     companion object {
         private const val DEBUG = false
         private const val RECYCLER_LAYOUT_STATE_KEY = "doit.study.droid.fragments.recycler_layout_state_key"
         private const val TAG_LOADER = 0
-        private const val QUESTION_LOADER = 1
 
         @JvmStatic
         fun newInstance(): TopicsChooserFragment {

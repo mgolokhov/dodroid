@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="doit.study.droid"
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="doit.study.droid"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -11,7 +12,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <provider
             android:name=".data.QuizProvider"
@@ -21,7 +23,6 @@
         <activity
             android:name=".activities.TopicsChooserActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:label="@string/title_selection_quiz_topics"
             android:theme="@style/AppTheme.NoActionBar"
             />
