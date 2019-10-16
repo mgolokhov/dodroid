@@ -30,11 +30,15 @@ class InterrogatorActivity : DrawerBaseActivity(), InterrogatorFragment.OnFragme
     private var quizSize: Int = 0 // actual size can be lesser
     private var aprogress = -1 // quantity of answered questions
     private var pagerAdapter: InterrogatorPagerAdapter? = null
+    private var handler: Handler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (DEBUG) Timber.d("onCreate")
         selectionId = R.id.nav_do_it
+
+        handler = Handler()
+
         layoutInflater.inflate(R.layout.activity_interrogator, containerContent)
         supportLoaderManager.initLoader(QUESTION_LOADER, null, this@InterrogatorActivity)
         pager = findViewById(R.id.view_pager)
@@ -96,13 +100,17 @@ class InterrogatorActivity : DrawerBaseActivity(), InterrogatorFragment.OnFragme
     }
 
     private fun showProgress() {
-        val handler = Handler()
-        handler.postDelayed({
+        handler?.postDelayed({
             if (DEBUG) Timber.d("swipe to the result page")
             pagerAdapter?.addResultPage(rightCnt, wrongCnt)
             title = getString(R.string.test_completed)
             pager?.setCurrentItem(quizSize, true)
         }, 2000)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler?.removeCallbacksAndMessages(null)
     }
 
     override fun swipeToNext(delay: Int) {
