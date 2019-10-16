@@ -12,8 +12,7 @@ class TotalSummaryActivity : DrawerBaseActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         if (DEBUG) Timber.d("onCreate")
         super.onCreate(savedInstanceState)
-        mSelectionId = NONE_SELECTED
-        //        getLayoutInflater().inflate(R.layout.activity_total_summary, mContainerContent);
+        selectionId = NONE_SELECTED
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container_content, TotalSummaryFragment())

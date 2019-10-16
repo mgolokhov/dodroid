@@ -25,30 +25,37 @@ import timber.log.Timber
 import doit.study.droid.utils.Distribution.getVersion
 
 open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private var mDrawer: DrawerLayout? = null
-    protected var mContainerContent: FrameLayout? = null
-    private var mActionBarDrawerToggle: ActionBarDrawerToggle? = null
-    private var mNavigationView: NavigationView? = null
-    protected var NONE_SELECTED = -1
-    protected var mSelectionId = R.id.nav_set_topic
+    protected var containerContent: FrameLayout? = null
+    protected var selectionId = R.id.nav_set_topic
+
+    private var drawer: DrawerLayout? = null
+    private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    private var navigationView: NavigationView? = null
+    private var toolbar: Toolbar? = null
 
     protected val isNavDrawerOpen: Boolean
-        get() = mDrawer != null && mDrawer!!.isDrawerOpen(GravityCompat.START)
-
+        get() = drawer?.isDrawerOpen(GravityCompat.START) ?: false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (DEBUG) Timber.d("onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base_drawer)
 
-        mContainerContent = findViewById<View>(R.id.container_content) as FrameLayout
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        containerContent = findViewById(R.id.container_content)
+
+        setupToolbar()
+        setupDrawer()
+    }
+
+    private fun setupToolbar() {
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+    }
 
-
-        mDrawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
-        mActionBarDrawerToggle = object : ActionBarDrawerToggle(this,
-                mDrawer,
+    private fun setupDrawer() {
+        drawer = findViewById(R.id.drawer_layout)
+        actionBarDrawerToggle = object : ActionBarDrawerToggle(this,
+                drawer,
                 toolbar,
                 R.string.drawer_open,
                 R.string.drawer_close) {
@@ -60,33 +67,32 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
             }
         }
 
-        mDrawer!!.addDrawerListener(mActionBarDrawerToggle!!)
-        mActionBarDrawerToggle!!.syncState()
+        drawer!!.addDrawerListener(actionBarDrawerToggle!!)
+        actionBarDrawerToggle!!.syncState()
 
-        mNavigationView = findViewById<View>(R.id.navigation_view) as NavigationView
-        mNavigationView!!.itemIconTintList = null
+        navigationView = findViewById(R.id.navigation_view)
+        navigationView!!.itemIconTintList = null
         setNavTitle()
     }
 
     private fun setNavTitle() {
-        val header = mNavigationView!!.getHeaderView(0)
-        mNavigationView!!.setNavigationItemSelectedListener(this)
-        val tv = header.findViewById<View>(R.id.version_num_header) as TextView
+        val header = navigationView!!.getHeaderView(0)
+        navigationView!!.setNavigationItemSelectedListener(this)
+        val tv = header.findViewById<TextView>(R.id.version_num_header)
         tv.text = getVersion(this)
     }
-
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         if (DEBUG) Timber.d("onPostCreate")
         super.onPostCreate(savedInstanceState)
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mActionBarDrawerToggle!!.syncState()
+        actionBarDrawerToggle?.syncState()
     }
 
     override fun onResume() {
-        if (DEBUG) Timber.d("onResume %d", mSelectionId)
+        if (DEBUG) Timber.d("onResume %d", selectionId)
         super.onResume()
-        mNavigationView!!.setCheckedItem(mSelectionId)
+        navigationView!!.setCheckedItem(selectionId)
     }
 
     override fun onBackPressed() {
@@ -98,45 +104,43 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
         }
     }
 
-    protected fun closeNavDrawer() {
-        if (mDrawer != null) {
-            mDrawer!!.closeDrawer(GravityCompat.START)
-        }
-    }
+    protected fun closeNavDrawer() = drawer?.closeDrawer(GravityCompat.START)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (DEBUG) Timber.d("onOptionsItemSelected")
         // The action bar home/up action should open or close the drawer.
-        return if (mActionBarDrawerToggle!!.onOptionsItemSelected(item)) {
-            true
-        } else super.onOptionsItemSelected(item)
+        return if (actionBarDrawerToggle!!.onOptionsItemSelected(item)) true
+        else super.onOptionsItemSelected(item)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         if (DEBUG) Timber.d("onConfigurationChanged")
         super.onConfigurationChanged(newConfig)
         // Pass any configuration change to the drawer toggles
-        mActionBarDrawerToggle!!.onConfigurationChanged(newConfig)
+        actionBarDrawerToggle!!.onConfigurationChanged(newConfig)
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         Timber.d("selected: %d", menuItem.itemId)
         when (menuItem.itemId) {
             R.id.nav_get_motivation -> {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(getString(R.string.url_motivational_video))
-                startActivity(intent)
+                navigateToYoutubeVideo()
             }
             R.id.nav_set_topic -> createBackStack(Intent(this, TopicsChooserActivity::class.java))
             R.id.nav_do_it -> createBackStack(Intent(this, InterrogatorActivity::class.java))
             else -> {
             }
         }
-        mDrawer!!.closeDrawer(GravityCompat.START)
+        drawer?.closeDrawer(GravityCompat.START)
 
         return true
     }
 
+    private fun navigateToYoutubeVideo(){
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(getString(R.string.url_motivational_video))
+        startActivity(intent)
+    }
 
     /**
      * Enables back navigation for activities that are launched from the NavBar. See
@@ -152,5 +156,6 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
 
     companion object {
         private const val DEBUG = false
+        const val NONE_SELECTED = -1
     }
 }

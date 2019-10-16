@@ -34,10 +34,10 @@ class InterrogatorActivity : DrawerBaseActivity(), InterrogatorFragment.OnFragme
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (DEBUG) Timber.d("onCreate")
-        mSelectionId = R.id.nav_do_it
-        layoutInflater.inflate(R.layout.activity_interrogator, mContainerContent)
+        selectionId = R.id.nav_do_it
+        layoutInflater.inflate(R.layout.activity_interrogator, containerContent)
         supportLoaderManager.initLoader(QUESTION_LOADER, null, this@InterrogatorActivity)
-        pager = findViewById<View>(R.id.view_pager) as ViewPager
+        pager = findViewById(R.id.view_pager)
         configPagerTabStrip()
         pagerAdapter = InterrogatorPagerAdapter(supportFragmentManager, this)
         pager?.adapter = pagerAdapter
@@ -70,7 +70,7 @@ class InterrogatorActivity : DrawerBaseActivity(), InterrogatorFragment.OnFragme
 
 
     private fun configPagerTabStrip() {
-        val pagerTabStrip = pager!!.findViewById<View>(R.id.pager_title_strip) as PagerTabStrip
+        val pagerTabStrip = pager!!.findViewById<PagerTabStrip>(R.id.pager_title_strip)
         // show one title
         pagerTabStrip.setNonPrimaryAlpha(0f)
         // set the black underlining
