@@ -15,10 +15,12 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.activities.InterrogatorActivity
 import doit.study.droid.activities.TotalSummaryActivity
+import doit.study.droid.adapters.InterrogatorPagerAdapter
 import doit.study.droid.adapters.TopicsAdapter
 import doit.study.droid.data.QuizProvider
 import doit.study.droid.data.Tag
@@ -40,6 +42,7 @@ class TopicsChooserFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>,
     private var topics: MutableMap<Int, Tag> = LinkedHashMap()
     // loaders resets state, have to save in var
     private var savedRecyclerLayoutState: Parcelable? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package doit.study.droid.utils;
+package doit.study.droid.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

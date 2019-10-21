@@ -12,25 +12,20 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:clipToPadding="false"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:clipToPadding="false"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/commit_button"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="190dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="26dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_vader_40"
         app:backgroundTint="@color/fab"
         app:elevation="6dp"
-        android:scaleType="center"
-        android:layout_gravity="bottom|right"
-        app:layout_anchorGravity="bottom|right"
-        app:pressedTranslationZ="12dp"
-        android:layout_margin="16dp"
-        app:useCompatPadding="true"
         app:layout_behavior="doit.study.droid.views.ScrollAwareFABBehavior"
-        />
+        app:pressedTranslationZ="12dp"
+        app:useCompatPadding="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
