@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,6 +62,7 @@ class OneTestSummaryFragment : LifecycleLogFragment() {
         }
     }
 
+    @SuppressLint("ObjectAnimatorBinding")
     private fun animateProgress() {
         if (DEBUG) Timber.d("animateProgress")
         val start = 0
