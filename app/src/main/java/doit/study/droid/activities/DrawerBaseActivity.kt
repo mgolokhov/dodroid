@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import doit.study.droid.utils.Distribution.getVersion
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -22,7 +23,6 @@ import com.google.android.material.navigation.NavigationView
 import doit.study.droid.R
 import timber.log.Timber
 
-import doit.study.droid.utils.Distribution.getVersion
 
 open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     protected var containerContent: FrameLayout? = null
