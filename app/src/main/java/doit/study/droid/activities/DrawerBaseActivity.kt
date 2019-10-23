@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import doit.study.droid.utils.Distribution.getVersion
+import doit.study.droid.utils2.Distribution.getVersion
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager

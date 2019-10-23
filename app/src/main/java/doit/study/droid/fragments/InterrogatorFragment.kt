@@ -31,8 +31,8 @@ import java.util.Random
 
 import doit.study.droid.BuildConfig
 import doit.study.droid.R
-import doit.study.droid.utils.Sound
-import doit.study.droid.utils.Views
+import doit.study.droid.utils2.Sound
+import doit.study.droid.utils2.Views
 import doit.study.droid.activities.SettingsActivity
 import doit.study.droid.app.App
 import doit.study.droid.data.Question
