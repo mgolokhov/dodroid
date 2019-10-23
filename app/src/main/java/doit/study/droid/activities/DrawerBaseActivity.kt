@@ -90,7 +90,7 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
     }
 
     override fun onResume() {
-        if (DEBUG) Timber.d("onResume %d", selectionId)
+        if (DEBUG) Timber.d("onResume $selectionId")
         super.onResume()
         navigationView!!.setCheckedItem(selectionId)
     }
