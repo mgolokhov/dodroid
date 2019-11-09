@@ -22,4 +22,4 @@ cache:
 before_install:
   - chmod +x gradlew
 script:
-  - "./gradlew clean build connectedCheck
+  - ./gradlew clean build connectedCheck
