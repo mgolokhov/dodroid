@@ -19,8 +19,8 @@ class App : BaseApp() {
     private class CrashReportingTree : Timber.Tree() {
 
         override fun isLoggable(priority: Int): Boolean {
-            // warn, err, wtf
             return !(priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO)
+            // warn, err, wtf
         }
 
 

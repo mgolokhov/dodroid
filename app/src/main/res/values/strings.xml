@@ -48,7 +48,7 @@
     <!--<string name="url_motivate_video" translatable="false">http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DgJscrxxl_Bg</string>-->
     <string name="url_motivational_video" translatable="false">http://www.youtube.com/watch?v=gJscrxxl_Bg</string>
 
-    <string name="press_again_to_exit" >Press again to exit</string>
+    <string name="press_again_to_exit">Press again to exit</string>
     <string name="test_result_correct">Correct: %d</string>
     <string name="test_result_wrong">Wrong: %d</string>
     <string name="test_result_summary100">You are the best!</string>
