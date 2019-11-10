@@ -26,7 +26,7 @@ jobs:
             - ~/.gradle/wrapper
       - run:
           name: Build apk
-          command: ./gradlew assemble
+          command: ./gradlew clean assemble
       - run:
           name: Run JVM Tests & Lint
           command: ./gradlew check
