@@ -11,7 +11,6 @@ class App : BaseApp() {
 
     override fun onCreate() {
         super.onCreate()
-        tracker
         Timber.plant(CrashReportingTree())
         Fabric.with(this, Crashlytics())
     }
