@@ -25,6 +25,9 @@ jobs:
             - ~/.gradle/caches
             - ~/.gradle/wrapper
       - run:
+          name: Build apk
+          command: ./gradlew assemble
+      - run:
           name: Run JVM Tests & Lint
           command: ./gradlew check
       - store_artifacts:
