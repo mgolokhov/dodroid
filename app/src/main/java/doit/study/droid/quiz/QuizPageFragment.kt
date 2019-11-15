@@ -260,11 +260,12 @@ class QuizPageFragment: Fragment(){
         if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
             data?.let {
                 val label = question.text.toString() + data.getStringExtra(DislikeDialogFragment.EXTRA_CAUSE)
-                viewModel.handleThumpDownButton(pagePosition, AnalyticsData(
-                        category = getString(R.string.report_because),
-                        action = getString(R.string.dislike),
-                        label = label
-                ))
+                viewModel.handleThumpDownButton(
+                        AnalyticsData(
+                                category = getString(R.string.report_because),
+                                action = getString(R.string.dislike),
+                                label = label
+                        ))
             }
         }
     }

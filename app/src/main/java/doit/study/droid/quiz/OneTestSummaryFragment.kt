@@ -18,12 +18,12 @@ import androidx.fragment.app.Fragment
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import doit.study.droid.R
+import doit.study.droid.views.DeathStarLoader
 import kotlin.math.roundToInt
 
 
 class OneTestSummaryFragment : Fragment() {
-    private val progressBar by lazy { view!!.findViewById<View>(R.id.progressBar) as CircularProgressBar }
-    private val percentage by lazy { view!!.findViewById<View>(R.id.percentage) as TextView }
+    private val progressBar by lazy { view!!.findViewById<View>(R.id.progressBar) as DeathStarLoader }
     private val textSummary by lazy { view!!.findViewById<View>(R.id.textSummary) as TextView }
     private val wrongCnt by lazy { view!!.findViewById<View>(R.id.wrong_cnt) as TextView }
     private val rightCnt by lazy { view!!.findViewById<View>(R.id.right_cnt) as TextView }
@@ -61,16 +61,14 @@ class OneTestSummaryFragment : Fragment() {
         val end = percentageOfRightAnswers.toFloat()
         val durationMs = 3_000L // in milliseconds
 
-        val progressBarAnimation = setupProgressBarAnimation(start, end, durationMs)
-        val percentageAnimator = setupPercentageAnimation(start, end, durationMs)
+        progressBar.setProgress(percentageOfRightAnswers, durationMs)
+
         val textSummaryAnimator = setupTextSummaryAnimator(durationMs)
         val wrongCntAnimation = setupWrongCntAnimation(durationMs)
         val rightCntAnimation = setupRightCntAnimation(durationMs)
 
         animatorSet = AnimatorSet().apply {
-            play(progressBarAnimation)
-                    .with(percentageAnimator)
-                    .with(textSummaryAnimator)
+            play(textSummaryAnimator)
                     .with(rightCntAnimation)
                     .with(wrongCntAnimation)
             start()
@@ -102,33 +100,6 @@ class OneTestSummaryFragment : Fragment() {
         val textSummaryAnimator = ObjectAnimator.ofPropertyValuesHolder(textSummary, alpha, scaleX, scaleY)
         textSummaryAnimator.duration = (durationMs + 2000) // show text summary a bit slower
         return textSummaryAnimator
-    }
-
-    private fun setupPercentageAnimation(start: Float, end: Float, durationMs: Long): ValueAnimator {
-        val percentageAnimator = ValueAnimator()
-        percentageAnimator.setObjectValues(start.toInt(), end.toInt())
-        percentageAnimator.addUpdateListener { animation -> percentage.text = String.format("%d%%", animation.animatedValue) }
-
-        val typeEvaluator = TypeEvaluator<Int> { fraction, startValue, endValue
-            ->
-            (startValue!!.toFloat() + (endValue!!.toFloat() - startValue.toFloat()) * fraction).toInt()
-        }
-        percentageAnimator.setEvaluator(typeEvaluator)
-
-        percentageAnimator.duration = durationMs
-        return percentageAnimator
-    }
-
-    private fun setupProgressBarAnimation(start: Float, end: Float, durationMs: Long): ObjectAnimator {
-        return ObjectAnimator.ofFloat(
-                progressBar,
-                "progress",
-                start,
-                end
-        ).apply {
-            duration = durationMs
-            interpolator = DecelerateInterpolator()
-        }
     }
 
     override fun onResume() {

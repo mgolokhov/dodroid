@@ -90,7 +90,7 @@ private val analyticsTracker: Tracker
         }
     }
 
-    fun handleThumpDownButton(position: Int, analyticsData: AnalyticsData) {
+    fun handleThumpDownButton(analyticsData: AnalyticsData) {
         _item.value?.let {
             if (!it.questionIsEvaluated) {
                 _showToastForEvaluation.value = Event(R.string.report_was_sent)

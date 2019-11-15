@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DeathStarLoader">
+        <attr name="ds_progress" format="integer"/>
+        <attr name="ds_wave_color" format="color"/>
+        <attr name="ds_wave_amplitude" format="float"/>
+    </declare-styleable>
+
+</resources>
