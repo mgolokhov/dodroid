@@ -1,84 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <LinearLayout
-        android:padding="10dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
 
         <TextView
             android:id="@+id/right_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
             android:textSize="20sp"
-            tools:text="@string/test_result_correct"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/wrong_cnt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/test_result_correct" />
 
         <TextView
             android:id="@+id/wrong_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textSize="20sp"
-            tools:text="@string/test_result_wrong"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/right_cnt"
+            tools:text="@string/test_result_wrong" />
 
-        <RelativeLayout
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            >
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:cpb_background_progressbar_width="8dp"
-                app:cpb_progressbar_color="@color/black"
-                app:cpb_progressbar_width="16dp"
-                />
-
-
-            <TextView
-                android:id="@+id/percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/progressBar"
-                android:layout_alignTop="@id/progressBar"
-                android:layout_centerInParent="true"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:textSize="30sp"
-                tools:text="100%"
-                />
-
-        </RelativeLayout>
+        <doit.study.droid.views.DeathStarLoader
+            android:id="@+id/progressBar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:ds_progress="0"
+            app:ds_wave_color="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/textSummary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wrong_cnt" />
 
         <TextView
             android:id="@+id/textSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
-            android:layout_gravity="center"
             android:padding="16dp"
             android:textSize="23sp"
-            tools:text="@string/test_result_summary40"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
+            tools:text="test" />
 
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
