@@ -3,20 +3,30 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_get_motivation"
-            android:icon="@drawable/ic_sith_order"
+            android:id="@+id/motivation_fragment_dest"
+            android:icon="@drawable/ic_galactic_empire"
             android:title="@string/need_motivation_button"
             />
         <item
-            android:id="@+id/nav_set_topic"
+            android:id="@+id/topic_fragment_dest"
             android:icon="@drawable/ic_death_star"
             android:title="@string/set_topic_button"
             android:checked="true"
             />
         <item
-            android:id="@+id/nav_do_it"
-            android:icon="@drawable/ic_vader_30"
+            android:id="@+id/quiz_main_fragment_dest"
+            android:icon="@drawable/ic_vader_40"
+            android:scaleType="fitCenter"
             android:title="@string/doit_button"
             />
+    </group>
+    <group
+        android:id="@+id/settings"
+        android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/settings_fragment_dest"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/action_settings" />
     </group>
 </menu>

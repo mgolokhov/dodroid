@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/topic_fragment_dest">
+
+
+    <fragment
+        android:id="@+id/topic_fragment_dest"
+        android:name="doit.study.droid.topic.TopicFragment"
+        tools:layout="@layout/fragment_topics_chooser"
+        >
+
+        <action
+            android:id="@+id/action_topic_fragment_dest_to_quizMainFragment"
+            app:destination="@id/quiz_main_fragment_dest" />
+        <action
+            android:id="@+id/action_topic_fragment_dest_to_settings_fragment_dest"
+            app:destination="@id/settings_fragment_dest" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/quiz_main_fragment_dest"
+        android:name="doit.study.droid.quiz.QuizMainFragment"
+        tools:layout="@layout/activity_interrogator"
+        >
+        <action
+            android:id="@+id/action_quiz_main_fragment_dest_to_settings_fragment_dest"
+            app:destination="@id/settings_fragment_dest" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/motivation_fragment_dest"
+        android:name="doit.study.droid.motivation.MotivationFragment"
+        >
+        <action
+            android:id="@+id/next_action"
+            app:popUpTo="@id/topic_fragment_dest">
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/settings_fragment_dest"
+        android:name="doit.study.droid.settings.SettingsFragment"
+        />
+
+
+</navigation>

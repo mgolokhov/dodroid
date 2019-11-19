@@ -1,4 +1,4 @@
-package doit.study.droid.adapters
+package doit.study.droid.topic
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import doit.study.droid.R
-import doit.study.droid.topic.TopicView
 
 class TopicAdapter(private val clickListener: (TopicView, Boolean) -> Unit):
         ListAdapter<TopicView, TopicAdapter.ViewHolder>(TopicsDiffCallback()){

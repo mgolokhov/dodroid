@@ -24,7 +24,6 @@
         android:src="@drawable/ic_vader_40"
         app:backgroundTint="@color/fab"
         app:elevation="6dp"
-        android:scaleType="center"
         android:layout_gravity="bottom|right"
         app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="12dp"

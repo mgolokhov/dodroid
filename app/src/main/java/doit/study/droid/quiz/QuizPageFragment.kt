@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
@@ -26,16 +27,16 @@ import kotlin.random.Random
 class QuizPageFragment: Fragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var viewModel: QuizPageViewModel
-    lateinit var viewModelMain: QuizMainViewModel
+    private lateinit var viewModel: QuizPageViewModel
+    private lateinit var viewModelMain: QuizMainViewModel
     private val pagePosition: Int by lazy { arguments!!.getInt(ARG_POSITION_IN_QUIZ_KEY, 0) }
-    private val commitButton by lazy { view!!.findViewById<FloatingActionButton>(R.id.commit_button) }
-    private val thumpUpButton by lazy { view!!.findViewById<ImageButton>(R.id.thump_up_button)}
-    private val thumpDownButton by lazy { view!!.findViewById<ImageButton>(R.id.thump_down_button)}
+    private lateinit var commitButton: FloatingActionButton
+    private lateinit var thumpUpButton: ImageButton
+    private lateinit var thumpDownButton: ImageButton
     private var toast: Toast? = null
-    private val sound: Sound? by lazy { Sound.getInstance(context) }
-    private val question by lazy { view!!.findViewById<TextView>(R.id.question) }
-    private val answerContainer by lazy { view!!.findViewById<LinearLayout>(R.id.answers) }
+    private val sound: Sound by lazy { Sound.getInstance(activity?.applicationContext) }
+    private lateinit var question: TextView
+    private lateinit var answerContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
@@ -45,6 +46,26 @@ class QuizPageFragment: Fragment(){
                 .of(requireParentFragment(), viewModelFactory)
                 .get(pagePosition.toString(), QuizPageViewModel::class.java)
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        commitButton = view.findViewById(R.id.commit_button)
+        thumpUpButton = view.findViewById(R.id.thump_up_button)
+        thumpDownButton = view.findViewById(R.id.thump_down_button)
+        question = view.findViewById(R.id.question)
+        answerContainer = view.findViewById(R.id.answers)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy ${this.hashCode()}")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.d("onDestroyView ${this.hashCode()}")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -64,14 +85,7 @@ class QuizPageFragment: Fragment(){
                 return true
             }
             R.id.action_settings -> {
-
-                activity?.run {
-                    supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.container_content, SettingsFragment())
-                            .commit()
-
-                }
+                findNavController().navigate(R.id.settings_fragment_dest)
                 return true
             }
             else -> return super.onOptionsItemSelected(menuItem)
@@ -91,10 +105,10 @@ class QuizPageFragment: Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Timber.d("onActivityCreated, page: $pagePosition; $this")
+        Timber.d("onActivityCreated, page: $pagePosition; ${this.hashCode()}")
         viewModelMain = ViewModelProviders.of(parentFragment!!, viewModelFactory)[QuizMainViewModel::class.java]
 
-        viewModelMain.items.observe(this, Observer {
+        viewModelMain.items.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 // setting every config change?
                 viewModel.setItem(it[pagePosition])
@@ -112,14 +126,14 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupTitle() {
-        viewModel.lockInteraction.observe(this, Observer {
+        viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
             Timber.d("try to update title")
             viewModelMain.updateQuestionsLeft()
         })
     }
 
     private fun setupToastFeedbackForEvaluation() {
-        viewModel.showToastForEvaluation.observe(this, Observer { event ->
+        viewModel.showToastForEvaluation.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 showFeedbackToast(it)
             }
@@ -127,16 +141,17 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupQuestion() {
-        viewModel.item.observe(this, Observer { quizView ->
+        viewModel.item.observe(viewLifecycleOwner, Observer { quizView ->
             Timber.d("setupQuestion[$pagePosition]: $quizView")
             quizView?.let {
                 question.text = quizView.questionText
+                Timber.d("setupQuestion ${question.text} ${this.hashCode()} ${question.hashCode()}")
             }
         })
     }
 
     private fun setupAnswerVariants() {
-        viewModel.item.observe(this, Observer { quizView ->
+        viewModel.item.observe(viewLifecycleOwner, Observer { quizView ->
             Timber.d("setupAnswerVariants[$pagePosition]: $quizView")
             quizView?.let {
                 quizView.answerVariants.forEach { variant ->
@@ -159,7 +174,7 @@ class QuizPageFragment: Fragment(){
             }
         })
 
-        viewModel.lockInteraction.observe(this, Observer {
+        viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
             for (i in 0 until answerContainer.childCount) {
                 answerContainer.getChildAt(i)?.apply {
                     isEnabled = false
@@ -174,13 +189,13 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupCommitButton() {
-        viewModel.commitButtonState.observe(this, Observer {
+        viewModel.commitButtonState.observe(viewLifecycleOwner, Observer {
             commitButton.setImageDrawable(resources.getDrawable(it))
         })
         commitButton.setOnClickListener {
             viewModel.checkAnswer()
         }
-        viewModel.lockInteraction.observe(this, Observer {
+        viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
             commitButton.isEnabled = false
         })
     }
@@ -211,7 +226,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupSoundFeedbackForAnswer() {
-        viewModel.playSound.observe(this, Observer {
+        viewModel.playSound.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { soundType ->
                 sound?.play(soundType)
             }
@@ -219,7 +234,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupToastFeedbackForAnswer() {
-        viewModel.showToastForAnswer.observe(this, Observer {
+        viewModel.showToastForAnswer.observe(viewLifecycleOwner, Observer {
             // TODO: randomization logic leaked in a view
             // what's about AndroidViewModel & config change? (point for testing)
             it.getContentIfNotHandled()?.let { resourceId ->

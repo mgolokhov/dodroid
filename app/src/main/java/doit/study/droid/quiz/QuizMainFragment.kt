@@ -12,14 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
-import kotlinx.android.synthetic.main.fragment_dialog_dislike.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class QuizMainFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var viewModel: QuizMainViewModel
+    private lateinit var viewModel: QuizMainViewModel
 
     private var pager: ViewPager? = null
     private var pagerAdapter: QuizPagerAdapter? = null
@@ -35,12 +34,12 @@ class QuizMainFragment: Fragment() {
         super.onActivityCreated(savedInstanceState)
         handler = Handler()
 
-        viewModel.items.observe(this, Observer {
+        viewModel.items.observe(viewLifecycleOwner, Observer {
             Timber.d("$this result: $it")
             if (it.isNotEmpty()) setupPagerAdapter(it)
         })
 
-        viewModel.updateTitle.observe(this, Observer { questionsLeft ->
+        viewModel.updateTitle.observe(viewLifecycleOwner, Observer { questionsLeft ->
             Timber.d("updateQuestionsLeft ")
             activity?.apply {
                 if (questionsLeft == 0)
@@ -54,7 +53,7 @@ class QuizMainFragment: Fragment() {
             }
         })
 
-        viewModel.addResultPageAndSwipeOnce.observe(this, Observer {
+        viewModel.addResultPageAndSwipeOnce.observe(viewLifecycleOwner, Observer {
             pagerAdapter?.addResultPage()
             it.getContentIfNotHandled()?.let {
                 handler?.postDelayed({
@@ -74,6 +73,7 @@ class QuizMainFragment: Fragment() {
     private fun setupPagerAdapter(items: List<QuizView>) {
         pagerAdapter = QuizPagerAdapter(childFragmentManager, items, activity!!)
         pager?.adapter = pagerAdapter
+        pagerAdapter?.notifyDataSetChanged()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package doit.study.droid.activities
+package doit.study.droid.topic
 
 import android.os.Bundle
 import android.view.*
@@ -8,15 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
-import doit.study.droid.adapters.TopicAdapter
 import doit.study.droid.app.BaseApp
 import doit.study.droid.quiz.QuizMainFragment
-import doit.study.droid.topic.TopicModelView
-import doit.study.droid.topic.TopicView
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -81,13 +79,7 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
 
 
     private fun navigateToQuiz() {
-        activity?.run {
-            supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container_content, QuizMainFragment.newInstance())
-                    .addToBackStack(null)
-                    .commit()
-        }
+        findNavController().navigate(R.id.action_topic_fragment_dest_to_quizMainFragment, null)
     }
 
     override fun onQueryTextSubmit(query: String): Boolean {

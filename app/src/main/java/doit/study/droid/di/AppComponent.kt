@@ -2,10 +2,10 @@ package doit.study.droid.di
 
 import com.google.android.gms.analytics.Tracker
 import dagger.Component
-import doit.study.droid.activities.TopicFragment
 import doit.study.droid.quiz.QuizMainFragment
 import doit.study.droid.quiz.QuizPageFragment
 import doit.study.droid.splash.SplashActivity
+import doit.study.droid.topic.TopicFragment
 import javax.inject.Singleton
 
 @Singleton
