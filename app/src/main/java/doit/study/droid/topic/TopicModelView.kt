@@ -62,6 +62,8 @@ class TopicModelView @Inject constructor(
                 Timber.d("insertOrReplaceTag $res")
             }
         }
+        // TODO: optimize
+        loadTopics()
     }
 
     fun selectAllTopics() = allTopics(select = true)
