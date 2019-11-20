@@ -58,6 +58,10 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -122,6 +126,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
 
+    def lifecycle_version = "2.1.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     def nav_version = "2.1.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -136,4 +144,3 @@ task exportQuestions(type: Exec, description: 'Run the pre-build python script')
 
 // This ensures my script will be called before building
 // preBuild.dependsOn exportQuestions
-
