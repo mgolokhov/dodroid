@@ -34,7 +34,8 @@ class QuizPageFragment: Fragment(){
     private lateinit var thumpUpButton: ImageButton
     private lateinit var thumpDownButton: ImageButton
     private var toast: Toast? = null
-    private val sound: Sound by lazy { Sound.getInstance(activity?.applicationContext) }
+    @Inject
+    lateinit var sound: Sound
     private lateinit var question: TextView
     private lateinit var answerContainer: LinearLayout
 
@@ -228,7 +229,7 @@ class QuizPageFragment: Fragment(){
     private fun setupSoundFeedbackForAnswer() {
         viewModel.playSound.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { soundType ->
-                sound?.play(soundType)
+                sound?.play(soundType, lifecycle)
             }
         })
     }
@@ -256,17 +257,6 @@ class QuizPageFragment: Fragment(){
         val variants = resources.getStringArray(resourceId)
         val pos = Random.nextInt(variants.size)
         return variants[pos]
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // TODO: lifecycle aware + DI
-        sound?.stop()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        sound?.release()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
