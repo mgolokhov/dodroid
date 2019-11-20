@@ -15,10 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
-import doit.study.droid.settings.SettingsFragment
-import doit.study.droid.utils.AnalyticsData
-import doit.study.droid.utils.Sound
-import doit.study.droid.utils.Views
+import doit.study.droid.utils.*
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
@@ -242,10 +239,10 @@ class QuizPageFragment: Fragment(){
                 val message = getRandomMessageFromResources(resourceId)
                 toast = when(resourceId) {
                     R.array.feedback_right_answer -> {
-                        Views.CustomToast.showToastSuccess(context, message)
+                        showToastSuccess(message)
                     }
                     R.array.feedback_wrong_answer -> {
-                        Views.CustomToast.showToastError(context, message)
+                        showToastFailure(message)
                     }
                     else -> throw IllegalArgumentException("Wrong resource id for ToastFeedbackForAnswer")
                 }
