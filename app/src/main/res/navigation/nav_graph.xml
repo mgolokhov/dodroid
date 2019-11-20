@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/topic_fragment_dest"
         android:name="doit.study.droid.topic.TopicFragment"
-        tools:layout="@layout/fragment_topics_chooser"
+        tools:layout="@layout/fragment_topic"
         >
 
         <action
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/quiz_main_fragment_dest"
         android:name="doit.study.droid.quiz.QuizMainFragment"
-        tools:layout="@layout/activity_interrogator"
+        tools:layout="@layout/fragment_quiz_main"
         >
         <action
             android:id="@+id/action_quiz_main_fragment_dest_to_settings_fragment_dest"

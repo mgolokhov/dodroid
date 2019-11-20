@@ -80,6 +80,9 @@ class SplashViewModel @Inject constructor(
     }
 
     private suspend fun populateTagAndRelationToQuestion(quizItem: QuizData) {
+        quizDatabase.tagDao().getTags().forEach {
+            cachedTags[it.name] = it.id
+        }
         quizItem.tags.forEach { tag ->
             val tagId = cachedTags[tag]
                     ?: quizDatabase.tagDao().insertTag(Tag(name = tag)).toInt()

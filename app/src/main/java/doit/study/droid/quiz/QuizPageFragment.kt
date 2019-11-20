@@ -68,7 +68,7 @@ class QuizPageFragment: Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_interrogator, container, false)
+        return inflater.inflate(R.layout.fragment_quiz_page, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {

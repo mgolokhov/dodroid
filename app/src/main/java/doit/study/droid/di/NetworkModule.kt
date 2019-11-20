@@ -33,8 +33,8 @@ class NetworkModule {
     internal fun provideOkHttpClient(): OkHttpClient {
         val client = OkHttpClient.Builder()
         //client.addInterceptor(new ApiKeyInterceptor());
-        //client.addNetworkInterceptor(new StethoInterceptor());
-        //client.addInterceptor(createLogInterceptor());
+//        client.addNetworkInterceptor(StethoInterceptor());
+        client.addInterceptor(createLogInterceptor());
         return client.build()
     }
 

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
-import doit.study.droid.quiz.QuizMainFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -35,12 +34,13 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_topics_chooser, container, false)
+        return inflater.inflate(R.layout.fragment_topic, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLayout(view)
+        viewModel.loadTopics()
     }
 
     private fun setupLayout(view: View){
@@ -52,7 +52,7 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
         }
         recyclerView?.adapter = topicAdapter
 
-        viewModel.items.observe(this, Observer<List<TopicView>> {
+        viewModel.items.observe(viewLifecycleOwner, Observer<List<TopicView>> {
             topicAdapter?.submitList(it)
             Timber.d("result $topicAdapter ${it.size}")
         })

@@ -41,6 +41,7 @@ class AppModule(private val appContext: Application) {
                 context.applicationContext,
                 QuizDatabase::class.java,
                 "quizDatabase.db")
+                .fallbackToDestructiveMigration()
                 .build()
     }
 }
