@@ -4,7 +4,8 @@ Welcome to open-source DoDroid project. This is the quiz engine with supplementa
 
 <a style="margin-bottom: 0;" href='https://play.google.com/store/apps/details?id=doit.study.droid&hl=en'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="80px"/></a>
 
-[![Build Status](https://travis-ci.com/mgolokhov/dodroid.svg?branch=master)](https://travis-ci.com/mgolokhov/dodroid)
+[![CircleCI](https://circleci.com/gh/mgolokhov/dodroid.svg?style=svg)](https://circleci.com/gh/mgolokhov/dodroid)
+
 
 Let's hack Android by coding the app.
 
