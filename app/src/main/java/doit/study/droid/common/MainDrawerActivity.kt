@@ -1,6 +1,7 @@
 package doit.study.droid.common
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -9,6 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import doit.study.droid.BuildConfig
 import doit.study.droid.R
 import doit.study.droid.utils.lazyAndroid
 
@@ -35,8 +37,14 @@ open class MainDrawerActivity : AppCompatActivity() {
     private fun setupDrawerNavMenu() {
         findViewById<NavigationView>(R.id.navigation_view).apply {
             setupWithNavController(navController)
+            getHeaderView(0)?.apply {
+                findViewById<TextView>(R.id.version_num_header)?.apply {
+                    text = BuildConfig.VERSION_NAME
+                }
+            }
         }
     }
+
 
     private fun setupActionBar() {
         setSupportActionBar(findViewById(R.id.toolbar))

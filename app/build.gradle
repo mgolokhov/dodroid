@@ -27,9 +27,10 @@ ext.versions = [
 ]
 
 
-def versionMajor = 0
-def versionMinor = 5
-def versionBuild = 30
+def versionMajor = 2
+def versionMinor = 0
+def versionBuild = 31
+def versionStatus = "alpha"
 
 android {
     compileSdkVersion versions.targetSdkVersion
@@ -39,7 +40,7 @@ android {
         minSdkVersion versions.minSdkVersion
         targetSdkVersion versions.targetSdkVersion
         versionCode versionBuild
-        versionName "${versionMajor}.${versionMinor}.${versionBuild}"
+        versionName "${versionMajor}.${versionMinor}.${versionBuild}.${versionStatus}"
     }
 
     compileOptions {
@@ -57,6 +58,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -122,18 +127,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
 
+    def lifecycle_version = "2.1.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     def nav_version = "2.1.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }
-
-
-task exportQuestions(type: Exec, description: 'Run the pre-build python script') {
-    workingDir 'src/main/res/raw/'
-    commandLine 'python', 'import_quiz_to_json.py'
-}
-
-// This ensures my script will be called before building
-// preBuild.dependsOn exportQuestions
 
