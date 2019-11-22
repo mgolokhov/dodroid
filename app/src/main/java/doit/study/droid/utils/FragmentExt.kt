@@ -6,8 +6,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IntDef
 import androidx.annotation.LayoutRes
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import doit.study.droid.R
+import doit.study.droid.topic.TopicAdapter
+import doit.study.droid.topic.TopicView
 
 @IntDef(Toast.LENGTH_SHORT, Toast.LENGTH_LONG)
 @kotlin.annotation.Retention(AnnotationRetention.SOURCE)

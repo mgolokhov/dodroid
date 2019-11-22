@@ -48,7 +48,7 @@ class TopicModelView @Inject constructor(
         }
     }
 
-    fun saveSelectedTags(vararg topics: TopicView, isSelected: Boolean) {
+    private fun saveSelectedTags(vararg topics: TopicView, isSelected: Boolean) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val tags = topics.map {
@@ -64,6 +64,11 @@ class TopicModelView @Inject constructor(
         }
         // TODO: optimize
         loadTopics()
+    }
+
+
+    fun selectTopic(topic: TopicView, isSelected: Boolean) {
+        saveSelectedTags(topic, isSelected = isSelected)
     }
 
     fun selectAllTopics() = allTopics(select = true)
