@@ -1,5 +1,6 @@
 package doit.study.droid.quiz
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,17 +13,21 @@ import doit.study.droid.utils.AnalyticsData
 import doit.study.droid.utils.Event
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.random.Random
 
 
 class QuizPageViewModel @Inject constructor(
-private val quizDatabase: QuizDatabase,
-private val analyticsTracker: Tracker
+        private val application: Application,
+        private val analyticsTracker: Tracker
 ) : ViewModel() {
     private val _item = MutableLiveData<QuizView>()
     val item: LiveData<QuizView> = _item
 
-    private val _showToastForAnswer = MutableLiveData<Event<Int>>()
-    val showToastForAnswer: LiveData<Event<Int>> = _showToastForAnswer
+    private val _showToastSuccess = MutableLiveData<Event<String>>()
+    val showToastSuccess: LiveData<Event<String>> = _showToastSuccess
+
+    private val _showToastFailure = MutableLiveData<Event<String>>()
+    val showToastFailure: LiveData<Event<String>> = _showToastFailure
 
     private val _playSound = MutableLiveData<Event<Boolean>>()
     val playSound: LiveData<Event<Boolean>> = _playSound
@@ -58,12 +63,20 @@ private val analyticsTracker: Tracker
         _item.value?.let {
             val isRightAnswer = (it.selectedVariants == it.rightVariants.toSet())
             if (isRightAnswer) {
-                _showToastForAnswer.value = Event(R.array.feedback_right_answer)
+                _showToastSuccess.value = Event(
+                        getRandomMessageFromResources(
+                                R.array.feedback_right_answer
+                        )
+                )
                 it.commitButtonState = R.drawable.ic_sentiment_satisfied_black_24dp
                 _commitButtonState.value = it.commitButtonState
                 _playSound.value = Event(true)
             } else {
-                _showToastForAnswer.value = Event(R.array.feedback_wrong_answer)
+                _showToastFailure.value = Event(
+                        getRandomMessageFromResources(
+                                R.array.feedback_wrong_answer
+                        )
+                )
                 it.commitButtonState = R.drawable.ic_sentiment_dissatisfied_black_24dp
                 _commitButtonState.value = it.commitButtonState
                 _playSound.value = Event(false)
@@ -73,6 +86,13 @@ private val analyticsTracker: Tracker
             Timber.d("checkAnswer: $it")
         }
     }
+
+    private fun getRandomMessageFromResources(resourceId: Int): String {
+        val variants = application.resources.getStringArray(resourceId)
+        val pos = Random.nextInt(variants.size)
+        return variants[pos]
+    }
+
 
     fun handleThumpUpButton(analyticsData: AnalyticsData) {
         _item.value?.let {
