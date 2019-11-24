@@ -18,33 +18,32 @@ import androidx.fragment.app.Fragment
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import doit.study.droid.R
+import doit.study.droid.databinding.FragmentResultTestBinding
+import doit.study.droid.utils.lazyAndroid
 import doit.study.droid.views.DeathStarLoader
 import kotlin.math.roundToInt
 
 
 class OneTestSummaryFragment : Fragment() {
-    private val progressBar by lazy { view!!.findViewById<View>(R.id.progressBar) as DeathStarLoader }
-    private val textSummary by lazy { view!!.findViewById<View>(R.id.textSummary) as TextView }
-    private val wrongCnt by lazy { view!!.findViewById<View>(R.id.wrong_cnt) as TextView }
-    private val rightCnt by lazy { view!!.findViewById<View>(R.id.right_cnt) as TextView }
-    private val percentageOfRightAnswers by lazy {
+    private val percentageOfRightAnswers by lazyAndroid {
         arguments!!.let {
             it.getInt(RIGHT_CNT_KEY) * 100 / (it.getInt(RIGHT_CNT_KEY) + it.getInt(WRONG_CNT_KEY))
         }
     }
     private var animatorSet: AnimatorSet? = null
-
+    private lateinit var viewDataBinding: FragmentResultTestBinding
 
     override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_result_test, parent, false)
+        viewDataBinding = FragmentResultTestBinding.inflate(inflater, parent, false)
+        return viewDataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showTextSummary()
         arguments!!.let {
-            rightCnt.text = String.format(resources.getString(R.string.test_result_correct), it.getInt(RIGHT_CNT_KEY))
-            wrongCnt.text = String.format(resources.getString(R.string.test_result_wrong), it.getInt(WRONG_CNT_KEY))
+            viewDataBinding.rightCnt.text = String.format(resources.getString(R.string.test_result_correct), it.getInt(RIGHT_CNT_KEY))
+            viewDataBinding.wrongCnt.text = String.format(resources.getString(R.string.test_result_wrong), it.getInt(WRONG_CNT_KEY))
         }
     }
 
@@ -57,11 +56,9 @@ class OneTestSummaryFragment : Fragment() {
 
     @SuppressLint("ObjectAnimatorBinding")
     private fun animateProgress() {
-        val start = 0F
-        val end = percentageOfRightAnswers.toFloat()
         val durationMs = 3_000L // in milliseconds
 
-        progressBar.setProgress(percentageOfRightAnswers, durationMs)
+        viewDataBinding.progressBar.setProgress(percentageOfRightAnswers, durationMs)
 
         val textSummaryAnimator = setupTextSummaryAnimator(durationMs)
         val wrongCntAnimation = setupWrongCntAnimation(durationMs)
@@ -78,7 +75,12 @@ class OneTestSummaryFragment : Fragment() {
     private fun setupRightCntAnimation(durationMs: Long): ObjectAnimator {
         // move from right side off-screen
         val screenWidth = resources.displayMetrics.widthPixels
-        return ObjectAnimator.ofFloat(rightCnt, "X", screenWidth + rightCnt.width.toFloat(), rightCnt.left.toFloat()).apply {
+        return ObjectAnimator.ofFloat(
+                viewDataBinding.rightCnt,
+                "X",
+                screenWidth + viewDataBinding.rightCnt.width.toFloat(),
+                viewDataBinding.rightCnt.left.toFloat()
+        ).apply {
             duration = durationMs
             interpolator = BounceInterpolator()
         }
@@ -86,7 +88,11 @@ class OneTestSummaryFragment : Fragment() {
 
     private fun setupWrongCntAnimation(durationMs: Long): ObjectAnimator {
         // move from left side off-screen
-        return ObjectAnimator.ofFloat(wrongCnt, "X", -wrongCnt.width.toFloat(), wrongCnt.left.toFloat()).apply {
+        return ObjectAnimator.ofFloat(
+                viewDataBinding.wrongCnt,
+                "X", -viewDataBinding.wrongCnt.width.toFloat(),
+                viewDataBinding.wrongCnt.left.toFloat()
+        ).apply {
             duration = durationMs
             interpolator = BounceInterpolator()
         }
@@ -97,7 +103,7 @@ class OneTestSummaryFragment : Fragment() {
         val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f, 1f)
         val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f, 1f)
 
-        val textSummaryAnimator = ObjectAnimator.ofPropertyValuesHolder(textSummary, alpha, scaleX, scaleY)
+        val textSummaryAnimator = ObjectAnimator.ofPropertyValuesHolder(viewDataBinding.textSummary, alpha, scaleX, scaleY)
         textSummaryAnimator.duration = (durationMs + 2000) // show text summary a bit slower
         return textSummaryAnimator
     }
@@ -113,7 +119,7 @@ class OneTestSummaryFragment : Fragment() {
     }
 
     private fun showTextSummary() {
-        textSummary.text = when {
+        viewDataBinding.textSummary.text = when {
             percentageOfRightAnswers <= 40 -> resources.getString(R.string.test_result_summary40)
             percentageOfRightAnswers in 41..70 -> resources.getString(R.string.test_result_summary70)
             percentageOfRightAnswers in 71..99 -> resources.getString(R.string.test_result_summary99)
@@ -136,3 +142,5 @@ class OneTestSummaryFragment : Fragment() {
     }
 
 }
+
+const val ONE_TEST_SUMMARY_TYPE = "one_test_summary_type"

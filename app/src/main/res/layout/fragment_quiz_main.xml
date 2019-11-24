@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <data>
 
-        <androidx.viewpager.widget.PagerTabStrip
-            android:id="@+id/pager_title_strip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#33b5e5"
-            android:textColor="#fff"
-            android:layout_gravity="top"
-        />
-    </androidx.viewpager.widget.ViewPager>
+    </data>
 
-    <TextView
-        android:id="@+id/no_topic_selected"
-        android:visibility="gone"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:textSize="17sp"
-        android:text="@string/select_topic_first" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.viewpager.widget.PagerTabStrip
+                android:id="@+id/pager_title_strip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#33b5e5"
+                android:textColor="#fff"
+                android:layout_gravity="top" />
+        </androidx.viewpager.widget.ViewPager>
+
+        <TextView
+            android:id="@+id/no_topic_selected"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="17sp"
+            android:text="@string/select_topic_first" />
+    </LinearLayout>
+</layout>

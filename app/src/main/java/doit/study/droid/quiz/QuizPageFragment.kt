@@ -15,8 +15,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
+import doit.study.droid.databinding.FragmentQuizMainBinding
+import doit.study.droid.databinding.FragmentQuizPageBinding
 import doit.study.droid.utils.*
 import timber.log.Timber
+import java.lang.IllegalStateException
+import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -24,36 +28,33 @@ import kotlin.random.Random
 class QuizPageFragment: Fragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: QuizPageViewModel
-    private lateinit var viewModelMain: QuizMainViewModel
-    private val pagePosition: Int by lazy { arguments!!.getInt(ARG_POSITION_IN_QUIZ_KEY, 0) }
-    private lateinit var commitButton: FloatingActionButton
-    private lateinit var thumpUpButton: ImageButton
-    private lateinit var thumpDownButton: ImageButton
-    private var toast: Toast? = null
     @Inject
     lateinit var sound: Sound
-    private lateinit var question: TextView
-    private lateinit var answerContainer: LinearLayout
+    private lateinit var viewDataBinding: FragmentQuizPageBinding
+    private val viewModel: QuizPageViewModel by lazyAndroid {
+        ViewModelProviders
+                .of(requireParentFragment(), viewModelFactory)
+                .get(pagePosition.toString(), QuizPageViewModel::class.java)
+    }
+    private val viewModelMain: QuizMainViewModel by lazyAndroid {
+        ViewModelProviders
+                .of(parentFragment!!, viewModelFactory)
+                .get(QuizMainViewModel::class.java)
+    }
+    private val pagePosition: Int by lazyAndroid {
+        arguments!!.getInt(ARG_POSITION_IN_QUIZ_KEY, 0)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProviders
-                .of(requireParentFragment(), viewModelFactory)
-                .get(pagePosition.toString(), QuizPageViewModel::class.java)
-
+        viewModelMain
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        commitButton = view.findViewById(R.id.commit_button)
-        thumpUpButton = view.findViewById(R.id.thump_up_button)
-        thumpDownButton = view.findViewById(R.id.thump_down_button)
-        question = view.findViewById(R.id.question)
-        answerContainer = view.findViewById(R.id.answers)
     }
 
     override fun onDestroy() {
@@ -68,7 +69,8 @@ class QuizPageFragment: Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_quiz_page, container, false)
+        viewDataBinding = FragmentQuizPageBinding.inflate(inflater, container, false)
+        return viewDataBinding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -104,11 +106,11 @@ class QuizPageFragment: Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Timber.d("onActivityCreated, page: $pagePosition; ${this.hashCode()}")
-        viewModelMain = ViewModelProviders.of(parentFragment!!, viewModelFactory)[QuizMainViewModel::class.java]
 
         viewModelMain.items.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 // setting every config change?
+                Timber.d("pager pagePosition $pagePosition for items size ${it.size}")
                 viewModel.setItem(it[pagePosition])
                 setupQuestion()
                 setupAnswerVariants()
@@ -142,8 +144,8 @@ class QuizPageFragment: Fragment(){
         viewModel.item.observe(viewLifecycleOwner, Observer { quizView ->
             Timber.d("setupQuestion[$pagePosition]: $quizView")
             quizView?.let {
-                question.text = quizView.questionText
-                Timber.d("setupQuestion ${question.text} ${this.hashCode()} ${question.hashCode()}")
+                viewDataBinding.question.text = quizView.questionText
+                Timber.d("setupQuestion ${viewDataBinding.question.text} ${this.hashCode()} ${viewDataBinding.question.hashCode()}")
             }
         })
     }
@@ -167,14 +169,14 @@ class QuizPageFragment: Fragment(){
                                     )
                                 }
                             }
-                    answerContainer.addView(answerViewVariant)
+                    viewDataBinding.answers.addView(answerViewVariant)
                 }
             }
         })
 
         viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
-            for (i in 0 until answerContainer.childCount) {
-                answerContainer.getChildAt(i)?.apply {
+            for (i in 0 until viewDataBinding.answers.childCount) {
+                viewDataBinding.answers.getChildAt(i)?.apply {
                     isEnabled = false
                 }
             }
@@ -183,38 +185,38 @@ class QuizPageFragment: Fragment(){
 
     private fun inflateAnswerItemView(): View {
         val inflater  = LayoutInflater.from(context)
-        return inflater.inflate(R.layout.answer_item_variant, answerContainer, false)
+        return inflater.inflate(R.layout.answer_item_variant, viewDataBinding.answers, false)
     }
 
     private fun setupCommitButton() {
         viewModel.commitButtonState.observe(viewLifecycleOwner, Observer {
-            commitButton.setImageDrawable(resources.getDrawable(it))
+            viewDataBinding.commitButton.setImageDrawable(resources.getDrawable(it))
         })
-        commitButton.setOnClickListener {
+        viewDataBinding.commitButton.setOnClickListener {
             viewModel.checkAnswer()
         }
         viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
-            commitButton.isEnabled = false
+            viewDataBinding.commitButton.isEnabled = false
         })
     }
 
     private fun setupThumbUpButton() {
-        thumpUpButton.setOnClickListener {
+        viewDataBinding.thumpUpButton.setOnClickListener {
             viewModel.handleThumpUpButton(
                     AnalyticsData(
                             category = getString(R.string.report_because),
                             action = getString(R.string.like),
-                            label = question.text.toString()
+                            label = viewDataBinding.question.text.toString()
                     ))
         }
     }
 
     private fun setupThumbDownButton() {
-        thumpDownButton.setOnClickListener{
+        viewDataBinding.thumpDownButton.setOnClickListener{
             // TODO: code smells - decision should be in viewModel
             // hrr, ping pong with long flow based on onActivityResult
             if (!viewModel.isEvaluated()) {
-                val dislikeDialog = DislikeDialogFragment.newInstance(question.text.toString())
+                val dislikeDialog = FeedbackDialogFragment.newInstance(viewDataBinding.question.text.toString())
                 dislikeDialog.setTargetFragment(this, REPORT_DIALOG_REQUEST_CODE)
                 dislikeDialog.show(fragmentManager!!, REPORT_DIALOG_TAG)
             } else {
@@ -232,28 +234,17 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupToastFeedbackForAnswer() {
-        viewModel.showToastForAnswer.observe(viewLifecycleOwner, Observer {
-            // TODO: randomization logic leaked in a view
-            // what's about AndroidViewModel & config change? (point for testing)
-            it.getContentIfNotHandled()?.let { resourceId ->
-                val message = getRandomMessageFromResources(resourceId)
-                toast = when(resourceId) {
-                    R.array.feedback_right_answer -> {
-                        showToastSuccess(message)
-                    }
-                    R.array.feedback_wrong_answer -> {
-                        showToastFailure(message)
-                    }
-                    else -> throw IllegalArgumentException("Wrong resource id for ToastFeedbackForAnswer")
-                }
+        viewModel.showToastSuccess.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let {
+                showToastSuccess(it)
             }
         })
-    }
 
-    private fun getRandomMessageFromResources(resourceId: Int): String {
-        val variants = resources.getStringArray(resourceId)
-        val pos = Random.nextInt(variants.size)
-        return variants[pos]
+        viewModel.showToastFailure.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let {
+                showToastFailure(it)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -261,7 +252,7 @@ class QuizPageFragment: Fragment(){
             return
         if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
             data?.let {
-                val label = question.text.toString() + data.getStringExtra(DislikeDialogFragment.EXTRA_CAUSE)
+                val label = viewDataBinding.question.text.toString() + data.getStringExtra(FeedbackDialogFragment.EXTRA_CAUSE)
                 viewModel.handleThumpDownButton(
                         AnalyticsData(
                                 category = getString(R.string.report_because),
@@ -282,7 +273,7 @@ class QuizPageFragment: Fragment(){
 
     companion object {
         private const val REPORT_DIALOG_REQUEST_CODE = 0
-        private const val REPORT_DIALOG_TAG = "fragment_dialog_dislike"
+        private const val REPORT_DIALOG_TAG = "fragment_feedback_dialog"
         private const val ARG_POSITION_IN_QUIZ_KEY = "arg_position_in_quiz_key"
         fun newInstance(position: Int): QuizPageFragment {
             return QuizPageFragment().apply {
@@ -293,3 +284,5 @@ class QuizPageFragment: Fragment(){
         }
     }
 }
+
+const val QUIZ_QUESTION_ITEM_TYPE = "quiz_question_item_type"
