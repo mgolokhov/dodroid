@@ -136,3 +136,5 @@ class OneTestSummaryFragment : Fragment() {
     }
 
 }
+
+const val ONE_TEST_SUMMARY_TYPE = "one_test_summary_type"

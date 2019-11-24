@@ -109,6 +109,7 @@ class QuizPageFragment: Fragment(){
         viewModelMain.items.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 // setting every config change?
+                Timber.d("pager pagePosition $pagePosition for items size ${it.size}")
                 viewModel.setItem(it[pagePosition])
                 setupQuestion()
                 setupAnswerVariants()
@@ -293,3 +294,5 @@ class QuizPageFragment: Fragment(){
         }
     }
 }
+
+const val QUIZ_QUESTION_ITEM_TYPE = "quiz_question_item_type"

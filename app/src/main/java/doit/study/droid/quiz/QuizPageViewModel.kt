@@ -36,10 +36,6 @@ private val analyticsTracker: Tracker
     private val _showToastForEvaluation = MutableLiveData<Event<Int>>()
     val showToastForEvaluation: LiveData<Event<Int>> = _showToastForEvaluation
 
-    private val _swipeToTheNextPage = MutableLiveData<Event<Unit>>()
-
-
-
     init {
         Timber.d("init $this")
     }

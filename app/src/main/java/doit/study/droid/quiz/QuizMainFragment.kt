@@ -1,5 +1,6 @@
 package doit.study.droid.quiz
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,85 +10,80 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
-import doit.study.droid.R
 import doit.study.droid.app.BaseApp
+import doit.study.droid.databinding.FragmentQuizMainBinding
+import doit.study.droid.utils.lazyAndroid
 import timber.log.Timber
 import javax.inject.Inject
 
 class QuizMainFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: QuizMainViewModel
-
-    private var pager: ViewPager? = null
-    private var pagerAdapter: QuizPagerAdapter? = null
-    private var handler: Handler? = null
+    private val viewModel: QuizMainViewModel by lazyAndroid { ViewModelProviders.of(this, viewModelFactory)[QuizMainViewModel::class.java] }
+    private lateinit var viewDataBinding: FragmentQuizMainBinding
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[QuizMainViewModel::class.java]
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        handler = Handler()
-
-        viewModel.items.observe(viewLifecycleOwner, Observer {
-            Timber.d("$this result: $it")
-            if (it.isNotEmpty()) setupPagerAdapter(it)
-        })
-
-        viewModel.updateTitle.observe(viewLifecycleOwner, Observer { questionsLeft ->
-            Timber.d("updateQuestionsLeft ")
-            activity?.apply {
-                if (questionsLeft == 0)
-                    title = getString(R.string.test_completed)
-                else
-                    title = resources.getQuantityString(
-                            R.plurals.numberOfQuestionsInTest,
-                            questionsLeft,
-                            questionsLeft
-                    )
-            }
-        })
-
-        viewModel.addResultPageAndSwipeOnce.observe(viewLifecycleOwner, Observer {
-            pagerAdapter?.addResultPage()
-            it.getContentIfNotHandled()?.let {
-                handler?.postDelayed({
-                    pagerAdapter?.addResultPage()
-                    pager?.setCurrentItem(viewModel.items.value?.size ?: 0, true)
-                }, 2000)
-            }
-        })
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        handler?.removeCallbacksAndMessages(null)
-    }
-
-    private fun setupPagerAdapter(items: List<QuizView>) {
-        pagerAdapter = QuizPagerAdapter(childFragmentManager, items, activity!!)
-        pager?.adapter = pagerAdapter
-        pagerAdapter?.notifyDataSetChanged()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        pager = view.findViewById(R.id.view_pager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_quiz_main, container, false)
+        viewDataBinding = FragmentQuizMainBinding.inflate(inflater, container, false)
+        return viewDataBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewDataBinding.apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+
+        setupPagerAdapter()
+        setupActionBarTitle()
+        setupNavigationToResultPage()
+        viewDataBinding.pagerTitleStrip.tabIndicatorColor = Color.BLACK
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    private fun setupNavigationToResultPage() {
+        viewModel.swipeToResultPage.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.viewPager?.adapter?.notifyDataSetChanged()
+            it.getContentIfNotHandled()?.let {
+                handler.postDelayed({
+                    viewDataBinding.viewPager.setCurrentItem(it, true)
+                }, DELAY_NAV_TO_RESULT_PAGE_MS)
+            }
+        })
+    }
+
+    private fun setupActionBarTitle() {
+        viewModel.actionBarTitle.observe(viewLifecycleOwner, Observer {
+            activity?.title = it
+        })
+    }
+
+    private fun setupPagerAdapter() {
+        viewModel.items.observe(viewLifecycleOwner, Observer {
+            Timber.d("$this result: $it")
+            if (it.isNotEmpty()) {
+                viewDataBinding.viewPager.apply {
+                    adapter = QuizPagerAdapter(childFragmentManager, viewModel)
+                    adapter?.notifyDataSetChanged()
+                }
+            }
+        })
     }
 
     companion object {
         fun newInstance(): QuizMainFragment = QuizMainFragment()
+        private const val DELAY_NAV_TO_RESULT_PAGE_MS = 2_000L
     }
 
 }
