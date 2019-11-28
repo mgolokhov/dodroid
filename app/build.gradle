@@ -17,28 +17,18 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
-ext.versions = [
-        // Android
-        targetSdkVersion: 28,
-        minSdkVersion   : 21,
-        buildtools      : "29.0.2",
-        retrofit        : '2.6.2'
-]
-
-
 def versionMajor = 2
 def versionMinor = 0
 def versionBuild = 31
 def versionStatus = "alpha"
 
 android {
-    compileSdkVersion versions.targetSdkVersion
-    buildToolsVersion versions.buildtools
+    compileSdkVersion rootProject.compileSdkVer
+    buildToolsVersion rootProject.buildtoolsVer
     defaultConfig {
         applicationId "doit.study.droid"
-        minSdkVersion versions.minSdkVersion
-        targetSdkVersion versions.targetSdkVersion
+        minSdkVersion rootProject.minSdkVer
+        targetSdkVersion rootProject.targetSdkVer
         versionCode versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionBuild}.${versionStatus}"
     }
@@ -70,72 +60,60 @@ android {
 }
 
 dependencies {
-    // Unit tests
-    // Required -- JUnit 4 framework
-    testImplementation 'junit:junit:4.12'
-    // performing assertions in tests
-    testImplementation "com.google.truth:truth:1.0"
-    // Optional -- Robolectric environment
-    testImplementation 'androidx.test:core:1.2.0'
-    // Optional -- Mockito framework
-    testImplementation 'org.mockito:mockito-core:2.23.0'
+    // Libraries for Testing
+    testImplementation "junit:junit:$junitVer"
+    // performing assertions
+    testImplementation "com.google.truth:truth:$truthVer"
+    testImplementation "androidx.test:core:$testCoreVer"
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVer"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // UI
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.preference:preference:1.1.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+    implementation "androidx.appcompat:appcompat:$appCompatVer"
+    implementation "androidx.preference:preference:$preferenceVer"
+    implementation "androidx.cardview:cardview:$cardViewVer"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVer"
+    implementation "com.google.android.material:material:$materialVer"
+    implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupportVer"
     // Network: Retrofit & OkHttp
-    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVer"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVer"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3LoggingInterceptorVer"
     // Analytics
-    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+    implementation "com.google.android.gms:play-services-analytics:$playServicesAnalyticsVer"
+    implementation "com.jakewharton.timber:timber:$timberVer"
+    implementation "com.google.code.gson:gson:$gsonVer"
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVer@aar") {
         transitive = true
     }
-    def coroutines_ver = '1.3.2'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_ver"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_ver"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVer"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVer"
 
-    def room_version = "2.2.0"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
-    // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-runtime:$roomVer"
+    kapt "androidx.room:room-compiler:$roomVer"
+    // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$roomVer"
+    // RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$roomVer"
     // Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
+    testImplementation "androidx.room:room-testing:$roomVer"
 
-    def dagger_version = "2.23.2"
-    api "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    api "com.google.dagger:dagger:$daggerVer"
+    kapt "com.google.dagger:dagger-compiler:$daggerVer"
 
-//    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation "android.arch.lifecycle:extensions:$archLifecycleExtVer"
 
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    debugImplementation "com.amitshekhar.android:debug-db:$webDebugDbVer"
 
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVer"
 
-    implementation 'androidx.navigation:navigation-fragment:2.1.0'
-    implementation 'androidx.navigation:navigation-ui:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+    implementation "androidx.navigation:navigation-fragment:$navigationVer"
+    implementation "androidx.navigation:navigation-ui:$navigationVer"
+    implementation "androidx.lifecycle:lifecycle-extensions:$navigationVer"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVer"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
 
-    def lifecycle_version = "2.1.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleCommonJava8Ver"
 
-    def nav_version = "2.1.0"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }
 
