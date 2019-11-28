@@ -3,25 +3,16 @@ package doit.study.droid.quiz
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.animation.TypeEvaluator
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.widget.TextView
-
 import androidx.fragment.app.Fragment
-
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import doit.study.droid.R
 import doit.study.droid.databinding.FragmentResultTestBinding
 import doit.study.droid.utils.lazyAndroid
-import doit.study.droid.views.DeathStarLoader
-import kotlin.math.roundToInt
 
 
 class OneTestSummaryFragment : Fragment() {
