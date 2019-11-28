@@ -37,8 +37,4 @@ class SplashActivity : AppCompatActivity() {
             finish()
         })
     }
-
-
-
-
 }

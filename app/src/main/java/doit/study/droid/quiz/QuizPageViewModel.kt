@@ -8,7 +8,6 @@ import com.google.android.gms.analytics.HitBuilders
 import com.google.android.gms.analytics.Tracker
 import doit.study.droid.BuildConfig
 import doit.study.droid.R
-import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.utils.AnalyticsData
 import doit.study.droid.utils.Event
 import timber.log.Timber
@@ -20,8 +19,8 @@ class QuizPageViewModel @Inject constructor(
         private val application: Application,
         private val analyticsTracker: Tracker
 ) : ViewModel() {
-    private val _item = MutableLiveData<QuizView>()
-    val item: LiveData<QuizView> = _item
+    private val _item = MutableLiveData<QuizItem>()
+    val item: LiveData<QuizItem> = _item
 
     private val _showToastSuccess = MutableLiveData<Event<String>>()
     val showToastSuccess: LiveData<Event<String>> = _showToastSuccess
@@ -46,9 +45,9 @@ class QuizPageViewModel @Inject constructor(
     }
 
     // from master viewmodel
-    fun setItem(quizView: QuizView){
-        Timber.d("check ref: ${quizView.hashCode()}; id ${quizView.questionId}")
-        _item.value = quizView
+    fun setItem(quizItem: QuizItem){
+        Timber.d("check ref: ${quizItem.hashCode()}; id ${quizItem.questionId}")
+        _item.value = quizItem
     }
 
 

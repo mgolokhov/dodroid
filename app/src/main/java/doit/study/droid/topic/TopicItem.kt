@@ -1,6 +1,6 @@
 package doit.study.droid.topic
 
-data class TopicView (
+data class TopicItem (
         val id: Int,
         val name: String,
         val counterTotal: Int,

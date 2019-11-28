@@ -20,8 +20,8 @@ class QuizMainViewModel @Inject constructor(
         private val quizDatabase: QuizDatabase,
         private val app: Application
 ): AndroidViewModel(app) {
-    private val _items = MutableLiveData<List<QuizView>>()
-    val items: LiveData<List<QuizView>> = _items
+    private val _items = MutableLiveData<List<QuizItem>>()
+    val items: LiveData<List<QuizItem>> = _items
 
     private val _actionBarTitle = MutableLiveData<String>()
     val actionBarTitle: LiveData<String> = _actionBarTitle
@@ -40,12 +40,12 @@ class QuizMainViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val tags = quizDatabase.tagDao().getTagBySelection(isSelected = true)
-                val allSelectedItems = HashSet<QuizView>()
+                val allSelectedItems = HashSet<QuizItem>()
                 tags.forEach{
                     val questions = quizDatabase.questionDao().getQuestionsByTag(it.name)
                     allSelectedItems.addAll(
                             questions.map { question ->
-                                QuizView(
+                                QuizItem(
                                         questionId = question.id,
                                         questionText = question.text,
                                         title = it.name,
@@ -95,8 +95,8 @@ class QuizMainViewModel @Inject constructor(
                 val wasAnsweredRight = it.rightVariants.toSet() == it.selectedVariants
                 quizDatabase.questionDao().updateStatistics(
                         id = it.questionId,
-                        rightCnt = if (wasAnsweredRight) 1 else 0,
-                        wrongCnt = if (wasAnsweredRight) 0 else 1,
+                        rightCount = if (wasAnsweredRight) 1 else 0,
+                        wrongCount = if (wasAnsweredRight) 0 else 1,
                         studiedAt = if (wasAnsweredRight) Date().time else 0
                 )
             }

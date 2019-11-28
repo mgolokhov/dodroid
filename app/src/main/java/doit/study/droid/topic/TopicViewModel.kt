@@ -12,11 +12,11 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
-class TopicModelView @Inject constructor(
+class TopicViewModel @Inject constructor(
         private val quizDatabase: QuizDatabase
 ) : ViewModel() {
-    private val _items = MutableLiveData<List<TopicView>>().apply { value = emptyList() }
-    val items: LiveData<List<TopicView>> = _items
+    private val _items = MutableLiveData<List<TopicItem>>().apply { value = emptyList() }
+    val items: LiveData<List<TopicItem>> = _items
 
     init {
         loadTopics()
@@ -27,11 +27,11 @@ class TopicModelView @Inject constructor(
             withContext(Dispatchers.IO) {
                 quizDatabase.questionDao().getQuestions()
                 val tags = quizDatabase.tagDao().getTags()
-                val topics = ArrayList<TopicView>()
+                val topics = ArrayList<TopicItem>()
                 tags.filter { it.name.contains(query, ignoreCase = true) }.forEach{tag ->
                     val questions = quizDatabase.questionDao().getQuestionsByTag(tag.name)
                     questions.filter { it.studiedAt != 0L }.size
-                    topics.add(TopicView(
+                    topics.add(TopicItem(
                             id = tag.id,
                             name = tag.name,
                             counterTotal = questions.size,
@@ -48,10 +48,10 @@ class TopicModelView @Inject constructor(
         }
     }
 
-    private fun saveSelectedTags(vararg topics: TopicView, isSelected: Boolean) {
+    private fun saveSelectedTags(vararg topicItems: TopicItem, isSelected: Boolean) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val tags = topics.map {
+                val tags = topicItems.map {
                     Tag(
                             id = it.id,
                             name = it.name,
@@ -67,8 +67,8 @@ class TopicModelView @Inject constructor(
     }
 
 
-    fun selectTopic(topic: TopicView, isSelected: Boolean) {
-        saveSelectedTags(topic, isSelected = isSelected)
+    fun selectTopic(topicItem: TopicItem, isSelected: Boolean) {
+        saveSelectedTags(topicItem, isSelected = isSelected)
     }
 
     fun selectAllTopics() = allTopics(select = true)
