@@ -14,24 +14,23 @@ import javax.inject.Inject
 class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var viewModel: SplashViewModel
+    private lateinit var viewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[SplashViewModel::class.java]
-        viewModel.syncWithServer()
         setupNavigation()
-
+        viewModel.syncWithServer()
     }
 
     private fun setupNavigation() {
-        viewModel.showErrorAndExit.observe(this, EventObserver {
+        viewModel.showErrorAndExitEvent.observe(this, EventObserver {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
             finish()
         })
-        viewModel.navigateToTopics.observe(this, EventObserver {
+        viewModel.navigateToTopicsEvent.observe(this, EventObserver {
             val intent = Intent(this, MainDrawerActivity::class.java)
             startActivity(intent)
             finish()
