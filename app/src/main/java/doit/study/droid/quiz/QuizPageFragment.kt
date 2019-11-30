@@ -12,17 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
-import doit.study.droid.databinding.FragmentQuizMainBinding
 import doit.study.droid.databinding.FragmentQuizPageBinding
 import doit.study.droid.utils.*
 import timber.log.Timber
-import java.lang.IllegalStateException
-import java.util.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 
 class QuizPageFragment: Fragment(){
@@ -133,7 +128,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupToastFeedbackForEvaluation() {
-        viewModel.showToastForEvaluation.observe(viewLifecycleOwner, Observer { event ->
+        viewModel.showToastForEvaluationEvent.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 showFeedbackToast(it)
             }
@@ -226,7 +221,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupSoundFeedbackForAnswer() {
-        viewModel.playSound.observe(viewLifecycleOwner, Observer {
+        viewModel.playSoundEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { soundType ->
                 sound?.play(soundType, lifecycle)
             }
@@ -234,13 +229,13 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupToastFeedbackForAnswer() {
-        viewModel.showToastSuccess.observe(viewLifecycleOwner, Observer {
+        viewModel.showToastSuccessEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 showToastSuccess(it)
             }
         })
 
-        viewModel.showToastFailure.observe(viewLifecycleOwner, Observer {
+        viewModel.showToastFailureEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 showToastFailure(it)
             }

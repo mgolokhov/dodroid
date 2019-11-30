@@ -19,7 +19,9 @@ import javax.inject.Inject
 class QuizMainFragment: Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel: QuizMainViewModel by lazyAndroid { ViewModelProviders.of(this, viewModelFactory)[QuizMainViewModel::class.java] }
+    private val viewModel: QuizMainViewModel by lazyAndroid {
+        ViewModelProviders.of(this, viewModelFactory)[QuizMainViewModel::class.java]
+    }
     private lateinit var viewDataBinding: FragmentQuizMainBinding
     private val handler = Handler()
 
