@@ -25,15 +25,13 @@ class NetworkModule {
     private fun createLogInterceptor(): HttpLoggingInterceptor {
         val logging = HttpLoggingInterceptor()
         val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-        return logging.setLevel(level)
+        return logging.apply { logging.level = level }
     }
 
     @Provides
     @Singleton
     internal fun provideOkHttpClient(): OkHttpClient {
         val client = OkHttpClient.Builder()
-        //client.addInterceptor(new ApiKeyInterceptor());
-//        client.addNetworkInterceptor(StethoInterceptor());
         client.addInterceptor(createLogInterceptor());
         return client.build()
     }
