@@ -43,6 +43,7 @@ class QuizMainFragment: Fragment() {
 
         setupPagerAdapter()
         setupActionBarTitle()
+        setupResultPage()
         setupNavigationToResultPage()
         viewDataBinding.pagerTitleStrip.tabIndicatorColor = Color.BLACK
     }
@@ -53,12 +54,20 @@ class QuizMainFragment: Fragment() {
     }
 
     private fun setupNavigationToResultPage() {
-        viewModel.swipeToResultPage.observe(viewLifecycleOwner, Observer {
-            viewDataBinding.viewPager?.adapter?.notifyDataSetChanged()
+        viewModel.swipeToResultPageEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 handler.postDelayed({
                     viewDataBinding.viewPager.setCurrentItem(it, true)
                 }, DELAY_NAV_TO_RESULT_PAGE_MS)
+            }
+        })
+    }
+
+    private fun setupResultPage() {
+        viewModel.addResultPageEvent.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.viewPager?.adapter?.notifyDataSetChanged()
+            it.getContentIfNotHandled()?.let {
+                viewDataBinding.viewPager?.adapter?.notifyDataSetChanged()
             }
         })
     }

@@ -128,7 +128,7 @@ class QuizPageFragment: Fragment(){
     private fun setupTitle() {
         viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
             Timber.d("try to update title")
-            viewModelMain.updateQuestionsLeft()
+            viewModelMain.refreshUi()
         })
     }
 

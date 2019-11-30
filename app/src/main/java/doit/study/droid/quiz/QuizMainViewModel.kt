@@ -10,7 +10,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.lang.IllegalStateException
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.HashSet
@@ -18,18 +17,24 @@ import kotlin.collections.HashSet
 
 class QuizMainViewModel @Inject constructor(
         private val quizDatabase: QuizDatabase,
-        private val app: Application
-): AndroidViewModel(app) {
+        private val appContext: Application
+): ViewModel() {
     private val _items = MutableLiveData<List<QuizItem>>()
     val items: LiveData<List<QuizItem>> = _items
 
     private val _actionBarTitle = MutableLiveData<String>()
     val actionBarTitle: LiveData<String> = _actionBarTitle
 
-    private val _swipeToResultPage = MutableLiveData<Event<Int>>()
-    val swipeToResultPage: LiveData<Event<Int>> = _swipeToResultPage
+    private val _swipeToResultPageEvent = MutableLiveData<Event<Int>>()
+    val swipeToResultPageEvent: LiveData<Event<Int>> = _swipeToResultPageEvent
 
-    var showResultPage: Boolean = false
+    private val _addResultPageEvent = MutableLiveData<Event<Unit>>()
+    val addResultPageEvent: LiveData<Event<Unit>> = _addResultPageEvent
+
+    private val questionsLeft: Int?
+        get() = _items.value?.filter { !it.answered }?.size
+
+
 
     init {
         Timber.d("init viewmodel $this")
@@ -37,8 +42,7 @@ class QuizMainViewModel @Inject constructor(
     }
 
     private fun loadQuizItems() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
                 val tags = quizDatabase.tagDao().getTagBySelection(isSelected = true)
                 val allSelectedItems = HashSet<QuizItem>()
                 tags.forEach{
@@ -54,40 +58,56 @@ class QuizMainViewModel @Inject constructor(
                                         docLink = question.docLink
                                 )
                             })
-                }
                 Timber.d("loadQuizItems ${allSelectedItems.size}")
                 _items.postValue(allSelectedItems.shuffled().take(MAX_ITEMS_IN_ONE_QUIZ))
                 withContext(Dispatchers.Main) {
-                    updateQuestionsLeft()
+                    refreshUi()
                 }
             }
         }
     }
 
-    fun updateQuestionsLeft() {
-        val questionsLeft = _items.value?.filter { !it.answered }?.size ?: 0
-        Timber.d("updateQuestionsLeft questionsLeft $questionsLeft")
-
-        _actionBarTitle.value = if (questionsLeft == 0)
-            app.getString(R.string.test_completed)
-        else
-            app.resources.getQuantityString(
-                    R.plurals.numberOfQuestionsInTest,
-                    questionsLeft,
-                    questionsLeft
-            )
-
-        if (questionsLeft == 0 && _swipeToResultPage.value == null) {
-            showResultPage = true
-            _swipeToResultPage.value = Event(
-                    items.value?.size
-                            ?: throw IllegalStateException("Expects some items in quiz")
-            )
-            storeQuizResults()
+    fun refreshUi() {
+        updateQuizProgress()
+        if (isQuizCompleted() && !isPageResultAdded()) {
+            addResultPage()
+            swipeToResultPage()
+            saveResult()
         }
     }
 
-    private fun storeQuizResults() {
+    private fun isPageResultAdded(): Boolean {
+        return _addResultPageEvent.value != null
+    }
+
+    private fun isQuizCompleted(): Boolean {
+        return questionsLeft == 0
+    }
+
+    private fun addResultPage() {
+        _addResultPageEvent.value = Event(Unit)
+    }
+
+    private fun swipeToResultPage() {
+        _swipeToResultPageEvent.value = Event(getCountForPager())
+    }
+
+    private fun updateQuizProgress() {
+        questionsLeft?.let { quantity ->
+            _actionBarTitle.value = (
+                    if (quantity == 0)
+                        appContext.getString(R.string.test_completed)
+                    else
+                        appContext.resources.getQuantityString(
+                                R.plurals.numberOfQuestionsInTest,
+                                quantity,
+                                quantity
+                        )
+                    )
+        }
+    }
+
+    private fun saveResult() {
         GlobalScope.launch(Dispatchers.IO) {
             // TODO: dirty stub, replace with real logic
             // yeah, batching
@@ -104,8 +124,8 @@ class QuizMainViewModel @Inject constructor(
     }
 
     fun getTabTitle(position: Int): String {
-        return if (showResultPage && position == items.value?.size)
-            app.resources.getString(R.string.test_result_title)
+        return if (isPageResultAdded() && position == items.value?.size)
+            appContext.resources.getString(R.string.test_result_title)
         else {
             items.value?.let {
                 "${it[position].title} ${position + 1}/${it.size}"
@@ -116,7 +136,7 @@ class QuizMainViewModel @Inject constructor(
 
     fun getCountForPager(): Int {
         return items.value?.let {
-            if (showResultPage)
+            if (isPageResultAdded())
                 it.size + 1
             else
                 it.size

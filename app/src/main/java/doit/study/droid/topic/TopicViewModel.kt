@@ -23,52 +23,50 @@ class TopicViewModel @Inject constructor(
     }
 
     fun loadTopics(query: String = "") {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                quizDatabase.questionDao().getQuestions()
-                val tags = quizDatabase.tagDao().getTags()
-                val topics = ArrayList<TopicItem>()
-                tags.filter { it.name.contains(query, ignoreCase = true) }.forEach{tag ->
-                    val questions = quizDatabase.questionDao().getQuestionsByTag(tag.name)
-                    questions.filter { it.studiedAt != 0L }.size
-                    topics.add(TopicItem(
-                            id = tag.id,
-                            name = tag.name,
-                            counterTotal = questions.size,
-                            counterStudied = questions.filter { it.studiedAt != 0L }.size,
-                            selected = tag.selected
-                            )
-                    )
-
-                }
-                _items.postValue(topics)
-                Timber.d("post values ${topics.size}")
+        viewModelScope.launch((Dispatchers.IO)) {
+            quizDatabase.questionDao().getQuestions()
+            val tags = quizDatabase.tagDao().getTags()
+            val topics = ArrayList<TopicItem>()
+            tags.filter { it.name.contains(query, ignoreCase = true) }.forEach { tag ->
+                val questions = quizDatabase.questionDao().getQuestionsByTag(tag.name)
+                questions.filter { it.studiedAt != 0L }.size
+                topics.add(
+                        TopicItem(
+                                id = tag.id,
+                                name = tag.name,
+                                counterTotal = questions.size,
+                                counterStudied = questions.filter { it.studiedAt != 0L }.size,
+                                selected = tag.selected
+                        )
+                )
             }
-
+            _items.postValue(topics)
+            Timber.d("post values ${topics.size}")
         }
     }
 
-    private fun saveSelectedTags(vararg topicItems: TopicItem, isSelected: Boolean) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val tags = topicItems.map {
-                    Tag(
-                            id = it.id,
-                            name = it.name,
-                            selected = isSelected
-                    )
-                }
-                val res = quizDatabase.tagDao().insertOrReplaceTag(*tags.toTypedArray())
-                Timber.d("insertOrReplaceTag $res")
-            }
+    private suspend fun saveSelectedTags(
+            vararg topicItems: TopicItem,
+            isSelected: Boolean
+    ) = withContext(Dispatchers.IO) {
+        val tags = topicItems.map {
+            Tag(
+                    id = it.id,
+                    name = it.name,
+                    selected = isSelected
+            )
         }
+        val res = quizDatabase.tagDao().insertOrReplaceTag(*tags.toTypedArray())
+        Timber.d("insertOrReplaceTag $res")
         // TODO: optimize
         loadTopics()
     }
 
 
     fun selectTopic(topicItem: TopicItem, isSelected: Boolean) {
-        saveSelectedTags(topicItem, isSelected = isSelected)
+        viewModelScope.launch {
+            saveSelectedTags(topicItem, isSelected = isSelected)
+        }
     }
 
     fun selectAllTopics() = allTopics(select = true)
@@ -82,7 +80,9 @@ class TopicViewModel @Inject constructor(
                         selected = select
                 )
             }
-            saveSelectedTags(*topics.toTypedArray(), isSelected = select)
+            viewModelScope.launch {
+                saveSelectedTags(*topics.toTypedArray(), isSelected = select)
+            }
             _items.value = topics
         }
 
