@@ -128,7 +128,16 @@ class QuizMainViewModel @Inject constructor(
             appContext.resources.getString(R.string.test_result_title)
         else {
             items.value?.let {
-                "${it[position].title} ${position + 1}/${it.size}"
+                val template = appContext.resources.getString(R.string.test_progress_title)
+                val title = it[position].title
+                val currentPosition = position + 1
+                val total = it.size
+                String.format(
+                        template,
+                        title,
+                        currentPosition,
+                        total
+                )
             } ?: ""
         }
 
