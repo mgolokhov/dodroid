@@ -3,7 +3,7 @@ package doit.study.droid.quiz
 import doit.study.droid.R
 
 
-data class QuizView (
+data class QuizItem (
         val questionId: Int,
         val questionText: String,
         val title: String,

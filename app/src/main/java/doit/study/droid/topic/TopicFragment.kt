@@ -16,14 +16,14 @@ import javax.inject.Inject
 class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: TopicModelView
+    private lateinit var viewModel: TopicViewModel
     private lateinit var viewDataBinding: FragmentTopicBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopicModelView::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopicViewModel::class.java]
         setHasOptionsMenu(true)
     }
 
@@ -42,7 +42,7 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
             topicsList.adapter = TopicAdapter(viewModel)
         }
 
-        viewDataBinding.commitButton.setOnClickListener {
+        viewDataBinding.commitFabButton.setOnClickListener {
             navigateToQuiz()
         }
     }

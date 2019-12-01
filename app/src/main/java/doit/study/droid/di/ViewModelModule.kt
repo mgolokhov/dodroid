@@ -9,8 +9,7 @@ import doit.study.droid.common.ViewModelFactory
 import doit.study.droid.quiz.QuizMainViewModel
 import doit.study.droid.quiz.QuizPageViewModel
 import doit.study.droid.splash.SplashViewModel
-import doit.study.droid.topic.TopicModelView
-import javax.inject.Singleton
+import doit.study.droid.topic.TopicViewModel
 
 
 @Module
@@ -25,8 +24,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(TopicModelView::class)
-    abstract fun bindTopicModelView(topicModelView: TopicModelView): ViewModel
+    @ViewModelKey(TopicViewModel::class)
+    abstract fun bindTopicModelView(topicViewModel: TopicViewModel): ViewModel
 
     @Binds
     @IntoMap

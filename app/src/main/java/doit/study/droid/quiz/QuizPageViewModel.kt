@@ -8,7 +8,6 @@ import com.google.android.gms.analytics.HitBuilders
 import com.google.android.gms.analytics.Tracker
 import doit.study.droid.BuildConfig
 import doit.study.droid.R
-import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.utils.AnalyticsData
 import doit.study.droid.utils.Event
 import timber.log.Timber
@@ -20,17 +19,17 @@ class QuizPageViewModel @Inject constructor(
         private val application: Application,
         private val analyticsTracker: Tracker
 ) : ViewModel() {
-    private val _item = MutableLiveData<QuizView>()
-    val item: LiveData<QuizView> = _item
+    private val _item = MutableLiveData<QuizItem>()
+    val item: LiveData<QuizItem> = _item
 
-    private val _showToastSuccess = MutableLiveData<Event<String>>()
-    val showToastSuccess: LiveData<Event<String>> = _showToastSuccess
+    private val _showToastSuccessEvent = MutableLiveData<Event<String>>()
+    val showToastSuccessEvent: LiveData<Event<String>> = _showToastSuccessEvent
 
-    private val _showToastFailure = MutableLiveData<Event<String>>()
-    val showToastFailure: LiveData<Event<String>> = _showToastFailure
+    private val _showToastFailureEvent = MutableLiveData<Event<String>>()
+    val showToastFailureEvent: LiveData<Event<String>> = _showToastFailureEvent
 
-    private val _playSound = MutableLiveData<Event<Boolean>>()
-    val playSound: LiveData<Event<Boolean>> = _playSound
+    private val _playSoundEvent = MutableLiveData<Event<Boolean>>()
+    val playSoundEvent: LiveData<Event<Boolean>> = _playSoundEvent
 
     private val _commitButtonState = MutableLiveData<Int>()
     val commitButtonState: LiveData<Int> = _commitButtonState
@@ -38,17 +37,17 @@ class QuizPageViewModel @Inject constructor(
     private val _lockInteraction = MutableLiveData<Unit>()
     val lockInteraction: LiveData<Unit> = _lockInteraction
 
-    private val _showToastForEvaluation = MutableLiveData<Event<Int>>()
-    val showToastForEvaluation: LiveData<Event<Int>> = _showToastForEvaluation
+    private val _showToastForEvaluationEvent = MutableLiveData<Event<Int>>()
+    val showToastForEvaluationEvent: LiveData<Event<Int>> = _showToastForEvaluationEvent
 
     init {
         Timber.d("init $this")
     }
 
     // from master viewmodel
-    fun setItem(quizView: QuizView){
-        Timber.d("check ref: ${quizView.hashCode()}; id ${quizView.questionId}")
-        _item.value = quizView
+    fun setItem(quizItem: QuizItem){
+        Timber.d("check ref: ${quizItem.hashCode()}; id ${quizItem.questionId}")
+        _item.value = quizItem
     }
 
 
@@ -63,23 +62,23 @@ class QuizPageViewModel @Inject constructor(
         _item.value?.let {
             val isRightAnswer = (it.selectedVariants == it.rightVariants.toSet())
             if (isRightAnswer) {
-                _showToastSuccess.value = Event(
+                _showToastSuccessEvent.value = Event(
                         getRandomMessageFromResources(
                                 R.array.feedback_right_answer
                         )
                 )
                 it.commitButtonState = R.drawable.ic_sentiment_satisfied_black_24dp
                 _commitButtonState.value = it.commitButtonState
-                _playSound.value = Event(true)
+                _playSoundEvent.value = Event(true)
             } else {
-                _showToastFailure.value = Event(
+                _showToastFailureEvent.value = Event(
                         getRandomMessageFromResources(
                                 R.array.feedback_wrong_answer
                         )
                 )
                 it.commitButtonState = R.drawable.ic_sentiment_dissatisfied_black_24dp
                 _commitButtonState.value = it.commitButtonState
-                _playSound.value = Event(false)
+                _playSoundEvent.value = Event(false)
             }
             it.answered = true
             _lockInteraction.value = Unit
@@ -97,11 +96,11 @@ class QuizPageViewModel @Inject constructor(
     fun handleThumpUpButton(analyticsData: AnalyticsData) {
         _item.value?.let {
             if (!it.questionIsEvaluated) {
-                _showToastForEvaluation.value = Event(R.string.thank_upvote)
+                _showToastForEvaluationEvent.value = Event(R.string.thank_upvote)
                 sendAnalyticsEvent(analyticsData)
                 it.questionIsEvaluated = true
             } else {
-                _showToastForEvaluation.value = Event(R.string.already_voted)
+                _showToastForEvaluationEvent.value = Event(R.string.already_voted)
             }
         }
     }
@@ -109,11 +108,11 @@ class QuizPageViewModel @Inject constructor(
     fun handleThumpDownButton(analyticsData: AnalyticsData) {
         _item.value?.let {
             if (!it.questionIsEvaluated) {
-                _showToastForEvaluation.value = Event(R.string.report_was_sent)
+                _showToastForEvaluationEvent.value = Event(R.string.report_was_sent)
                 sendAnalyticsEvent(analyticsData)
                 it.questionIsEvaluated = true
             } else {
-                _showToastForEvaluation.value = Event(R.string.already_voted)
+                _showToastForEvaluationEvent.value = Event(R.string.already_voted)
             }
         }
     }

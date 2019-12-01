@@ -1,8 +1,11 @@
 package doit.study.droid.splash
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import doit.study.droid.R
 import doit.study.droid.data.local.QuizContentVersion
 import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.data.local.entity.Question
@@ -17,6 +20,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
+        private val appContext: Application,
         private val quizContentVersion: QuizContentVersion,
         private val quizDataClient: QuizDataClient,
         private val quizDatabase: QuizDatabase
@@ -25,36 +29,34 @@ class SplashViewModel @Inject constructor(
     private val cachedTags = mutableMapOf<String, Int>()
     private lateinit var config: Configuration
 
-    private val _navigateToTopics = MutableLiveData<Event<Unit>>()
-    val navigateToTopics: LiveData<Event<Unit>> = _navigateToTopics
+    private val _navigateToTopicsEvent = MutableLiveData<Event<Unit>>()
+    val navigateToTopicsEvent: LiveData<Event<Unit>> = _navigateToTopicsEvent
 
-    private val _showErrorAndExit = MutableLiveData<Event<String>>()
-    val showErrorAndExit: LiveData<Event<String>> = _showErrorAndExit
+    private val _showErrorAndExitEvent = MutableLiveData<Event<String>>()
+    val showErrorAndExitEvent: LiveData<Event<String>> = _showErrorAndExitEvent
 
 
     fun syncWithServer() {
-        GlobalScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             try {
-                withContext(Dispatchers.IO) {
-                    if (isThereNewContent()) {
-                        updateData(quizDataClient.quizData())
-                    }
+                if (isThereNewContent()) {
+                    updateData(quizDataClient.quizData())
                 }
             } catch (e: Exception) {
-                _showErrorAndExit.value = Event("Error to sync, try again later")
+                _showErrorAndExitEvent.value = Event(appContext.getString(R.string.error_to_sync_try_again_later))
                 Timber.e(e)
             } finally {
-                _navigateToTopics.value = Event(Unit)
+                _navigateToTopicsEvent.value = Event(Unit)
             }
         }
     }
 
-    private suspend fun isThereNewContent(): Boolean {
+    private suspend fun isThereNewContent(): Boolean = withContext(Dispatchers.IO) {
         config = quizDataClient.configuration()
-        return config.contentVersion > quizContentVersion.getVersion()
+        return@withContext config.contentVersion > quizContentVersion.getVersion()
     }
 
-    private suspend fun updateData(quizData: List<QuizData>) {
+    private suspend fun updateData(quizData: List<QuizData>) = withContext(Dispatchers.IO) {
         quizDatabase.runInTransaction {
             quizData.forEach{ item ->
                 // TODO: what's a proper handling of

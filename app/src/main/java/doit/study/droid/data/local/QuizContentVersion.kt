@@ -8,17 +8,17 @@ import javax.inject.Singleton
 @Singleton
 class QuizContentVersion @Inject constructor(val context: Application) {
     private val pref = context.getSharedPreferences(
-            QUIZ_CONTENT_VERSION,
+            PREF_NAME,
             AppCompatActivity.MODE_PRIVATE
     )
 
-    fun getVersion(): Int = pref.getInt(QUIZ_CONTENT_VERSION_KEY, 0)
+    fun getVersion(): Int = pref.getInt(VERSION_KEY, 0)
 
-    fun saveVersion(version: Int) = pref.edit().putInt(QUIZ_CONTENT_VERSION_KEY, version).apply()
+    fun saveVersion(version: Int) = pref.edit().putInt(VERSION_KEY, version).apply()
 
     companion object {
-        const val QUIZ_CONTENT_VERSION = "quiz.content.version"
-        const val QUIZ_CONTENT_VERSION_KEY = "quiz.content.version.key"
+        private const val PREF_NAME = "quiz.content.version"
+        private const val VERSION_KEY = "quiz.content.version.key"
     }
 
 }

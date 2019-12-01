@@ -12,17 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
-import doit.study.droid.databinding.FragmentQuizMainBinding
 import doit.study.droid.databinding.FragmentQuizPageBinding
 import doit.study.droid.utils.*
 import timber.log.Timber
-import java.lang.IllegalStateException
-import java.util.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 
 class QuizPageFragment: Fragment(){
@@ -128,12 +123,12 @@ class QuizPageFragment: Fragment(){
     private fun setupTitle() {
         viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
             Timber.d("try to update title")
-            viewModelMain.updateQuestionsLeft()
+            viewModelMain.refreshUi()
         })
     }
 
     private fun setupToastFeedbackForEvaluation() {
-        viewModel.showToastForEvaluation.observe(viewLifecycleOwner, Observer { event ->
+        viewModel.showToastForEvaluationEvent.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 showFeedbackToast(it)
             }
@@ -144,8 +139,8 @@ class QuizPageFragment: Fragment(){
         viewModel.item.observe(viewLifecycleOwner, Observer { quizView ->
             Timber.d("setupQuestion[$pagePosition]: $quizView")
             quizView?.let {
-                viewDataBinding.question.text = quizView.questionText
-                Timber.d("setupQuestion ${viewDataBinding.question.text} ${this.hashCode()} ${viewDataBinding.question.hashCode()}")
+                viewDataBinding.questionTextView.text = quizView.questionText
+                Timber.d("setupQuestion ${viewDataBinding.questionTextView.text} ${this.hashCode()} ${viewDataBinding.questionTextView.hashCode()}")
             }
         })
     }
@@ -169,14 +164,14 @@ class QuizPageFragment: Fragment(){
                                     )
                                 }
                             }
-                    viewDataBinding.answers.addView(answerViewVariant)
+                    viewDataBinding.containerAnswerVariantsLinearLayout.addView(answerViewVariant)
                 }
             }
         })
 
         viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
-            for (i in 0 until viewDataBinding.answers.childCount) {
-                viewDataBinding.answers.getChildAt(i)?.apply {
+            for (i in 0 until viewDataBinding.containerAnswerVariantsLinearLayout.childCount) {
+                viewDataBinding.containerAnswerVariantsLinearLayout.getChildAt(i)?.apply {
                     isEnabled = false
                 }
             }
@@ -185,38 +180,38 @@ class QuizPageFragment: Fragment(){
 
     private fun inflateAnswerItemView(): View {
         val inflater  = LayoutInflater.from(context)
-        return inflater.inflate(R.layout.answer_item_variant, viewDataBinding.answers, false)
+        return inflater.inflate(R.layout.answer_item_variant, viewDataBinding.containerAnswerVariantsLinearLayout, false)
     }
 
     private fun setupCommitButton() {
         viewModel.commitButtonState.observe(viewLifecycleOwner, Observer {
-            viewDataBinding.commitButton.setImageDrawable(resources.getDrawable(it))
+            viewDataBinding.commitFabButton.setImageDrawable(resources.getDrawable(it))
         })
-        viewDataBinding.commitButton.setOnClickListener {
+        viewDataBinding.commitFabButton.setOnClickListener {
             viewModel.checkAnswer()
         }
         viewModel.lockInteraction.observe(viewLifecycleOwner, Observer {
-            viewDataBinding.commitButton.isEnabled = false
+            viewDataBinding.commitFabButton.isEnabled = false
         })
     }
 
     private fun setupThumbUpButton() {
-        viewDataBinding.thumpUpButton.setOnClickListener {
+        viewDataBinding.thumpUpImageButton.setOnClickListener {
             viewModel.handleThumpUpButton(
                     AnalyticsData(
                             category = getString(R.string.report_because),
                             action = getString(R.string.like),
-                            label = viewDataBinding.question.text.toString()
+                            label = viewDataBinding.questionTextView.text.toString()
                     ))
         }
     }
 
     private fun setupThumbDownButton() {
-        viewDataBinding.thumpDownButton.setOnClickListener{
+        viewDataBinding.thumpDownImageButton.setOnClickListener{
             // TODO: code smells - decision should be in viewModel
             // hrr, ping pong with long flow based on onActivityResult
             if (!viewModel.isEvaluated()) {
-                val dislikeDialog = FeedbackDialogFragment.newInstance(viewDataBinding.question.text.toString())
+                val dislikeDialog = FeedbackDialogFragment.newInstance(viewDataBinding.questionTextView.text.toString())
                 dislikeDialog.setTargetFragment(this, REPORT_DIALOG_REQUEST_CODE)
                 dislikeDialog.show(fragmentManager!!, REPORT_DIALOG_TAG)
             } else {
@@ -226,7 +221,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupSoundFeedbackForAnswer() {
-        viewModel.playSound.observe(viewLifecycleOwner, Observer {
+        viewModel.playSoundEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { soundType ->
                 sound?.play(soundType, lifecycle)
             }
@@ -234,13 +229,13 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupToastFeedbackForAnswer() {
-        viewModel.showToastSuccess.observe(viewLifecycleOwner, Observer {
+        viewModel.showToastSuccessEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 showToastSuccess(it)
             }
         })
 
-        viewModel.showToastFailure.observe(viewLifecycleOwner, Observer {
+        viewModel.showToastFailureEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
                 showToastFailure(it)
             }
@@ -252,7 +247,7 @@ class QuizPageFragment: Fragment(){
             return
         if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
             data?.let {
-                val label = viewDataBinding.question.text.toString() + data.getStringExtra(FeedbackDialogFragment.EXTRA_CAUSE)
+                val label = viewDataBinding.questionTextView.text.toString() + data.getStringExtra(FeedbackDialogFragment.EXTRA_CAUSE)
                 viewModel.handleThumpDownButton(
                         AnalyticsData(
                                 category = getString(R.string.report_because),

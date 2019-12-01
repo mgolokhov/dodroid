@@ -7,11 +7,11 @@
 
         <variable
             name="topic"
-            type="doit.study.droid.topic.TopicView" />
+            type="doit.study.droid.topic.TopicItem" />
 
         <variable
             name="viewmodel"
-            type="doit.study.droid.topic.TopicModelView" />
+            type="doit.study.droid.topic.TopicViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -19,7 +19,7 @@
 
 
             <ImageButton
-                android:id="@+id/thump_up_button"
+                android:id="@+id/thump_up_image_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -33,11 +33,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/commit_button"
+                app:layout_constraintStart_toEndOf="@+id/commit_fab_button"
                 app:layout_behavior="doit.study.droid.views.SnackBarAwareBehavior" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/commit_button"
+                android:id="@+id/commit_fab_button"
                 style="@style/floating_action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,14 +51,14 @@
                 app:elevation="6dp"
                 app:layout_anchorGravity="bottom"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/thump_up_button"
+                app:layout_constraintEnd_toStartOf="@+id/thump_up_image_button"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/thump_down_button"
+                app:layout_constraintStart_toEndOf="@+id/thump_down_image_button"
                 app:pressedTranslationZ="12dp"
                 app:layout_behavior="doit.study.droid.views.SnackBarAwareBehavior" />
 
             <ImageButton
-                android:id="@+id/thump_down_button"
+                android:id="@+id/thump_down_image_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,13 +70,13 @@
                 android:clickable="true"
                 android:src="@drawable/ic_thumb_down_black_48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/commit_button"
+                app:layout_constraintEnd_toStartOf="@+id/commit_fab_button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_behavior="doit.study.droid.views.SnackBarAwareBehavior" />
 
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/scroll_id"
+                android:id="@+id/nested_scroll_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
@@ -86,7 +86,7 @@
                 android:scrollbarFadeDuration="0"
                 app:layout_anchor="@+id/constraintLayout"
                 app:layout_anchorGravity="center"
-                app:layout_constraintBottom_toTopOf="@+id/commit_button"
+                app:layout_constraintBottom_toTopOf="@+id/commit_fab_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -97,7 +97,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/question"
+                        android:id="@+id/question_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="176dp"
                         android:layout_gravity="center"
@@ -107,7 +107,7 @@
                         android:textSize="20sp" />
 
                     <LinearLayout
-                        android:id="@+id/answers"
+                        android:id="@+id/container_answer_variants_linear_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="238dp"
                         android:layout_gravity="center"

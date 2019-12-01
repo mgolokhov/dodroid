@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import doit.study.droid.databinding.TopicItemBinding
 
-class TopicAdapter(private val viewModel: TopicModelView):
-        ListAdapter<TopicView, TopicAdapter.ViewHolder>(TopicsDiffCallback()){
+class TopicAdapter(private val viewModel: TopicViewModel):
+        ListAdapter<TopicItem, TopicAdapter.ViewHolder>(TopicsDiffCallback()){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(viewModel, getItem(position))
@@ -18,7 +18,7 @@ class TopicAdapter(private val viewModel: TopicModelView):
     }
 
     class ViewHolder private constructor(val binding: TopicItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind (viewModel: TopicModelView, item: TopicView) {
+        fun bind (viewModel: TopicViewModel, item: TopicItem) {
             binding.viewmodel = viewModel
             binding.topic = item
             binding.executePendingBindings()
