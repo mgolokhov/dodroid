@@ -42,7 +42,7 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
             topicsList.adapter = TopicAdapter(viewModel)
         }
 
-        viewDataBinding.commitButton.setOnClickListener {
+        viewDataBinding.commitFabButton.setOnClickListener {
             navigateToQuiz()
         }
     }

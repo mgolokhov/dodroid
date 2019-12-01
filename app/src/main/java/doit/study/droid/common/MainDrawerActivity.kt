@@ -99,7 +99,7 @@ open class MainDrawerActivity : AppCompatActivity() {
     }
 
     private fun isRootScreen(): Boolean {
-        return navController.currentDestination?.id == R.id.topic_fragment_dest
+        return navController.currentDestination?.id == navController.graph.startDestination
     }
 
     override fun onStop() {

@@ -47,7 +47,7 @@ class QuizMainFragment: Fragment() {
         setupActionBarTitle()
         setupResultPage()
         setupNavigationToResultPage()
-        viewDataBinding.pagerTitleStrip.tabIndicatorColor = Color.BLACK
+        viewDataBinding.titlePagerTabStrip.tabIndicatorColor = Color.BLACK
     }
 
     override fun onStop() {
