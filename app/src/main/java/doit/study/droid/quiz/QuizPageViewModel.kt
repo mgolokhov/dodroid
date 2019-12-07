@@ -8,6 +8,7 @@ import com.google.android.gms.analytics.HitBuilders
 import com.google.android.gms.analytics.Tracker
 import doit.study.droid.BuildConfig
 import doit.study.droid.R
+import doit.study.droid.domain.IsQuizAnsweredRightUseCase
 import doit.study.droid.utils.AnalyticsData
 import doit.study.droid.utils.Event
 import timber.log.Timber
@@ -16,8 +17,9 @@ import kotlin.random.Random
 
 
 class QuizPageViewModel @Inject constructor(
-        private val application: Application,
-        private val analyticsTracker: Tracker
+        private val appContext: Application,
+        private val analyticsTracker: Tracker,
+        private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
 ) : ViewModel() {
     private val _item = MutableLiveData<QuizItem>()
     val item: LiveData<QuizItem> = _item
@@ -63,7 +65,7 @@ class QuizPageViewModel @Inject constructor(
 
     fun checkAnswer() {
         _item.value?.let {
-            val isRightAnswer = isQuizAnsweredRight(it)
+            val isRightAnswer = isQuizAnsweredRightUseCase(it)
             if (isRightAnswer) {
                 _showToastSuccessEvent.value = Event(
                         getRandomMessageFromResources(
@@ -89,19 +91,11 @@ class QuizPageViewModel @Inject constructor(
         }
     }
 
-    //TODO: code duplication, move to a use case
-    private fun isQuizAnsweredRight(quizItem: QuizItem): Boolean {
-        val isRightAnswersChecked = quizItem.answerVariants.none { it.isRight && !it.isChecked }
-        val isWrongAnswersUnchecked = quizItem.answerVariants.none { !it.isRight && it.isChecked }
-        return isRightAnswersChecked && isWrongAnswersUnchecked
-    }
-
     private fun getRandomMessageFromResources(resourceId: Int): String {
-        val variants = application.resources.getStringArray(resourceId)
+        val variants = appContext.resources.getStringArray(resourceId)
         val pos = Random.nextInt(variants.size)
         return variants[pos]
     }
-
 
     fun handleThumpUpButton(analyticsData: AnalyticsData) {
         _item.value?.let {

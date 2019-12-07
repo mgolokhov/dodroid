@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import doit.study.droid.R
 import doit.study.droid.data.local.QuizDatabase
+import doit.study.droid.domain.IsQuizAnsweredRightUseCase
 import doit.study.droid.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -17,7 +18,8 @@ import kotlin.collections.HashSet
 
 class QuizMainViewModel @Inject constructor(
         private val quizDatabase: QuizDatabase,
-        private val appContext: Application
+        private val appContext: Application,
+        private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
 ): ViewModel() {
     private val _items = MutableLiveData<List<QuizItem>>()
     val items: LiveData<List<QuizItem>> = _items
@@ -129,7 +131,7 @@ class QuizMainViewModel @Inject constructor(
             // TODO: dirty stub, replace with real logic
             // yeah, batching
             _items.value?.forEach {
-                val isQuizAnsweredRight = isQuizAnsweredRight(it)
+                val isQuizAnsweredRight = isQuizAnsweredRightUseCase(it)
                 quizDatabase.questionDao().updateStatistics(
                         id = it.questionId,
                         rightCount = if (isQuizAnsweredRight) 1 else 0,
@@ -138,13 +140,6 @@ class QuizMainViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    //TODO: code duplication, move to a use case
-    private fun isQuizAnsweredRight(quizItem: QuizItem): Boolean {
-        val isRightAnswersChecked = quizItem.answerVariants.none { it.isRight && !it.isChecked }
-        val isWrongAnswersUnchecked = quizItem.answerVariants.none { !it.isRight && it.isChecked }
-        return isRightAnswersChecked && isWrongAnswersUnchecked
     }
 
     fun getTabTitle(position: Int): String {
@@ -187,7 +182,7 @@ class QuizMainViewModel @Inject constructor(
 
     fun getResultCounters(): Pair<Int, Int> {
         items.value!!.let { all ->
-            val rightAnswers = all.filter { it.answered && isQuizAnsweredRight(it)}.size
+            val rightAnswers = all.filter { it.answered && isQuizAnsweredRightUseCase(it)}.size
             val wrongAnswers = all.size - rightAnswers
             return Pair(rightAnswers, wrongAnswers)
         }
