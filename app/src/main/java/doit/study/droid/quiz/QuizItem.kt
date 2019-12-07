@@ -5,13 +5,12 @@ import doit.study.droid.R
 
 data class QuizItem (
         val questionId: Int,
-        val questionText: String,
         val title: String,
-        val rightVariants: List<String>,
-        val answerVariants: List<String>,
-        val selectedVariants: MutableSet <String> = mutableSetOf(),
+        val questionText: String,
+        val answerVariants: MutableList<AnswerVariantItem>,
         val docLink: String,
         var answered: Boolean = false,
+
         var questionIsEvaluated: Boolean = false,
         // TODO: convert sealed to classes or enums
         // Possible values: 0 - default, 1 - smile, 2 - sad

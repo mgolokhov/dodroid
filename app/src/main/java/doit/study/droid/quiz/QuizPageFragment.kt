@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import doit.study.droid.R
 import doit.study.droid.app.BaseApp
+import doit.study.droid.databinding.AnswerItemBinding
 import doit.study.droid.databinding.FragmentQuizPageBinding
 import doit.study.droid.utils.*
 import timber.log.Timber
@@ -136,35 +137,28 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupQuestion() {
-        viewModel.item.observe(viewLifecycleOwner, Observer { quizView ->
-            Timber.d("setupQuestion[$pagePosition]: $quizView")
-            quizView?.let {
-                viewDataBinding.questionTextView.text = quizView.questionText
+        viewModel.item.observe(viewLifecycleOwner, Observer { quizItem ->
+            Timber.d("setupQuestion[$pagePosition]: $quizItem")
+            quizItem?.let {
+                viewDataBinding.questionTextView.text = quizItem.questionText
                 Timber.d("setupQuestion ${viewDataBinding.questionTextView.text} ${this.hashCode()} ${viewDataBinding.questionTextView.hashCode()}")
             }
         })
     }
 
     private fun setupAnswerVariants() {
-        viewModel.item.observe(viewLifecycleOwner, Observer { quizView ->
-            Timber.d("setupAnswerVariants[$pagePosition]: $quizView")
-            quizView?.let {
-                quizView.answerVariants.forEach { variant ->
-                    val answerViewVariant = inflateAnswerItemView()
-                    answerViewVariant
-                            .findViewById<CheckBox>(R.id.checkbox_id)
-                            .apply {
-                                text = variant
-                                isChecked = (variant in quizView.selectedVariants)
-                                setOnClickListener {
-                                    val item = this as CheckBox
-                                    viewModel.saveCheckState(
-                                            text = item.text as String,
-                                            isChecked = item.isChecked
-                                    )
-                                }
-                            }
-                    viewDataBinding.containerAnswerVariantsLinearLayout.addView(answerViewVariant)
+        viewModel.item.observe(viewLifecycleOwner, Observer { quizItem ->
+            Timber.d("setupAnswerVariants[$pagePosition]: $quizItem")
+            quizItem?.let {
+                val layoutInflater = LayoutInflater.from(view?.context)
+                viewDataBinding.containerAnswerVariantsLinearLayout.removeAllViews()
+                quizItem.answerVariants.forEach { variant ->
+                    val answerViewVariant = AnswerItemBinding.inflate(layoutInflater, viewDataBinding.containerAnswerVariantsLinearLayout, false)
+                    answerViewVariant.viewmodel = viewModel
+                    answerViewVariant.answerVariantItem = variant
+                    answerViewVariant.executePendingBindings()
+
+                    viewDataBinding.containerAnswerVariantsLinearLayout.addView(answerViewVariant.root)
                 }
             }
         })
@@ -176,11 +170,6 @@ class QuizPageFragment: Fragment(){
                 }
             }
         })
-    }
-
-    private fun inflateAnswerItemView(): View {
-        val inflater  = LayoutInflater.from(context)
-        return inflater.inflate(R.layout.answer_item_variant, viewDataBinding.containerAnswerVariantsLinearLayout, false)
     }
 
     private fun setupCommitButton() {

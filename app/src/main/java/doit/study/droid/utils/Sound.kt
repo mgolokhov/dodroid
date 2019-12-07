@@ -25,6 +25,7 @@ class Sound @Inject constructor(private val context: Application): DefaultLifecy
     private var soundsForRightAnswer: Array<String>? = null
     private var assetManager: AssetManager = context.resources.assets
     private var mediaPlayer: MediaPlayer? = null
+    private val volume = 0.04f // should be scaled logarithmically
 
     private// turn off sound (user may turn it on manually again) if audio list is corrupted
     val isEnabled: Boolean
@@ -77,6 +78,7 @@ class Sound @Inject constructor(private val context: Application): DefaultLifecy
             val afd = assetManager.openFd(currentSound)
             mediaPlayer?.release()
             mediaPlayer = MediaPlayer()
+            mediaPlayer?.setVolume(volume, volume)
             mediaPlayer?.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
             afd.close()
             mediaPlayer?.prepare()

@@ -49,12 +49,29 @@ class QuizMainViewModel @Inject constructor(
                     val questions = quizDatabase.questionDao().getQuestionsByTag(it.name)
                     allSelectedItems.addAll(
                             questions.map { question ->
+                                val answerVariants: MutableList<AnswerVariantItem> = mutableListOf<AnswerVariantItem>()
+                                question.wrong.forEach { it
+                                    answerVariants.add(
+                                            AnswerVariantItem(
+                                                    text = it,
+                                                    isRight = false
+                                            )
+                                    )
+                                }
+                                question.right.forEach {
+                                    answerVariants.add(
+                                            AnswerVariantItem(
+                                                    text = it,
+                                                    isRight = true
+                                            )
+                                    )
+                                }
+                                answerVariants.shuffle()
                                 QuizItem(
                                         questionId = question.id,
                                         questionText = question.text,
+                                        answerVariants = answerVariants,
                                         title = it.name,
-                                        rightVariants = question.right,
-                                        answerVariants = (question.right + question.wrong).shuffled(),
                                         docLink = question.docLink
                                 )
                             })
@@ -112,15 +129,22 @@ class QuizMainViewModel @Inject constructor(
             // TODO: dirty stub, replace with real logic
             // yeah, batching
             _items.value?.forEach {
-                val wasAnsweredRight = it.rightVariants.toSet() == it.selectedVariants
+                val isQuizAnsweredRight = isQuizAnsweredRight(it)
                 quizDatabase.questionDao().updateStatistics(
                         id = it.questionId,
-                        rightCount = if (wasAnsweredRight) 1 else 0,
-                        wrongCount = if (wasAnsweredRight) 0 else 1,
-                        studiedAt = if (wasAnsweredRight) Date().time else 0
+                        rightCount = if (isQuizAnsweredRight) 1 else 0,
+                        wrongCount = if (isQuizAnsweredRight) 0 else 1,
+                        studiedAt = if (isQuizAnsweredRight) Date().time else 0
                 )
             }
         }
+    }
+
+    //TODO: code duplication, move to a use case
+    private fun isQuizAnsweredRight(quizItem: QuizItem): Boolean {
+        val isRightAnswersChecked = quizItem.answerVariants.none { it.isRight && !it.isChecked }
+        val isWrongAnswersUnchecked = quizItem.answerVariants.none { !it.isRight && it.isChecked }
+        return isRightAnswersChecked && isWrongAnswersUnchecked
     }
 
     fun getTabTitle(position: Int): String {
@@ -163,7 +187,7 @@ class QuizMainViewModel @Inject constructor(
 
     fun getResultCounters(): Pair<Int, Int> {
         items.value!!.let { all ->
-            val rightAnswers = all.filter { it.answered && it.selectedVariants == it.rightVariants.toSet()}.size
+            val rightAnswers = all.filter { it.answered && isQuizAnsweredRight(it)}.size
             val wrongAnswers = all.size - rightAnswers
             return Pair(rightAnswers, wrongAnswers)
         }

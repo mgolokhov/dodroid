@@ -50,17 +50,20 @@ class QuizPageViewModel @Inject constructor(
         _item.value = quizItem
     }
 
-
-    fun saveCheckState(text: String, isChecked: Boolean) {
-        _item.value?.selectedVariants?.let {
-            if (isChecked) it.add(text)
-            else it.remove(text)
+    fun selectAnswer(answerVariantItem: AnswerVariantItem) {
+        answerVariantItem.isChecked = !answerVariantItem.isChecked
+        _item.value?.answerVariants?.let {
+            it.find { it == answerVariantItem}?.isChecked = answerVariantItem.isChecked
         }
+        _item.value = _item.value
+
+        Timber.d("selectAnswer ${_item.value}\n $answerVariantItem")
+
     }
 
     fun checkAnswer() {
         _item.value?.let {
-            val isRightAnswer = (it.selectedVariants == it.rightVariants.toSet())
+            val isRightAnswer = isQuizAnsweredRight(it)
             if (isRightAnswer) {
                 _showToastSuccessEvent.value = Event(
                         getRandomMessageFromResources(
@@ -84,6 +87,13 @@ class QuizPageViewModel @Inject constructor(
             _lockInteraction.value = Unit
             Timber.d("checkAnswer: $it")
         }
+    }
+
+    //TODO: code duplication, move to a use case
+    private fun isQuizAnsweredRight(quizItem: QuizItem): Boolean {
+        val isRightAnswersChecked = quizItem.answerVariants.none { it.isRight && !it.isChecked }
+        val isWrongAnswersUnchecked = quizItem.answerVariants.none { !it.isRight && it.isChecked }
+        return isRightAnswersChecked && isWrongAnswersUnchecked
     }
 
     private fun getRandomMessageFromResources(resourceId: Int): String {
