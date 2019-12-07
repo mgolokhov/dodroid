@@ -1,4 +1,4 @@
-package doit.study.droid.quiz
+package doit.study.droid.quiz_summary
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -15,7 +15,7 @@ import doit.study.droid.databinding.FragmentResultTestBinding
 import doit.study.droid.utils.lazyAndroid
 
 
-class OneTestSummaryFragment : Fragment() {
+class QuizSummaryFragment : Fragment() {
     private val percentageOfRightAnswers by lazyAndroid {
         arguments!!.let {
             it.getInt(RIGHT_CNT_KEY) * 100 / (it.getInt(RIGHT_CNT_KEY) + it.getInt(WRONG_CNT_KEY))
@@ -123,7 +123,7 @@ class OneTestSummaryFragment : Fragment() {
         private const val RIGHT_CNT_KEY = "doit.study.dodroid.right_cnt_key"
 
         fun newInstance(wrongCnt: Int, rightCnt: Int): Fragment {
-            return OneTestSummaryFragment().apply {
+            return QuizSummaryFragment().apply {
                 arguments = Bundle().apply {
                     putInt(WRONG_CNT_KEY, wrongCnt)
                     putInt(RIGHT_CNT_KEY, rightCnt)

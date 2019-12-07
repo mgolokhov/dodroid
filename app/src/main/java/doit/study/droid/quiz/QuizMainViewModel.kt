@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import doit.study.droid.R
 import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.domain.IsQuizAnsweredRightUseCase
+import doit.study.droid.quiz_summary.ONE_TEST_SUMMARY_TYPE
 import doit.study.droid.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -175,7 +176,9 @@ class QuizMainViewModel @Inject constructor(
         val size = items.value?.size ?: 0
         return when(position) {
             in 0 until size -> { QUIZ_QUESTION_ITEM_TYPE }
-            size -> { ONE_TEST_SUMMARY_TYPE }
+            size -> {
+                ONE_TEST_SUMMARY_TYPE
+            }
             else -> {"oh, shit"}
         }
     }
