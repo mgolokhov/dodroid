@@ -3,6 +3,8 @@ package doit.study.droid.quiz
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import doit.study.droid.quiz_summary.ONE_TEST_SUMMARY_TYPE
+import doit.study.droid.quiz_summary.QuizSummaryFragment
 
 
 class QuizPagerAdapter(
@@ -17,7 +19,7 @@ class QuizPagerAdapter(
             }
             ONE_TEST_SUMMARY_TYPE -> {
                 val (counterRightAnswers, counterWrongAnswers) = viewModel.getResultCounters()
-                OneTestSummaryFragment.newInstance(
+                QuizSummaryFragment.newInstance(
                         wrongCnt = counterWrongAnswers,
                         rightCnt = counterRightAnswers
                 )
