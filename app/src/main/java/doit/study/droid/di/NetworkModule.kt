@@ -53,7 +53,7 @@ class NetworkModule {
     }
 
     companion object {
-        private const val BASE_URL = "https://raw.githubusercontent.com/mgolokhov/dodroid_questions/master/"
+        private const val BASE_URL = "https://dodroid-6f241.web.app/"
     }
 
 
