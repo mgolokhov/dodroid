@@ -4,16 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import doit.study.droid.data.local.QuizDatabase
-import doit.study.droid.data.local.entity.Tag
-import kotlinx.coroutines.Dispatchers
+import doit.study.droid.domain.GetTopicItemsUseCase
+import doit.study.droid.domain.SaveTopicItemsUseCase
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
 class TopicViewModel @Inject constructor(
-        private val quizDatabase: QuizDatabase
+        private val getTopicItemsUseCase: GetTopicItemsUseCase,
+        private val saveTopicItemsUseCase: SaveTopicItemsUseCase
 ) : ViewModel() {
     private val _items = MutableLiveData<List<TopicItem>>().apply { value = emptyList() }
     val items: LiveData<List<TopicItem>> = _items
@@ -22,69 +21,34 @@ class TopicViewModel @Inject constructor(
         loadTopics()
     }
 
-    fun loadTopics(query: String = "") {
-        viewModelScope.launch((Dispatchers.IO)) {
-            quizDatabase.questionDao().getQuestions()
-            val tags = quizDatabase.tagDao().getTags()
-            val topics = ArrayList<TopicItem>()
-            tags.filter { it.name.contains(query, ignoreCase = true) }.forEach { tag ->
-                val questions = quizDatabase.questionDao().getQuestionsByTag(tag.name)
-                questions.filter { it.studiedAt != 0L }.size
-                topics.add(
-                        TopicItem(
-                                id = tag.id,
-                                name = tag.name,
-                                counterTotal = questions.size,
-                                counterStudied = questions.filter { it.studiedAt != 0L }.size,
-                                selected = tag.selected
-                        )
-                )
-            }
-            _items.postValue(topics)
-            Timber.d("post values ${topics.size}")
-        }
+    fun loadTopics(
+            query: String = ""
+    ) = viewModelScope.launch {
+        _items.value = getTopicItemsUseCase(query)
+        Timber.d("post values ${_items.value?.size}")
     }
 
-    private suspend fun saveSelectedTags(
-            vararg topicItems: TopicItem,
-            isSelected: Boolean
-    ) = withContext(Dispatchers.IO) {
-        val tags = topicItems.map {
-            Tag(
-                    id = it.id,
-                    name = it.name,
-                    selected = isSelected
-            )
-        }
-        val res = quizDatabase.tagDao().insertOrReplaceTag(*tags.toTypedArray())
-        Timber.d("insertOrReplaceTag $res")
-        // TODO: optimize
+    fun selectTopic(
+            topicItem: TopicItem,
+            selected: Boolean
+    ) = viewModelScope.launch {
+        saveTopicItemsUseCase(topicItem, selected = selected)
         loadTopics()
     }
 
+    fun selectAllTopics() = allTopics(selected = true)
 
-    fun selectTopic(topicItem: TopicItem, isSelected: Boolean) {
-        viewModelScope.launch {
-            saveSelectedTags(topicItem, isSelected = isSelected)
-        }
-    }
+    fun deselectAllTopics() = allTopics(selected = false)
 
-    fun selectAllTopics() = allTopics(select = true)
-
-    fun deselectAllTopics() = allTopics(select = false)
-
-    private fun allTopics(select: Boolean) {
+    private fun allTopics(
+            selected: Boolean
+    ) = viewModelScope.launch {
         _items.value?.let { topicView ->
             val topics = topicView.map {
-                it.copy (
-                        selected = select
-                )
+                it.copy(selected = selected)
             }
-            viewModelScope.launch {
-                saveSelectedTags(*topics.toTypedArray(), isSelected = select)
-            }
-            _items.value = topics
+            saveTopicItemsUseCase(*topics.toTypedArray(), selected = selected)
+            loadTopics()
         }
-
     }
 }

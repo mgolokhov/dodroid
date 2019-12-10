@@ -4,6 +4,11 @@ import android.app.Application
 import androidx.lifecycle.*
 import doit.study.droid.R
 import doit.study.droid.data.local.QuizDatabase
+import doit.study.droid.domain.GetSelectedQuizItemsUseCase
+import doit.study.droid.domain.IsQuizAnsweredRightUseCase
+import doit.study.droid.domain.SaveQuizResultUseCase
+import doit.study.droid.domain.ShuffleQuizContentUseCase
+import doit.study.droid.quiz_summary.ONE_TEST_SUMMARY_TYPE
 import doit.study.droid.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -16,8 +21,11 @@ import kotlin.collections.HashSet
 
 
 class QuizMainViewModel @Inject constructor(
-        private val quizDatabase: QuizDatabase,
-        private val appContext: Application
+        private val appContext: Application,
+        private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase,
+        private val getSelectedQuizItemsUseCase: GetSelectedQuizItemsUseCase,
+        private val shuffleQuizContentUseCase: ShuffleQuizContentUseCase,
+        private val saveQuizResultUseCase: SaveQuizResultUseCase
 ): ViewModel() {
     private val _items = MutableLiveData<List<QuizItem>>()
     val items: LiveData<List<QuizItem>> = _items
@@ -34,53 +42,18 @@ class QuizMainViewModel @Inject constructor(
     private val questionsLeft: Int?
         get() = _items.value?.filter { !it.answered }?.size
 
-
-
     init {
         Timber.d("init viewmodel $this")
         loadQuizItems()
     }
 
     private fun loadQuizItems() {
-        viewModelScope.launch(Dispatchers.IO) {
-                val tags = quizDatabase.tagDao().getTagBySelection(isSelected = true)
-                val allSelectedItems = HashSet<QuizItem>()
-                tags.forEach{
-                    val questions = quizDatabase.questionDao().getQuestionsByTag(it.name)
-                    allSelectedItems.addAll(
-                            questions.map { question ->
-                                val answerVariants: MutableList<AnswerVariantItem> = mutableListOf<AnswerVariantItem>()
-                                question.wrong.forEach { it
-                                    answerVariants.add(
-                                            AnswerVariantItem(
-                                                    text = it,
-                                                    isRight = false
-                                            )
-                                    )
-                                }
-                                question.right.forEach {
-                                    answerVariants.add(
-                                            AnswerVariantItem(
-                                                    text = it,
-                                                    isRight = true
-                                            )
-                                    )
-                                }
-                                answerVariants.shuffle()
-                                QuizItem(
-                                        questionId = question.id,
-                                        questionText = question.text,
-                                        answerVariants = answerVariants,
-                                        title = it.name,
-                                        docLink = question.docLink
-                                )
-                            })
-                Timber.d("loadQuizItems ${allSelectedItems.size}")
-                _items.postValue(allSelectedItems.shuffled().take(MAX_ITEMS_IN_ONE_QUIZ))
-                withContext(Dispatchers.Main) {
-                    refreshUi()
-                }
-            }
+        viewModelScope.launch {
+            _items.value =
+                    shuffleQuizContentUseCase(
+                            getSelectedQuizItemsUseCase()
+                    )
+            refreshUi()
         }
     }
 
@@ -124,27 +97,8 @@ class QuizMainViewModel @Inject constructor(
         }
     }
 
-    private fun saveResult() {
-        GlobalScope.launch(Dispatchers.IO) {
-            // TODO: dirty stub, replace with real logic
-            // yeah, batching
-            _items.value?.forEach {
-                val isQuizAnsweredRight = isQuizAnsweredRight(it)
-                quizDatabase.questionDao().updateStatistics(
-                        id = it.questionId,
-                        rightCount = if (isQuizAnsweredRight) 1 else 0,
-                        wrongCount = if (isQuizAnsweredRight) 0 else 1,
-                        studiedAt = if (isQuizAnsweredRight) Date().time else 0
-                )
-            }
-        }
-    }
-
-    //TODO: code duplication, move to a use case
-    private fun isQuizAnsweredRight(quizItem: QuizItem): Boolean {
-        val isRightAnswersChecked = quizItem.answerVariants.none { it.isRight && !it.isChecked }
-        val isWrongAnswersUnchecked = quizItem.answerVariants.none { !it.isRight && it.isChecked }
-        return isRightAnswersChecked && isWrongAnswersUnchecked
+    private fun saveResult() = viewModelScope.launch {
+        saveQuizResultUseCase(_items.value)
     }
 
     fun getTabTitle(position: Int): String {
@@ -180,14 +134,16 @@ class QuizMainViewModel @Inject constructor(
         val size = items.value?.size ?: 0
         return when(position) {
             in 0 until size -> { QUIZ_QUESTION_ITEM_TYPE }
-            size -> { ONE_TEST_SUMMARY_TYPE }
+            size -> {
+                ONE_TEST_SUMMARY_TYPE
+            }
             else -> {"oh, shit"}
         }
     }
 
     fun getResultCounters(): Pair<Int, Int> {
         items.value!!.let { all ->
-            val rightAnswers = all.filter { it.answered && isQuizAnsweredRight(it)}.size
+            val rightAnswers = all.filter { it.answered && isQuizAnsweredRightUseCase(it)}.size
             val wrongAnswers = all.size - rightAnswers
             return Pair(rightAnswers, wrongAnswers)
         }
