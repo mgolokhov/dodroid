@@ -46,5 +46,10 @@
         android:name="doit.study.droid.settings.SettingsFragment"
         />
 
+    <fragment
+        android:id="@+id/debug_fragment_dest"
+        android:name="doit.study.droid.debug.DebugFragment"
+        />
+
 
 </navigation>

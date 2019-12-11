@@ -29,6 +29,11 @@
         android:id="@+id/settings_fragment_dest"
         android:icon="@drawable/ic_settings"
         android:title="@string/action_settings" />
+
+    <item
+        android:id="@+id/debug_fragment_dest"
+        android:icon="@drawable/ic_debug_menu_24dp"
+        android:title="@string/debug_menu" />
     </group>
 
 

@@ -67,4 +67,8 @@
     <string name="test_completed">Test completed</string>
     <string name="failed_to_load_quiz">Failed to load quiz data</string>
     <string name="error_to_sync_try_again_later">Error to sync, try again later</string>
+    <!-- for debug menu -->
+    <string name="debug_menu">Debug Menu</string>
+    <string name="debug_force_crash">debug_force_crash</string>
+    <string name="debug_pref_ssl_pinning">debug_pref_ssl_pinning</string>
 </resources>
