@@ -18,6 +18,11 @@ class DebugFragment() : PreferenceFragmentCompat() {
         setupNetwork()
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.title = getString(R.string.debug_title_debug_menu)
+    }
+
     private fun setupNetwork() {
         findPreference<Preference>(getString(R.string.debug_pref_ssl_pinning))?.let {
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {

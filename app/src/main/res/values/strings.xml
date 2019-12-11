@@ -13,6 +13,7 @@
     <string name="action_settings">Settings</string>
     <string name="doc_reference">documentation reference</string>
 
+    <string name="title_settings">Settings</string>
     <string name="turn_sound_on">turn on</string>
     <string name="turn_sound_off">turn off</string>
     <string name="pref_sound">pref_sound</string>
@@ -68,6 +69,7 @@
     <string name="failed_to_load_quiz">Failed to load quiz data</string>
     <string name="error_to_sync_try_again_later">Error to sync, try again later</string>
     <!-- for debug menu -->
+    <string name="debug_title_debug_menu">Debug Menu</string>
     <string name="debug_menu">Debug Menu</string>
     <string name="debug_force_crash">debug_force_crash</string>
     <string name="debug_pref_ssl_pinning">debug_pref_ssl_pinning</string>
