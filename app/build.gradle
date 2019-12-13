@@ -114,6 +114,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
 
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleCommonJava8Ver"
-
+    // used in debug menu to restart application process
+    implementation "com.jakewharton:process-phoenix:$phoenix"
+    // a debug bridge to inspect Database, Network, Sharedpreferences
+    implementation "com.facebook.stetho:stetho:$stetho"
 }
 

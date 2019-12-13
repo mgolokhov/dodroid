@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Network">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/debug_pref_ssl_pinning"
+            android:summaryOff="Turn on SSL pinning and restart"
+            android:summaryOn="Turn off SSL pinning and restart"
+            android:title="SSL pinning" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Misc">
+        <Preference
+            android:key="@string/debug_force_crash"
+            android:summary="Clicking this forces the app to crash."
+            android:title="Force crash" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

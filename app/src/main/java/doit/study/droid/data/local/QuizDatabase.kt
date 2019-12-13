@@ -9,7 +9,7 @@ import doit.study.droid.data.local.entity.Question
 import doit.study.droid.data.local.entity.QuestionTagJoin
 import doit.study.droid.data.local.entity.Tag
 
-@Database(entities = [Question::class, Tag::class, QuestionTagJoin::class], version = 1)
+@Database(entities = [Question::class, Tag::class, QuestionTagJoin::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class QuizDatabase : RoomDatabase() {
     abstract fun questionDao(): QuestionDao

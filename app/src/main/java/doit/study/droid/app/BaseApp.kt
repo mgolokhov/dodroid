@@ -7,6 +7,7 @@ import doit.study.droid.BuildConfig
 import doit.study.droid.di.AppComponent
 import doit.study.droid.di.AppModule
 import doit.study.droid.di.DaggerAppComponent
+import doit.study.droid.di.NetworkModule
 import io.fabric.sdk.android.Fabric
 
 
@@ -14,7 +15,9 @@ abstract class BaseApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        dagger = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        dagger = DaggerAppComponent.builder()
+                .appModule(AppModule(this))
+                .build()
         setupCrashlytics()
     }
 

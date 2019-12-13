@@ -30,8 +30,9 @@ class Sound @Inject constructor(private val context: Application): DefaultLifecy
     private// turn off sound (user may turn it on manually again) if audio list is corrupted
     val isEnabled: Boolean
         get() {
-            val SP = PreferenceManager.getDefaultSharedPreferences(context)
-            val prefEnabled = SP.getBoolean(context.resources.getString(R.string.pref_sound), true)
+            //TODO: extract as an abstraction
+            val sp = PreferenceManager.getDefaultSharedPreferences(context)
+            val prefEnabled = sp.getBoolean(context.resources.getString(R.string.pref_sound), true)
             val audioListLoaded = soundsForWrongAnswer != null && soundsForRightAnswer != null
             if (prefEnabled && !audioListLoaded)
                 displayErrMessageAndTurnOffSound()
