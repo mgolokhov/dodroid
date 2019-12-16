@@ -2,6 +2,7 @@ package doit.study.droid.di
 
 import android.app.Application
 import androidx.preference.PreferenceManager
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -49,6 +50,7 @@ class NetworkModule() {
         val client = OkHttpClient.Builder()
                 .certificatePinner(certificatePinner)
         client.addInterceptor(createLogInterceptor());
+        client.addNetworkInterceptor(StethoInterceptor())
         return client.build()
     }
 

@@ -40,12 +40,14 @@ android {
 
     buildTypes {
         debug {
+            shrinkResources false
             minifyEnabled false
             debuggable true
         }
         release {
+            shrinkResources true
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
     }
@@ -118,5 +120,6 @@ dependencies {
     implementation "com.jakewharton:process-phoenix:$phoenix"
     // a debug bridge to inspect Database, Network, Sharedpreferences
     implementation "com.facebook.stetho:stetho:$stetho"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stetho"
 }
 

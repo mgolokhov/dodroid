@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import doit.study.droid.app.BaseApp
+import doit.study.droid.app.App
 import doit.study.droid.databinding.FragmentQuizMainBinding
 import doit.study.droid.utils.lazyAndroid
 import timber.log.Timber
@@ -26,7 +26,7 @@ class QuizMainFragment: Fragment() {
     private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BaseApp.dagger.inject(this)
+        App.dagger.inject(this)
         super.onCreate(savedInstanceState)
     }
 
