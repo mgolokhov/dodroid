@@ -22,19 +22,6 @@ class SplashActivity : AppCompatActivity() {
         App.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
-        val TAG = "mytest"
-        Log.v(TAG, "verbose");
-        Log.d(TAG, "debug");
-        Log.i(TAG, "info");
-        Log.w(TAG, "warning");
-        Log.e(TAG, "error");
-
-        Timber.v("mytest verbose");
-        Timber.d("mytest debug");
-        Timber.i("mytest info");
-        Timber.w("mytest warning");
-        Timber.e("mytest error");
-
         viewModel = ViewModelProviders.of(this, viewModelFactory)[SplashViewModel::class.java]
         setupNavigation()
         viewModel.syncWithServer()
