@@ -8,6 +8,10 @@ import com.google.android.gms.analytics.HitBuilders
 import com.google.android.gms.analytics.Tracker
 import doit.study.droid.BuildConfig
 import doit.study.droid.R
+import doit.study.droid.data.Outcome
+import doit.study.droid.data.local.preferences.Sound
+import doit.study.droid.domain.GetSoundFileForFailureUseCase
+import doit.study.droid.domain.GetSoundFileForSuccessUseCase
 import doit.study.droid.domain.IsQuizAnsweredRightUseCase
 import doit.study.droid.utils.AnalyticsData
 import doit.study.droid.utils.Event
@@ -19,6 +23,9 @@ import kotlin.random.Random
 class QuizPageViewModel @Inject constructor(
         private val appContext: Application,
         private val analyticsTracker: Tracker,
+        private val soundPreferences: Sound,
+        private val getSoundFileForFailureUseCase: GetSoundFileForFailureUseCase,
+        private val getSoundFileForSuccessUseCase: GetSoundFileForSuccessUseCase,
         private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
 ) : ViewModel() {
     private val _item = MutableLiveData<QuizItem>()
@@ -30,8 +37,8 @@ class QuizPageViewModel @Inject constructor(
     private val _showToastFailureEvent = MutableLiveData<Event<String>>()
     val showToastFailureEvent: LiveData<Event<String>> = _showToastFailureEvent
 
-    private val _playSoundEvent = MutableLiveData<Event<Boolean>>()
-    val playSoundEvent: LiveData<Event<Boolean>> = _playSoundEvent
+    private val _playSoundEvent = MutableLiveData<Event<String>>()
+    val playSoundEvent: LiveData<Event<String>> = _playSoundEvent
 
     private val _commitButtonState = MutableLiveData<Int>()
     val commitButtonState: LiveData<Int> = _commitButtonState
@@ -65,29 +72,46 @@ class QuizPageViewModel @Inject constructor(
 
     fun checkAnswer() {
         _item.value?.let {
-            val isRightAnswer = isQuizAnsweredRightUseCase(it)
-            if (isRightAnswer) {
-                _showToastSuccessEvent.value = Event(
-                        getRandomMessageFromResources(
-                                R.array.feedback_right_answer
-                        )
-                )
-                it.commitButtonState = R.drawable.ic_sentiment_satisfied_black_24dp
-                _commitButtonState.value = it.commitButtonState
-                _playSoundEvent.value = Event(true)
+            if (isQuizAnsweredRightUseCase(it)) {
+                handleRightAnswer(it)
             } else {
-                _showToastFailureEvent.value = Event(
-                        getRandomMessageFromResources(
-                                R.array.feedback_wrong_answer
-                        )
-                )
-                it.commitButtonState = R.drawable.ic_sentiment_dissatisfied_black_24dp
-                _commitButtonState.value = it.commitButtonState
-                _playSoundEvent.value = Event(false)
+                handleWrongAnswer(it)
             }
             it.answered = true
             _lockInteraction.value = Unit
             Timber.d("checkAnswer: $it")
+        }
+    }
+
+    private fun handleRightAnswer(quizItem: QuizItem) {
+        _showToastSuccessEvent.value = Event(
+                getRandomMessageFromResources(
+                        R.array.feedback_right_answer
+                )
+        )
+        quizItem.commitButtonState = R.drawable.ic_sentiment_satisfied_black_24dp
+        _commitButtonState.value = quizItem.commitButtonState
+        if (soundPreferences.isEnabled()) {
+            val res = getSoundFileForSuccessUseCase()
+            if (res is Outcome.Success) {
+                _playSoundEvent.value = Event(res.data)
+            }
+        }
+    }
+
+    private fun handleWrongAnswer(quizItem: QuizItem) {
+        _showToastFailureEvent.value = Event(
+                getRandomMessageFromResources(
+                        R.array.feedback_wrong_answer
+                )
+        )
+        quizItem.commitButtonState = R.drawable.ic_sentiment_dissatisfied_black_24dp
+        _commitButtonState.value = quizItem.commitButtonState
+        if (soundPreferences.isEnabled()) {
+            val res = getSoundFileForFailureUseCase()
+            if (res is Outcome.Success) {
+                _playSoundEvent.value = Event(res.data)
+            }
         }
     }
 
