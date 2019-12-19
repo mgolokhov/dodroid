@@ -1,7 +1,6 @@
 package doit.study.droid.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.android.gms.analytics.Tracker
@@ -12,23 +11,10 @@ import doit.study.droid.data.local.QuizDatabase
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val appContext: Application) {
-
+object AppModule {
     @Provides
     @Singleton
-    fun provideApplication(): Application {
-        return appContext
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppContext(): Context {
-        return appContext
-    }
-
-    @Provides
-    @Singleton
-    fun provideAnalyticsTracker(): Tracker {
+    fun provideAnalyticsTracker(appContext: Application): Tracker {
         val ga = GoogleAnalytics.getInstance(appContext)
         ga.enableAutoActivityReports(appContext)
         return ga.newTracker(R.xml.track_app)
@@ -36,9 +22,9 @@ class AppModule(private val appContext: Application) {
 
     @Singleton
     @Provides
-    internal fun provideDatabase(context: Context): QuizDatabase {
+    internal fun provideDatabase(appContext: Application): QuizDatabase {
         return Room.databaseBuilder(
-                context.applicationContext,
+                appContext.applicationContext,
                 QuizDatabase::class.java,
                 "quizDatabase.db")
                 .fallbackToDestructiveMigration()

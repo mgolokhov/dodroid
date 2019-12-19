@@ -51,7 +51,7 @@ ext {
     crashlyticsVer = "2.10.1"
     coroutinesVer = "1.3.2"
     roomVer = "2.2.2"
-    daggerVer = "2.23.2"
+    daggerVer = "2.25.3"
     archLifecycleExtVer = "1.1.1"
     webDebugDbVer = "1.0.6"
     constraintLayoutVer = "1.1.3"
