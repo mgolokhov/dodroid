@@ -25,7 +25,7 @@ class QuizPageFragment: Fragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
-    lateinit var sound: Sound
+    lateinit var soundPlayer: SoundPlayer
     private lateinit var viewDataBinding: FragmentQuizPageBinding
     private val viewModel: QuizPageViewModel by lazyAndroid {
         ViewModelProviders
@@ -211,8 +211,8 @@ class QuizPageFragment: Fragment(){
 
     private fun setupSoundFeedbackForAnswer() {
         viewModel.playSoundEvent.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let { soundType ->
-                sound?.play(soundType, lifecycle)
+            it.getContentIfNotHandled()?.let { fileName ->
+                soundPlayer.play(lifecycle, fileName)
             }
         })
     }
