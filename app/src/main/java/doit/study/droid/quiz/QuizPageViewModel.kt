@@ -121,7 +121,7 @@ class QuizPageViewModel @Inject constructor(
         return variants[pos]
     }
 
-    fun handleThumpUpButton(analyticsData: AnalyticsData) {
+    fun handleThumbUpButton(analyticsData: AnalyticsData) {
         _item.value?.let {
             if (!it.questionIsEvaluated) {
                 _showToastForEvaluationEvent.value = Event(R.string.thank_upvote)
@@ -133,7 +133,7 @@ class QuizPageViewModel @Inject constructor(
         }
     }
 
-    fun handleThumpDownButton(analyticsData: AnalyticsData) {
+    fun handleThumbDownButton(analyticsData: AnalyticsData) {
         _item.value?.let {
             if (!it.questionIsEvaluated) {
                 _showToastForEvaluationEvent.value = Event(R.string.report_was_sent)

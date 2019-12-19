@@ -185,8 +185,8 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupThumbUpButton() {
-        viewDataBinding.thumpUpImageButton.setOnClickListener {
-            viewModel.handleThumpUpButton(
+        viewDataBinding.thumbUpImageButton.setOnClickListener {
+            viewModel.handleThumbUpButton(
                     AnalyticsData(
                             category = getString(R.string.report_because),
                             action = getString(R.string.like),
@@ -196,7 +196,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupThumbDownButton() {
-        viewDataBinding.thumpDownImageButton.setOnClickListener{
+        viewDataBinding.thumbDownImageButton.setOnClickListener{
             // TODO: code smells - decision should be in viewModel
             // hrr, ping pong with long flow based on onActivityResult
             if (!viewModel.isEvaluated()) {
@@ -237,7 +237,7 @@ class QuizPageFragment: Fragment(){
         if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
             data?.let {
                 val label = viewDataBinding.questionTextView.text.toString() + data.getStringExtra(FeedbackDialogFragment.EXTRA_CAUSE)
-                viewModel.handleThumpDownButton(
+                viewModel.handleThumbDownButton(
                         AnalyticsData(
                                 category = getString(R.string.report_because),
                                 action = getString(R.string.dislike),
