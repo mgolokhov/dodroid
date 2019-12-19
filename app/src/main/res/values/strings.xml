@@ -73,4 +73,5 @@
     <string name="debug_menu">Debug Menu</string>
     <string name="debug_force_crash">debug_force_crash</string>
     <string name="debug_pref_ssl_pinning">debug_pref_ssl_pinning</string>
+    <string name="not_yet_for_this_question">Not yet for this question</string>
 </resources>

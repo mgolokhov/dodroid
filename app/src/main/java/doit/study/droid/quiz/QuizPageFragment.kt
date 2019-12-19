@@ -90,7 +90,10 @@ class QuizPageFragment: Fragment(){
 
     private fun openDocumentation() {
         if (viewModel.getDocRef().isEmpty())
-            Toast.makeText(activity, "Not yet for this question", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                    activity, getString(R.string.not_yet_for_this_question),
+                    Toast.LENGTH_SHORT
+            ).show()
         else {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(viewModel.getDocRef())
