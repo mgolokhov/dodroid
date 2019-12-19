@@ -5,6 +5,7 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -16,14 +17,15 @@ import javax.inject.Inject
 class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: TopicViewModel
+//    private lateinit var viewModel: TopicViewModel
+    private val viewModel by viewModels<TopicViewModel> { viewModelFactory }
     private lateinit var viewDataBinding: FragmentTopicBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopicViewModel::class.java]
+//        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopicViewModel::class.java]
         setHasOptionsMenu(true)
     }
 

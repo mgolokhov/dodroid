@@ -9,18 +9,20 @@ import androidx.lifecycle.ViewModelProviders
 import doit.study.droid.app.BaseApp
 import doit.study.droid.common.MainDrawerActivity
 import doit.study.droid.utils.EventObserver
+import doit.study.droid.utils.lazyAndroid
 import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: SplashViewModel
+    private val viewModel by lazyAndroid {
+        ViewModelProviders.of(this, viewModelFactory)[SplashViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BaseApp.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SplashViewModel::class.java]
         setupNavigation()
         viewModel.syncWithServer()
     }

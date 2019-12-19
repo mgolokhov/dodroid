@@ -20,14 +20,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideGson(): Gson {
+    fun provideGson(): Gson {
         val gsonBuilder = GsonBuilder()
         return gsonBuilder.create()
     }
 
     @Provides
     @Singleton
-    internal fun provideCertPinning(sslPinning: SslPinning): CertificatePinner {
+    fun provideCertPinning(sslPinning: SslPinning): CertificatePinner {
         val certBuilder = CertificatePinner.Builder()
         if (sslPinning.isEnabled()) {
             certBuilder.add(URI(BASE_URL).host, SUBJECT_PUBLIC_KEY_INFO)
@@ -42,7 +42,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideOkHttpClient(certificatePinner: CertificatePinner): OkHttpClient {
+    fun provideOkHttpClient(certificatePinner: CertificatePinner): OkHttpClient {
         val client = OkHttpClient.Builder()
                 .certificatePinner(certificatePinner)
         if (BuildConfig.DEBUG) {
@@ -53,7 +53,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
@@ -63,7 +63,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideServerApi(retrofit: Retrofit): QuizDataClient {
+    fun provideServerApi(retrofit: Retrofit): QuizDataClient {
         return retrofit.create(QuizDataClient::class.java)
     }
 
