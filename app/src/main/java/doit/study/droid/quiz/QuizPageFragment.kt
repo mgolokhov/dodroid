@@ -25,7 +25,7 @@ class QuizPageFragment: Fragment(){
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
-    lateinit var sound: Sound
+    lateinit var soundPlayer: SoundPlayer
     private lateinit var viewDataBinding: FragmentQuizPageBinding
     private val viewModel: QuizPageViewModel by lazyAndroid {
         ViewModelProviders
@@ -90,7 +90,10 @@ class QuizPageFragment: Fragment(){
 
     private fun openDocumentation() {
         if (viewModel.getDocRef().isEmpty())
-            Toast.makeText(activity, "Not yet for this question", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                    activity, getString(R.string.not_yet_for_this_question),
+                    Toast.LENGTH_SHORT
+            ).show()
         else {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(viewModel.getDocRef())
@@ -185,8 +188,8 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupThumbUpButton() {
-        viewDataBinding.thumpUpImageButton.setOnClickListener {
-            viewModel.handleThumpUpButton(
+        viewDataBinding.thumbUpImageButton.setOnClickListener {
+            viewModel.handleThumbUpButton(
                     AnalyticsData(
                             category = getString(R.string.report_because),
                             action = getString(R.string.like),
@@ -196,7 +199,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupThumbDownButton() {
-        viewDataBinding.thumpDownImageButton.setOnClickListener{
+        viewDataBinding.thumbDownImageButton.setOnClickListener{
             // TODO: code smells - decision should be in viewModel
             // hrr, ping pong with long flow based on onActivityResult
             if (!viewModel.isEvaluated()) {
@@ -211,8 +214,8 @@ class QuizPageFragment: Fragment(){
 
     private fun setupSoundFeedbackForAnswer() {
         viewModel.playSoundEvent.observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let { soundType ->
-                sound?.play(soundType, lifecycle)
+            it.getContentIfNotHandled()?.let { fileName ->
+                soundPlayer.play(lifecycle, fileName)
             }
         })
     }
@@ -237,7 +240,7 @@ class QuizPageFragment: Fragment(){
         if (requestCode == REPORT_DIALOG_REQUEST_CODE) {
             data?.let {
                 val label = viewDataBinding.questionTextView.text.toString() + data.getStringExtra(FeedbackDialogFragment.EXTRA_CAUSE)
-                viewModel.handleThumpDownButton(
+                viewModel.handleThumbDownButton(
                         AnalyticsData(
                                 category = getString(R.string.report_because),
                                 action = getString(R.string.dislike),

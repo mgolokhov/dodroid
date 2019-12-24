@@ -19,7 +19,7 @@
 
 
             <ImageButton
-                android:id="@+id/thump_up_image_button"
+                android:id="@+id/thumb_up_image_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -51,14 +51,14 @@
                 app:elevation="6dp"
                 app:layout_anchorGravity="bottom"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/thump_up_image_button"
+                app:layout_constraintEnd_toStartOf="@+id/thumb_up_image_button"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/thump_down_image_button"
+                app:layout_constraintStart_toEndOf="@+id/thumb_down_image_button"
                 app:pressedTranslationZ="12dp"
                 app:layout_behavior="doit.study.droid.views.SnackBarAwareBehavior" />
 
             <ImageButton
-                android:id="@+id/thump_down_image_button"
+                android:id="@+id/thumb_down_image_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

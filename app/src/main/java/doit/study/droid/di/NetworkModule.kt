@@ -33,15 +33,15 @@ class NetworkModule() {
     @Singleton
     internal fun provideCertPinning(sslPinning: SslPinning): CertificatePinner {
         val certBuilder = CertificatePinner.Builder()
-        if (sslPinning.isEnabled())
+        if (sslPinning.isEnabled()) {
             certBuilder.add(URI(BASE_URL).host, SUBJECT_PUBLIC_KEY_INFO)
+        }
         return certBuilder.build()
     }
 
     private fun createLogInterceptor(): HttpLoggingInterceptor {
         val logging = HttpLoggingInterceptor()
-        val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-        return logging.apply { logging.level = level }
+        return logging.apply { logging.level = HttpLoggingInterceptor.Level.BODY }
     }
 
     @Provides
@@ -49,8 +49,9 @@ class NetworkModule() {
     internal fun provideOkHttpClient(certificatePinner: CertificatePinner): OkHttpClient {
         val client = OkHttpClient.Builder()
                 .certificatePinner(certificatePinner)
-        client.addInterceptor(createLogInterceptor());
-        client.addNetworkInterceptor(StethoInterceptor())
+        if (BuildConfig.DEBUG) {
+            client.addInterceptor(createLogInterceptor())
+        }
         return client.build()
     }
 
