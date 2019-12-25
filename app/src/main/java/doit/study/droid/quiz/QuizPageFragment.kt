@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import doit.study.droid.R
-import doit.study.droid.app.BaseApp
+import doit.study.droid.app.App
 import doit.study.droid.databinding.AnswerItemBinding
 import doit.study.droid.databinding.FragmentQuizPageBinding
 import doit.study.droid.utils.*
@@ -43,7 +43,7 @@ class QuizPageFragment: Fragment(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BaseApp.dagger.inject(this)
+        App.dagger.inject(this)
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModelMain
