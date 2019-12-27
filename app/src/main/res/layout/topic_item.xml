@@ -44,6 +44,7 @@
                 android:layout_toLeftOf="@id/checkbox_tag"
                 android:gravity="center_vertical"
                 android:padding="4dp"
+                android:fontFamily="@font/galaxy_1c"
                 android:text="@{topic.name + ` (` + topic.counterTotal + `/` + topic.counterStudied + `)`}"
                 />
 

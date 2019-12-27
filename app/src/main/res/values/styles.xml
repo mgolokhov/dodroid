@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/star_jedi</item>
     </style>
 
 
@@ -24,6 +25,7 @@
     </style>
 
     <style name="NavigationDrawerStyle">
-        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/star_jedi</item>
     </style>
+
 </resources>
