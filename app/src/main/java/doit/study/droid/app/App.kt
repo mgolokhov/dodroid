@@ -6,7 +6,6 @@ import com.crashlytics.android.core.CrashlyticsCore
 import com.facebook.stetho.Stetho
 import doit.study.droid.BuildConfig
 import doit.study.droid.di.AppComponent
-import doit.study.droid.di.AppModule
 import doit.study.droid.di.DaggerAppComponent
 import doit.study.droid.utils.timber.CrashlyticsTree
 import doit.study.droid.utils.timber.LogcatTree
@@ -18,10 +17,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        dagger = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .build()
-
+        dagger = DaggerAppComponent
+                .factory()
+                .create(this)
         setupCrashlytics()
         setupTimber()
         setupStetho()

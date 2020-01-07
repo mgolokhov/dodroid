@@ -2,7 +2,6 @@ package doit.study.droid.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -10,19 +9,20 @@ import androidx.lifecycle.ViewModelProviders
 import doit.study.droid.app.App
 import doit.study.droid.common.MainDrawerActivity
 import doit.study.droid.utils.EventObserver
-import timber.log.Timber
+import doit.study.droid.utils.lazyAndroid
 import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: SplashViewModel
+    private val viewModel by lazyAndroid {
+        ViewModelProviders.of(this, viewModelFactory)[SplashViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SplashViewModel::class.java]
         setupNavigation()
         viewModel.syncWithServer()
     }

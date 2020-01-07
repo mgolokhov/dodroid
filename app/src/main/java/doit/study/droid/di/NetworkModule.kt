@@ -1,14 +1,10 @@
 package doit.study.droid.di
 
-import android.app.Application
-import androidx.preference.PreferenceManager
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import doit.study.droid.BuildConfig
-import doit.study.droid.R
 import doit.study.droid.data.local.preferences.SslPinning
 import doit.study.droid.data.remote.QuizDataClient
 import okhttp3.CertificatePinner
@@ -20,18 +16,18 @@ import java.net.URI
 import javax.inject.Singleton
 
 @Module
-class NetworkModule() {
+object NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideGson(): Gson {
+    fun provideGson(): Gson {
         val gsonBuilder = GsonBuilder()
         return gsonBuilder.create()
     }
 
     @Provides
     @Singleton
-    internal fun provideCertPinning(sslPinning: SslPinning): CertificatePinner {
+    fun provideCertPinning(sslPinning: SslPinning): CertificatePinner {
         val certBuilder = CertificatePinner.Builder()
         if (sslPinning.isEnabled()) {
             certBuilder.add(URI(BASE_URL).host, SUBJECT_PUBLIC_KEY_INFO)
@@ -46,7 +42,7 @@ class NetworkModule() {
 
     @Provides
     @Singleton
-    internal fun provideOkHttpClient(certificatePinner: CertificatePinner): OkHttpClient {
+    fun provideOkHttpClient(certificatePinner: CertificatePinner): OkHttpClient {
         val client = OkHttpClient.Builder()
                 .certificatePinner(certificatePinner)
         if (BuildConfig.DEBUG) {
@@ -57,7 +53,7 @@ class NetworkModule() {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
@@ -67,15 +63,11 @@ class NetworkModule() {
 
     @Provides
     @Singleton
-    internal fun provideServerApi(retrofit: Retrofit): QuizDataClient {
+    fun provideServerApi(retrofit: Retrofit): QuizDataClient {
         return retrofit.create(QuizDataClient::class.java)
     }
 
-    companion object {
-        private const val BASE_URL = "https://dodroid-6f241.web.app/"
-        // note: that Certificate key is valid until Mon, 26 Oct 2020
-        private const val SUBJECT_PUBLIC_KEY_INFO = "sha256/fm0SEuAdUu/JvjeuKT5rUTGp5XibsNski/y43V5JSY8="
-    }
-
-
+    private const val BASE_URL = "https://dodroid-6f241.web.app/"
+    // note: that Certificate key is valid until Mon, 26 Oct 2020
+    private const val SUBJECT_PUBLIC_KEY_INFO = "sha256/fm0SEuAdUu/JvjeuKT5rUTGp5XibsNski/y43V5JSY8="
 }

@@ -28,7 +28,7 @@ object Versions {
     val crashlyticsVer = "2.10.1"
     val coroutinesVer = "1.3.2"
     val roomVer = "2.2.3"
-    val daggerVer = "2.23.2"
+    val daggerVer = "2.25.3"
     val archLifecycleExtVer = "1.1.1"
     val webDebugDbVer = "1.0.6"
     val constraintLayoutVer = "1.1.3"
