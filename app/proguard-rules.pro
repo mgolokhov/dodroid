@@ -15,12 +15,33 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--keep class android.support.v7.widget.SearchView { *; }
--keep class android.support.design.widget.** { *; }
--keep interface android.support.design.widget.** { *; }
 
 # Crashlytics
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
 -keep class com.crashlytics.** { *; }
 -dontwarn com.crashlytics.**
+# okhttp3
+-dontwarn org.conscrypt.**
+
+# Remove Android Log's methods
+# This will strip `Log.v`, `Log.d`, and `Log.i` statements and will leave `Log.w` and `Log.e` statements intact.
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static *** d(...);
+    public static *** i(...);
+    public static *** v(...);
+}
+
+# Remove log methods which CrashlyticsTree doesn't support
+-assumenosideeffects class timber.log.Timber {
+    public static *** d(...);
+    public static *** i(...);
+    public static *** v(...);
+}
+
+# data classes for room
+-keepclassmembers class doit.study.droid.data.local.entity.** { <fields>; }
+# retrofit classes use @SerializedName for now
+
+#-printconfiguration proguard-merged-config.txt

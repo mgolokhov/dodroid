@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import doit.study.droid.R
-import doit.study.droid.app.BaseApp
+import doit.study.droid.app.App
 import doit.study.droid.databinding.FragmentTopicBinding
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
     private lateinit var viewDataBinding: FragmentTopicBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BaseApp.dagger.inject(this)
+        App.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
 //        viewModel = ViewModelProviders.of(this, viewModelFactory)[TopicViewModel::class.java]

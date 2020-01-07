@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'io.fabric.tools:gradle:1.28.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -23,35 +23,29 @@ def versionBuild = 31
 def versionStatus = "alpha"
 
 android {
-    compileSdkVersion rootProject.compileSdkVer
-    buildToolsVersion rootProject.buildtoolsVer
+
     defaultConfig {
         applicationId "doit.study.droid"
-        minSdkVersion rootProject.minSdkVer
-        targetSdkVersion rootProject.targetSdkVer
         versionCode versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionBuild}.${versionStatus}"
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     buildTypes {
         debug {
+            shrinkResources false
             minifyEnabled false
             debuggable true
         }
         release {
+            shrinkResources true
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 
     dataBinding {
@@ -61,62 +55,61 @@ android {
 
 dependencies {
     // Libraries for Testing
-    testImplementation "junit:junit:$junitVer"
+    testImplementation Deps.junitVer
     // performing assertions
-    testImplementation "com.google.truth:truth:$truthVer"
-    testImplementation "androidx.test:core:$testCoreVer"
-    testImplementation "org.mockito:mockito-core:$mockitoCoreVer"
+    testImplementation Deps.truthVer
+    testImplementation Deps.testCoreVer
+    testImplementation Deps.mockitoCoreVer
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // UI
-    implementation "androidx.appcompat:appcompat:$appCompatVer"
-    implementation "androidx.preference:preference:$preferenceVer"
-    implementation "androidx.cardview:cardview:$cardViewVer"
-    implementation "androidx.recyclerview:recyclerview:$recyclerViewVer"
-    implementation "com.google.android.material:material:$materialVer"
-    implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupportVer"
+    implementation Deps.appCompatVer
+    implementation Deps.preferenceVer
+    implementation Deps.cardViewVer
+    implementation Deps.recyclerViewVer
+    implementation Deps.materialVer
+    implementation Deps.androidXLegacySupportVer
     // Network: Retrofit & OkHttp
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVer"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVer"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3LoggingInterceptorVer"
+    implementation Deps.retrofitVer
+    implementation Deps.retrofitConvertorGsonVer
+    implementation Deps.okhttp3LoggingInterceptorVer
     // Analytics
-    implementation "com.google.android.gms:play-services-analytics:$playServicesAnalyticsVer"
-    implementation "com.jakewharton.timber:timber:$timberVer"
-    implementation "com.google.code.gson:gson:$gsonVer"
-    implementation("com.crashlytics.sdk.android:crashlytics:$crashlyticsVer@aar") {
-        transitive = true
-    }
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVer"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVer"
+    implementation Deps.playServicesAnalyticsVer
+    implementation Deps.timberVer
+    implementation Deps.gsonVer
+    implementation(Deps.crashlyticsVer) { transitive = true }
+    implementation Deps.coroutinesCoreVer
+    implementation Deps.coroutinesAndroidVer
 
-    implementation "androidx.room:room-runtime:$roomVer"
-    kapt "androidx.room:room-compiler:$roomVer"
+    implementation Deps.roomRuntimeVer
+    kapt Deps.roomCompilerVer
     // Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$roomVer"
+    implementation Deps.roomKtxVer
     // RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$roomVer"
+    implementation Deps.roomRxjava2Ver
     // Test helpers
-    testImplementation "androidx.room:room-testing:$roomVer"
+    testImplementation Deps.roomTestingVer
 
-    api "com.google.dagger:dagger:$daggerVer"
-    kapt "com.google.dagger:dagger-compiler:$daggerVer"
+    api Deps.daggerVer
+    kapt Deps.daggerCompilerVer
 
-    implementation "android.arch.lifecycle:extensions:$archLifecycleExtVer"
+    implementation Deps.archLifecycleExtVer
 
-    debugImplementation "com.amitshekhar.android:debug-db:$webDebugDbVer"
+    debugImplementation Deps.webDebugDbVer
 
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVer"
+    implementation Deps.constraintLayoutVer
 
-    implementation "androidx.navigation:navigation-fragment:$navigationVer"
-    implementation "androidx.navigation:navigation-ui:$navigationVer"
-    implementation "androidx.lifecycle:lifecycle-extensions:$navigationVer"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVer"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
+    implementation Deps.navigationFragmentVer
+    implementation Deps.navigationUiVer
+    implementation Deps.navigationLifecycleExtVer
+    implementation Deps.navigationFragmentKtxVer
+    implementation Deps.navigationUiKtxVer
 
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleCommonJava8Ver"
+    implementation Deps.lifecycleCommonJava8Ver
     // used in debug menu to restart application process
-    implementation "com.jakewharton:process-phoenix:$phoenix"
+    implementation Deps.phoenix
     // a debug bridge to inspect Database, Network, Sharedpreferences
-    implementation "com.facebook.stetho:stetho:$stetho"
+    implementation Deps.stetho
+    implementation Deps.stethoOkhttp3Interceptor
 }
 

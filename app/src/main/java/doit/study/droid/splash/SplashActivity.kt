@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import doit.study.droid.app.BaseApp
+import doit.study.droid.app.App
 import doit.study.droid.common.MainDrawerActivity
 import doit.study.droid.utils.EventObserver
 import doit.study.droid.utils.lazyAndroid
@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BaseApp.dagger.inject(this)
+        App.dagger.inject(this)
         super.onCreate(savedInstanceState)
 
         setupNavigation()
