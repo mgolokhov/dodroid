@@ -18,12 +18,13 @@ interface TagDao {
     @Query("select * from Tag where selected = :isSelected")
     suspend fun getTagBySelection(isSelected: Boolean): List<Tag>
 
+    // TODO: migrate to ABORT strategy
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTag(tag: Tag): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplaceTag(vararg tags: Tag): List<Long>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertQuestionTagJoin(questionTagJoin: QuestionTagJoin)
 }

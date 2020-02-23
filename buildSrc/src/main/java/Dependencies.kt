@@ -39,6 +39,18 @@ object Versions {
 
     val gradleandroid = "3.5.2"
     val kotlin = "1.3.61"
+    // AndroidX Test - Instrumented testing
+    val testCoreKtxVer = "1.2.0"
+    val testExtJunitKtxVer = "1.1.1"
+    val testRulesVer = "1.2.0"
+    val testRoomTestingVer = "2.2.3"
+    val archCoreTestingVer = "2.1.0"
+    val testEspressoVer = "3.2.0"
+    val robolectricAnnotationsVer = "4.3.1"
+    val testRunnerVer = "1.2.0"
+    val testExtJunitVer = "1.1.1"
+    val kotlinxCoroutinesAndroidVer = "1.3.2"
+    val kotlinxCoroutinesTestVer = "1.3.0"
 }
 
 object Deps {

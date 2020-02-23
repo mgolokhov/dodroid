@@ -28,6 +28,8 @@ android {
         applicationId "doit.study.droid"
         versionCode versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionBuild}.${versionStatus}"
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -50,6 +52,18 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    android {
+        sourceSets {
+            String sharedTestDir = 'src/sharedTest/java'
+            test {
+                java.srcDirs += sharedTestDir
+            }
+            androidTest {
+                java.srcDirs += sharedTestDir
+            }
+        }
     }
 }
 
@@ -111,5 +125,28 @@ dependencies {
     // a debug bridge to inspect Database, Network, Sharedpreferences
     implementation Deps.stetho
     implementation Deps.stethoOkhttp3Interceptor
+
+
+    // AndroidX Test - Instrumented testing
+    androidTestImplementation "androidx.test:core-ktx:${Versions.testCoreKtxVer}"
+    androidTestImplementation "androidx.test.ext:junit-ktx:${Versions.testExtJunitKtxVer}"
+    androidTestImplementation "androidx.test:rules:${Versions.testRulesVer}"
+    androidTestImplementation "androidx.room:room-testing:${Versions.testRoomTestingVer}"
+    androidTestImplementation "androidx.arch.core:core-testing:${Versions.archCoreTestingVer}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.testEspressoVer}"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:${Versions.testEspressoVer}"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:${Versions.testEspressoVer}"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:${Versions.testEspressoVer}"
+    androidTestImplementation "org.robolectric:annotations:${Versions.robolectricAnnotationsVer}"
+    implementation "androidx.test.espresso:espresso-idling-resource:${Versions.testEspressoVer}"
+
+    androidTestImplementation "androidx.test:runner:${Versions.testRunnerVer}"
+    androidTestImplementation "androidx.test.ext:junit:${Versions.testExtJunitVer}"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutinesAndroidVer}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinxCoroutinesTestVer}"
+
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutinesAndroidVer}"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinxCoroutinesTestVer}"
 }
 
