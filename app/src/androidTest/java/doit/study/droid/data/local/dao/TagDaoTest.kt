@@ -22,35 +22,7 @@ import org.junit.runner.RunWith
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class TagDaoTest {
-
-    private lateinit var database: QuizDatabase
-
-    // Set the main coroutines dispatcher for unit testing.
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
-    // Executes each task synchronously using Architecture Components.
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
-
-    // That rule conflicts with other rules and throws RuntimeException: Delegate runner
-    // @Rule
-    // var thrown: ExpectedException = ExpectedException.none()
-
-    @Before
-    fun initDb() {
-        // using an in-memory database because the information stored here disappears when the
-        // process is killed
-        database = Room.inMemoryDatabaseBuilder(
-                ApplicationProvider.getApplicationContext(),
-                QuizDatabase::class.java
-        ).allowMainThreadQueries().build()
-    }
-
-    @After
-    fun closeDb() = database.close()
+class TagDaoTest: DbTest() {
 
     @Test
     fun insertTagAndGetById() = runBlockingTest{
@@ -59,9 +31,9 @@ class TagDaoTest {
                 name = "tag name"
                 // new tags unselected by default
         )
-        val tagId = database.tagDao().insertTag(tag).toInt()
+        val tagId = db.tagDao().insertTag(tag).toInt()
         // WHEN
-        val actualTag = database.tagDao().getTag(tagId)
+        val actualTag = db.tagDao().getTag(tagId)
         // THEN
         assertThat(actualTag.name, `is`(tag.name))
         assertThat(actualTag.selected, `is`(tag.selected))
@@ -74,11 +46,11 @@ class TagDaoTest {
                 name = "tag name"
                 // new tags unselected by default
         )
-        val tagId = database.tagDao().insertTag(tag)
+        val tagId = db.tagDao().insertTag(tag)
         val tagSelected = tag.copy(id=tagId.toInt(), selected = true)
         // WHEN
-        val tagIdUpdated = database.tagDao().insertTag(tagSelected)
-        val actualTag  = database.tagDao().getTag(tagId.toInt())
+        val tagIdUpdated = db.tagDao().insertTag(tagSelected)
+        val actualTag  = db.tagDao().getTag(tagId.toInt())
         // THEN
         assertThat(tagIdUpdated, `is`(tagId))
         assertThat(actualTag, IsEqual<Tag>(tagSelected))
