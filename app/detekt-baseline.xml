@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>EmptyDefaultConstructor:DebugFragment.kt$DebugFragment$()</ID>
+    <ID>ForbiddenComment:QuestionDao.kt$QuestionDao$// TODO: migrate to ABORT strategy</ID>
+    <ID>ForbiddenComment:QuizItem.kt$QuizItem$// TODO: convert sealed to classes or enums</ID>
+    <ID>ForbiddenComment:QuizItem.kt$QuizItem$// TODO: make configurable, const</ID>
+    <ID>ForbiddenComment:QuizPageFragment.kt$QuizPageFragment$// TODO: code smells - decision should be in viewModel</ID>
+    <ID>ForbiddenComment:SaveQuizResultUseCase.kt$SaveQuizResultUseCase$// TODO: dirty stub, replace with real logic</ID>
+    <ID>ForbiddenComment:SyncWithServerUseCase.kt$SyncWithServerUseCase$// TODO: what's a proper handling of</ID>
+    <ID>ForbiddenComment:TagDao.kt$TagDao$// TODO: migrate to ABORT strategy</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.1f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.2f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.3f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.4f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.55f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.65f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.6f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.75f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.7f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.85f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.8f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.9f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$100</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$1000</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$2.9f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$20f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$3.4f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$4</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$5f</ID>
+    <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$8f</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$100</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$2000</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$3_000L</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$40</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$41</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$70</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$71</ID>
+    <ID>MagicNumber:QuizSummaryFragment.kt$QuizSummaryFragment$99</ID>
+    <ID>MagicNumber:SoundPlayer.kt$SoundPlayer$0.04f</ID>
+    <ID>MaxLineLength:DeathStarLoader.kt$DeathStarLoader$amplitudeRatio = if (amplitudeRatioAttr &gt; DEFAULT_AMPLITUDE_RATIO) DEFAULT_AMPLITUDE_RATIO else amplitudeRatioAttr</ID>
+    <ID>MaxLineLength:DeathStarLoader.kt$DeathStarLoader$canvas.drawLine(beginX.toFloat(), waveY[(beginX + wave2Shift) % endX], beginX.toFloat(), endY.toFloat(), wavePaint)</ID>
+    <ID>MaxLineLength:DeathStarLoader.kt$DeathStarLoader$val amplitudeRatioAttr = attributes.getFloat(R.styleable.DeathStarLoader_ds_wave_amplitude, DEFAULT_AMPLITUDE_RATIO)</ID>
+    <ID>MaxLineLength:QuestionDao.kt$QuestionDao$@Query("select distinct Q.* from Question as Q inner join QuestionTagJoin as QTJ on Q.id = QTJ.questionId inner join Tag as T on T.id = QTJ.tagId where T.name = :tag")</ID>
+    <ID>MaxLineLength:QuestionDao.kt$QuestionDao$@Query("update Question set wrongCounter = :wrongCount, rightCounter = :rightCount, studiedAt = :studiedAt where id = :id")</ID>
+    <ID>MaxLineLength:QuizPageFragment.kt$QuizPageFragment$Timber.d("setupQuestion ${viewDataBinding.questionTextView.text} ${this.hashCode()} ${viewDataBinding.questionTextView.hashCode()}")</ID>
+    <ID>MaxLineLength:QuizPageFragment.kt$QuizPageFragment$val answerViewVariant = AnswerItemBinding.inflate(layoutInflater, viewDataBinding.containerAnswerVariantsLinearLayout, false)</ID>
+    <ID>MaxLineLength:QuizPageFragment.kt$QuizPageFragment$val label = viewDataBinding.questionTextView.text.toString() + data.getStringExtra(FeedbackDialogFragment.EXTRA_CAUSE)</ID>
+    <ID>MaxLineLength:QuizSummaryFragment.kt$QuizSummaryFragment$val textSummaryAnimator = ObjectAnimator.ofPropertyValuesHolder(viewDataBinding.textSummary, alpha, scaleX, scaleY)</ID>
+    <ID>MaxLineLength:QuizSummaryFragment.kt$QuizSummaryFragment$viewDataBinding.rightCnt.text = String.format(resources.getString(R.string.test_result_correct), it.getInt(RIGHT_CNT_KEY))</ID>
+    <ID>MaxLineLength:QuizSummaryFragment.kt$QuizSummaryFragment$viewDataBinding.wrongCnt.text = String.format(resources.getString(R.string.test_result_wrong), it.getInt(WRONG_CNT_KEY))</ID>
+    <ID>MaxLineLength:ScrollAwareFABBehavior.kt$ScrollAwareFABBehavior$child: FloatingActionButton</ID>
+    <ID>MaxLineLength:ScrollAwareFABBehavior.kt$ScrollAwareFABBehavior$return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes)</ID>
+    <ID>MaxLineLength:SnackBarAwareBehavior.kt$SnackBarAwareBehavior$override</ID>
+    <ID>MaxLineLength:SnackBarAwareBehavior.kt$SnackBarAwareBehavior$return super.onMeasureChild(parent, child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed)</ID>
+    <ID>NewLineAtEndOfFile:AnalyticsData.kt$doit.study.droid.utils.AnalyticsData.kt</ID>
+    <ID>NewLineAtEndOfFile:AnswerVariantItem.kt$doit.study.droid.quiz.AnswerVariantItem.kt</ID>
+    <ID>NewLineAtEndOfFile:AppComponent.kt$doit.study.droid.di.AppComponent.kt</ID>
+    <ID>NewLineAtEndOfFile:AppModule.kt$doit.study.droid.di.AppModule.kt</ID>
+    <ID>NewLineAtEndOfFile:Configuration.kt$doit.study.droid.data.remote.Configuration.kt</ID>
+    <ID>NewLineAtEndOfFile:CrashlyticsTree.kt$doit.study.droid.utils.timber.CrashlyticsTree.kt</ID>
+    <ID>NewLineAtEndOfFile:DeathStarLoader.kt$doit.study.droid.views.DeathStarLoader.kt</ID>
+    <ID>NewLineAtEndOfFile:DebugFragment.kt$doit.study.droid.debug.DebugFragment.kt</ID>
+    <ID>NewLineAtEndOfFile:Extensions.kt$doit.study.droid.utils.Extensions.kt</ID>
+    <ID>NewLineAtEndOfFile:FeedbackDialogFragment.kt$doit.study.droid.quiz.FeedbackDialogFragment.kt</ID>
+    <ID>NewLineAtEndOfFile:GetSelectedQuizItemsUseCase.kt$doit.study.droid.domain.GetSelectedQuizItemsUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:GetSoundFileForFailureUseCase.kt$doit.study.droid.domain.GetSoundFileForFailureUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:GetSoundFileForSuccessUseCase.kt$doit.study.droid.domain.GetSoundFileForSuccessUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:GetTopicItemsUseCase.kt$doit.study.droid.domain.GetTopicItemsUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:IsQuizAnsweredRightUseCase.kt$doit.study.droid.domain.IsQuizAnsweredRightUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:LogcatTree.kt$doit.study.droid.utils.timber.LogcatTree.kt</ID>
+    <ID>NewLineAtEndOfFile:MainDrawerActivity.kt$doit.study.droid.common.MainDrawerActivity.kt</ID>
+    <ID>NewLineAtEndOfFile:MotivationFragment.kt$doit.study.droid.motivation.MotivationFragment.kt</ID>
+    <ID>NewLineAtEndOfFile:NetworkModule.kt$doit.study.droid.di.NetworkModule.kt</ID>
+    <ID>NewLineAtEndOfFile:QuestionTagJoin.kt$doit.study.droid.data.local.entity.QuestionTagJoin.kt</ID>
+    <ID>NewLineAtEndOfFile:QuizContentVersion.kt$doit.study.droid.data.local.QuizContentVersion.kt</ID>
+    <ID>NewLineAtEndOfFile:QuizData.kt$doit.study.droid.data.remote.QuizData.kt</ID>
+    <ID>NewLineAtEndOfFile:QuizItem.kt$doit.study.droid.quiz.QuizItem.kt</ID>
+    <ID>NewLineAtEndOfFile:QuizMainViewModel.kt$doit.study.droid.quiz.QuizMainViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:QuizPageFragment.kt$doit.study.droid.quiz.QuizPageFragment.kt</ID>
+    <ID>NewLineAtEndOfFile:QuizPageViewModel.kt$doit.study.droid.quiz.QuizPageViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:RecyclerViewBindingAdapter.kt$doit.study.droid.topic.RecyclerViewBindingAdapter.kt</ID>
+    <ID>NewLineAtEndOfFile:SaveQuizResultUseCase.kt$doit.study.droid.domain.SaveQuizResultUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:SaveTopicItemsUseCase.kt$doit.study.droid.domain.SaveTopicItemsUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:ScrollAwareFABBehavior.kt$doit.study.droid.views.ScrollAwareFABBehavior.kt</ID>
+    <ID>NewLineAtEndOfFile:ShuffleQuizContentUseCase.kt$doit.study.droid.domain.ShuffleQuizContentUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:SnackBarAwareBehavior.kt$doit.study.droid.views.SnackBarAwareBehavior.kt</ID>
+    <ID>NewLineAtEndOfFile:Sound.kt$doit.study.droid.data.local.preferences.Sound.kt</ID>
+    <ID>NewLineAtEndOfFile:SoundPlayer.kt$doit.study.droid.utils.SoundPlayer.kt</ID>
+    <ID>NewLineAtEndOfFile:SoundRepository.kt$doit.study.droid.data.local.SoundRepository.kt</ID>
+    <ID>NewLineAtEndOfFile:SplashViewModel.kt$doit.study.droid.splash.SplashViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:SslPinning.kt$doit.study.droid.data.local.preferences.SslPinning.kt</ID>
+    <ID>NewLineAtEndOfFile:SyncWithServerUseCase.kt$doit.study.droid.domain.SyncWithServerUseCase.kt</ID>
+    <ID>NewLineAtEndOfFile:Tag.kt$doit.study.droid.data.local.entity.Tag.kt</ID>
+    <ID>NewLineAtEndOfFile:TagDao.kt$doit.study.droid.data.local.dao.TagDao.kt</ID>
+    <ID>NewLineAtEndOfFile:TopicItem.kt$doit.study.droid.topic.TopicItem.kt</ID>
+    <ID>NewLineAtEndOfFile:TopicViewModel.kt$doit.study.droid.topic.TopicViewModel.kt</ID>
+    <ID>NewLineAtEndOfFile:TopicsDiffCallback.kt$doit.study.droid.topic.TopicsDiffCallback.kt</ID>
+    <ID>NewLineAtEndOfFile:ViewModelFactory.kt$doit.study.droid.common.ViewModelFactory.kt</ID>
+    <ID>NewLineAtEndOfFile:ViewModelKey.kt$doit.study.droid.di.ViewModelKey.kt</ID>
+    <ID>NewLineAtEndOfFile:ViewModelModule.kt$doit.study.droid.di.ViewModelModule.kt</ID>
+    <ID>PackageNaming:QuizSummaryFragment.kt$package doit.study.droid.quiz_summary</ID>
+    <ID>ReturnCount:QuizPageFragment.kt$QuizPageFragment$override fun onOptionsItemSelected(menuItem: MenuItem): Boolean</ID>
+    <ID>SpreadOperator:SaveTopicItemsUseCase.kt$SaveTopicItemsUseCase$(*tags.toTypedArray())</ID>
+    <ID>SpreadOperator:TopicViewModel.kt$TopicViewModel$(*topics.toTypedArray(), selected = selected)</ID>
+    <ID>TooGenericExceptionCaught:SoundRepository.kt$SoundRepository$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SyncWithServerUseCase.kt$SyncWithServerUseCase$e: Exception</ID>
+    <ID>TooGenericExceptionThrown:DebugFragment.kt$DebugFragment$throw RuntimeException("forced crash")</ID>
+    <ID>TooManyFunctions:DeathStarLoader.kt$DeathStarLoader$DeathStarLoader</ID>
+    <ID>TooManyFunctions:QuizMainViewModel.kt$QuizMainViewModel$QuizMainViewModel</ID>
+    <ID>TooManyFunctions:QuizPageFragment.kt$QuizPageFragment$QuizPageFragment</ID>
+    <ID>TooManyFunctions:QuizPageViewModel.kt$QuizPageViewModel$QuizPageViewModel</ID>
+    <ID>TooManyFunctions:SnackBarAwareBehavior.kt$SnackBarAwareBehavior$SnackBarAwareBehavior</ID>
+    <ID>WildcardImport:DeathStarLoader.kt$import android.graphics.*</ID>
+    <ID>WildcardImport:QuizMainViewModel.kt$import androidx.lifecycle.*</ID>
+    <ID>WildcardImport:QuizPageFragment.kt$import android.view.*</ID>
+    <ID>WildcardImport:QuizPageFragment.kt$import android.widget.*</ID>
+    <ID>WildcardImport:QuizPageFragment.kt$import doit.study.droid.utils.*</ID>
+    <ID>WildcardImport:SplashViewModel.kt$import kotlinx.coroutines.*</ID>
+    <ID>WildcardImport:TopicFragment.kt$import android.view.*</ID>
+  </Whitelist>
+</SmellBaseline>
