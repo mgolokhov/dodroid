@@ -39,6 +39,8 @@ object Versions {
 
     val gradleandroid = "3.5.2"
     val kotlin = "1.3.61"
+
+    val toolDetekt = "1.5.1"
     // AndroidX Test - Instrumented testing
     val testCoreKtxVer = "1.2.0"
     val testExtJunitKtxVer = "1.1.1"

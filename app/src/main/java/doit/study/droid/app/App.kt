@@ -12,7 +12,6 @@ import doit.study.droid.utils.timber.LogcatTree
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 
-
 class App : Application() {
 
     override fun onCreate() {
@@ -50,5 +49,4 @@ class App : Application() {
     companion object {
         lateinit var dagger: AppComponent
     }
-
 }

@@ -20,5 +20,4 @@ class QuizContentVersion @Inject constructor(val context: Application) {
         private const val PREF_NAME = "quiz.content.version"
         private const val VERSION_KEY = "quiz.content.version.key"
     }
-
 }

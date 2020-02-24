@@ -5,11 +5,11 @@ import android.media.MediaPlayer
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
+import timber.log.Timber
 
-class SoundPlayer @Inject constructor(val appContext: Application): DefaultLifecycleObserver {
+class SoundPlayer @Inject constructor(val appContext: Application) : DefaultLifecycleObserver {
     private var mediaPlayer: MediaPlayer? = null
     private val volume = 0.04f // should be scaled logarithmically
 

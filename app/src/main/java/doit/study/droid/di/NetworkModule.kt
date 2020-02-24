@@ -7,13 +7,13 @@ import dagger.Provides
 import doit.study.droid.BuildConfig
 import doit.study.droid.data.local.preferences.SslPinning
 import doit.study.droid.data.remote.QuizDataClient
+import java.net.URI
+import javax.inject.Singleton
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.URI
-import javax.inject.Singleton
 
 @Module
 object NetworkModule {

@@ -17,7 +17,6 @@ import doit.study.droid.BuildConfig
 import doit.study.droid.R
 import doit.study.droid.utils.lazyAndroid
 
-
 open class MainDrawerActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
     private var toast: Toast? = null

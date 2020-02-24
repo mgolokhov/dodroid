@@ -24,8 +24,8 @@ import androidx.room.PrimaryKey
         ]
 )
 data class QuestionTagJoin(
-        @PrimaryKey(autoGenerate = true)
-        val id: Int = 0,
-        val questionId: Int,
-        val tagId: Int
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val questionId: Int,
+    val tagId: Int
 )

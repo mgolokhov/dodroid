@@ -1,15 +1,11 @@
 import android.database.sqlite.SQLiteConstraintException
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.data.local.dao.DbTest
-import doit.study.droid.data.local.dao.util.MainCoroutineRule
 import doit.study.droid.data.local.entity.Question
 import doit.study.droid.data.local.entity.QuestionTagJoin
 import doit.study.droid.data.local.entity.Tag
+import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
@@ -18,15 +14,13 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.contains
 import org.hamcrest.Matchers.containsInAnyOrder
 import org.hamcrest.core.IsEqual
-import org.junit.*
+import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
-
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class QuestionDaoTest: DbTest() {
+class QuestionDaoTest : DbTest() {
     @Test
     fun insertQuestionAndGetById() = runBlockingTest {
         // GIVEN - insert a question
@@ -173,7 +167,7 @@ class QuestionDaoTest: DbTest() {
     }
 
     @Test
-    fun insertQuestionWithTagGetByTag()  = runBlockingTest {
+    fun insertQuestionWithTagGetByTag() = runBlockingTest {
         // GIVEN insert question, tag and associate relation between them
         val question = Question(
                 id = 1,

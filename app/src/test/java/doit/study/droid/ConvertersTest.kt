@@ -5,7 +5,6 @@ import com.google.gson.JsonSyntaxException
 import doit.study.droid.data.local.Converters
 import org.junit.Test
 
-
 class ConvertersTest {
     @Test
     fun testJsonToListMultipleItems() {

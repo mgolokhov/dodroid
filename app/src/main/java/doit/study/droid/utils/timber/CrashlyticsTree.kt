@@ -11,7 +11,6 @@ class CrashlyticsTree : Timber.Tree() {
         // warn, err, wtf
     }
 
-
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (isLoggable(priority)) {
 

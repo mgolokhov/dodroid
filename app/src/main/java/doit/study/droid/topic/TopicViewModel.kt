@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import doit.study.droid.domain.GetTopicItemsUseCase
 import doit.study.droid.domain.SaveTopicItemsUseCase
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 class TopicViewModel @Inject constructor(
-        private val getTopicItemsUseCase: GetTopicItemsUseCase,
-        private val saveTopicItemsUseCase: SaveTopicItemsUseCase
+    private val getTopicItemsUseCase: GetTopicItemsUseCase,
+    private val saveTopicItemsUseCase: SaveTopicItemsUseCase
 ) : ViewModel() {
     private val _items = MutableLiveData<List<TopicItem>>().apply { value = emptyList() }
     val items: LiveData<List<TopicItem>> = _items
@@ -22,15 +22,15 @@ class TopicViewModel @Inject constructor(
     }
 
     fun loadTopics(
-            query: String = ""
+        query: String = ""
     ) = viewModelScope.launch {
         _items.value = getTopicItemsUseCase(query)
         Timber.d("post values ${_items.value?.size}")
     }
 
     fun selectTopic(
-            topicItem: TopicItem,
-            selected: Boolean
+        topicItem: TopicItem,
+        selected: Boolean
     ) = viewModelScope.launch {
         saveTopicItemsUseCase(topicItem, selected = selected)
         loadTopics()
@@ -41,7 +41,7 @@ class TopicViewModel @Inject constructor(
     fun deselectAllTopics() = allTopics(selected = false)
 
     private fun allTopics(
-            selected: Boolean
+        selected: Boolean
     ) = viewModelScope.launch {
         _items.value?.let { topicView ->
             val topics = topicView.map {

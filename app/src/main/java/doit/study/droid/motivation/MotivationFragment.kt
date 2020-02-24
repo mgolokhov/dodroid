@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import doit.study.droid.R
 
-class MotivationFragment: Fragment() {
+class MotivationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ class MotivationFragment: Fragment() {
         findNavController().navigate(R.id.next_action)
     }
 
-    private fun navigateToYoutubeVideo(){
+    private fun navigateToYoutubeVideo() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(getString(R.string.url_motivational_video))
         startActivity(intent)

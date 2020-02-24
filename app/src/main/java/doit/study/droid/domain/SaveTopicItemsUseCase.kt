@@ -3,17 +3,17 @@ package doit.study.droid.domain
 import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.data.local.entity.Tag
 import doit.study.droid.topic.TopicItem
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class SaveTopicItemsUseCase @Inject constructor(
-        private val quizDatabase: QuizDatabase
+    private val quizDatabase: QuizDatabase
 ) {
     suspend operator fun invoke(
-            vararg topicItems: TopicItem,
-            selected: Boolean
+        vararg topicItems: TopicItem,
+        selected: Boolean
     ) = withContext(Dispatchers.IO) {
         val tags = topicItems.map {
             Tag(

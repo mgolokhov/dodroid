@@ -2,14 +2,14 @@ package doit.study.droid.domain
 
 import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.quiz.QuizItem
+import java.util.Date
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
-import javax.inject.Inject
 
 class SaveQuizResultUseCase @Inject constructor(
-        private val quizDatabase: QuizDatabase,
-        private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
+    private val quizDatabase: QuizDatabase,
+    private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
 ) {
     suspend operator fun invoke(quizItems: List<QuizItem>?) = withContext(Dispatchers.IO) {
         // TODO: dirty stub, replace with real logic

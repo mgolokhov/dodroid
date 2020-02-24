@@ -7,23 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import doit.study.droid.R
 import doit.study.droid.data.Outcome
-import doit.study.droid.data.local.QuizContentVersion
-import doit.study.droid.data.local.QuizDatabase
-import doit.study.droid.data.local.entity.Question
-import doit.study.droid.data.local.entity.QuestionTagJoin
-import doit.study.droid.data.local.entity.Tag
-import doit.study.droid.data.remote.Configuration
-import doit.study.droid.data.remote.QuizData
-import doit.study.droid.data.remote.QuizDataClient
 import doit.study.droid.domain.SyncWithServerUseCase
 import doit.study.droid.utils.Event
-import kotlinx.coroutines.*
-import timber.log.Timber
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class SplashViewModel @Inject constructor(
-        private val appContext: Application,
-        private val syncWithServerUseCase: SyncWithServerUseCase
+    private val appContext: Application,
+    private val syncWithServerUseCase: SyncWithServerUseCase
 ) : ViewModel() {
 
     private val _navigateToTopicsEvent = MutableLiveData<Event<Unit>>()

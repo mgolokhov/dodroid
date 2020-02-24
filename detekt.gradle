@@ -1,19 +1,19 @@
 apply plugin: "io.gitlab.arturbosch.detekt"
 
 detekt {
-    toolVersion = "1.5.1"                              // Version of the Detekt CLI that will be used. When unspecified the latest detekt version found will be used. Override to stay on the same version.
-    input = files("src/main/java")                          // The directories where detekt looks for input files. Defaults to `files("src/main/java", "src/main/kotlin")`.
-    parallel = true                                         // Builds the AST in parallel. Rules are always executed in parallel. Can lead to speedups in larger projects. `false` by default.
-    //filters = ".*build.*,.*/resources/.*,.*/tmp/.*"         // Regular expression of paths that should be excluded separated by `;` or `,`.
-    config = files("$rootDir/default-detekt-config.yml")            // Define the detekt configuration(s) you want to use. Defaults to the default detekt configuration.
+    toolVersion = Versions.toolDetekt
+    // The directories where detekt looks for input files. Defaults to `files("src/main/java", "src/main/kotlin")`.
+    input = files("src/main/java")
+    parallel = true
+    config = files("$rootDir/default-detekt-config.yml")
     reports {
         xml {
-            enabled = true                                  // Enable/Disable XML report (default: true)
-            destination = file("build/reports/detekt.xml")  // Path where XML report will be stored (default: `build/reports/detekt/detekt.xml`)
+            enabled = true
+            destination = file("build/reports/detekt.xml")
         }
         html {
-            enabled = true                                  // Enable/Disable HTML report (default: true)
-            destination = file("build/reports/detekt.html") // Path where HTML report will be stored (default: `build/reports/detekt/detekt.html`)
+            enabled = true
+            destination = file("build/reports/detekt.html")
         }
     }
     //Optional baseline, uncomment & run gradle command detektBaseline to exclude existing issues
