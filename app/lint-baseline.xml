@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint 3.5.2" client="gradle" variant="debug" version="3.5.2">
+
+    <issue
+        id="ObsoleteLintCustomCheck"
+        message="Lint found an issue registry (`timber.lint.TimberIssueRegistry`) which is older than the current API level; these checks may not work correctly.&#xA;&#xA;Recompile the checks against the latest version. Custom check API version is 1 (3.1), current lint API level is 5 (3.5+)">
+        <location
+            file="../../../../../.gradle/caches/transforms-2/files-2.1/3198110826a73b5cc8b30e8b7be33252/jetified-timber-4.7.1/jars/lint.jar"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `networkSecurityConfig` is only used in API level 24 and higher (current min is 21)"
+        errorLine1="        android:networkSecurityConfig=&quot;@xml/network_security_config&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="16"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v21`) is unnecessary; `minSdkVersion` is 21. Merge all the resources in this folder into `values`.">
+        <location
+            file="src/main/res/values-v21"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (2800 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="      android:pathData=&quot;M300,0C134.4,0 0,134.4 0,300C0,465.6 134.4,600 300,600C465.6,600 600,465.6 600,300C600,134.4 465.6,0 300,0zM285.842,24.872C286.011,24.864 286.183,24.881 286.352,24.872L287.628,45.217C270.324,46.042 253.483,48.565 237.245,52.679L242.283,72.513C199.661,83.309 161.698,105.754 131.952,136.288L117.347,122.003C105.469,134.189 94.849,147.574 85.587,161.926L68.495,150.638C115.176,78.46 194.69,29.498 285.842,24.872zM313.648,24.872C405.011,29.342 484.738,78.327 531.505,150.638L514.413,161.926C505.172,147.61 494.562,134.227 482.717,122.066L468.112,136.288C438.361,105.738 400.354,83.312 357.717,72.513L362.755,52.679C346.517,48.565 329.676,46.042 312.372,45.217L313.648,24.872zM300,114.796C308.673,114.776 317.347,115.306 324.49,116.327L313.329,209.184C336.789,212.605 357.357,224.883 371.556,242.538L446.046,186.671C455.094,197.943 465.352,215.626 470.727,229.018L385.14,265.625C389.442,276.253 391.837,287.835 391.837,300C391.837,311.72 389.658,322.919 385.65,333.227L470.536,369.515C465.298,382.987 455.147,400.638 446.237,411.99L372.258,356.633C358.077,374.692 337.273,387.303 313.52,390.816L324.49,482.143C310.204,484.343 289.796,484.311 275.51,482.27L286.48,390.816C262.709,387.3 241.923,374.649 227.742,356.569L153.954,411.926C144.906,400.654 134.648,382.971 129.273,369.579L214.349,333.163C210.356,322.87 208.163,311.699 208.163,300C208.163,287.814 210.544,276.205 214.86,265.561L129.464,229.082C134.702,215.61 144.852,197.959 153.763,186.607L228.444,242.538C242.643,224.883 263.211,212.605 286.671,209.184L275.51,116.454C282.653,115.354 291.327,114.816 300,114.796zM54.847,174.235L73.214,183.291C65.468,198.309 59.134,214.165 54.464,230.74L74.107,236.288C68.397,256.554 65.306,277.916 65.306,300C65.306,322.105 68.386,343.493 74.107,363.776L54.464,369.324C59.131,385.872 65.477,401.714 73.214,416.709L54.847,425.765C35.449,388.054 24.49,345.301 24.49,300C24.49,254.699 35.449,211.946 54.847,174.235zM545.153,174.235C564.551,211.946 575.51,254.699 575.51,300C575.51,345.301 564.551,388.054 545.153,425.765L526.786,416.709C534.526,401.71 540.868,385.877 545.536,369.324L525.893,363.776C531.614,343.493 534.694,322.105 534.694,300C534.694,277.916 531.603,256.554 525.893,236.288L545.536,230.74C540.868,214.17 534.529,198.306 526.786,183.291L545.153,174.235zM85.587,438.074C94.853,452.425 105.468,465.811 117.347,477.997L131.952,463.712C161.698,494.246 199.661,516.691 242.283,527.487L237.245,547.321C253.483,551.435 270.324,553.958 287.628,554.783L286.352,575.128C194.989,570.658 115.262,521.673 68.495,449.362L85.587,438.074zM514.477,438.074L531.505,449.362C484.738,521.673 405.011,570.658 313.648,575.128L312.372,554.783C329.676,553.958 346.517,551.435 362.755,547.321L357.717,527.487C400.354,516.688 438.361,494.262 468.112,463.712L482.717,477.934C494.577,465.758 505.224,452.409 514.477,438.074z&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_galactic_empire.xml"
+            line="7"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        message="Very long vector path (871 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;M19.43,12.98c0.04,-0.32 0.07,-0.64 0.07,-0.98s-0.03,-0.66 -0.07,-0.98l2.11,-1.65c0.19,-0.15 0.24,-0.42 0.12,-0.64l-2,-3.46c-0.12,-0.22 -0.39,-0.3 -0.61,-0.22l-2.49,1c-0.52,-0.4 -1.08,-0.73 -1.69,-0.98l-0.38,-2.65C14.46,2.18 14.25,2 14,2h-4c-0.25,0 -0.46,0.18 -0.49,0.42l-0.38,2.65c-0.61,0.25 -1.17,0.59 -1.69,0.98l-2.49,-1c-0.23,-0.09 -0.49,0 -0.61,0.22l-2,3.46c-0.13,0.22 -0.07,0.49 0.12,0.64l2.11,1.65c-0.04,0.32 -0.07,0.65 -0.07,0.98s0.03,0.66 0.07,0.98l-2.11,1.65c-0.19,0.15 -0.24,0.42 -0.12,0.64l2,3.46c0.12,0.22 0.39,0.3 0.61,0.22l2.49,-1c0.52,0.4 1.08,0.73 1.69,0.98l0.38,2.65c0.03,0.24 0.24,0.42 0.49,0.42h4c0.25,0 0.46,-0.18 0.49,-0.42l0.38,-2.65c0.61,-0.25 1.17,-0.59 1.69,-0.98l2.49,1c0.23,0.09 0.49,0 0.61,-0.22l2,-3.46c0.12,-0.22 0.07,-0.49 -0.12,-0.64l-2.11,-1.65zM12,15.5c-1.93,0 -3.5,-1.57 -3.5,-3.5s1.57,-3.5 3.5,-3.5 3.5,1.57 3.5,3.5 -1.57,3.5 -3.5,3.5z&quot;/>"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/drawable/ic_settings.xml"
+            line="24"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="AnimatorKeep"
+        message="This method is accessed from an ObjectAnimator so it should be annotated with `@Keep` to ensure that it is not discarded or renamed in release builds"
+        errorLine1="    private fun setWaveShiftRatio(waveShiftRatio: Float) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/doit/study/droid/views/DeathStarLoader.kt"
+            line="239"
+            column="17"/>
+        <location
+            file="src/main/java/doit/study/droid/views/DeathStarLoader.kt"
+            line="225"
+            column="59"/>
+    </issue>
+
+    <issue
+        id="AnimatorKeep"
+        message="This method is accessed from an ObjectAnimator so it should be annotated with `@Keep` to ensure that it is not discarded or renamed in release builds"
+        errorLine1="    private fun setWaterLevelRatio(waterLevelRatio: Float) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/doit/study/droid/views/DeathStarLoader.kt"
+            line="251"
+            column="17"/>
+        <location
+            file="src/main/java/doit/study/droid/views/DeathStarLoader.kt"
+            line="211"
+            column="60"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@drawable/android_side` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        errorLine1="              android:background=&quot;@drawable/android_side&quot;"
+        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/drawer_nav_header.xml"
+            line="5"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `?attr/colorPrimary` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        errorLine1="    android:background=&quot;?attr/colorPrimary&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/drawer_toolbar.xml"
+            line="10"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/transparent` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        errorLine1="              android:background=&quot;@color/transparent&quot;>"
+        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/toast_right.xml"
+            line="10"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/transparent` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
+        errorLine1="              android:background=&quot;@color/transparent&quot;>"
+        errorLine2="              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/toast_wrong.xml"
+            line="10"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.activity_total_summary` appears to be unused"
+        errorLine1="&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/activity_total_summary.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.toastRight` appears to be unused"
+        errorLine1="    &lt;color name=&quot;toastRight&quot;>#4CAF50&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.toastWrong` appears to be unused"
+        errorLine1="    &lt;color name=&quot;toastWrong&quot;>@color/colorAccent&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="8"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.black` appears to be unused"
+        errorLine1="    &lt;color name=&quot;black&quot;>#000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="12"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.activity_horizontal_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;activity_horizontal_margin&quot;>16dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="3"
+            column="12"/>
+        <location
+            file="src/main/res/values-w820dp/dimens.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.activity_vertical_margin` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;activity_vertical_margin&quot;>16dp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.dimen.totalSummaryFont` appears to be unused"
+        errorLine1="    &lt;dimen name=&quot;totalSummaryFont&quot;>26sp&lt;/dimen>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/dimens.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.fragment_total_summary` appears to be unused"
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/fragment_total_summary.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_sith_order` appears to be unused">
+        <location
+            file="src/main/res/drawable-hdpi/ic_sith_order.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/ic_sith_order.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/ic_sith_order.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/ic_sith_order.png"/>
+        <location
+            file="src/main/res/drawable-xxxhdpi/ic_sith_order.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_vader_30` appears to be unused">
+        <location
+            file="src/main/res/drawable-hdpi/ic_vader_30.png"/>
+        <location
+            file="src/main/res/drawable-mdpi/ic_vader_30.png"/>
+        <location
+            file="src/main/res/drawable-xhdpi/ic_vader_30.png"/>
+        <location
+            file="src/main/res/drawable-xxhdpi/ic_vader_30.png"/>
+        <location
+            file="src/main/res/drawable-xxxhdpi/ic_vader_30.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.test` appears to be unused"
+        errorLine1="    &lt;string name=&quot;test&quot;>question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question question Question ?&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="9"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.willing` appears to be unused"
+        errorLine1="    &lt;string name=&quot;willing&quot;>Willing is not enough&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="11"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.drawer_open` appears to be unused"
+        errorLine1="    &lt;string name=&quot;drawer_open&quot;>Open navigation drawer&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.drawer_close` appears to be unused"
+        errorLine1="    &lt;string name=&quot;drawer_close&quot;>Close navigation drawer&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.check_docs` appears to be unused"
+        errorLine1="    &lt;string name=&quot;check_docs&quot;>Check documentation&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="40"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.go` appears to be unused"
+        errorLine1="    &lt;string name=&quot;go&quot;>Go&lt;/string>"
+        errorLine2="            ~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="41"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.cannot_load_sound` appears to be unused"
+        errorLine1="    &lt;string name=&quot;cannot_load_sound&quot;>Can\&apos;t load media files, sound is disabled&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="60"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.total_questions` appears to be unused"
+        errorLine1="    &lt;string name=&quot;total_questions&quot;>Total questions: %d&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="63"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.viewed_questions` appears to be unused"
+        errorLine1="    &lt;string name=&quot;viewed_questions&quot;>Viewed: %d&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="64"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.almost_studied_questions` appears to be unused"
+        errorLine1="    &lt;string name=&quot;almost_studied_questions&quot;>Almost studied: %d&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="65"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.studied_questions` appears to be unused"
+        errorLine1="    &lt;string name=&quot;studied_questions&quot;>Studied: %d&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="66"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.totalSummary` appears to be unused"
+        errorLine1="    &lt;string name=&quot;totalSummary&quot;>Your progress&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="67"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.failed_to_load_quiz` appears to be unused"
+        errorLine1="    &lt;string name=&quot;failed_to_load_quiz&quot;>Failed to load quiz data&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="69"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.style.AppTheme_NoActionBar` appears to be unused"
+        errorLine1="    &lt;style name=&quot;AppTheme.NoActionBar&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/styles.xml"
+            line="10"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/android_side.jpg` in densityless folder">
+        <location
+            file="src/main/res/drawable/android_side.jpg"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        message="Found bitmap drawable `res/drawable/darth_vader_icon.jpg` in densityless folder">
+        <location
+            file="src/main/res/drawable/darth_vader_icon.jpg"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-hdpi`: right_icon.png, shape_toast_right.xml, shape_toast_wrong.xml, wrong_icon.png">
+        <location
+            file="src/main/res/drawable-hdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-mdpi`: right_icon.png, shape_toast_right.xml, shape_toast_wrong.xml, wrong_icon.png">
+        <location
+            file="src/main/res/drawable-mdpi"/>
+    </issue>
+
+    <issue
+        id="IconDensities"
+        message="Missing the following drawables in `drawable-xxhdpi`: right_icon.png, shape_toast_right.xml, shape_toast_wrong.xml, wrong_icon.png">
+        <location
+            file="src/main/res/drawable-xxhdpi"/>
+    </issue>
+
+    <issue
+        id="IconExtension"
+        message="Misleading file extension; named `.jpg` but the file format is `png`">
+        <location
+            file="src/main/res/drawable/darth_vader_icon.jpg"/>
+    </issue>
+
+    <issue
+        id="TextFields"
+        message="This text field does not specify an `inputType`"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_feedback_dialog.xml"
+            line="35"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_feedback_dialog.xml"
+            line="35"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageButton"
+        errorLine2="             ~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_quiz_page.xml"
+            line="21"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageButton"
+        errorLine2="             ~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_quiz_page.xml"
+            line="60"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/toast_right.xml"
+            line="18"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/toast_wrong.xml"
+            line="18"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        errorLine1="                android:clickable=&quot;true&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_quiz_page.xml"
+            line="31"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="KeyboardInaccessibleWidget"
+        message="&apos;clickable&apos; attribute found, please also add &apos;focusable&apos;"
+        errorLine1="                android:clickable=&quot;true&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_quiz_page.xml"
+            line="70"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales"
+        errorLine1="        android:gravity=&quot;right&quot;"
+        errorLine2="                         ~~~~~">
+        <location
+            file="src/main/res/layout/drawer_nav_header.xml"
+            line="15"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales"
+        errorLine1="            android:layout_gravity=&quot;bottom|right&quot;"
+        errorLine2="                                    ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_topic.xml"
+            line="31"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Consider replacing `android:layout_marginRight` with `android:layout_marginEnd=&quot;5dp&quot;` to better support right-to-left layouts"
+        errorLine1="            android:layout_marginRight=&quot;5dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/toast_right.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Consider replacing `android:layout_marginRight` with `android:layout_marginEnd=&quot;5dp&quot;` to better support right-to-left layouts"
+        errorLine1="            android:layout_marginRight=&quot;5dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/toast_wrong.xml"
+            line="30"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Consider replacing `android:layout_alignParentRight` with `android:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts"
+        errorLine1="                android:layout_alignParentRight=&quot;true&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/topic_item.xml"
+            line="32"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RtlHardcoded"
+        message="Consider replacing `android:layout_toLeftOf` with `android:layout_toStartOf=&quot;@id/checkbox_tag&quot;` to better support right-to-left layouts"
+        errorLine1="                android:layout_toLeftOf=&quot;@id/checkbox_tag&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/topic_item.xml"
+            line="44"
+            column="17"/>
+    </issue>
+
+</issues>

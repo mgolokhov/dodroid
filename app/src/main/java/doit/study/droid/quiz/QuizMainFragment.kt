@@ -68,7 +68,7 @@ class QuizMainFragment: Fragment() {
     private fun setupResultPage() {
         viewModel.addResultPageEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
-                viewDataBinding.viewPager?.adapter?.notifyDataSetChanged()
+                viewDataBinding.viewPager.adapter?.notifyDataSetChanged()
             }
         })
     }

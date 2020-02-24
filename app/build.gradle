@@ -30,6 +30,16 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionBuild}.${versionStatus}"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"
+                ]
+            }
+        }
     }
 
     buildTypes {
@@ -52,6 +62,12 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    lintOptions {
+//        abortOnError false
+//        warningsAsErrors = true
+//        baseline file("lint-baseline.xml")
     }
 
     android {
