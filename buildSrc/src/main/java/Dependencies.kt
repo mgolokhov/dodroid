@@ -27,7 +27,7 @@ object Versions {
     val gsonVer = "2.8.6"
     val crashlyticsVer = "2.10.1"
     val coroutinesVer = "1.3.2"
-    val roomVer = "2.2.3"
+    val roomVer = "2.2.4"
     val daggerVer = "2.25.3"
     val archLifecycleExtVer = "1.1.1"
     val webDebugDbVer = "1.0.6"
@@ -39,6 +39,8 @@ object Versions {
 
     val gradleandroid = "3.5.2"
     val kotlin = "1.3.61"
+
+    val toolDetekt = "1.5.1"
     // AndroidX Test - Instrumented testing
     val testCoreKtxVer = "1.2.0"
     val testExtJunitKtxVer = "1.1.1"

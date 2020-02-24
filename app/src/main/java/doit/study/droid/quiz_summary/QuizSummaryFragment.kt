@@ -14,7 +14,6 @@ import doit.study.droid.R
 import doit.study.droid.databinding.FragmentResultTestBinding
 import doit.study.droid.utils.lazyAndroid
 
-
 class QuizSummaryFragment : Fragment() {
     private val percentageOfRightAnswers by lazyAndroid {
         arguments!!.let {
@@ -131,7 +130,6 @@ class QuizSummaryFragment : Fragment() {
             }
         }
     }
-
 }
 
 const val ONE_TEST_SUMMARY_TYPE = "one_test_summary_type"

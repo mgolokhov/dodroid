@@ -1,20 +1,24 @@
 package doit.study.droid.topic
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import doit.study.droid.R
 import doit.study.droid.app.App
 import doit.study.droid.databinding.FragmentTopicBinding
 import javax.inject.Inject
 
-class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
+class TopicFragment : Fragment(), SearchView.OnQueryTextListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 //    private lateinit var viewModel: TopicViewModel
@@ -36,7 +40,7 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
         return viewDataBinding.root
     }
 
-    private fun setupLayout(){
+    private fun setupLayout() {
         activity?.title = getString(R.string.title_selection_quiz_topics)
 
         viewDataBinding.apply {
@@ -69,7 +73,6 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
         }
     }
 
-
     private fun navigateToQuiz() {
         findNavController().navigate(R.id.action_topic_fragment_dest_to_quizMainFragment, null)
     }
@@ -94,12 +97,10 @@ class TopicFragment: Fragment(), SearchView.OnQueryTextListener {
         searchView.setOnQueryTextListener(this)
     }
 
-
     companion object {
         @JvmStatic
         fun newInstance(): TopicFragment {
             return TopicFragment()
         }
     }
-
 }

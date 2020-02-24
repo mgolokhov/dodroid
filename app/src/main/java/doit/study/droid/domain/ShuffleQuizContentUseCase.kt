@@ -1,14 +1,14 @@
 package doit.study.droid.domain
 
 import doit.study.droid.quiz.QuizItem
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class ShuffleQuizContentUseCase @Inject constructor() {
-    suspend operator fun  invoke(
-            items: HashSet<QuizItem>,
-            itemsInQuiz: Int = MAX_ITEMS_IN_ONE_QUIZ
+    suspend operator fun invoke(
+        items: HashSet<QuizItem>,
+        itemsInQuiz: Int = MAX_ITEMS_IN_ONE_QUIZ
     ): List<QuizItem> = withContext(Dispatchers.Default) {
         val res = items.shuffled().take(itemsInQuiz)
         res.forEach {

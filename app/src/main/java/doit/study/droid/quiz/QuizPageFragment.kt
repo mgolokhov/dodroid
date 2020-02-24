@@ -4,8 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
-import android.widget.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,12 +22,15 @@ import doit.study.droid.R
 import doit.study.droid.app.App
 import doit.study.droid.databinding.AnswerItemBinding
 import doit.study.droid.databinding.FragmentQuizPageBinding
-import doit.study.droid.utils.*
-import timber.log.Timber
+import doit.study.droid.utils.AnalyticsData
+import doit.study.droid.utils.SoundPlayer
+import doit.study.droid.utils.lazyAndroid
+import doit.study.droid.utils.showToastFailure
+import doit.study.droid.utils.showToastSuccess
 import javax.inject.Inject
+import timber.log.Timber
 
-
-class QuizPageFragment: Fragment(){
+class QuizPageFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -40,7 +49,6 @@ class QuizPageFragment: Fragment(){
     private val pagePosition: Int by lazyAndroid {
         arguments!!.getInt(ARG_POSITION_IN_QUIZ_KEY, 0)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.dagger.inject(this)
@@ -63,8 +71,11 @@ class QuizPageFragment: Fragment(){
         Timber.d("onDestroyView ${this.hashCode()}")
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         viewDataBinding = FragmentQuizPageBinding.inflate(inflater, container, false)
         return viewDataBinding.root
     }
@@ -100,7 +111,6 @@ class QuizPageFragment: Fragment(){
             startActivity(intent)
         }
     }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -199,7 +209,7 @@ class QuizPageFragment: Fragment(){
     }
 
     private fun setupThumbDownButton() {
-        viewDataBinding.thumbDownImageButton.setOnClickListener{
+        viewDataBinding.thumbDownImageButton.setOnClickListener {
             // TODO: code smells - decision should be in viewModel
             // hrr, ping pong with long flow based on onActivityResult
             if (!viewModel.isEvaluated()) {

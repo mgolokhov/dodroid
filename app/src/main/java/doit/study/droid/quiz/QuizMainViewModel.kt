@@ -1,32 +1,28 @@
 package doit.study.droid.quiz
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import doit.study.droid.R
-import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.domain.GetSelectedQuizItemsUseCase
 import doit.study.droid.domain.IsQuizAnsweredRightUseCase
 import doit.study.droid.domain.SaveQuizResultUseCase
 import doit.study.droid.domain.ShuffleQuizContentUseCase
 import doit.study.droid.quiz_summary.ONE_TEST_SUMMARY_TYPE
 import doit.study.droid.utils.Event
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashSet
-
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class QuizMainViewModel @Inject constructor(
-        private val appContext: Application,
-        private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase,
-        private val getSelectedQuizItemsUseCase: GetSelectedQuizItemsUseCase,
-        private val shuffleQuizContentUseCase: ShuffleQuizContentUseCase,
-        private val saveQuizResultUseCase: SaveQuizResultUseCase
-): ViewModel() {
+    private val appContext: Application,
+    private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase,
+    private val getSelectedQuizItemsUseCase: GetSelectedQuizItemsUseCase,
+    private val shuffleQuizContentUseCase: ShuffleQuizContentUseCase,
+    private val saveQuizResultUseCase: SaveQuizResultUseCase
+) : ViewModel() {
     private val _items = MutableLiveData<List<QuizItem>>()
     val items: LiveData<List<QuizItem>> = _items
 
@@ -118,7 +114,6 @@ class QuizMainViewModel @Inject constructor(
                 )
             } ?: ""
         }
-
     }
 
     fun getCountForPager(): Int {
@@ -132,18 +127,18 @@ class QuizMainViewModel @Inject constructor(
 
     fun getItemType(position: Int): String {
         val size = items.value?.size ?: 0
-        return when(position) {
+        return when (position) {
             in 0 until size -> { QUIZ_QUESTION_ITEM_TYPE }
             size -> {
                 ONE_TEST_SUMMARY_TYPE
             }
-            else -> {"oh, shit"}
+            else -> { "oh, shit" }
         }
     }
 
     fun getResultCounters(): Pair<Int, Int> {
         items.value!!.let { all ->
-            val rightAnswers = all.filter { it.answered && isQuizAnsweredRightUseCase(it)}.size
+            val rightAnswers = all.filter { it.answered && isQuizAnsweredRightUseCase(it) }.size
             val wrongAnswers = all.size - rightAnswers
             return Pair(rightAnswers, wrongAnswers)
         }

@@ -13,10 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import doit.study.droid.app.App
 import doit.study.droid.databinding.FragmentQuizMainBinding
 import doit.study.droid.utils.lazyAndroid
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
-class QuizMainFragment: Fragment() {
+class QuizMainFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: QuizMainViewModel by lazyAndroid {
@@ -30,8 +30,11 @@ class QuizMainFragment: Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         viewDataBinding = FragmentQuizMainBinding.inflate(inflater, container, false)
         return viewDataBinding.root
     }
@@ -68,7 +71,7 @@ class QuizMainFragment: Fragment() {
     private fun setupResultPage() {
         viewModel.addResultPageEvent.observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let {
-                viewDataBinding.viewPager?.adapter?.notifyDataSetChanged()
+                viewDataBinding.viewPager.adapter?.notifyDataSetChanged()
             }
         })
     }
@@ -95,5 +98,4 @@ class QuizMainFragment: Fragment() {
         fun newInstance(): QuizMainFragment = QuizMainFragment()
         private const val DELAY_NAV_TO_RESULT_PAGE_MS = 2_000L
     }
-
 }

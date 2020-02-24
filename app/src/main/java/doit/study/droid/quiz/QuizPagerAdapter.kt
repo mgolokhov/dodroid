@@ -6,10 +6,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import doit.study.droid.quiz_summary.ONE_TEST_SUMMARY_TYPE
 import doit.study.droid.quiz_summary.QuizSummaryFragment
 
-
 class QuizPagerAdapter(
-        fm: FragmentManager,
-        private val viewModel: QuizMainViewModel
+    fm: FragmentManager,
+    private val viewModel: QuizMainViewModel
 ) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {

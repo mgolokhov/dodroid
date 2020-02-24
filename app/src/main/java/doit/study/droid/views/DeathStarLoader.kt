@@ -4,7 +4,14 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -14,9 +21,9 @@ import kotlin.math.roundToInt
 import kotlin.math.sin
 
 class DeathStarLoader @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private var amplitudeRatio: Float = 0f
@@ -27,7 +34,7 @@ class DeathStarLoader @JvmOverloads constructor(
     private var defaultWaterLevel: Float = 0f
 
     private val paint = Paint()
-    private val wavePaint =  Paint()
+    private val wavePaint = Paint()
     private var waveShader: BitmapShader? = null
     private val waveShaderMatrix = Matrix()
 
@@ -69,7 +76,6 @@ class DeathStarLoader @JvmOverloads constructor(
 
         attributes.recycle()
     }
-
 
     public override fun onDraw(canvas: Canvas) {
         updateWaveShader()
@@ -186,7 +192,6 @@ class DeathStarLoader @JvmOverloads constructor(
         this.wavePaint.shader = waveShader
     }
 
-
     fun setColor(color: Int) {
         waveColor = color
         updateWaveShader()
@@ -286,12 +291,11 @@ class DeathStarLoader @JvmOverloads constructor(
         }
     }
 
-
     /**
      * Transparent the given color by the factor
      * The more the factor closer to zero the more the color gets transparent
      *
-     * @param color  The color to transparent
+     * @param color The color to transparent
      * @param factor 1.0f to 0.0f
      * @return int - A transplanted color
      */

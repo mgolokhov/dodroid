@@ -3,6 +3,6 @@ package doit.study.droid.data.remote
 import com.google.gson.annotations.SerializedName
 
 data class Configuration(
-        @SerializedName("content_version")
-        val contentVersion: Int = 1
+    @SerializedName("content_version")
+    val contentVersion: Int = 1
 )

@@ -4,19 +4,37 @@ buildscript {
     repositories {
         google()
         jcenter()
+        // dependency for detekt plugin
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath Deps.tools_kotlin
         classpath Deps.tools_gradleandroid
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.toolDetekt}"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+// TODO: cannot use Versions.toolDetekt here, play with it and nuke maven dependencies
+//plugins {
+//    id("io.gitlab.arturbosch.detekt").version("[version]")
+//}
+
+
 allprojects {
+    apply from: "$rootDir/detekt.gradle"
+    apply from: "$rootDir/ktlint.gradle"
+
     repositories {
         google()
         jcenter()
+        // dependency for detekt plugin
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 }
 
@@ -28,6 +46,7 @@ task clean(type: Delete) {
 subprojects {
     afterEvaluate { project ->
         if (project.hasProperty('android')) {
+            check.dependsOn ktlint
             android {
                 buildToolsVersion Config.buildtoolsVer
                 compileSdkVersion Config.compileSdkVer

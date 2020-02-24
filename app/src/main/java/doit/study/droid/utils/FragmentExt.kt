@@ -20,12 +20,11 @@ annotation class Attraction
 const val CENTER = Gravity.CENTER_HORIZONTAL or Gravity.CENTER_VERTICAL
 const val BOTTOM = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
 
-
 fun Fragment.showToast(
-        @LayoutRes layoutId: Int,
-        message: String,
-        @Attraction gravity: Int = CENTER,
-        @Duration duration: Int = Toast.LENGTH_SHORT
+    @LayoutRes layoutId: Int,
+    message: String,
+    @Attraction gravity: Int = CENTER,
+    @Duration duration: Int = Toast.LENGTH_SHORT
 ): Toast {
     return Toast(context).apply {
         view = LayoutInflater.from(context).inflate(layoutId, null)

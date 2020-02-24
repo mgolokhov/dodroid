@@ -5,7 +5,7 @@ import doit.study.droid.data.local.SoundRepository
 import javax.inject.Inject
 
 class GetSoundFileForFailureUseCase @Inject constructor(private val soundRepository: SoundRepository) {
-    operator fun invoke (): Outcome<String> {
+    operator fun invoke(): Outcome<String> {
         return soundRepository.getRandomSoundFileForFailure()
     }
 }

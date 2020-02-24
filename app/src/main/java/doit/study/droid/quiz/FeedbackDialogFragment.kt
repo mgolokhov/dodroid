@@ -1,6 +1,5 @@
 package doit.study.droid.quiz
 
-
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
@@ -31,7 +30,6 @@ class FeedbackDialogFragment : DialogFragment() {
                     }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
-
     }
 
     private fun formReport(): String {
@@ -63,5 +61,4 @@ class FeedbackDialogFragment : DialogFragment() {
             }
         }
     }
-
 }

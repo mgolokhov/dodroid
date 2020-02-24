@@ -14,4 +14,3 @@ class Converters {
         return Gson().fromJson(value, Array<String>::class.java).toList()
     }
 }
-

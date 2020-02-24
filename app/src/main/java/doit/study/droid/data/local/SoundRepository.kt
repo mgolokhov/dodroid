@@ -3,10 +3,10 @@ package doit.study.droid.data.local
 import android.app.Application
 import android.content.res.AssetManager
 import doit.study.droid.data.Outcome
-import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
+import timber.log.Timber
 
 @Singleton
 class SoundRepository @Inject constructor(appContext: Application) {
@@ -23,7 +23,7 @@ class SoundRepository @Inject constructor(appContext: Application) {
     }
 
     private fun getSoundFile(
-            assetFolder: String
+        assetFolder: String
     ): Outcome<String> {
         var cachedFilenames = getCache(assetFolder)
         return try {

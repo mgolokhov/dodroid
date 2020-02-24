@@ -15,18 +15,17 @@ import doit.study.droid.domain.GetSoundFileForSuccessUseCase
 import doit.study.droid.domain.IsQuizAnsweredRightUseCase
 import doit.study.droid.utils.AnalyticsData
 import doit.study.droid.utils.Event
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
-
+import timber.log.Timber
 
 class QuizPageViewModel @Inject constructor(
-        private val appContext: Application,
-        private val analyticsTracker: Tracker,
-        private val soundPreferences: Sound,
-        private val getSoundFileForFailureUseCase: GetSoundFileForFailureUseCase,
-        private val getSoundFileForSuccessUseCase: GetSoundFileForSuccessUseCase,
-        private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
+    private val appContext: Application,
+    private val analyticsTracker: Tracker,
+    private val soundPreferences: Sound,
+    private val getSoundFileForFailureUseCase: GetSoundFileForFailureUseCase,
+    private val getSoundFileForSuccessUseCase: GetSoundFileForSuccessUseCase,
+    private val isQuizAnsweredRightUseCase: IsQuizAnsweredRightUseCase
 ) : ViewModel() {
     private val _item = MutableLiveData<QuizItem>()
     val item: LiveData<QuizItem> = _item
@@ -54,7 +53,7 @@ class QuizPageViewModel @Inject constructor(
     }
 
     // from master viewmodel
-    fun setItem(quizItem: QuizItem){
+    fun setItem(quizItem: QuizItem) {
         Timber.d("check ref: ${quizItem.hashCode()}; id ${quizItem.questionId}")
         _item.value = quizItem
     }
@@ -62,12 +61,11 @@ class QuizPageViewModel @Inject constructor(
     fun selectAnswer(answerVariantItem: AnswerVariantItem) {
         answerVariantItem.isChecked = !answerVariantItem.isChecked
         _item.value?.answerVariants?.let {
-            it.find { it == answerVariantItem}?.isChecked = answerVariantItem.isChecked
+            it.find { it == answerVariantItem }?.isChecked = answerVariantItem.isChecked
         }
         _item.value = _item.value
 
         Timber.d("selectAnswer ${_item.value}\n $answerVariantItem")
-
     }
 
     fun checkAnswer() {
@@ -161,5 +159,4 @@ class QuizPageViewModel @Inject constructor(
     fun getDocRef(): String {
         return _item.value?.docLink ?: ""
     }
-
 }

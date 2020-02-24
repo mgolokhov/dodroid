@@ -3,15 +3,15 @@ package doit.study.droid.domain
 import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.quiz.AnswerVariantItem
 import doit.study.droid.quiz.QuizItem
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class GetSelectedQuizItemsUseCase @Inject constructor(
-        private val quizDatabase: QuizDatabase
+    private val quizDatabase: QuizDatabase
 ) {
-    suspend operator fun invoke (): HashSet<QuizItem> = withContext(Dispatchers.IO) {
+    suspend operator fun invoke(): HashSet<QuizItem> = withContext(Dispatchers.IO) {
         val tags = quizDatabase.tagDao().getTagBySelection(isSelected = true)
         val allSelectedItems = HashSet<QuizItem>()
         tags.forEach {

@@ -11,7 +11,6 @@ import doit.study.droid.quiz.QuizPageViewModel
 import doit.study.droid.splash.SplashViewModel
 import doit.study.droid.topic.TopicViewModel
 
-
 @Module
 abstract class ViewModelModule {
     @Binds
