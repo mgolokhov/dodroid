@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/topic_fragment_dest"
-        android:name="doit.study.droid.topic.TopicFragment"
+        android:name="doit.study.droid.topic.ui.TopicFragment"
         tools:layout="@layout/fragment_topic"
         >
 
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/quiz_main_fragment_dest"
-        android:name="doit.study.droid.quiz.QuizMainFragment"
+        android:name="doit.study.droid.quiz.ui.QuizMainFragment"
         tools:layout="@layout/fragment_quiz_main"
         >
         <action
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/motivation_fragment_dest"
-        android:name="doit.study.droid.motivation.MotivationFragment"
+        android:name="doit.study.droid.motivation.ui.MotivationFragment"
         >
         <action
             android:id="@+id/next_action"
@@ -43,12 +43,12 @@
     </fragment>
     <fragment
         android:id="@+id/settings_fragment_dest"
-        android:name="doit.study.droid.settings.SettingsFragment"
+        android:name="doit.study.droid.settings.ui.SettingsFragment"
         />
 
     <fragment
         android:id="@+id/debug_fragment_dest"
-        android:name="doit.study.droid.debug.DebugFragment"
+        android:name="doit.study.droid.debug.ui.DebugFragment"
         />
 
 

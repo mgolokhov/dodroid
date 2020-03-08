@@ -4,10 +4,10 @@ import android.app.Application
 import com.google.android.gms.analytics.Tracker
 import dagger.BindsInstance
 import dagger.Component
-import doit.study.droid.quiz.QuizMainFragment
-import doit.study.droid.quiz.QuizPageFragment
-import doit.study.droid.splash.SplashActivity
-import doit.study.droid.topic.TopicFragment
+import doit.study.droid.quiz.ui.QuizMainFragment
+import doit.study.droid.quiz.ui.QuizPageFragment
+import doit.study.droid.splash.ui.SplashActivity
+import doit.study.droid.topic.ui.TopicFragment
 import javax.inject.Singleton
 
 @Singleton

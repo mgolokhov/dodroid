@@ -366,7 +366,7 @@ naming:
   PackageNaming:
     active: true
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
-    packagePattern: '^[a-z]+(\.[a-z][A-Za-z0-9]*)*$'
+    packagePattern: '^[a-z]+(\.[a-z][_A-Za-z0-9]*)*$'
   TopLevelPropertyNaming:
     active: true
     excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"

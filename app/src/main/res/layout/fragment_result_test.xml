@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/right_cnt"
                 tools:text="@string/test_result_wrong" />
 
-            <doit.study.droid.views.DeathStarLoader
+            <doit.study.droid.quiz_summary.ui.DeathStarLoader
                 android:id="@+id/progressBar"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
