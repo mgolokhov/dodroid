@@ -15,9 +15,9 @@
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".common.MainDrawerActivity" />
+        <activity android:name=".common.ui.MainDrawerActivity" />
         <activity
-            android:name=".splash.SplashActivity"
+            android:name=".splash.ui.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,7 +10,7 @@
 
         <variable
             name="viewmodel"
-            type="doit.study.droid.quiz.QuizPageViewModel" />
+            type="doit.study.droid.quiz.ui.QuizPageViewModel" />
 
     </data>
 

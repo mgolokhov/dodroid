@@ -11,7 +11,7 @@
 
         <variable
             name="viewmodel"
-            type="doit.study.droid.topic.TopicViewModel" />
+            type="doit.study.droid.topic.ui.TopicViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="doit.study.droid.topic.TopicViewModel" />
+            type="doit.study.droid.topic.ui.TopicViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -34,7 +34,7 @@
             app:backgroundTint="@color/fab"
             app:elevation="6dp"
             app:layout_anchorGravity="bottom|right"
-            app:layout_behavior="doit.study.droid.views.ScrollAwareFABBehavior"
+            app:layout_behavior="doit.study.droid.topic.ui.ScrollAwareFABBehavior"
             app:pressedTranslationZ="12dp"
             app:useCompatPadding="true" />
 

@@ -23,7 +23,7 @@ interface TagDao {
     suspend fun insertTag(tag: Tag): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrReplaceTag(vararg tags: Tag): List<Long>
+    suspend fun insertOrReplaceTag(tags: List<Tag>): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertQuestionTagJoin(questionTagJoin: QuestionTagJoin)

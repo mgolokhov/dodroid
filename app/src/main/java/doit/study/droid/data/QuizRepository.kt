@@ -8,25 +8,25 @@ import doit.study.droid.data.local.entity.Tag
 import doit.study.droid.data.remote.Configuration
 import doit.study.droid.data.remote.QuizData
 import doit.study.droid.data.remote.QuizDataClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
-
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 @Singleton
 class QuizRepository @Inject constructor(
-        private val quizDatabase: QuizDatabase,
-        private val quizContentVersion: QuizContentVersion,
-        private val quizDataClient: QuizDataClient
+    private val quizDatabase: QuizDatabase,
+    private val quizContentVersion: QuizContentVersion,
+    private val quizDataClient: QuizDataClient,
+    private val coroutinesDispatcher: CoroutineDispatchers
 ) {
     private lateinit var config: Configuration
     private val cachedTags = mutableMapOf<String, Int>()
 
-    suspend fun sync(forceUpdate: Boolean): Outcome<Unit> = withContext(Dispatchers.IO) {
+    @SuppressWarnings("TooGenericExceptionCaught")
+    suspend fun sync(forceUpdate: Boolean): Outcome<Unit> = withContext(coroutinesDispatcher.io) {
         try {
             if (forceUpdate || isThereNewContent()) {
                 updateData(quizDataClient.quizData())
@@ -38,16 +38,42 @@ class QuizRepository @Inject constructor(
         return@withContext Outcome.Success(Unit)
     }
 
-    suspend fun selectTags(tags: List<Tag>) {
-        quizDatabase.tagDao().insertOrReplaceTag(*tags.toTypedArray())
+    suspend fun selectTags(tags: List<Tag>) = withContext(coroutinesDispatcher.io) {
+        quizDatabase.tagDao().insertOrReplaceTag(tags)
     }
 
-    private suspend fun isThereNewContent(): Boolean = withContext(Dispatchers.IO) {
+    suspend fun getTagsBySelection(isSelected: Boolean): List<Tag> = withContext(coroutinesDispatcher.io) {
+        return@withContext quizDatabase.tagDao().getTagBySelection(isSelected = isSelected)
+    }
+
+    suspend fun getTags(): List<Tag> = withContext(coroutinesDispatcher.io) {
+        return@withContext quizDatabase.tagDao().getTags()
+    }
+
+    suspend fun getQuestionsByTag(tagName: String) = withContext(coroutinesDispatcher.io) {
+        return@withContext quizDatabase.questionDao().getQuestionsByTag(tagName)
+    }
+
+    suspend fun saveStatistics(
+        questionId: Int,
+        rightCount: Int,
+        wrongCount: Int,
+        studiedAt: Long
+    ) = withContext(coroutinesDispatcher.io) {
+        quizDatabase.questionDao().updateStatistics(
+                id = questionId,
+                rightCount = rightCount,
+                wrongCount = wrongCount,
+                studiedAt = studiedAt
+        )
+    }
+
+    private suspend fun isThereNewContent(): Boolean = withContext(coroutinesDispatcher.io) {
         config = quizDataClient.configuration()
         return@withContext config.contentVersion > quizContentVersion.getVersion()
     }
 
-    private suspend fun updateData(quizData: List<QuizData>) = withContext(Dispatchers.IO) {
+    private suspend fun updateData(quizData: List<QuizData>) = withContext(coroutinesDispatcher.io) {
         quizDatabase.runInTransaction {
             quizData.forEach { item ->
                 // TODO: what's a proper handling of

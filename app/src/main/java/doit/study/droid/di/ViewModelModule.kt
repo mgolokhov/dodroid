@@ -5,11 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import doit.study.droid.common.ViewModelFactory
-import doit.study.droid.quiz.QuizMainViewModel
-import doit.study.droid.quiz.QuizPageViewModel
-import doit.study.droid.splash.SplashViewModel
-import doit.study.droid.topic.TopicViewModel
+import doit.study.droid.quiz.ui.QuizMainViewModel
+import doit.study.droid.quiz.ui.QuizPageViewModel
+import doit.study.droid.splash.ui.SplashViewModel
+import doit.study.droid.topic.ui.TopicViewModel
 
 @Module
 abstract class ViewModelModule {
