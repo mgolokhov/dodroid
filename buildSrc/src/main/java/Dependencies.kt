@@ -30,7 +30,6 @@ object Versions {
     val roomVer = "2.2.4"
     val daggerVer = "2.25.3"
     val archLifecycleExtVer = "1.1.1"
-    val webDebugDbVer = "1.0.6"
     val constraintLayoutVer = "1.1.3"
     val navigationVer = "2.1.0"
     val lifecycleCommonJava8Ver = "2.1.0"
@@ -52,7 +51,8 @@ object Versions {
     val testRunnerVer = "1.2.0"
     val testExtJunitVer = "1.1.1"
     val kotlinxCoroutinesAndroidVer = "1.3.2"
-    val kotlinxCoroutinesTestVer = "1.3.0"
+    val kotlinxCoroutinesTestVer = "1.3.2"
+    val mockkVer = "1.9.3"
 }
 
 object Deps {
@@ -97,8 +97,6 @@ object Deps {
     val daggerCompilerVer = "com.google.dagger:dagger-compiler:${Versions.daggerVer}"
 
     val archLifecycleExtVer = "android.arch.lifecycle:extensions:${Versions.archLifecycleExtVer}"
-
-    val webDebugDbVer = "com.amitshekhar.android:debug-db:${Versions.webDebugDbVer}"
 
     val constraintLayoutVer = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVer}"
 

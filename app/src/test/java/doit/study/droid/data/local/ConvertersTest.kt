@@ -1,8 +1,7 @@
-package doit.study.droid
+package doit.study.droid.data.local
 
 import com.google.common.truth.Truth.assertThat
 import com.google.gson.JsonSyntaxException
-import doit.study.droid.data.local.Converters
 import org.junit.Test
 
 class ConvertersTest {

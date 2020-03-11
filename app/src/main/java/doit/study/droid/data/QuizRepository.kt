@@ -1,5 +1,6 @@
 package doit.study.droid.data
 
+import androidx.room.withTransaction
 import doit.study.droid.data.local.QuizContentVersion
 import doit.study.droid.data.local.QuizDatabase
 import doit.study.droid.data.local.entity.Question
@@ -11,7 +12,6 @@ import doit.study.droid.data.remote.QuizDataClient
 import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
@@ -20,13 +20,13 @@ class QuizRepository @Inject constructor(
     private val quizDatabase: QuizDatabase,
     private val quizContentVersion: QuizContentVersion,
     private val quizDataClient: QuizDataClient,
-    private val coroutinesDispatcher: CoroutineDispatchers
+    private val coroutineDispatchers: CoroutineDispatchers
 ) {
     private lateinit var config: Configuration
     private val cachedTags = mutableMapOf<String, Int>()
 
     @SuppressWarnings("TooGenericExceptionCaught")
-    suspend fun sync(forceUpdate: Boolean): Outcome<Unit> = withContext(coroutinesDispatcher.io) {
+    suspend fun sync(forceUpdate: Boolean): Outcome<Unit> = withContext(coroutineDispatchers.io) {
         try {
             if (forceUpdate || isThereNewContent()) {
                 updateData(quizDataClient.quizData())
@@ -38,19 +38,19 @@ class QuizRepository @Inject constructor(
         return@withContext Outcome.Success(Unit)
     }
 
-    suspend fun selectTags(tags: List<Tag>) = withContext(coroutinesDispatcher.io) {
+    suspend fun selectTags(tags: List<Tag>) = withContext(coroutineDispatchers.io) {
         quizDatabase.tagDao().insertOrReplaceTag(tags)
     }
 
-    suspend fun getTagsBySelection(isSelected: Boolean): List<Tag> = withContext(coroutinesDispatcher.io) {
+    suspend fun getTagsBySelection(isSelected: Boolean): List<Tag> = withContext(coroutineDispatchers.io) {
         return@withContext quizDatabase.tagDao().getTagBySelection(isSelected = isSelected)
     }
 
-    suspend fun getTags(): List<Tag> = withContext(coroutinesDispatcher.io) {
+    suspend fun getTags(): List<Tag> = withContext(coroutineDispatchers.io) {
         return@withContext quizDatabase.tagDao().getTags()
     }
 
-    suspend fun getQuestionsByTag(tagName: String) = withContext(coroutinesDispatcher.io) {
+    suspend fun getQuestionsByTag(tagName: String) = withContext(coroutineDispatchers.io) {
         return@withContext quizDatabase.questionDao().getQuestionsByTag(tagName)
     }
 
@@ -59,7 +59,7 @@ class QuizRepository @Inject constructor(
         rightCount: Int,
         wrongCount: Int,
         studiedAt: Long
-    ) = withContext(coroutinesDispatcher.io) {
+    ) = withContext(coroutineDispatchers.io) {
         quizDatabase.questionDao().updateStatistics(
                 id = questionId,
                 rightCount = rightCount,
@@ -68,26 +68,29 @@ class QuizRepository @Inject constructor(
         )
     }
 
-    private suspend fun isThereNewContent(): Boolean = withContext(coroutinesDispatcher.io) {
+    private suspend fun isThereNewContent(): Boolean = withContext(coroutineDispatchers.io) {
         config = quizDataClient.configuration()
         return@withContext config.contentVersion > quizContentVersion.getVersion()
     }
 
-    private suspend fun updateData(quizData: List<QuizData>) = withContext(coroutinesDispatcher.io) {
-        quizDatabase.runInTransaction {
+    private suspend fun preCacheTagsFromDb() {
+        quizDatabase.tagDao().getTags().forEach { tag ->
+            cachedTags[tag.name] = tag.id
+        }
+    }
+
+    private suspend fun updateData(quizData: List<QuizData>) = withContext(coroutineDispatchers.io) {
+        preCacheTagsFromDb()
+        quizDatabase.withTransaction {
             quizData.forEach { item ->
-                // TODO: what's a proper handling of
-                //  "Suspension functions can be called only within coroutine body" ?
-                runBlocking {
                     populateQuestion(item)
                     populateTagAndRelationToQuestion(item)
-                }
             }
             quizContentVersion.saveVersion(config.contentVersion)
         }
     }
 
-    private suspend fun populateQuestion(quizItem: QuizData) {
+    private suspend fun populateQuestion(quizItem: QuizData) = withContext(coroutineDispatchers.io) {
         val question = Question(
                 id = quizItem.id,
                 text = quizItem.text,
@@ -98,14 +101,18 @@ class QuizRepository @Inject constructor(
         quizDatabase.questionDao().insertQuestion(question)
     }
 
+    private suspend fun insertTagIfNecessary(tagName: String): Int {
+        val tagId = cachedTags[tagName] ?: quizDatabase
+                .tagDao()
+                .insertTag(Tag(name = tagName))
+                .toInt()
+        cachedTags[tagName] = tagId
+        return tagId
+    }
+
     private suspend fun populateTagAndRelationToQuestion(quizItem: QuizData) {
-        quizDatabase.tagDao().getTags().forEach {
-            cachedTags[it.name] = it.id
-        }
         quizItem.tags.forEach { tag ->
-            val tagId = cachedTags[tag]
-                    ?: quizDatabase.tagDao().insertTag(Tag(name = tag)).toInt()
-            cachedTags[tag] = tagId
+            val tagId = insertTagIfNecessary(tag)
             quizDatabase.tagDao().insertQuestionTagJoin(
                     QuestionTagJoin(
                             questionId = quizItem.id,
