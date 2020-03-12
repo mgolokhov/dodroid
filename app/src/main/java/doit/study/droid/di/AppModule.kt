@@ -9,7 +9,6 @@ import dagger.Provides
 import doit.study.droid.R
 import doit.study.droid.data.local.QuizDatabase
 import javax.inject.Singleton
-import kotlinx.coroutines.Dispatchers
 
 @Module
 object AppModule {
