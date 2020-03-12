@@ -31,8 +31,4 @@ object AppModule {
                 .fallbackToDestructiveMigration()
                 .build()
     }
-
-    @Singleton
-    @Provides
-    fun provideIoDispatcher() = Dispatchers.IO
 }
