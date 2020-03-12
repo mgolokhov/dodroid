@@ -91,6 +91,10 @@ dependencies {
     testImplementation Deps.testCoreVer
     testImplementation Deps.mockitoCoreVer
 
+    testImplementation Deps.coroutinesCoreVer
+    testImplementation "androidx.arch.core:core-testing:${Versions.archCoreTestingVer}"
+    testImplementation "io.mockk:mockk:${Versions.mockkVer}"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // UI
     implementation Deps.appCompatVer
@@ -124,8 +128,6 @@ dependencies {
     kapt Deps.daggerCompilerVer
 
     implementation Deps.archLifecycleExtVer
-
-    debugImplementation Deps.webDebugDbVer
 
     implementation Deps.constraintLayoutVer
 

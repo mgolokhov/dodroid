@@ -7,7 +7,6 @@
     <ID>ForbiddenComment:QuizItem.kt$QuizItem$// TODO: convert sealed to classes or enums</ID>
     <ID>ForbiddenComment:QuizItem.kt$QuizItem$// TODO: make configurable, const</ID>
     <ID>ForbiddenComment:QuizPageFragment.kt$QuizPageFragment$// TODO: code smells - decision should be in viewModel</ID>
-    <ID>ForbiddenComment:QuizRepository.kt$QuizRepository$// TODO: what's a proper handling of</ID>
     <ID>ForbiddenComment:SaveQuizResultUseCase.kt$SaveQuizResultUseCase$// TODO: dirty stub, replace with real logic</ID>
     <ID>ForbiddenComment:TagDao.kt$TagDao$// TODO: migrate to ABORT strategy</ID>
     <ID>MagicNumber:DeathStarLoader.kt$DeathStarLoader$0.1f</ID>
@@ -59,5 +58,6 @@
     <ID>TooManyFunctions:QuizMainViewModel.kt$QuizMainViewModel$QuizMainViewModel</ID>
     <ID>TooManyFunctions:QuizPageFragment.kt$QuizPageFragment$QuizPageFragment</ID>
     <ID>TooManyFunctions:QuizPageViewModel.kt$QuizPageViewModel$QuizPageViewModel</ID>
+    <ID>TooManyFunctions:QuizRepository.kt$QuizRepository$QuizRepository</ID>
   </Whitelist>
 </SmellBaseline>
