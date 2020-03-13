@@ -2,10 +2,10 @@ package com.myfitnesspal.android.testrules
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import java.io.IOException
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-import java.io.IOException
 
 class TouchHoldLongDelayRule : TestRule {
 
@@ -38,6 +38,5 @@ class TouchHoldLongDelayRule : TestRule {
         private const val LONG_DELAY_MS = 1_500
         private const val DEFAULT_SHORT_DELAY_MS = 500
         private const val LONG_PRESS_TIMEOUT = "settings put secure long_press_timeout"
-
     }
 }

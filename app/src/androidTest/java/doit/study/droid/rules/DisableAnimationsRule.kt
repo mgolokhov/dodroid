@@ -2,11 +2,10 @@ package com.myfitnesspal.android.testrules
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import java.io.IOException
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-import java.io.IOException
-
 
 class DisableAnimationsRule : TestRule {
 

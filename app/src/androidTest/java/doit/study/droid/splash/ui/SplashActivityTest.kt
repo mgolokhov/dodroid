@@ -3,8 +3,6 @@ package doit.study.droid.splash.ui
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import doit.study.droid.BaseTestCase
-
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,9 +18,8 @@ class SplashActivityTest : BaseTestCase() {
     fun stubTestToVerifyRulesRollback() {
         try {
             Thread.sleep(10_000)
-        } catch (ee:InterruptedException) {
+        } catch (ee: InterruptedException) {
             ee.printStackTrace()
         }
     }
-
 }

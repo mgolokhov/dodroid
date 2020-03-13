@@ -1,12 +1,11 @@
 package com.myfitnesspal.android.testrules
 
-
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import java.io.IOException
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-import java.io.IOException
 
 class DisableVirtualKeyboardRule : TestRule {
 
@@ -39,6 +38,5 @@ class DisableVirtualKeyboardRule : TestRule {
         private const val DISABLED = 0
         private const val ENABLED = 1
         private const val SHOW_IME_WITH_HARD_KEYBOARD = "settings put secure show_ime_with_hard_keyboard"
-
     }
 }

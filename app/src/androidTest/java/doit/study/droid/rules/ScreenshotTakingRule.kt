@@ -2,9 +2,9 @@ package com.myfitnesspal.android.testrules
 
 import android.graphics.Bitmap
 import androidx.test.runner.screenshot.Screenshot
+import java.io.IOException
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
-import java.io.IOException
 
 class ScreenshotTakingRule : TestWatcher() {
 
