@@ -53,6 +53,7 @@ object Versions {
     val kotlinxCoroutinesAndroidVer = "1.3.2"
     val kotlinxCoroutinesTestVer = "1.3.2"
     val mockkVer = "1.9.3"
+    val uiautomatorVer = "2.2.0"
 }
 
 object Deps {
