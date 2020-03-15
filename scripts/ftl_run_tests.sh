@@ -18,7 +18,7 @@ test_apk() {
         --test $3 \
         --device model=Pixel2,version=28,locale=en_US,orientation=portrait \
         --timeout 30m \
-        --results-bucket cloud-test-android-devrel-ci \
+#        --results-bucket cloud-test-android-devrel-ci \
         --results-dir=$RESULTS_DIR
 
     # Capture the exit code of the gcloud command
