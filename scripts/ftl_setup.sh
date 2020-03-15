@@ -12,8 +12,11 @@ echo $GCLOUD_SERVICE_KEY | base64 -di > client_secret.json
 # Set project ID
 gcloud config set project ${GOOGLE_PROJECT_ID}
 
+pwd
+echo "ping pong"
+ls
 # Auth account
-gcloud auth activate-service-account --key-file client_secret.json
+gcloud auth activate-service-account firebase-adminsdk-ewi1g@dodroid-test.iam.gserviceaccount.com --key-file client_secret.json
 
 # Delete secret
 rm client_secret.json
