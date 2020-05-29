@@ -6,6 +6,9 @@ jobs:
       - image: circleci/android:api-29  # gcloud is baked into this image
     steps:
       - run:
+          name: Download Dependencies
+          command: ./gradlew dependencies
+      - run:
           name: Build debug APK and release APK
           command: ./gradlew assemble assembleDebugAndroidTest
       - run:
