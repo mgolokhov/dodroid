@@ -49,9 +49,9 @@ jobs:
       - run:
           name: Test with Firebase Test Lab
           command: >
-            gcloud firebase test android run --help
-#            gcloud firebase test android run \
-#            --type instrumentation \
-#            --app apks/debug/app-debug.apk \
-#            --test apks/androidTest/debug/app-debug-androidTest.apk \
+#            gcloud firebase test android run --help
+            gcloud firebase test android run \
+            --type instrumentation \
+            --app apks/debug/app-debug.apk \
+            --test apks/androidTest/debug/app-debug-androidTest.apk
 #            --device model=Nexus5X,version=26,locale=en_US,orientation=portrait
