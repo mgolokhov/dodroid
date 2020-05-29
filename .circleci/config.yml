@@ -1,13 +1,14 @@
 version: 2
+
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/android:api-29  # gcloud is baked into this image
     steps:
       - run:
           name: Build debug APK and release APK
           command: |
-            ./gradlew :app:assembleDebug
+            ./gradlew :app:assemble
             ./gradlew :app:assembleDebugAndroidTest
       - run:
           name: Store Google Service Account
