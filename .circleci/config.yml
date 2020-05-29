@@ -40,7 +40,7 @@ jobs:
           path: app/build/test-results
       - run:
           name: Store Google Service Account
-          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+          command: echo $GCLOUD_SERVICE_KEY > base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
       - run:
           name: Authorize gcloud and set config defaults
           command: |
