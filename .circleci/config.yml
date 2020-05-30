@@ -55,10 +55,10 @@ jobs:
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
             --device model=Nexus5X,version=26,locale=en_US,orientation=portrait
             --timeout 30m
-            --results-bucket dodroid-test.appspot
-            --results-dir=results
-      - run:
-          name: Install gsutil dependency and copy test results data
-          command: |
-            sudo pip install -U crcmod
-            sudo gsutil -m cp -r -U `sudo gsutil ls gs://dodroid-test.appspot.com/results | tail -1` ${CIRCLE_ARTIFACTS}/ | true
+#            --results-bucket dodroid-test.appspot
+#            --results-dir=results
+#      - run:
+#          name: Install gsutil dependency and copy test results data
+#          command: |
+#            sudo pip install -U crcmod
+#            sudo gsutil -m cp -r -U `sudo gsutil ls gs://dodroid-test.appspot.com/results | tail -1` ${CIRCLE_ARTIFACTS}/ | true
