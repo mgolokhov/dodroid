@@ -53,12 +53,12 @@ jobs:
             --type instrumentation
             --app app/build/outputs/apk/debug/app-debug.apk
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-            --device model=Nexus5X,version=26,locale=en_US,orientation=portrait
+            --device model=Pixel2,version=28,locale=en_US,orientation=portrait
             --timeout 30m
 #            --results-bucket dodroid-test.appspot
 #            --results-dir=results
-#      - run:
-#          name: Install gsutil dependency and copy test results data
-#          command: |
-#            sudo pip install -U crcmod
-#            sudo gsutil -m cp -r -U `sudo gsutil ls gs://dodroid-test.appspot.com/results | tail -1` ${CIRCLE_ARTIFACTS}/ | true
+      - run:
+          name: Install gsutil dependency and copy test results data
+          command: |
+            sudo pip install -U crcmod
+            sudo gsutil -m cp -r -U `sudo gsutil ls gs://test-lab-frpy6ntqzt2aw-nay80p7m8bqvc/results | tail -1` ${CIRCLE_ARTIFACTS}/ | true
