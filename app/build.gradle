@@ -144,6 +144,8 @@ dependencies {
     implementation Deps.stetho
     implementation Deps.stethoOkhttp3Interceptor
 
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test:core-ktx:${Versions.testCoreKtxVer}"
