@@ -36,7 +36,7 @@ object Versions {
     val phoenix = "2.0.0"
     val stetho = "1.5.1"
 
-    val gradleandroid = "3.5.2"
+    val gradleandroid = "4.1.1"
     val kotlin = "1.3.61"
 
     val toolDetekt = "1.5.1"

@@ -144,14 +144,6 @@ dependencies {
     implementation Deps.stetho
     implementation Deps.stethoOkhttp3Interceptor
 
-    //TODO: move version numbers
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
-
-    annotationProcessor 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-    annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
-
-
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test:core-ktx:${Versions.testCoreKtxVer}"
     androidTestImplementation "androidx.test.ext:junit-ktx:${Versions.testExtJunitKtxVer}"
