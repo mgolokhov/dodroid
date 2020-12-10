@@ -11,7 +11,7 @@ import timber.log.Timber
 
 class SoundPlayer @Inject constructor(val appContext: Application) : DefaultLifecycleObserver {
     private var mediaPlayer: MediaPlayer? = null
-    private val volume = 0.04f // should be scaled logarithmically
+    private val volume = 1f // should be scaled logarithmically
 
     fun play(lifecycle: Lifecycle, filename: String) {
         lifecycle.addObserver(this)

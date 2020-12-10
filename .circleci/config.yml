@@ -7,7 +7,8 @@ references:
 jobs:
   build:
     docker:
-      - image: circleci/android:api-29
+#     api 29
+      - image: circleci/android@sha256:b6646fdf7457f61825526e7bfce364d8e533da6ceb1cdb98e371e94348ecc834
     environment:
       JAVA_TOOL_OPTIONS: "-Xmx1024m"
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
